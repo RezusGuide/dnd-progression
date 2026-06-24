@@ -41,6 +41,15 @@ public class Character {
     @EqualsAndHashCode.Exclude
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "campaign_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Campaign campaign;
+
+    @Column(columnDefinition = "TEXT")
+    private String materials;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

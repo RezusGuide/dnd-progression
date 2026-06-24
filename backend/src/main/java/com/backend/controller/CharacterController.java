@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/characters")
@@ -46,5 +47,12 @@ public class CharacterController {
             @AuthenticationPrincipal User user) {
         characterService.deleteCharacter(id, user.getId());
         return ResponseEntity.noContent().build();
+    }
+    @PatchMapping("/{id}/materials")
+    public ResponseEntity<Character> updateMaterials(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(characterService.updateMaterials(id, body.get("materials"), user.getId()));
     }
 }

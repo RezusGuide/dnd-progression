@@ -8,4 +8,5 @@ public class CharacterRequest {
     private String characterClass;
     private String race;
     private String backstory;
+    private Long campaignId;
 }

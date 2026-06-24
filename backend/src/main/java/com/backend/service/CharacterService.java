@@ -16,6 +16,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final UserRepository userRepository;
+    private final com.backend.repository.CampaignRepository campaignRepository;
 
     public Character createCharacter(CharacterRequest request, Long userId) {
         User user = userRepository.findById(userId)
@@ -29,6 +30,12 @@ public class CharacterService {
                 .level(1)
                 .user(user)
                 .build();
+
+        if (request.getCampaignId() != null) {
+            com.backend.entity.Campaign campaign = campaignRepository.findById(request.getCampaignId())
+                    .orElseThrow(() -> new RuntimeException("Campaign not found"));
+            character.setCampaign(campaign);
+        }
 
         return characterRepository.save(character);
     }
@@ -46,5 +53,11 @@ public class CharacterService {
         Character character = characterRepository.findByIdAndUserId(characterId, userId)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
         characterRepository.delete(character);
+    }
+    public Character updateMaterials(Long characterId, String materials, Long userId) {
+        Character character = characterRepository.findByIdAndUserId(characterId, userId)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+        character.setMaterials(materials);
+        return characterRepository.save(character);
     }
 }
