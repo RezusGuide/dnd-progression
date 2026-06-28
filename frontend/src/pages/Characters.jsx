@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LangContext'
+import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 const CLASSES = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Monk', 'Paladin', 'Bard', 'Druid', 'Sorcerer', 'Warlock', 'Barbarian']
@@ -7,21 +10,36 @@ const RACES = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Half-Orc', 'Half-E
 
 export default function Characters() {
     const { user, logout } = useAuth()
+    const { t } = useLang()
+    const navigate = useNavigate()
     const [characters, setCharacters] = useState([])
+    const [campaigns, setCampaigns] = useState([])
     const [showForm, setShowForm] = useState(false)
-    const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '' })
+    const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
     const [error, setError] = useState('')
 
     useEffect(() => {
         fetchCharacters()
+        fetchCampaigns()
     }, [])
 
     const fetchCharacters = async () => {
         try {
             const res = await api.get('/api/characters')
-            setCharacters(res.data)
+            setCharacters(Array.isArray(res.data) ? res.data : [])
         } catch (err) {
             console.error(err)
+            setCharacters([])
+        }
+    }
+
+    const fetchCampaigns = async () => {
+        try {
+            const res = await api.get('/api/campaigns')
+            setCampaigns(Array.isArray(res.data) ? res.data : [])
+        } catch (err) {
+            console.error(err)
+            setCampaigns([])
         }
     }
 
@@ -29,17 +47,20 @@ export default function Characters() {
         e.preventDefault()
         setError('')
         try {
-            await api.post('/api/characters', form)
-            setForm({ name: '', characterClass: '', race: '', backstory: '' })
+            await api.post('/api/characters', {
+                ...form,
+                campaignId: form.campaignId ? Number(form.campaignId) : null
+            })
+            setForm({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
             setShowForm(false)
             fetchCharacters()
         } catch (err) {
-            setError('Failed to create character')
+            setError(t('failedCreate'))
         }
     }
 
     const handleDelete = async (id) => {
-        if (!window.confirm('Erase this soul from the annals?')) return
+        if (!window.confirm(t('eraseConfirm'))) return
         try {
             await api.delete(`/api/characters/${id}`)
             fetchCharacters()
@@ -50,25 +71,39 @@ export default function Characters() {
 
     return (
         <div className="parchment-page">
+            <LangToggle />
+
             <div className="tome-header">
-                <h1 className="tome-title">The Adventurer's Vault</h1>
+                <h1 className="tome-title">{t('adventurersVault')}</h1>
                 <div className="tome-header-right">
+                    <Link to="/campaigns" className="tome-btn-ghost">⚔ {t('campaignChronicles')}</Link>
                     <span className="tome-username">{user?.username}</span>
-                    <button className="tome-btn-ghost" onClick={logout}>Leave</button>
+                    <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>
                 </div>
             </div>
 
             <div className="characters-grid">
                 {characters.map((char) => (
-                    <div key={char.id} className="character-card">
+                    <div
+                        key={char.id}
+                        className="character-card"
+                        onClick={() => navigate(`/characters/${char.id}`)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <div className="character-card-top">
                             <h2 className="character-name">{char.name}</h2>
-                            <button className="tome-btn-danger" onClick={() => handleDelete(char.id)}>✕</button>
+                            <button
+                                className="tome-btn-danger"
+                                onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
+                            >✕</button>
                         </div>
                         <div className="character-meta">
                             <span className="meta-tag">{char.characterClass || '—'}</span>
                             <span className="meta-tag">{char.race || '—'}</span>
-                            <span className="meta-tag level-tag">Level {char.level}</span>
+                            <span className="meta-tag level-tag">{t('level')} {char.level}</span>
+                            {char.campaign && (
+                                <span className="meta-tag campaign-tag">⚔ {char.campaign.name}</span>
+                            )}
                         </div>
                         {char.backstory && (
                             <p className="character-backstory">{char.backstory}</p>
@@ -78,60 +113,70 @@ export default function Characters() {
 
                 <div className="character-card new-card" onClick={() => setShowForm(true)}>
                     <span className="new-card-icon">✦</span>
-                    <span className="new-card-label">Forge New Character</span>
+                    <span className="new-card-label">{t('forgeNewCharacter')}</span>
                 </div>
             </div>
 
             {showForm && (
                 <div className="tome-overlay">
                     <div className="tome-modal">
-                        <h2 className="tome-title">Forge a Legend</h2>
+                        <h2 className="tome-title">{t('forgeALegend')}</h2>
                         {error && <div className="tome-error">{error}</div>}
                         <form onSubmit={handleCreate} className="tome-form">
                             <div className="tome-field">
-                                <label>Character Name</label>
+                                <label>{t('characterName')}</label>
                                 <input
                                     type="text"
                                     value={form.name}
                                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                    placeholder="Name your hero"
+                                    placeholder={t('nameYourHero')}
                                     required
                                 />
                             </div>
                             <div className="tome-row">
                                 <div className="tome-field">
-                                    <label>Class</label>
+                                    <label>{t('class')}</label>
                                     <select
                                         value={form.characterClass}
                                         onChange={(e) => setForm({ ...form, characterClass: e.target.value })}
                                     >
-                                        <option value="">— Choose —</option>
+                                        <option value="">{t('choose')}</option>
                                         {CLASSES.map(c => <option key={c} value={c}>{c}</option>)}
                                     </select>
                                 </div>
                                 <div className="tome-field">
-                                    <label>Race</label>
+                                    <label>{t('race')}</label>
                                     <select
                                         value={form.race}
                                         onChange={(e) => setForm({ ...form, race: e.target.value })}
                                     >
-                                        <option value="">— Choose —</option>
+                                        <option value="">{t('choose')}</option>
                                         {RACES.map(r => <option key={r} value={r}>{r}</option>)}
                                     </select>
                                 </div>
                             </div>
                             <div className="tome-field">
-                                <label>Backstory</label>
+                                <label>{t('campaign')}</label>
+                                <select
+                                    value={form.campaignId}
+                                    onChange={(e) => setForm({ ...form, campaignId: e.target.value })}
+                                >
+                                    <option value="">{t('noCampaign')}</option>
+                                    {campaigns.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                                </select>
+                            </div>
+                            <div className="tome-field">
+                                <label>{t('backstory')}</label>
                                 <textarea
                                     value={form.backstory}
                                     onChange={(e) => setForm({ ...form, backstory: e.target.value })}
-                                    placeholder="Who were you before the adventure began..."
+                                    placeholder={t('backstoryPlaceholder')}
                                     rows={3}
                                 />
                             </div>
                             <div className="tome-btn-row">
-                                <button type="button" className="tome-btn-ghost" onClick={() => setShowForm(false)}>Cancel</button>
-                                <button type="submit" className="tome-btn">Seal in Blood</button>
+                                <button type="button" className="tome-btn-ghost" onClick={() => setShowForm(false)}>{t('cancel')}</button>
+                                <button type="submit" className="tome-btn">{t('sealInBlood')}</button>
                             </div>
                         </form>
                     </div>

@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LangContext'
+import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function Register() {
@@ -9,6 +11,7 @@ export default function Register() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const { login } = useAuth()
+    const { t } = useLang()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -19,31 +22,32 @@ export default function Register() {
             login({ username: res.data.username, userId: res.data.userId }, res.data.token)
             navigate('/characters')
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed')
+            setError(err.response?.data?.message || t('registrationFailed'))
         }
     }
 
     return (
         <div className="parchment-page">
+            <LangToggle />
             <div className="tome-panel">
-                <h1 className="tome-title">Inscribe Your Name</h1>
-                <p className="tome-subtitle">Begin your legend</p>
+                <h1 className="tome-title">{t('inscribeName')}</h1>
+                <p className="tome-subtitle">{t('beginLegend')}</p>
 
                 {error && <div className="tome-error">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="tome-form">
                     <div className="tome-field">
-                        <label>Adventurer Name</label>
+                        <label>{t('adventurerName')}</label>
                         <input
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Your name in the annals"
+                            placeholder={t('nameInAnnals')}
                             required
                         />
                     </div>
                     <div className="tome-field">
-                        <label>Email</label>
+                        <label>{t('email')}</label>
                         <input
                             type="email"
                             value={email}
@@ -53,7 +57,7 @@ export default function Register() {
                         />
                     </div>
                     <div className="tome-field">
-                        <label>Password</label>
+                        <label>{t('password')}</label>
                         <input
                             type="password"
                             value={password}
@@ -62,11 +66,11 @@ export default function Register() {
                             required
                         />
                     </div>
-                    <button type="submit" className="tome-btn">Seal the Pact</button>
+                    <button type="submit" className="tome-btn">{t('sealPact')}</button>
                 </form>
 
                 <p className="tome-link">
-                    Already bound? <Link to="/login">Return to the gate</Link>
+                    {t('alreadyBound')} <Link to="/login">{t('returnGate')}</Link>
                 </p>
             </div>
         </div>

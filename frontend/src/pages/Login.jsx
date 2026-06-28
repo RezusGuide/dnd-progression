@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../context/LangContext'
+import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function Login() {
@@ -8,6 +10,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const { login } = useAuth()
+    const { t } = useLang()
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
@@ -18,21 +21,22 @@ export default function Login() {
             login({ username: res.data.username, userId: res.data.userId }, res.data.token)
             navigate('/characters')
         } catch (err) {
-            setError('Invalid email or password')
+            setError(t('invalidCredentials'))
         }
     }
 
     return (
         <div className="parchment-page">
+            <LangToggle />
             <div className="tome-panel">
-                <h1 className="tome-title">Enter the Realm</h1>
-                <p className="tome-subtitle">Sign in to your adventurer's vault</p>
+                <h1 className="tome-title">{t('enterRealm')}</h1>
+                <p className="tome-subtitle">{t('signInVault')}</p>
 
                 {error && <div className="tome-error">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="tome-form">
                     <div className="tome-field">
-                        <label>Email</label>
+                        <label>{t('email')}</label>
                         <input
                             type="email"
                             value={email}
@@ -42,7 +46,7 @@ export default function Login() {
                         />
                     </div>
                     <div className="tome-field">
-                        <label>Password</label>
+                        <label>{t('password')}</label>
                         <input
                             type="password"
                             value={password}
@@ -51,11 +55,11 @@ export default function Login() {
                             required
                         />
                     </div>
-                    <button type="submit" className="tome-btn">Begin Journey</button>
+                    <button type="submit" className="tome-btn">{t('beginJourney')}</button>
                 </form>
 
                 <p className="tome-link">
-                    No account yet? <Link to="/register">Register your name</Link>
+                    {t('noAccount')} <Link to="/register">{t('registerName')}</Link>
                 </p>
             </div>
         </div>
