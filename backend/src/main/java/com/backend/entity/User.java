@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +26,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    // Was serialized to clients wherever a User is nested in a response
+    // (e.g. Campaign.owner) - @JsonIgnore keeps the bcrypt hash from ever
+    // leaving the server.
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -36,8 +42,32 @@ public class User {
     @EqualsAndHashCode.Exclude
     private List<Character> characters;
 
+    // Section access. Loaded eagerly: every authenticated request needs it
+    // to build authorities (see SecurityConfig's JWT filter), and the set
+    // per user is tiny.
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    /** Flattened, de-duplicated section keys this user's roles unlock. */
+    @JsonIgnore
+    public Set<String> getSectionKeys() {
+        Set<String> sections = new HashSet<>();
+        for (Role role : roles) {
+            sections.addAll(role.getSections());
+        }
+        return sections;
     }
 }

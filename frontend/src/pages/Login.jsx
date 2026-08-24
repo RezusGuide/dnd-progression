@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function Login() {
@@ -18,8 +17,13 @@ export default function Login() {
         setError('')
         try {
             const res = await api.post('/api/auth/login', { email, password })
-            login({ username: res.data.username, userId: res.data.userId }, res.data.token)
-            navigate('/characters')
+            login({
+                username: res.data.username,
+                userId: res.data.userId,
+                roles: res.data.roles,
+                sections: res.data.sections,
+            }, res.data.token)
+            navigate('/')
         } catch (err) {
             setError(t('invalidCredentials'))
         }
@@ -27,7 +31,6 @@ export default function Login() {
 
     return (
         <div className="parchment-page">
-            <LangToggle />
             <div className="tome-panel">
                 <h1 className="tome-title">{t('enterRealm')}</h1>
                 <p className="tome-subtitle">{t('signInVault')}</p>
@@ -57,10 +60,6 @@ export default function Login() {
                     </div>
                     <button type="submit" className="tome-btn">{t('beginJourney')}</button>
                 </form>
-
-                <p className="tome-link">
-                    {t('noAccount')} <Link to="/register">{t('registerName')}</Link>
-                </p>
             </div>
         </div>
     )

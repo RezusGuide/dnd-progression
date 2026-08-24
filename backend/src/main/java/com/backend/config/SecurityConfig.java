@@ -1,5 +1,6 @@
 package com.backend.config;
 
+import com.backend.entity.Role;
 import com.backend.service.JwtService;
 import com.backend.repository.UserRepository;
 import jakarta.servlet.FilterChain;
@@ -7,13 +8,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +30,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -35,6 +42,10 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
+    // Comma-separated list, e.g. "http://localhost:5173,https://your-app.vercel.app"
+    @Value("${cors.allowed-origins:http://localhost:5173}")
+    private String allowedOrigins;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -42,7 +53,46 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+
+                        // Public read-only content - anyone, logged in or not, can view
+                        // Portfolio, Media, Announcements, Downloads, D&D and Minecraft.
+                        .requestMatchers(HttpMethod.GET, "/api/portfolio/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/media/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/announcements/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/downloads/public").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/characters/**", "/api/campaigns/**", "/api/spells/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/minecraft/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/polls/**").permitAll()
+
+                        // Any logged-in account (there's no per-friend section picking
+                        // anymore - everyone with a login gets the same access) can CRUD
+                        // the D&D area and Minecraft info/polls.
+                        .requestMatchers("/api/characters/**", "/api/campaigns/**", "/api/spells/**").authenticated()
+                        .requestMatchers("/api/minecraft/**", "/api/polls/**").authenticated()
+
+                        // Useful Functions (people/relationships) - owner only, full stop,
+                        // no public viewing at all.
+                        .requestMatchers("/api/people/**").hasAuthority("SECTION_ALL")
+
+                        // Owner-only writes on otherwise-public content.
+                        .requestMatchers(HttpMethod.POST, "/api/portfolio/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.PUT, "/api/portfolio/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.DELETE, "/api/portfolio/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.POST, "/api/media/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.PUT, "/api/media/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.DELETE, "/api/media/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.POST, "/api/announcements/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.DELETE, "/api/announcements/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.POST, "/api/downloads").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.DELETE, "/api/downloads/**").hasAuthority("SECTION_ALL")
+
+                        // Admin: bootstrap only needs auth (guarded in the service instead -
+                        // it refuses once an owner exists); everything else needs OWNER.
+                        .requestMatchers(HttpMethod.POST, "/api/admin/bootstrap-owner").authenticated()
+                        .requestMatchers("/api/admin/**").hasRole("OWNER")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -73,8 +123,18 @@ public class SecurityConfig {
 
                 Long userId = jwtService.extractUserId(token);
                 userRepository.findById(userId).ifPresent(user -> {
+                    List<GrantedAuthority> authorities = new ArrayList<>();
+                    for (Role role : user.getRoles()) {
+                        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getKey()));
+                        for (String section : role.getSections()) {
+                            String authority = "*".equals(section)
+                                    ? "SECTION_ALL"
+                                    : "SECTION_" + section.toUpperCase();
+                            authorities.add(new SimpleGrantedAuthority(authority));
+                        }
+                    }
                     UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(user, null, List.of());
+                            new UsernamePasswordAuthenticationToken(user, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 });
 
@@ -91,8 +151,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList());
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

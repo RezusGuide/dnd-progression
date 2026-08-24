@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function CharacterSheet() {
@@ -30,13 +29,10 @@ export default function CharacterSheet() {
         </div>
     )
 
-    const spells = character.spells ? JSON.parse(character.spells) : []
     const skills = character.skills ? JSON.parse(character.skills) : []
-    const materials = character.materials || ''
 
     return (
         <div className="parchment-page">
-            <LangToggle />
 
             <div className="sheet-wrapper">
 
@@ -74,13 +70,18 @@ export default function CharacterSheet() {
                     <div className="sheet-column">
                         <h2 className="sheet-column-title">✦ {t('spellbook')}</h2>
                         <div className="sheet-column-body">
-                            {spells.length === 0 ? (
-                                <p className="sheet-empty">{t('noSpells')}</p>
+                            {!character.knownSpells || character.knownSpells.length === 0 ? (
+                                <p className="sheet-empty">Заклинания ещё не исследованы.</p>
                             ) : (
-                                spells.map((spell, i) => (
-                                    <div key={i} className="spell-entry">
-                                        <span className="spell-name">{spell.name}</span>
-                                        <span className="spell-accuracy">{spell.accuracy}%</span>
+                                character.knownSpells.map((spell, i) => (
+                                    <div key={i} className="spell-entry" style={{ borderBottom: '1px dashed #8b5a2b', paddingBottom: '8px', marginBottom: '8px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <span className="spell-name" style={{ fontFamily: 'Cinzel', fontWeight: 'bold', textTransform: 'uppercase' }}>{spell.spellId}</span>
+                                            <span className="spell-accuracy" style={{ fontSize: '0.9em', color: spell.accuracyPercentage === 100 ? 'green' : '#8b5a2b' }}>{spell.accuracyPercentage}%</span>
+                                        </div>
+                                        <div style={{ fontSize: '0.8em', marginTop: '4px', fontStyle: 'italic' }}>
+                                            {spell.accuracyPercentage === 100 ? 'Perfect Mastery' : `Damage: ${spell.modifiedDice || 'Normal'} | Penalty: +${spell.additionalSlotCost || 0} Slot`}
+                                        </div>
                                     </div>
                                 ))
                             )}
@@ -108,14 +109,16 @@ export default function CharacterSheet() {
                     <div className="sheet-column">
                         <h2 className="sheet-column-title">⚗ {t('inventory')}</h2>
                         <div className="sheet-column-body">
-                            {!materials ? (
+                            {!character.aspectInventory || Object.keys(character.aspectInventory).length === 0 ? (
                                 <p className="sheet-empty">{t('noMaterials')}</p>
                             ) : (
-                                materials.split('\n').filter(Boolean).map((item, i) => (
-                                    <div key={i} className="material-entry">
-                                        <span>◆ {item}</span>
-                                    </div>
-                                ))
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {Object.entries(character.aspectInventory).map(([aspect, count]) => (
+                                        <div key={aspect} className="material-entry" style={{ padding: '4px 8px', border: '1px solid #8b5a2b', borderRadius: '4px', background: 'rgba(139, 90, 43, 0.1)' }}>
+                                            <span style={{ fontFamily: 'Cinzel', fontWeight: 'bold' }}>{aspect}: {count}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             )}
                         </div>
                     </div>

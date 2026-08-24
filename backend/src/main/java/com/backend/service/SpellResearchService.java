@@ -1,14 +1,14 @@
 package com.backend.service;
 
-
-import com.backend.dto.ResearchDraftDto;
-import com.backend.dto.ResearchResultDto;
+import com.backend.dto.ResearchOutcomeResponse;
 
 public interface SpellResearchService {
 
-    ResearchDraftDto saveDraft(Long characterId, Long spellId, String gridState);
+    String getDraftState(Long characterId, String spellId);
 
-    ResearchDraftDto getDraft(Long characterId, Long spellId);
+    void saveDraftState(Long characterId, String spellId, String gridState);
 
-    ResearchResultDto completeResearch(Long characterId, Long spellId, String finalGridState);
+    ResearchOutcomeResponse evaluateAndComplete(Long characterId, String spellId, String finalGridState);
+    
+    void unlockCantrip(Long characterId, String spellId);
 }

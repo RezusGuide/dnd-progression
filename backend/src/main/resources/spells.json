@@ -1,0 +1,35 @@
+[
+  {
+    "id": "prestidigitation",
+    "name": "Prestidigitation",
+    "stats": {
+      "level": 0,
+      "damageDice": "D4",
+      "diceCount": 1
+    },
+    "arcaneSignature": [],
+    "validAspects": [],
+    "optimalPathLength": 0
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "stats": {
+      "level": 3,
+      "damageDice": "D8",
+      "diceCount": 8
+    },
+    "arcaneSignature": [
+      { "aspect": "IGNIS", "q": 0, "r": -2 },
+      { "aspect": "PERDITIO", "q": 0, "r": 3 }
+    ],
+    "validAspects": [
+      "IGNIS",
+      "PERDITIO",
+      "AER",
+      "MAGMA",
+      "MOTUS"
+    ],
+    "optimalPathLength": 5
+  }
+]

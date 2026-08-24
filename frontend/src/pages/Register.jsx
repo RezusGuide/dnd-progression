@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function Register() {
@@ -19,8 +18,13 @@ export default function Register() {
         setError('')
         try {
             const res = await api.post('/api/auth/register', { username, email, password })
-            login({ username: res.data.username, userId: res.data.userId }, res.data.token)
-            navigate('/characters')
+            login({
+                username: res.data.username,
+                userId: res.data.userId,
+                roles: res.data.roles,
+                sections: res.data.sections,
+            }, res.data.token)
+            navigate('/')
         } catch (err) {
             setError(err.response?.data?.message || t('registrationFailed'))
         }
@@ -28,7 +32,6 @@ export default function Register() {
 
     return (
         <div className="parchment-page">
-            <LangToggle />
             <div className="tome-panel">
                 <h1 className="tome-title">{t('inscribeName')}</h1>
                 <p className="tome-subtitle">{t('beginLegend')}</p>

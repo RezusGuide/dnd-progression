@@ -19,9 +19,8 @@ public class KnownSpell {
     @JoinColumn(name = "character_id", nullable = false)
     private Character character;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "spell_id", nullable = false)
-    private Spell spell;
+    @Column(name = "spell_id", nullable = false)
+    private String spellId;
 
     @Column(nullable = false)
     private Integer accuracyPercentage; // 0-100%
