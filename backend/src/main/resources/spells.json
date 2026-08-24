@@ -295,9 +295,21 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "IGNIS", "q": 0, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 0, "r": 1 }
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
     ]
   },
   {
@@ -310,10 +322,26 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "AQUA", "q": 0, "r": 0 },
-      { "aspect": "ORDO", "q": 1, "r": 0 },
-      { "aspect": "VICTUS", "q": 0, "r": 1 },
-      { "aspect": "SANO", "q": 1, "r": -1 }
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": -1
+      }
     ]
   },
   {
@@ -326,10 +354,26 @@
     "components": "V, S",
     "duration": "1 round",
     "pattern": [
-      { "aspect": "ORDO", "q": 0, "r": 0 },
-      { "aspect": "TERRA", "q": 1, "r": 0 },
-      { "aspect": "PERDITIO", "q": -1, "r": 0 },
-      { "aspect": "TUTAMEN", "q": 0, "r": 1 }
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 1
+      }
     ]
   },
   {
@@ -342,11 +386,31 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "IGNIS", "q": 0, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": -1 },
-      { "aspect": "AER", "q": 0, "r": -1 },
-      { "aspect": "LUX", "q": 2, "r": 0 }
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": 0
+      }
     ]
   },
   {
@@ -359,10 +423,26 @@
     "components": "V, S, M",
     "duration": "Concentration, up to 1 hour",
     "pattern": [
-      { "aspect": "TERRA", "q": 0, "r": 0 },
-      { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "ORDO", "q": 0, "r": 1 },
-      { "aspect": "VINCULUM", "q": 1, "r": -1 }
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 1,
+        "r": -1
+      }
     ]
   },
   {
@@ -375,12 +455,36 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "IGNIS", "q": 0, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": -1 },
-      { "aspect": "PERDITIO", "q": 0, "r": -1 },
-      { "aspect": "AER", "q": 0, "r": 1 },
-      { "aspect": "VOLATUS", "q": 2, "r": 0 }
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 2,
+        "r": 0
+      }
     ]
   },
   {
@@ -393,13 +497,41 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "AQUA", "q": 0, "r": 0 },
-      { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "PERDITIO", "q": 1, "r": -1 },
-      { "aspect": "AER", "q": 0, "r": -1 },
-      { "aspect": "TERRA", "q": 0, "r": 1 },
-      { "aspect": "GELUM", "q": 2, "r": 0 },
-      { "aspect": "TEMPESTAS", "q": 2, "r": -1 }
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "GELUM",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": -1
+      }
     ]
   },
   {
@@ -412,14 +544,46 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "AQUA", "q": 0, "r": 0 },
-      { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "GELUM", "q": 1, "r": -1 },
-      { "aspect": "GELUM", "q": 0, "r": -1 },
-      { "aspect": "PERDITIO", "q": 0, "r": 1 },
-      { "aspect": "PERDITIO", "q": -1, "r": 0 },
-      { "aspect": "AER", "q": 2, "r": 0 },
-      { "aspect": "TEMPESTAS", "q": 2, "r": -1 }
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "GELUM",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "GELUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": -1
+      }
     ]
   },
   {
@@ -432,15 +596,51 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "AER", "q": 0, "r": 0 },
-      { "aspect": "AER", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 1, "r": -1 },
-      { "aspect": "IGNIS", "q": 0, "r": -1 },
-      { "aspect": "IGNIS", "q": -1, "r": 1 },
-      { "aspect": "ORDO", "q": 0, "r": 1 },
-      { "aspect": "TEMPESTAS", "q": 2, "r": 0 },
-      { "aspect": "TEMPESTAS", "q": 2, "r": -1 },
-      { "aspect": "VOLATUS", "q": 0, "r": -2 }
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": -2
+      }
     ]
   },
   {
@@ -453,16 +653,56 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "IGNIS", "q": 0, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "IGNIS", "q": 1, "r": -1 },
-      { "aspect": "IGNIS", "q": 0, "r": -1 },
-      { "aspect": "PERDITIO", "q": 0, "r": 1 },
-      { "aspect": "PERDITIO", "q": -1, "r": 1 },
-      { "aspect": "ORDO", "q": -1, "r": 0 },
-      { "aspect": "POTENTIA", "q": 2, "r": 0 },
-      { "aspect": "POTENTIA", "q": 2, "r": -1 },
-      { "aspect": "PRAECANTATIO", "q": 0, "r": -2 }
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -2
+      }
     ]
   },
   {
@@ -475,17 +715,1627 @@
     "components": "V, S, M",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "IGNIS", "q": 0, "r": 0 },
-      { "aspect": "AER", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 1, "r": -1 },
-      { "aspect": "LUX", "q": 0, "r": -1 },
-      { "aspect": "LUX", "q": -1, "r": 1 },
-      { "aspect": "ORDO", "q": 0, "r": 1 },
-      { "aspect": "ORDO", "q": -1, "r": 0 },
-      { "aspect": "POTENTIA", "q": 2, "r": 0 },
-      { "aspect": "POTENTIA", "q": 2, "r": -1 },
-      { "aspect": "LUX", "q": 0, "r": -2 },
-      { "aspect": "VACUOS", "q": 0, "r": 2 }
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 2
+      }
+    ]
+  },
+  {
+    "id": "alarm",
+    "name": "Alarm",
+    "level": 1,
+    "description": "Sets an alarm against unwanted intrusion, alerting you audibly or mentally when a creature enters the warded area.",
+    "castingTime": "1 minute",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "animal-friendship",
+    "name": "Animal Friendship",
+    "level": 1,
+    "description": "Convince a beast that you mean it no harm, calming it toward you for a day.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "bane",
+    "name": "Bane",
+    "level": 1,
+    "description": "Up to three creatures you choose must subtract a d4 from every attack roll and saving throw.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "bless",
+    "name": "Bless",
+    "level": 1,
+    "description": "Up to three creatures you choose add a d4 to every attack roll and saving throw.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "charm-person",
+    "name": "Charm Person",
+    "level": 1,
+    "description": "One humanoid you can see must succeed a Wisdom save or regard you as a friendly acquaintance.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "chromatic-orb",
+    "name": "Chromatic Orb",
+    "level": 1,
+    "description": "Hurl a sphere of energy whose damage type you choose on the spot.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "color-spray",
+    "name": "Color Spray",
+    "level": 1,
+    "description": "A dazzling array of flashing, colored light blinds creatures in the area.",
+    "castingTime": "1 action",
+    "range": "Self (15-foot cone)",
+    "components": "V, S, M",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "command",
+    "name": "Command",
+    "level": 1,
+    "description": "Speak a single word of command that a creature must obey.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "comprehend-languages",
+    "name": "Comprehend Languages",
+    "level": 1,
+    "description": "Understand the literal meaning of any language you hear or see written.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "compelled-duel",
+    "name": "Compelled Duel",
+    "level": 1,
+    "description": "Bind a creature's attention to you, giving it disadvantage on attacking anyone but you.",
+    "castingTime": "1 bonus action",
+    "range": "30 feet",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "create-or-destroy-water",
+    "name": "Create or Destroy Water",
+    "level": 1,
+    "description": "Conjure up to 10 gallons of clean water, or destroy water in an open container.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "detect-evil-and-good",
+    "name": "Detect Evil and Good",
+    "level": 1,
+    "description": "Sense the presence and location of celestials, fiends, undead, and consecrated ground within range.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "detect-magic",
+    "name": "Detect Magic",
+    "level": 1,
+    "description": "Sense the presence of magic within 30 feet and see a faint aura around its source.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "detect-poison-and-disease",
+    "name": "Detect Poison and Disease",
+    "level": 1,
+    "description": "Sense the presence and location of poisons, poisonous creatures, and diseases within range.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VENENUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "disguise-self",
+    "name": "Disguise Self",
+    "level": 1,
+    "description": "Change your appearance, including clothing and gear, into another humanoid form.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "dissonant-whispers",
+    "name": "Dissonant Whispers",
+    "level": 1,
+    "description": "Whisper a discordant melody only one creature can hear, wracking its mind with terrible pain.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "divine-favor",
+    "name": "Divine Favor",
+    "level": 1,
+    "description": "Your weapon flares with holy energy, adding radiant damage to its next hits.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "entangle",
+    "name": "Entangle",
+    "level": 1,
+    "description": "Grasping weeds and vines sprout from the ground, turning it into difficult terrain.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "ensnaring-strike",
+    "name": "Ensnaring Strike",
+    "level": 1,
+    "description": "The next weapon hit you land causes thorny vines to restrain the target.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "expeditious-retreat",
+    "name": "Expeditious Retreat",
+    "level": 1,
+    "description": "Your speed increases, letting you Dash as a bonus action each turn.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "faerie-fire",
+    "name": "Faerie Fire",
+    "level": 1,
+    "description": "Objects and creatures in the area are outlined in colored light, unable to benefit from being invisible.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "false-life",
+    "name": "False Life",
+    "level": 1,
+    "description": "Bolster yourself with a necromantic simulacrum of health, gaining temporary hit points.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "feather-fall",
+    "name": "Feather Fall",
+    "level": 1,
+    "description": "Choose up to five falling creatures, slowing their descent to a gentle drift.",
+    "castingTime": "1 reaction",
+    "range": "60 feet",
+    "components": "V, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "find-familiar",
+    "name": "Find Familiar",
+    "level": 1,
+    "description": "Summon a spirit that takes an animal form of your choosing to serve as a familiar.",
+    "castingTime": "1 hour (ritual)",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "find-steed",
+    "name": "Find Steed",
+    "level": 1,
+    "description": "Summon a spirit that takes the form of a loyal, intelligent steed.",
+    "castingTime": "10 minutes",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "fog-cloud",
+    "name": "Fog Cloud",
+    "level": 1,
+    "description": "A sphere of fog fills the area, heavily obscuring it.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "goodberry",
+    "name": "Goodberry",
+    "level": 1,
+    "description": "Up to ten berries grow, each a meal in miniature and each healing 1 hit point when eaten.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "grease",
+    "name": "Grease",
+    "level": 1,
+    "description": "Slick grease covers the ground, making it difficult terrain that can knock creatures prone.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "LIMUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "guiding-bolt",
+    "name": "Guiding Bolt",
+    "level": 1,
+    "description": "A flash of light streaks toward a creature, and the next attack against it gains advantage.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hail-of-thorns",
+    "name": "Hail of Thorns",
+    "level": 1,
+    "description": "Your next ranged weapon hit bursts into thorny vines, raining damage on nearby creatures.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TELUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "healing-word",
+    "name": "Healing Word",
+    "level": 1,
+    "description": "A creature of your choice regains hit points at range, no touch required.",
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hellish-rebuke",
+    "name": "Hellish Rebuke",
+    "level": 1,
+    "description": "You point at the creature that just hurt you, and the ground erupts in hellish flame around it.",
+    "castingTime": "1 reaction",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "heroism",
+    "name": "Heroism",
+    "level": 1,
+    "description": "A willing creature is imbued with bravery, gaining temporary hit points and immunity to being frightened.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hex",
+    "name": "Hex",
+    "level": 1,
+    "description": "Curse a creature so your attacks against it deal extra necrotic damage.",
+    "castingTime": "1 bonus action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hunters-mark",
+    "name": "Hunter's Mark",
+    "level": 1,
+    "description": "Mark a creature as your quarry, dealing extra damage to it whenever you hit.",
+    "castingTime": "1 bonus action",
+    "range": "90 feet",
+    "components": "V",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "identify",
+    "name": "Identify",
+    "level": 1,
+    "description": "Learn the properties, method of activation, and any curse on a magic item or ongoing effect.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "illusory-script",
+    "name": "Illusory Script",
+    "level": 1,
+    "description": "Write a message that appears as gibberish unless read by someone you designate.",
+    "castingTime": "1 hour (ritual)",
+    "range": "Touch",
+    "components": "S, M",
+    "duration": "10 days",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "inflict-wounds",
+    "name": "Inflict Wounds",
+    "level": 1,
+    "description": "Your touch channels negative energy that sears necrotic wounds into a creature.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "jump",
+    "name": "Jump",
+    "level": 1,
+    "description": "A creature's jump distance triples for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "longstrider",
+    "name": "Longstrider",
+    "level": 1,
+    "description": "A creature's speed increases by 10 feet.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "mage-armor",
+    "name": "Mage Armor",
+    "level": 1,
+    "description": "A protective magical force surrounds an unarmored creature, setting its base AC.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "magic-missile",
+    "name": "Magic Missile",
+    "level": 1,
+    "description": "Three glowing darts of magical force strike unerringly, no attack roll needed.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "protection-from-evil-and-good",
+    "name": "Protection from Evil and Good",
+    "level": 1,
+    "description": "Ward a creature against aberrations, celestials, elementals, fey, fiends, and undead.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "purify-food-and-drink",
+    "name": "Purify Food and Drink",
+    "level": 1,
+    "description": "All non-magical food and drink in the area is purified and rendered free of poison and disease.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "ray-of-sickness",
+    "name": "Ray of Sickness",
+    "level": 1,
+    "description": "A ray of sickening greenish energy lashes out, poisoning the creature it strikes.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "sanctuary",
+    "name": "Sanctuary",
+    "level": 1,
+    "description": "Ward a creature so that any attacker must first succeed a Wisdom save to target it.",
+    "castingTime": "1 bonus action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "searing-smite",
+    "name": "Searing Smite",
+    "level": 1,
+    "description": "Your next weapon hit flares with fire, dealing extra damage and igniting the target.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "shield-of-faith",
+    "name": "Shield of Faith",
+    "level": 1,
+    "description": "A shimmering field surrounds a creature, granting it a bonus to AC.",
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "silent-image",
+    "name": "Silent Image",
+    "level": 1,
+    "description": "Create a purely visual illusion of an object, creature, or effect.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "sleep",
+    "name": "Sleep",
+    "level": 1,
+    "description": "Creatures in the area fall into a magical slumber, weakest affected first.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "speak-with-animals",
+    "name": "Speak with Animals",
+    "level": 1,
+    "description": "Gain the ability to understand and verbally communicate with beasts.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "10 minutes",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "tashas-hideous-laughter",
+    "name": "Tasha's Hideous Laughter",
+    "level": 1,
+    "description": "A creature is overcome with mirth, falling prone and helpless with laughter.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "tensers-floating-disk",
+    "name": "Tenser's Floating Disk",
+    "level": 1,
+    "description": "Create a horizontal disk of force that floats after you, carrying cargo.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "thunderous-smite",
+    "name": "Thunderous Smite",
+    "level": 1,
+    "description": "Your next weapon hit rings out with thunder, dealing extra damage and knocking the target back.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "thunderwave",
+    "name": "Thunderwave",
+    "level": 1,
+    "description": "A wave of thunderous force sweeps out from you, pushing creatures away.",
+    "castingTime": "1 action",
+    "range": "Self (15-foot cube)",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "unseen-servant",
+    "name": "Unseen Servant",
+    "level": 1,
+    "description": "Create an invisible, mindless force that can perform simple labor at your command.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "witch-bolt",
+    "name": "Witch Bolt",
+    "level": 1,
+    "description": "A beam of crackling energy lances out and arcs back to you each turn, dealing damage anew.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "wrathful-smite",
+    "name": "Wrathful Smite",
+    "level": 1,
+    "description": "Your next weapon hit is charged with psychic wrath, dealing extra damage and frightening the target.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      }
     ]
   }
 ]
