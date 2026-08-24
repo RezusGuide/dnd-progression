@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
+import { ASPECTS } from '../constants/aspects'
 import api from '../api/axios'
 
 export default function Admin() {
@@ -18,9 +19,17 @@ export default function Admin() {
     const [passwordChoice, setPasswordChoice] = useState({})
     const [showAdvancedRoles, setShowAdvancedRoles] = useState(false)
 
+    // Spell research: DM-only grants (section 3 of the spell-research prompt).
+    const [characters, setCharacters] = useState([])
+    const [spells, setSpells] = useState([])
+    const [aspectGrantForm, setAspectGrantForm] = useState({ characterId: '', aspect: ASPECTS[0].key, amount: 1 })
+    const [hintGrantForm, setHintGrantForm] = useState({ characterId: '', spellId: '' })
+
     const refresh = () => {
         api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
         api.get('/api/admin/users').then((res) => setUsers(res.data)).catch(() => {})
+        api.get('/api/characters').then((res) => setCharacters(res.data)).catch(() => {})
+        api.get('/api/spells').then((res) => setSpells(res.data.filter((s) => s.level >= 1 && s.level <= 2))).catch(() => {})
     }
 
     useEffect(() => {
@@ -79,6 +88,39 @@ export default function Admin() {
             refresh()
         } catch (err) {
             setError(err.response?.data?.message || 'Could not create account')
+        }
+    }
+
+    const handleGrantAspect = async (e) => {
+        e.preventDefault()
+        setError('')
+        setNotice('')
+        if (!aspectGrantForm.characterId) return
+        try {
+            await api.post('/api/admin/aspects/grant', {
+                characterId: Number(aspectGrantForm.characterId),
+                aspect: aspectGrantForm.aspect,
+                amount: Number(aspectGrantForm.amount),
+            })
+            setNotice(t('adminGranted'))
+        } catch (err) {
+            setError(err.response?.data?.message || 'Could not grant aspects')
+        }
+    }
+
+    const handleGrantHint = async (e) => {
+        e.preventDefault()
+        setError('')
+        setNotice('')
+        if (!hintGrantForm.characterId || !hintGrantForm.spellId) return
+        try {
+            await api.post('/api/admin/hints/grant', {
+                characterId: Number(hintGrantForm.characterId),
+                spellId: hintGrantForm.spellId,
+            })
+            setNotice(t('adminGranted'))
+        } catch (err) {
+            setError(err.response?.data?.message || 'Could not grant hint access')
         }
     }
 
@@ -180,6 +222,84 @@ export default function Admin() {
                         </div>
                     ))}
                 </div>
+            </section>
+
+            <section className="sheet-section admin-section">
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                    {t('adminAspectGrant')}
+                </h2>
+                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminAspectGrantHint')}</p>
+                <form onSubmit={handleGrantAspect} className="tome-form codex-form">
+                    <div className="tome-row">
+                        <div className="tome-field">
+                            <label>{t('adminSelectCharacter')}</label>
+                            <select
+                                value={aspectGrantForm.characterId}
+                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, characterId: e.target.value })}
+                                required
+                            >
+                                <option value="">{t('choose')}</option>
+                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="tome-field">
+                            <label>{t('adminSelectAspect')}</label>
+                            <select
+                                value={aspectGrantForm.aspect}
+                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, aspect: e.target.value })}
+                            >
+                                {ASPECTS.map((a) => <option key={a.key} value={a.key}>{t(a.labelKey)}</option>)}
+                            </select>
+                        </div>
+                        <div className="tome-field">
+                            <label>{t('adminAmount')}</label>
+                            <input
+                                type="number" min="1" value={aspectGrantForm.amount}
+                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, amount: e.target.value })}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="tome-btn-row">
+                        <button type="submit" className="tome-btn">{t('adminGrantBtn')}</button>
+                    </div>
+                </form>
+            </section>
+
+            <section className="sheet-section admin-section">
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                    {t('adminHintGrant')}
+                </h2>
+                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminHintGrantHint')}</p>
+                <form onSubmit={handleGrantHint} className="tome-form codex-form">
+                    <div className="tome-row">
+                        <div className="tome-field">
+                            <label>{t('adminSelectCharacter')}</label>
+                            <select
+                                value={hintGrantForm.characterId}
+                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, characterId: e.target.value })}
+                                required
+                            >
+                                <option value="">{t('choose')}</option>
+                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="tome-field">
+                            <label>{t('adminSelectSpell')}</label>
+                            <select
+                                value={hintGrantForm.spellId}
+                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, spellId: e.target.value })}
+                                required
+                            >
+                                <option value="">{t('choose')}</option>
+                                {spells.map((s) => <option key={s.id} value={s.id}>{s.name} (Lv {s.level})</option>)}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="tome-btn-row">
+                        <button type="submit" className="tome-btn">{t('adminHintGrantBtn')}</button>
+                    </div>
+                </form>
             </section>
 
             <section className="sheet-section admin-section">

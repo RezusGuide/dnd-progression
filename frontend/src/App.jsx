@@ -39,7 +39,7 @@ function AppRoutes() {
             <Route path="/minecraft" element={<Minecraft />} />
             <Route path="/characters" element={<Characters />} />
             <Route path="/characters/:id" element={<CharacterSheet />} />
-            <Route path="/characters/:characterId/research/:spellId" element={<Research />} />
+            <Route path="/characters/:characterId/research" element={<Research />} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 

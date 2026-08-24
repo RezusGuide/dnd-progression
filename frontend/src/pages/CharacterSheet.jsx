@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
+import { ASPECTS } from '../constants/aspects'
 import api from '../api/axios'
 import '../styles/beyond.css'
 
@@ -162,6 +163,31 @@ export default function CharacterSheet() {
         return () => clearTimeout(saveTimer.current)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [form])
+
+    const [knownSpells, setKnownSpells] = useState([])
+    const [cantripCatalog, setCantripCatalog] = useState([])
+    const [cantripChoice, setCantripChoice] = useState('')
+
+    const refreshKnownSpells = () => {
+        api.get(`/api/characters/${id}/known-spells`).then((res) => setKnownSpells(res.data)).catch(() => {})
+    }
+
+    useEffect(() => {
+        refreshKnownSpells()
+        api.get('/api/spells').then((res) => setCantripCatalog(res.data.filter((s) => s.level === 0))).catch(() => setCantripCatalog([]))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
+
+    const handleAddCantrip = async () => {
+        if (!cantripChoice) return
+        try {
+            await api.post(`/api/characters/${id}/cantrips/${cantripChoice}`)
+            setCantripChoice('')
+            refreshKnownSpells()
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     if (!character || !form) {
         return <div className="beyond-page"><div className="beyond-loading">{t('sheetLoading')}</div></div>
@@ -496,6 +522,54 @@ export default function CharacterSheet() {
                                 <span className="beyond-field-label">{t('sheetSpellNotes')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.spellNotes} onChange={set('spellNotes')} disabled={!canEdit} style={{ marginTop: '0.3rem' }} />
                             </div>
+                        </div>
+
+                        {/* Spells known - cantrips picked freely, level 1-2 only added by a
+                            successful research attempt (see Research.jsx). */}
+                        <div className="beyond-card">
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                                <h2 className="beyond-card-title" style={{ margin: 0, border: 0, padding: 0 }}>{t('sheetSpellsKnown')}</h2>
+                                <Link to={`/characters/${id}/research`} className="beyond-add-btn" style={{ marginTop: 0, textDecoration: 'none', display: 'inline-block' }}>{t('sheetGoResearch')}</Link>
+                            </div>
+                            {knownSpells.length === 0 && <p className="beyond-readonly-empty">{t('sheetSpellsEmpty')}</p>}
+                            {knownSpells.map((s) => (
+                                <div key={s.spellId} className="beyond-prof-row">
+                                    <div className="beyond-prof-left">
+                                        <span className="beyond-prof-name">{s.name}</span>
+                                        <span className="beyond-prof-ability">(Lv {s.level})</span>
+                                    </div>
+                                    <span className="beyond-prof-bonus">{s.accuracyPercentage}%</span>
+                                </div>
+                            ))}
+                            {canEdit && (
+                                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.9rem' }}>
+                                    <select className="beyond-select" value={cantripChoice} onChange={(e) => setCantripChoice(e.target.value)}>
+                                        <option value="">{t('sheetChooseCantrip')}</option>
+                                        {cantripCatalog
+                                            .filter((s) => !knownSpells.some((k) => k.spellId === s.id))
+                                            .map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                    </select>
+                                    <button type="button" className="beyond-add-btn" style={{ marginTop: 0 }} onClick={handleAddCantrip}>{t('sheetAddCantrip')}</button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Material pouch - read-only from the player's side; only a DM
+                            grant (Admin.jsx) or a research attempt changes these counts. */}
+                        <div className="beyond-card">
+                            <h2 className="beyond-card-title">{t('sheetMaterialPouch')}</h2>
+                            {Object.values(character.aspects || {}).every((n) => !n) && (
+                                <p className="beyond-readonly-empty">{t('sheetPouchEmpty')}</p>
+                            )}
+                            {ASPECTS.filter((a) => (character.aspects?.[a.key] || 0) > 0).map((a) => (
+                                <div key={a.key} className="beyond-prof-row">
+                                    <div className="beyond-prof-left">
+                                        <span className="beyond-prof-name">{t(a.labelKey)}</span>
+                                        <span className="beyond-prof-ability">— {t(a.descKey)}</span>
+                                    </div>
+                                    <span className="beyond-prof-bonus">{character.aspects[a.key]}</span>
+                                </div>
+                            ))}
                         </div>
 
                         {/* Equipment */}
