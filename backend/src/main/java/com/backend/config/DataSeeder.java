@@ -1,8 +1,10 @@
 package com.backend.config;
 
 import com.backend.entity.AboutProfile;
+import com.backend.entity.MinecraftServer;
 import com.backend.entity.Role;
 import com.backend.repository.AboutProfileRepository;
+import com.backend.repository.MinecraftServerRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class DataSeeder implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final AboutProfileRepository aboutProfileRepository;
+    private final MinecraftServerRepository minecraftServerRepository;
 
     @Override
     public void run(String... args) {
@@ -36,6 +39,7 @@ public class DataSeeder implements CommandLineRunner {
         ensureRole(RoleService.MEMBER_KEY, "Member",
                 "Standard account access: D&D and Minecraft.", List.of("dnd", "minecraft"));
         ensureAboutProfile();
+        ensureMinecraftServer();
     }
 
     // One-time real content for the Portfolio page, in place of the
@@ -66,6 +70,22 @@ public class DataSeeder implements CommandLineRunner {
                 .skills(new ArrayList<>(List.of("React", "Java", "Spring Boot", "PostgreSQL", "Python")))
                 .location("Almaty, Kazakhstan")
                 .contactEmail("give_five@mail.ru")
+                .build());
+    }
+
+    // One-time real content for the Minecraft page, in place of the
+    // "play.example.net" placeholder - only runs if the row doesn't exist
+    // yet, so it never clobbers edits made later from the site itself.
+    private void ensureMinecraftServer() {
+        if (minecraftServerRepository.existsById("minecraft")) {
+            return;
+        }
+        minecraftServerRepository.save(MinecraftServer.builder()
+                .id("minecraft")
+                .ip("d2pt.ru")
+                .port(25565)
+                .status("Alive")
+                .driveUrl("https://drive.google.com/drive/folders/1EoiMlww5ziXWTTXAXXL9kMYy3RZgvXGG?hl=ru")
                 .build());
     }
 

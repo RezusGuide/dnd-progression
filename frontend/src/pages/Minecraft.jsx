@@ -16,7 +16,8 @@ export default function Minecraft() {
     // unreachable.
     const DEFAULT_SERVER = {
         ip: 'd2pt.ru', port: 25565, version: '1.20.1',
-        motd: 'Bussy server.', status: 'Alive', driveUrl: null,
+        motd: 'Bussy server.', status: 'Alive',
+        driveUrl: 'https://drive.google.com/drive/folders/1EoiMlww5ziXWTTXAXXL9kMYy3RZgvXGG?hl=ru',
     }
 
     const [server, setServer] = useState(DEFAULT_SERVER)
