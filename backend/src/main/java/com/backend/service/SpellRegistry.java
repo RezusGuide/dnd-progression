@@ -48,12 +48,21 @@ public class SpellRegistry {
         return List.copyOf(spellCache.values());
     }
 
-    // The research minigame this pass only covers levels 1-2 - cantrips
-    // (level 0) are picked freely with no minigame, and nothing above 2 is
-    // in the catalog yet (see the spell-research prompt's Non-goals).
+    // Researchable range is 1-8 - cantrips (level 0) are picked freely with
+    // no minigame, and 9th level is excluded outright (players can't
+    // realistically reach it - see the spell-research prompt's Scope).
+    public static final int MIN_RESEARCHABLE_LEVEL = 1;
+    public static final int MAX_RESEARCHABLE_LEVEL = 8;
+
     public List<Spell> getResearchableSpells() {
         return spellCache.values().stream()
-                .filter(s -> s.getLevel() >= 1 && s.getLevel() <= 2)
+                .filter(s -> s.getLevel() >= MIN_RESEARCHABLE_LEVEL && s.getLevel() <= MAX_RESEARCHABLE_LEVEL)
+                .toList();
+    }
+
+    public List<Spell> getSpellsByLevel(int level) {
+        return spellCache.values().stream()
+                .filter(s -> s.getLevel() == level)
                 .toList();
     }
 }

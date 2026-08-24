@@ -53,9 +53,10 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "FIRE", "q": 0, "r": -1 },
-      { "aspect": "FIRE", "q": 1, "r": -1 },
-      { "aspect": "AIR", "q": 0, "r": 1 }
+      { "aspect": "IGNIS", "q": 0, "r": 0 },
+      { "aspect": "IGNIS", "q": 1, "r": 0 },
+      { "aspect": "AER", "q": 2, "r": 0 },
+      { "aspect": "PERDITIO", "q": 3, "r": 0 }
     ]
   },
   {
@@ -68,8 +69,10 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "WATER", "q": -1, "r": 0 },
-      { "aspect": "ORDER", "q": 1, "r": 0 }
+      { "aspect": "AQUA", "q": 0, "r": 0 },
+      { "aspect": "ORDO", "q": 1, "r": 0 },
+      { "aspect": "VICTUS", "q": 2, "r": 0 },
+      { "aspect": "AQUA", "q": 3, "r": 0 }
     ]
   },
   {
@@ -82,8 +85,10 @@
     "components": "V, S",
     "duration": "1 round",
     "pattern": [
-      { "aspect": "ORDER", "q": 0, "r": -1 },
-      { "aspect": "EARTH", "q": 0, "r": 1 }
+      { "aspect": "ORDO", "q": 0, "r": 0 },
+      { "aspect": "TERRA", "q": 1, "r": 0 },
+      { "aspect": "ORDO", "q": 2, "r": 0 },
+      { "aspect": "PERDITIO", "q": 3, "r": 0 }
     ]
   },
   {
@@ -96,10 +101,13 @@
     "components": "V, S",
     "duration": "Instantaneous",
     "pattern": [
-      { "aspect": "FIRE", "q": -1, "r": -1 },
-      { "aspect": "FIRE", "q": 1, "r": -1 },
-      { "aspect": "AIR", "q": 0, "r": -2 },
-      { "aspect": "ENTROPY", "q": 0, "r": 2 }
+      { "aspect": "IGNIS", "q": 0, "r": 0 },
+      { "aspect": "IGNIS", "q": 1, "r": 0 },
+      { "aspect": "AER", "q": 2, "r": 0 },
+      { "aspect": "PERDITIO", "q": 3, "r": 0 },
+      { "aspect": "IGNIS", "q": 4, "r": 0 },
+      { "aspect": "AER", "q": 5, "r": 0 },
+      { "aspect": "PERDITIO", "q": 6, "r": 0 }
     ]
   },
   {
@@ -112,9 +120,137 @@
     "components": "V, S, M",
     "duration": "Concentration, up to 1 hour",
     "pattern": [
-      { "aspect": "EARTH", "q": -1, "r": 1 },
-      { "aspect": "WATER", "q": 1, "r": 1 },
-      { "aspect": "ORDER", "q": 0, "r": -2 }
+      { "aspect": "TERRA", "q": 0, "r": 0 },
+      { "aspect": "AQUA", "q": 1, "r": 0 },
+      { "aspect": "ORDO", "q": 2, "r": 0 },
+      { "aspect": "VACUOS", "q": 3, "r": 0 },
+      { "aspect": "TERRA", "q": 4, "r": 0 },
+      { "aspect": "AQUA", "q": 5, "r": 0 },
+      { "aspect": "ORDO", "q": 6, "r": 0 }
+    ]
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "level": 3,
+    "description": "A bright streak flashes to a point you choose and blossoms with a low roar into an explosion of flame.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "IGNIS", "q": 0, "r": 0 },
+      { "aspect": "IGNIS", "q": 1, "r": 0 },
+      { "aspect": "IGNIS", "q": 2, "r": 0 },
+      { "aspect": "PERDITIO", "q": 3, "r": 0 },
+      { "aspect": "PERDITIO", "q": 4, "r": 0 },
+      { "aspect": "AER", "q": 5, "r": 0 },
+      { "aspect": "AER", "q": 6, "r": 0 },
+      { "aspect": "VOLATUS", "q": 7, "r": 0 }
+    ]
+  },
+  {
+    "id": "ice-storm",
+    "name": "Ice Storm",
+    "level": 4,
+    "description": "A hail of rock-hard ice pounds to the ground in a cylindrical area.",
+    "castingTime": "1 action",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "AQUA", "q": 0, "r": 0 },
+      { "aspect": "AQUA", "q": 1, "r": 0 },
+      { "aspect": "AQUA", "q": 2, "r": 0 },
+      { "aspect": "PERDITIO", "q": 3, "r": 0 },
+      { "aspect": "PERDITIO", "q": 4, "r": 0 },
+      { "aspect": "AER", "q": 5, "r": 0 },
+      { "aspect": "TERRA", "q": 6, "r": 0 },
+      { "aspect": "GELUM", "q": 7, "r": 0 }
+    ]
+  },
+  {
+    "id": "cone-of-cold",
+    "name": "Cone of Cold",
+    "level": 5,
+    "description": "A blast of cold air erupts from your hands in a 60-foot cone.",
+    "castingTime": "1 action",
+    "range": "Self (60-foot cone)",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "AQUA", "q": 0, "r": 0 },
+      { "aspect": "AQUA", "q": 1, "r": 0 },
+      { "aspect": "AQUA", "q": 2, "r": 0 },
+      { "aspect": "GELUM", "q": 3, "r": 0 },
+      { "aspect": "GELUM", "q": 4, "r": 0 },
+      { "aspect": "PERDITIO", "q": 5, "r": 0 },
+      { "aspect": "PERDITIO", "q": 6, "r": 0 },
+      { "aspect": "AER", "q": 7, "r": 0 },
+      { "aspect": "AER", "q": 8, "r": 0 }
+    ]
+  },
+  {
+    "id": "chain-lightning",
+    "name": "Chain Lightning",
+    "level": 6,
+    "description": "A bolt of lightning arcs toward a target, then leaps to other nearby targets.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "AER", "q": 0, "r": 0 },
+      { "aspect": "AER", "q": 1, "r": 0 },
+      { "aspect": "AER", "q": 2, "r": 0 },
+      { "aspect": "IGNIS", "q": 3, "r": 0 },
+      { "aspect": "IGNIS", "q": 4, "r": 0 },
+      { "aspect": "ORDO", "q": 5, "r": 0 },
+      { "aspect": "TEMPESTAS", "q": 6, "r": 0 },
+      { "aspect": "TEMPESTAS", "q": 7, "r": 0 },
+      { "aspect": "VOLATUS", "q": 8, "r": 0 }
+    ]
+  },
+  {
+    "id": "delayed-blast-fireball",
+    "name": "Delayed Blast Fireball",
+    "level": 7,
+    "description": "A beam of yellow light streaks toward a point, exploding into a fireball that grows more destructive the longer it's left ticking.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "IGNIS", "q": 0, "r": 0 },
+      { "aspect": "IGNIS", "q": 1, "r": 0 },
+      { "aspect": "IGNIS", "q": 2, "r": 0 },
+      { "aspect": "IGNIS", "q": 3, "r": 0 },
+      { "aspect": "PERDITIO", "q": 4, "r": 0 },
+      { "aspect": "PERDITIO", "q": 5, "r": 0 },
+      { "aspect": "ORDO", "q": 6, "r": 0 },
+      { "aspect": "ORDO", "q": 7, "r": 0 },
+      { "aspect": "POTENTIA", "q": 8, "r": 0 }
+    ]
+  },
+  {
+    "id": "sunburst",
+    "name": "Sunburst",
+    "level": 8,
+    "description": "Brilliant sunlight flashes in a 60-foot radius, blinding creatures and dealing heavy radiant damage.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "IGNIS", "q": 0, "r": 0 },
+      { "aspect": "AER", "q": 1, "r": 0 },
+      { "aspect": "AER", "q": 2, "r": 0 },
+      { "aspect": "LUX", "q": 3, "r": 0 },
+      { "aspect": "LUX", "q": 4, "r": 0 },
+      { "aspect": "ORDO", "q": 5, "r": 0 },
+      { "aspect": "ORDO", "q": 6, "r": 0 },
+      { "aspect": "POTENTIA", "q": 7, "r": 0 },
+      { "aspect": "POTENTIA", "q": 8, "r": 0 }
     ]
   }
 ]

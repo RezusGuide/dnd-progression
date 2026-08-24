@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { ASPECTS } from '../constants/aspects'
+import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 
 export default function Admin() {
@@ -33,7 +33,7 @@ export default function Admin() {
         api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
         api.get('/api/admin/users').then((res) => setUsers(res.data)).catch(() => {})
         api.get('/api/characters').then((res) => setCharacters(res.data)).catch(() => {})
-        api.get('/api/spells').then((res) => setSpells(res.data.filter((s) => s.level >= 1 && s.level <= 2))).catch(() => {})
+        api.get('/api/spells').then((res) => setSpells(res.data.filter((s) => s.level >= 1 && s.level <= 8))).catch(() => {})
     }
 
     useEffect(() => {
@@ -356,7 +356,7 @@ export default function Admin() {
                                 value={aspectGrantForm.aspect}
                                 onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, aspect: e.target.value })}
                             >
-                                {ASPECTS.map((a) => <option key={a.key} value={a.key}>{t(a.labelKey)}</option>)}
+                                {ASPECTS.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
                             </select>
                         </div>
                         <div className="tome-field">

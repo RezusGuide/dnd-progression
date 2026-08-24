@@ -1,9 +1,11 @@
 package com.backend.config;
 
 import com.backend.entity.AboutProfile;
+import com.backend.entity.AspectRecipe;
 import com.backend.entity.MinecraftServer;
 import com.backend.entity.Role;
 import com.backend.repository.AboutProfileRepository;
+import com.backend.repository.AspectRecipeRepository;
 import com.backend.repository.MinecraftServerRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.service.RoleService;
@@ -31,6 +33,7 @@ public class DataSeeder implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final AboutProfileRepository aboutProfileRepository;
     private final MinecraftServerRepository minecraftServerRepository;
+    private final AspectRecipeRepository aspectRecipeRepository;
 
     @Override
     public void run(String... args) {
@@ -40,6 +43,70 @@ public class DataSeeder implements CommandLineRunner {
                 "Standard account access: D&D and Minecraft.", List.of("dnd", "minecraft"));
         ensureAboutProfile();
         ensureMinecraftServer();
+        ensureAspectRecipes();
+    }
+
+    // Transcribed from the Thaumcraft 4 aspect chart (six primal aspects -
+    // Aer/Ignis/Aqua/Terra/Ordo/Perditio - are not recipes themselves, they
+    // just don't appear as a resultAspect here). Only seeds once; if you
+    // need to correct a mistranscribed pairing later, either edit the row
+    // in the database directly or wipe the table and let this reseed it -
+    // it won't overwrite existing rows on every boot.
+    private void ensureAspectRecipes() {
+        if (aspectRecipeRepository.count() > 0) {
+            return;
+        }
+        String[][] recipes = {
+                {"VACUOS", "AER", "PERDITIO"},
+                {"LUX", "AER", "IGNIS"},
+                {"TEMPESTAS", "AER", "AQUA"},
+                {"MOTUS", "AER", "ORDO"},
+                {"VICTUS", "AQUA", "TERRA"},
+                {"POTENTIA", "ORDO", "IGNIS"},
+                {"PERMUTATIO", "ORDO", "PERDITIO"},
+                {"PRAECANTATIO", "VACUOS", "ORDO"},
+                {"TENEBRAE", "VACUOS", "PERDITIO"},
+                {"VITIUM", "TENEBRAE", "PERDITIO"},
+                {"ALIENIS", "VITIUM", "PRAECANTATIO"},
+                {"AURAM", "PRAECANTATIO", "POTENTIA"},
+                {"FAMES", "VICTUS", "VACUOS"},
+                {"VENENUM", "AQUA", "PERDITIO"},
+                {"MORTUUS", "VICTUS", "PERDITIO"},
+                {"SPIRITUS", "VICTUS", "MORTUUS"},
+                {"SANO", "VICTUS", "ORDO"},
+                {"VOLATUS", "AER", "MOTUS"},
+                {"BESTIA", "MOTUS", "VICTUS"},
+                {"CORPUS", "MOTUS", "BESTIA"},
+                {"EXANIMIS", "VACUOS", "MORTUUS"},
+                {"SENSUS", "AER", "SPIRITUS"},
+                {"VINCULUM", "VACUOS", "SPIRITUS"},
+                {"COGNITIO", "SPIRITUS", "ORDO"},
+                {"HUMANUS", "BESTIA", "COGNITIO"},
+                {"INSTRUMENTUM", "HUMANUS", "ORDO"},
+                {"PANNUS", "INSTRUMENTUM", "BESTIA"},
+                {"FABRICO", "HUMANUS", "INSTRUMENTUM"},
+                {"LUCRUM", "HUMANUS", "FAMES"},
+                {"LIMUS", "VICTUS", "AQUA"},
+                {"GELUM", "IGNIS", "PERDITIO"},
+                {"ITER", "MOTUS", "TERRA"},
+                {"HERBA", "VICTUS", "TERRA"},
+                {"GRANUM", "HERBA", "VICTUS"},
+                {"ARBOR", "HERBA", "AER"},
+                {"MESSIS", "HERBA", "HUMANUS"},
+                {"METO", "MESSIS", "INSTRUMENTUM"},
+                {"PERFODIO", "TERRA", "VACUOS"},
+                {"SAXUM", "TERRA", "ORDO"},
+                {"VITREUS", "TERRA", "IGNIS"},
+                {"METALLUM", "TERRA", "VITREUS"},
+                {"TELUM", "INSTRUMENTUM", "IGNIS"},
+                {"MACHINA", "MOTUS", "INSTRUMENTUM"},
+                {"TUTAMEN", "INSTRUMENTUM", "TERRA"},
+        };
+        for (String[] r : recipes) {
+            aspectRecipeRepository.save(AspectRecipe.builder()
+                    .resultAspect(r[0]).componentA(r[1]).componentB(r[2])
+                    .build());
+        }
     }
 
     // One-time real content for the Portfolio page, in place of the

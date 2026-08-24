@@ -65,4 +65,13 @@ public class ResearchController {
         researchService.unlockCantrip(characterId, spellId);
         return ResponseEntity.ok().build();
     }
+
+    // Aspect crafting - a separate minigame from research (combining two
+    // held aspects per AspectRecipe), not gated by hint access or level.
+    @PostMapping("/aspects/craft")
+    public ResponseEntity<AspectCraftResponse> craftAspect(
+            @PathVariable Long characterId,
+            @RequestBody AspectCraftRequest request) {
+        return ResponseEntity.ok(researchService.craftAspect(characterId, request));
+    }
 }

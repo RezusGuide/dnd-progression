@@ -17,6 +17,7 @@ import Campaigns from './pages/Campaigns'
 import CampaignView from './pages/CampaignView'
 import CharacterSheet from './pages/CharacterSheet'
 import Research from './pages/Research'
+import AspectCraft from './pages/AspectCraft'
 
 function ProtectedRoute({ children }) {
     const { user } = useAuth()
@@ -40,6 +41,7 @@ function AppRoutes() {
             <Route path="/characters" element={<Characters />} />
             <Route path="/characters/:id" element={<CharacterSheet />} />
             <Route path="/characters/:characterId/research" element={<Research />} />
+            <Route path="/characters/:characterId/craft" element={<AspectCraft />} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 

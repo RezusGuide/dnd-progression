@@ -1,6 +1,7 @@
 package com.backend.service.impl;
 
 import com.backend.dto.*;
+import com.backend.entity.AspectRecipe;
 import com.backend.entity.Character;
 import com.backend.entity.KnownSpell;
 import com.backend.entity.ResearchDraft;
@@ -8,6 +9,7 @@ import com.backend.entity.SpellHintGrant;
 import com.backend.exception.ResearchException;
 import com.backend.model.GridAnchor;
 import com.backend.model.Spell;
+import com.backend.repository.AspectRecipeRepository;
 import com.backend.repository.CharacterRepository;
 import com.backend.repository.KnownSpellRepository;
 import com.backend.repository.ResearchDraftRepository;
@@ -19,27 +21,44 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * Ground-up rebuild of the research minigame - the earlier attempt
  * (see git history) never actually scored anything because Spell#pattern
  * (then aspectShape) was never populated from spells.json, so every
- * attempt matched 0%. See the spell-research prompt for the two-mode
- * design this implements.
+ * attempt matched 0%. See the spell-research prompts for the two-mode
+ * design and the level-gated aspect tree this implements.
  */
 @Service
 @RequiredArgsConstructor
 public class ResearchServiceImpl implements ResearchService {
 
+    // Aspect count required to attempt a research of a given spell level -
+    // inclusive on both ends. Declared for from-scratch attempts up front
+    // (targetLevel); derived from the spell's own level for hinted ones.
+    private static final Map<Integer, int[]> LEVEL_ASPECT_RANGE = Map.ofEntries(
+            Map.entry(1, new int[]{4, 6}),
+            Map.entry(2, new int[]{7, 9}),
+            Map.entry(3, new int[]{10, 15}),
+            Map.entry(4, new int[]{16, 20}),
+            Map.entry(5, new int[]{21, 26}),
+            Map.entry(6, new int[]{27, 32}),
+            Map.entry(7, new int[]{33, 37}),
+            Map.entry(8, new int[]{38, 43})
+    );
+
+    // Axial hex neighbor offsets (q, r) - standard six-direction adjacency.
+    private static final int[][] HEX_NEIGHBORS = {
+            {1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, -1}, {-1, 1}
+    };
+
     private final CharacterRepository characterRepository;
     private final KnownSpellRepository knownSpellRepository;
     private final ResearchDraftRepository draftRepository;
     private final SpellHintGrantRepository hintGrantRepository;
+    private final AspectRecipeRepository aspectRecipeRepository;
     private final SpellRegistry spellRegistry;
 
     @Override
@@ -96,9 +115,32 @@ public class ResearchServiceImpl implements ResearchService {
         Character character = requireCharacter(characterId);
         List<GridAnchor> placements = request.getPlacements() == null ? List.of() : request.getPlacements();
 
+        boolean hinted = request.getSpellId() != null && !request.getSpellId().isBlank();
+        Spell hintedSpell = null;
+        int targetLevel;
+
+        if (hinted) {
+            requireHintAccess(characterId, request.getSpellId());
+            hintedSpell = spellRegistry.getSpell(request.getSpellId());
+            if (hintedSpell.getLevel() < SpellRegistry.MIN_RESEARCHABLE_LEVEL || hintedSpell.getLevel() > SpellRegistry.MAX_RESEARCHABLE_LEVEL) {
+                throw new ResearchException("Only level " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
+                        + "-" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " spells can be researched.");
+            }
+            targetLevel = hintedSpell.getLevel();
+        } else {
+            if (request.getTargetLevel() == null) {
+                throw new ResearchException("Pick a target level before researching from scratch.");
+            }
+            targetLevel = request.getTargetLevel();
+        }
+
+        requireValidAspectCount(targetLevel, placements.size());
+        requireConnected(placements, hinted ? hintedSpell.getPattern() : null);
+
         // Every attempt spends the aspects placed, successful or not -
         // validate the whole attempt is affordable before deducting
-        // anything, so a failed attempt can't leave the pouch half-charged.
+        // anything, so a failed/rejected attempt can't leave the pouch
+        // half-charged.
         Map<String, Integer> usage = new HashMap<>();
         for (GridAnchor a : placements) {
             usage.merge(a.getAspect(), 1, Integer::sum);
@@ -113,24 +155,21 @@ public class ResearchServiceImpl implements ResearchService {
         }
         usage.forEach((aspect, used) -> pouch.merge(aspect, -used, Integer::sum));
 
-        boolean hinted = request.getSpellId() != null && !request.getSpellId().isBlank();
         Spell targetSpell;
         int accuracy;
 
         if (hinted) {
-            requireHintAccess(characterId, request.getSpellId());
-            targetSpell = spellRegistry.getSpell(request.getSpellId());
-            if (targetSpell.getLevel() < 1 || targetSpell.getLevel() > 2) {
-                throw new ResearchException("Only level 1-2 spells can be researched.");
-            }
+            targetSpell = hintedSpell;
             accuracy = matchPercentage(targetSpell.getPattern(), placements);
         } else {
             // Mode 1: no spell was picked ahead of time - score the attempt
-            // against every researchable spell and see what it best
-            // resembles, capped at 80% since this is invention, not replication.
+            // against every catalog spell AT the declared target level (the
+            // level the player committed aspects toward) and see what it
+            // best resembles, capped at 80% since this is invention, not
+            // replication.
             Spell best = null;
             int bestScore = -1;
-            for (Spell candidate : spellRegistry.getResearchableSpells()) {
+            for (Spell candidate : spellRegistry.getSpellsByLevel(targetLevel)) {
                 int score = matchPercentage(candidate.getPattern(), placements);
                 if (score > bestScore) {
                     bestScore = score;
@@ -138,7 +177,7 @@ public class ResearchServiceImpl implements ResearchService {
                 }
             }
             if (best == null) {
-                throw new ResearchException("No researchable spells exist in the catalog yet.");
+                throw new ResearchException("No researchable spells exist at level " + targetLevel + " in the catalog yet.");
             }
             targetSpell = best;
             accuracy = Math.min(bestScore, 80);
@@ -175,6 +214,50 @@ public class ResearchServiceImpl implements ResearchService {
     }
 
     @Override
+    @Transactional
+    public AspectCraftResponse craftAspect(Long characterId, AspectCraftRequest request) {
+        String a = request.getAspectA();
+        String b = request.getAspectB();
+        if (a == null || a.isBlank() || b == null || b.isBlank()) {
+            throw new ResearchException("Pick two aspects to combine.");
+        }
+
+        Character character = requireCharacter(characterId);
+        Map<String, Integer> pouch = character.getAspects();
+
+        Map<String, Integer> required = new HashMap<>();
+        required.merge(a, 1, Integer::sum);
+        required.merge(b, 1, Integer::sum);
+        for (Map.Entry<String, Integer> entry : required.entrySet()) {
+            int have = pouch.getOrDefault(entry.getKey(), 0);
+            if (have < entry.getValue()) {
+                throw new ResearchException("You don't hold enough " + entry.getKey() + " to attempt that combination.");
+            }
+        }
+
+        Optional<AspectRecipe> recipe = aspectRecipeRepository.findByComponentAAndComponentB(a, b)
+                .or(() -> aspectRecipeRepository.findByComponentAAndComponentB(b, a));
+
+        if (recipe.isEmpty()) {
+            // No match - nothing consumed, per the aspect-crafting prompt.
+            return AspectCraftResponse.builder()
+                    .success(false)
+                    .message("That combination doesn't produce anything.")
+                    .build();
+        }
+
+        required.forEach((aspect, used) -> pouch.merge(aspect, -used, Integer::sum));
+        pouch.merge(recipe.get().getResultAspect(), 1, Integer::sum);
+        characterRepository.save(character);
+
+        return AspectCraftResponse.builder()
+                .success(true)
+                .resultAspect(recipe.get().getResultAspect())
+                .message("Combined into " + recipe.get().getResultAspect() + "!")
+                .build();
+    }
+
+    @Override
     public String getDraftState(Long characterId, String spellId) {
         return draftRepository.findByCharacterIdAndSpellId(characterId, spellId)
                 .map(ResearchDraft::getCurrentGridState)
@@ -207,8 +290,9 @@ public class ResearchServiceImpl implements ResearchService {
     @Transactional
     public void grantHint(HintGrantRequest request) {
         Spell spell = spellRegistry.getSpell(request.getSpellId());
-        if (spell.getLevel() < 1 || spell.getLevel() > 2) {
-            throw new ResearchException("Hint access only applies to level 1-2 spells.");
+        if (spell.getLevel() < SpellRegistry.MIN_RESEARCHABLE_LEVEL || spell.getLevel() > SpellRegistry.MAX_RESEARCHABLE_LEVEL) {
+            throw new ResearchException("Hint access only applies to level " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
+                    + "-" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " spells.");
         }
         if (hintGrantRepository.existsByCharacterIdAndSpellId(request.getCharacterId(), request.getSpellId())) {
             return; // already granted - idempotent
@@ -233,6 +317,62 @@ public class ResearchServiceImpl implements ResearchService {
                 .id(s.getId()).name(s.getName()).level(s.getLevel()).description(s.getDescription())
                 .castingTime(s.getCastingTime()).range(s.getRange()).components(s.getComponents()).duration(s.getDuration())
                 .build();
+    }
+
+    private void requireValidAspectCount(int level, int count) {
+        int[] range = LEVEL_ASPECT_RANGE.get(level);
+        if (range == null) {
+            throw new ResearchException("Level " + level + " isn't researchable.");
+        }
+        if (count < range[0]) {
+            throw new ResearchException("That's not enough aspects for a level " + level
+                    + " attempt (need " + range[0] + "-" + range[1] + ", placed " + count + ").");
+        }
+        if (count > range[1]) {
+            throw new ResearchException("That's too many aspects for a level " + level
+                    + " attempt (need " + range[0] + "-" + range[1] + ", placed " + count + ").");
+        }
+    }
+
+    // Every placed aspect must be adjacent to at least one other placed
+    // aspect - a flood-fill from any one cell must reach all the others.
+    // In hinted mode, the guide pattern's cells are folded into the same
+    // connectivity graph (per the spell-research prompt: "the player's
+    // placements need to stay connected to the shown guide pattern too"),
+    // so a technically-self-connected blob placed nowhere near the guide
+    // still gets rejected here instead of just silently scoring 0%.
+    private void requireConnected(List<GridAnchor> placements, List<GridAnchor> guide) {
+        Map<String, int[]> cells = new HashMap<>();
+        for (GridAnchor a : placements) {
+            cells.put(a.getQ() + "," + a.getR(), new int[]{a.getQ(), a.getR()});
+        }
+        if (guide != null) {
+            for (GridAnchor a : guide) {
+                cells.put(a.getQ() + "," + a.getR(), new int[]{a.getQ(), a.getR()});
+            }
+        }
+        if (cells.size() <= 1) return;
+
+        Set<String> visited = new HashSet<>();
+        Deque<String> stack = new ArrayDeque<>();
+        String start = cells.keySet().iterator().next();
+        stack.push(start);
+        visited.add(start);
+        while (!stack.isEmpty()) {
+            int[] c = cells.get(stack.pop());
+            for (int[] offset : HEX_NEIGHBORS) {
+                String neighborKey = (c[0] + offset[0]) + "," + (c[1] + offset[1]);
+                if (cells.containsKey(neighborKey) && visited.add(neighborKey)) {
+                    stack.push(neighborKey);
+                }
+            }
+        }
+
+        if (visited.size() != cells.size()) {
+            throw new ResearchException(guide != null
+                    ? "Your placed aspects must connect to each other and to the guide pattern."
+                    : "Your placed aspects must all connect to form one shape.");
+        }
     }
 
     // Straight set-intersection over (aspect, q, r) triples - a placement

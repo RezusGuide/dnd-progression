@@ -17,6 +17,10 @@ public interface ResearchService {
 
     ResearchAttemptResponse attemptResearch(Long characterId, ResearchAttemptRequest request);
 
+    // Aspect crafting: separate minigame from research, combining two held
+    // aspects into a new one per AspectRecipe.
+    AspectCraftResponse craftAspect(Long characterId, AspectCraftRequest request);
+
     String getDraftState(Long characterId, String spellId);
 
     void saveDraftState(Long characterId, String spellId, String gridState);

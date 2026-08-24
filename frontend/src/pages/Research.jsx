@@ -2,11 +2,20 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { ASPECTS } from '../constants/aspects'
+import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 
 const HEX_SIZE = 35
 const GRID_RADIUS = 4
+
+// Mirrors ResearchServiceImpl.LEVEL_ASPECT_RANGE - kept in sync manually,
+// same as the backend's own comment says to do when correcting a
+// mistranscribed aspect pairing.
+const LEVEL_ASPECT_RANGE = { 1: [4, 6], 2: [7, 9], 3: [10, 15], 4: [16, 20], 5: [21, 26], 6: [27, 32], 7: [33, 37], 8: [38, 43] }
+const RESEARCHABLE_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8]
+
+// Mirrors ResearchServiceImpl.HEX_NEIGHBORS.
+const HEX_NEIGHBORS = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, -1], [-1, 1]]
 
 const hexPoints = () => {
     const points = []
@@ -36,6 +45,28 @@ const usageOf = (nodes) => {
     return usage
 }
 
+// Flood-fill over placed cells (plus the guide pattern's cells in hinted
+// mode) - a client-side mirror of ResearchServiceImpl#requireConnected, so
+// the player gets immediate feedback instead of only finding out on submit.
+function isConnected(placedKeys, guideKeys) {
+    const cells = new Set([...placedKeys, ...guideKeys])
+    if (cells.size <= 1) return true
+    const start = cells.values().next().value
+    const visited = new Set([start])
+    const stack = [start]
+    while (stack.length) {
+        const [q, r] = stack.pop().split(',').map(Number)
+        for (const [dq, dr] of HEX_NEIGHBORS) {
+            const neighborKey = `${q + dq},${r + dr}`
+            if (cells.has(neighborKey) && !visited.has(neighborKey)) {
+                visited.add(neighborKey)
+                stack.push(neighborKey)
+            }
+        }
+    }
+    return visited.size === cells.size
+}
+
 export default function Research() {
     const { characterId } = useParams()
     const navigate = useNavigate()
@@ -45,6 +76,7 @@ export default function Research() {
 
     const [character, setCharacter] = useState(null)
     const [mode, setMode] = useState('scratch') // 'scratch' | 'hinted'
+    const [targetLevel, setTargetLevel] = useState(1)
     const [hintedSpells, setHintedSpells] = useState([])
     const [selectedSpellId, setSelectedSpellId] = useState('')
     const [guidePattern, setGuidePattern] = useState([])
@@ -93,6 +125,17 @@ export default function Research() {
 
     const pouch = character.aspects || {}
     const usage = usageOf(placedNodes)
+    const placedKeys = Object.keys(placedNodes)
+    const guideKeys = mode === 'hinted' ? guidePattern.map((a) => `${a.q},${a.r}`) : []
+
+    const activeLevel = mode === 'hinted'
+        ? (hintedSpells.find((s) => s.id === selectedSpellId)?.level ?? null)
+        : targetLevel
+    const range = activeLevel ? LEVEL_ASPECT_RANGE[activeLevel] : null
+    const countInRange = range ? placedKeys.length >= range[0] && placedKeys.length <= range[1] : false
+    const connected = isConnected(placedKeys, guideKeys)
+    const canSubmit = canResearch && !submitting && placedKeys.length > 0 && countInRange && connected
+        && (mode === 'scratch' || !!selectedSpellId)
 
     const handleHexClick = (q, r) => {
         if (!canResearch) return
@@ -145,6 +188,7 @@ export default function Research() {
             })
             const res = await api.post(`/api/characters/${characterId}/research/attempt`, {
                 spellId: mode === 'hinted' ? selectedSpellId : null,
+                targetLevel: mode === 'scratch' ? targetLevel : undefined,
                 placements,
             })
             setResult(res.data)
@@ -185,6 +229,20 @@ export default function Research() {
                     {mode === 'scratch' ? t('researchScratchHint') : t('researchHintedHint')}
                 </p>
 
+                {mode === 'scratch' && (
+                    <select
+                        className="research-spell-select"
+                        value={targetLevel}
+                        onChange={(e) => setTargetLevel(Number(e.target.value))}
+                    >
+                        {RESEARCHABLE_LEVELS.map((lvl) => (
+                            <option key={lvl} value={lvl}>
+                                {t('level')} {lvl} ({LEVEL_ASPECT_RANGE[lvl][0]}-{LEVEL_ASPECT_RANGE[lvl][1]} {t('researchAspectCost')})
+                            </option>
+                        ))}
+                    </select>
+                )}
+
                 {mode === 'hinted' && (
                     <select
                         className="research-spell-select"
@@ -199,19 +257,20 @@ export default function Research() {
                     <p className="tome-subtitle">{t('researchNoHinted')}</p>
                 )}
 
-                <div className="aspect-palette">
-                    {ASPECTS.map((a) => (
-                        <button
-                            key={a.key}
-                            type="button"
-                            className={`aspect-btn ${activeAspect === a.key ? 'active' : ''}`}
-                            onClick={() => setActiveAspect(a.key)}
-                            title={t(a.descKey)}
-                        >
-                            {t(a.labelKey)} ({Math.max(0, (pouch[a.key] || 0) - (usage[a.key] || 0))})
-                        </button>
-                    ))}
-                </div>
+                <select
+                    className="research-spell-select"
+                    value={activeAspect}
+                    onChange={(e) => setActiveAspect(e.target.value)}
+                >
+                    {ASPECTS.map((a) => {
+                        const remaining = Math.max(0, (pouch[a.key] || 0) - (usage[a.key] || 0))
+                        return (
+                            <option key={a.key} value={a.key} disabled={remaining === 0}>
+                                {aspectLabel(a.key)} ({remaining})
+                            </option>
+                        )
+                    })}
+                </select>
 
                 {(mode === 'scratch' || selectedSpellId) && (
                     <>
@@ -231,7 +290,7 @@ export default function Research() {
                                         <polygon points={hexPoints()} className={hexClass} />
                                         {(placedAspect || guideAspect) && (
                                             <text textAnchor="middle" alignmentBaseline="middle" fontSize="10" fill="#f4ecd8" fontFamily="Cinzel" pointerEvents="none">
-                                                {(placedAspect || guideAspect).slice(0, 3)}
+                                                {aspectLabel(placedAspect || guideAspect).slice(0, 4)}
                                             </text>
                                         )}
                                     </g>
@@ -239,16 +298,24 @@ export default function Research() {
                             })}
                         </svg>
 
-                        <div className="research-cost-row">
+                        <div className="research-cost-row" style={{ flexDirection: 'column', gap: '0.4rem' }}>
                             <div>
                                 <h3 className="tome-field-label">{t('researchAspectCost')}</h3>
                                 <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.4rem', justifyContent: 'center' }}>
                                     {Object.keys(usage).length === 0 && <span className="beyond-readonly-empty">—</span>}
                                     {Object.entries(usage).map(([aspect, count]) => (
-                                        <span key={aspect} className="meta-tag">{aspect}: {count}</span>
+                                        <span key={aspect} className="meta-tag">{aspectLabel(aspect)}: {count}</span>
                                     ))}
                                 </div>
                             </div>
+                            {range && (
+                                <p style={{ textAlign: 'center', margin: 0, color: countInRange ? 'var(--ink)' : 'var(--crimson)' }}>
+                                    {t('researchAspectsPlaced')}: {placedKeys.length} / {range[0]}-{range[1]}
+                                </p>
+                            )}
+                            {placedKeys.length > 0 && !connected && (
+                                <p style={{ textAlign: 'center', margin: 0, color: 'var(--crimson)' }}>{t('researchNotConnected')}</p>
+                            )}
                         </div>
 
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -262,7 +329,7 @@ export default function Research() {
                                 type="button"
                                 className="aspect-btn active"
                                 onClick={handleSubmit}
-                                disabled={!canResearch || submitting || Object.keys(placedNodes).length === 0}
+                                disabled={!canSubmit}
                             >{t('researchSubmit')}</button>
                         </div>
                     </>

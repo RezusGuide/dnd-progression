@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { ASPECTS } from '../constants/aspects'
+import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 import '../styles/beyond.css'
 
@@ -557,14 +557,17 @@ export default function CharacterSheet() {
                         {/* Material pouch - read-only from the player's side; only a DM
                             grant (Admin.jsx) or a research attempt changes these counts. */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">{t('sheetMaterialPouch')}</h2>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                                <h2 className="beyond-card-title" style={{ margin: 0, border: 0, padding: 0 }}>{t('sheetMaterialPouch')}</h2>
+                                <Link to={`/characters/${id}/craft`} className="beyond-add-btn" style={{ marginTop: 0, textDecoration: 'none', display: 'inline-block' }}>{t('sheetCraftAspects')}</Link>
+                            </div>
                             {Object.values(character.aspects || {}).every((n) => !n) && (
                                 <p className="beyond-readonly-empty">{t('sheetPouchEmpty')}</p>
                             )}
                             {ASPECTS.filter((a) => (character.aspects?.[a.key] || 0) > 0).map((a) => (
                                 <div key={a.key} className="beyond-prof-row">
                                     <div className="beyond-prof-left">
-                                        <span className="beyond-prof-name">{t(a.labelKey)}</span>
+                                        <span className="beyond-prof-name">{aspectLabel(a.key)}</span>
                                         <span className="beyond-prof-ability">— {t(a.descKey)}</span>
                                     </div>
                                     <span className="beyond-prof-bonus">{character.aspects[a.key]}</span>
