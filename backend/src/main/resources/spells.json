@@ -4097,5 +4097,1744 @@
         "r": -1
       }
     ]
+  },
+  {
+    "id": "animate-dead",
+    "name": "Animate Dead",
+    "level": 3,
+    "description": "Raise a corpse or bones as an undead servant obedient to your will.",
+    "castingTime": "1 minute",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "EXANIMIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "aura-of-vitality",
+    "name": "Aura of Vitality",
+    "level": 3,
+    "description": "A healing aura surrounds you, letting you channel vitality into wounded allies as a bonus action.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "beacon-of-hope",
+    "name": "Beacon of Hope",
+    "level": 3,
+    "description": "Bolster the resolve of those around you, granting advantage on saves against despair and on death saves.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "bestow-curse",
+    "name": "Bestow Curse",
+    "level": 3,
+    "description": "Touch a creature and lay a curse on it, hindering its every effort.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "blinding-smite",
+    "name": "Blinding Smite",
+    "level": 3,
+    "description": "Your next weapon hit flares with radiance, dealing extra damage and blinding the target.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "call-lightning",
+    "name": "Call Lightning",
+    "level": 3,
+    "description": "Summon a storm cloud that lets you call down bolts of lightning at will.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "clairvoyance",
+    "name": "Clairvoyance",
+    "level": 3,
+    "description": "Create an invisible sensor at a distant location, letting you see or hear through it.",
+    "castingTime": "10 minutes",
+    "range": "1 mile",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "conjure-animals",
+    "name": "Conjure Animals",
+    "level": 3,
+    "description": "Summon a fey spirit that takes the form of beasts to fight at your side.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "conjure-barrage",
+    "name": "Conjure Barrage",
+    "level": 3,
+    "description": "Hurl a spectral duplicate of a weapon that explodes outward, striking everything in a cone.",
+    "castingTime": "1 action",
+    "range": "Self (60-foot cone)",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "counterspell",
+    "name": "Counterspell",
+    "level": 3,
+    "description": "Interrupt a creature in the process of casting a spell, unraveling it before it takes effect.",
+    "castingTime": "1 reaction",
+    "range": "60 feet",
+    "components": "S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "create-food-and-water",
+    "name": "Create Food and Water",
+    "level": 3,
+    "description": "Conjure a feast of simple food and clean water, enough to sustain a small group.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "crusaders-mantle",
+    "name": "Crusader's Mantle",
+    "level": 3,
+    "description": "A field of radiant power surrounds you, adding holy force to the weapon strikes of nearby allies.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "daylight",
+    "name": "Daylight",
+    "level": 3,
+    "description": "A 60-foot radius of true sunlight springs from a point you choose, banishing darkness.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "dispel-magic",
+    "name": "Dispel Magic",
+    "level": 3,
+    "description": "Choose a creature, object, or effect within range and end the magical effects on it.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "elemental-weapon",
+    "name": "Elemental Weapon",
+    "level": 3,
+    "description": "A weapon is imbued with one of the elements, gaining a bonus and extra elemental damage on hit.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "fear",
+    "name": "Fear",
+    "level": 3,
+    "description": "Project a phantasmal image of your most terrible aspect, sending creatures in a cone fleeing in terror.",
+    "castingTime": "1 action",
+    "range": "Self (30-foot cone)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "feign-death",
+    "name": "Feign Death",
+    "level": 3,
+    "description": "A willing creature falls into a deathlike trance, appearing dead to all inspection.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "fly",
+    "name": "Fly",
+    "level": 3,
+    "description": "A creature you touch gains a flying speed for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "gaseous-form",
+    "name": "Gaseous Form",
+    "level": 3,
+    "description": "A willing creature transforms into a misty cloud, able to seep through cracks and float on the air.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "glyph-of-warding",
+    "name": "Glyph of Warding",
+    "level": 3,
+    "description": "Inscribe a glyph that unleashes a stored spell or explosion when its trigger condition is met.",
+    "castingTime": "1 hour (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "haste",
+    "name": "Haste",
+    "level": 3,
+    "description": "A willing creature's speed doubles and its reactions sharpen for the duration.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "hunger-of-hadar",
+    "name": "Hunger of Hadar",
+    "level": 3,
+    "description": "A rift to a starless void opens, filling an area with grasping cold and gnawing hunger.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "hypnotic-pattern",
+    "name": "Hypnotic Pattern",
+    "level": 3,
+    "description": "A twisting pattern of colors weaves through the air, leaving those who see it dazed and captivated.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "leomunds-tiny-hut",
+    "name": "Leomund's Tiny Hut",
+    "level": 3,
+    "description": "A shimmering dome of force springs up around you, sheltering you and your companions from the world.",
+    "castingTime": "1 minute",
+    "range": "Self (10-foot radius)",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "lightning-arrow",
+    "name": "Lightning Arrow",
+    "level": 3,
+    "description": "Your next ranged weapon hit crackles with lightning, striking the target and arcing to those nearby.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "lightning-bolt",
+    "name": "Lightning Bolt",
+    "level": 3,
+    "description": "A stroke of lightning blasts out from you in a line, striking everything in its path.",
+    "castingTime": "1 action",
+    "range": "Self (100-foot line)",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "magic-circle",
+    "name": "Magic Circle",
+    "level": 3,
+    "description": "Draw a 10-foot cylinder of protection that wards against a chosen kind of extraplanar creature.",
+    "castingTime": "1 minute",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "major-image",
+    "name": "Major Image",
+    "level": 3,
+    "description": "A convincing illusion of an object, creature, or effect, complete with sound and smell.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "mass-healing-word",
+    "name": "Mass Healing Word",
+    "level": 3,
+    "description": "Speak a word of restoration and up to six creatures within range regain hit points.",
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "meld-into-stone",
+    "name": "Meld into Stone",
+    "level": 3,
+    "description": "Step into a stone surface and merge your body with it, hiding within the rock itself.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "nondetection",
+    "name": "Nondetection",
+    "level": 3,
+    "description": "Hide a creature, object, or place from divination magic and scrying for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "phantom-steed",
+    "name": "Phantom Steed",
+    "level": 3,
+    "description": "A quasi-real, horselike creature takes shape to carry a rider swiftly over long distances.",
+    "castingTime": "1 minute (ritual)",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "plant-growth",
+    "name": "Plant Growth",
+    "level": 3,
+    "description": "Overgrow an area with lush vegetation, or enrich the land so its plants flourish for a season.",
+    "castingTime": "1 action or 8 hours",
+    "range": "150 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ARBOR",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "protection-from-energy",
+    "name": "Protection from Energy",
+    "level": 3,
+    "description": "A creature gains resistance to one damage type of your choosing for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "remove-curse",
+    "name": "Remove Curse",
+    "level": 3,
+    "description": "End all curses afflicting a creature, or break the binding holding a creature planebound.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "revivify",
+    "name": "Revivify",
+    "level": 3,
+    "description": "Return a creature slain within the last minute to life, so long as its body remains whole.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "sending",
+    "name": "Sending",
+    "level": 3,
+    "description": "Send a short telepathic message to a creature you know anywhere, with a reply if it chooses.",
+    "castingTime": "1 action",
+    "range": "Unlimited",
+    "components": "V, S, M",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "sleet-storm",
+    "name": "Sleet Storm",
+    "level": 3,
+    "description": "Freezing rain and sleet fall in the area, coating the ground in slick ice and obscuring vision.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "GELUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "speak-with-dead",
+    "name": "Speak with Dead",
+    "level": 3,
+    "description": "A corpse's spirit is compelled to answer up to five questions truthfully, as best it can.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "duration": "10 minutes",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "speak-with-plants",
+    "name": "Speak with Plants",
+    "level": 3,
+    "description": "Plants in the area gain limited sentience and mobility, able to converse and act on your request.",
+    "castingTime": "1 action",
+    "range": "Self (30-foot radius)",
+    "components": "V, S",
+    "duration": "10 minutes",
+    "pattern": [
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ARBOR",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "spirit-guardians",
+    "name": "Spirit Guardians",
+    "level": 3,
+    "description": "Spectral guardians flock around you, wounding hostile creatures who come near.",
+    "castingTime": "1 action",
+    "range": "Self (15-foot radius)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "stinking-cloud",
+    "name": "Stinking Cloud",
+    "level": 3,
+    "description": "A nauseating gas billows out, causing creatures inside to retch and gag.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "tongues",
+    "name": "Tongues",
+    "level": 3,
+    "description": "A creature you touch understands and can speak any language for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "vampiric-touch",
+    "name": "Vampiric Touch",
+    "level": 3,
+    "description": "Your touch withers life and channels the stolen vitality into your own wounds.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "water-breathing",
+    "name": "Water Breathing",
+    "level": 3,
+    "description": "Up to ten willing creatures gain the ability to breathe underwater for the duration.",
+    "castingTime": "1 action (ritual)",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SANO",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "water-walk",
+    "name": "Water Walk",
+    "level": 3,
+    "description": "Up to ten willing creatures gain the ability to move across any liquid surface as if it were solid ground.",
+    "castingTime": "1 action (ritual)",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": -1
+      }
+    ]
+  },
+  {
+    "id": "wind-wall",
+    "name": "Wind Wall",
+    "level": 3,
+    "description": "A wall of strong wind rises, deflecting arrows, gasses, and small creatures away from it.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": -1
+      }
+    ]
   }
 ]
