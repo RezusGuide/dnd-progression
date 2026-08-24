@@ -44,6 +44,248 @@
     "pattern": []
   },
   {
+    "id": "acid-splash",
+    "name": "Acid Splash",
+    "level": 0,
+    "description": "Hurl a bubble of acid at one or two creatures within range.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "blade-ward",
+    "name": "Blade Ward",
+    "level": 0,
+    "description": "Ward yourself against physical harm, gaining resistance to bludgeoning, piercing, and slashing damage until your next turn.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "1 round",
+    "pattern": []
+  },
+  {
+    "id": "chill-touch",
+    "name": "Chill Touch",
+    "level": 0,
+    "description": "A ghostly, skeletal hand reaches out to assail a creature with the chill of the grave.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "1 round",
+    "pattern": []
+  },
+  {
+    "id": "dancing-lights",
+    "name": "Dancing Lights",
+    "level": 0,
+    "description": "Create up to four torch-sized lights that hover and move as you direct.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": []
+  },
+  {
+    "id": "druidcraft",
+    "name": "Druidcraft",
+    "level": 0,
+    "description": "Call up a minor nature effect, such as predicting the weather or making a flower bloom.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "friends",
+    "name": "Friends",
+    "level": 0,
+    "description": "Gain advantage on Charisma checks toward one creature, who becomes hostile once the spell ends.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": []
+  },
+  {
+    "id": "guidance",
+    "name": "Guidance",
+    "level": 0,
+    "description": "Touch a willing creature and give it an extra d4 to add to one ability check of its choice.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": []
+  },
+  {
+    "id": "light",
+    "name": "Light",
+    "level": 0,
+    "description": "Make an object shed bright light in a 20-foot radius.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, M",
+    "duration": "1 hour",
+    "pattern": []
+  },
+  {
+    "id": "mending",
+    "name": "Mending",
+    "level": 0,
+    "description": "Mend a single break or tear in an object you touch.",
+    "castingTime": "1 minute",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "message",
+    "name": "Message",
+    "level": 0,
+    "description": "Whisper a message to a creature of your choice within range, heard only by that creature.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "1 round",
+    "pattern": []
+  },
+  {
+    "id": "poison-spray",
+    "name": "Poison Spray",
+    "level": 0,
+    "description": "Extend your hand toward a creature and project a puff of noxious gas.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "prestidigitation",
+    "name": "Prestidigitation",
+    "level": 0,
+    "description": "Perform a minor magical trick - a spark, a smell, a small sensory flourish.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S",
+    "duration": "Up to 1 hour",
+    "pattern": []
+  },
+  {
+    "id": "produce-flame",
+    "name": "Produce Flame",
+    "level": 0,
+    "description": "A flickering flame appears in your hand, usable to light the way or thrown as an attack.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "10 minutes",
+    "pattern": []
+  },
+  {
+    "id": "resistance",
+    "name": "Resistance",
+    "level": 0,
+    "description": "Touch a willing creature and give it an extra d4 to add to one saving throw of its choice.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": []
+  },
+  {
+    "id": "sacred-flame",
+    "name": "Sacred Flame",
+    "level": 0,
+    "description": "Flame-like radiance descends on a creature you can see, searing it with holy fire.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "shillelagh",
+    "name": "Shillelagh",
+    "level": 0,
+    "description": "Imbue a club or quarterstaff with nature's power, letting it strike with magical force.",
+    "castingTime": "1 bonus action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": []
+  },
+  {
+    "id": "shocking-grasp",
+    "name": "Shocking Grasp",
+    "level": 0,
+    "description": "Lightning springs from your hand into a creature you're touching, and it can't take reactions until your next turn.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "spare-the-dying",
+    "name": "Spare the Dying",
+    "level": 0,
+    "description": "Touch a living creature with 0 hit points to stabilize it.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "thaumaturgy",
+    "name": "Thaumaturgy",
+    "level": 0,
+    "description": "Manifest a minor wonder - a tremor, a flickering flame, a booming voice.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V",
+    "duration": "Up to 1 minute",
+    "pattern": []
+  },
+  {
+    "id": "thorn-whip",
+    "name": "Thorn Whip",
+    "level": 0,
+    "description": "A vine-like whip lashes out at a creature, dealing damage and pulling it closer.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "true-strike",
+    "name": "True Strike",
+    "level": 0,
+    "description": "Focus your mind on one creature to gain insight into your next attack against it.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "S",
+    "duration": "Concentration, up to 1 round",
+    "pattern": []
+  },
+  {
+    "id": "vicious-mockery",
+    "name": "Vicious Mockery",
+    "level": 0,
+    "description": "Unleash an insult laced with subtle enchantments at a creature you can see.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
     "id": "burning-hands",
     "name": "Burning Hands",
     "level": 1,
@@ -55,8 +297,7 @@
     "pattern": [
       { "aspect": "IGNIS", "q": 0, "r": 0 },
       { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 2, "r": 0 },
-      { "aspect": "PERDITIO", "q": 3, "r": 0 }
+      { "aspect": "AER", "q": 0, "r": 1 }
     ]
   },
   {
@@ -71,8 +312,8 @@
     "pattern": [
       { "aspect": "AQUA", "q": 0, "r": 0 },
       { "aspect": "ORDO", "q": 1, "r": 0 },
-      { "aspect": "VICTUS", "q": 2, "r": 0 },
-      { "aspect": "AQUA", "q": 3, "r": 0 }
+      { "aspect": "VICTUS", "q": 0, "r": 1 },
+      { "aspect": "SANO", "q": 1, "r": -1 }
     ]
   },
   {
@@ -87,8 +328,8 @@
     "pattern": [
       { "aspect": "ORDO", "q": 0, "r": 0 },
       { "aspect": "TERRA", "q": 1, "r": 0 },
-      { "aspect": "ORDO", "q": 2, "r": 0 },
-      { "aspect": "PERDITIO", "q": 3, "r": 0 }
+      { "aspect": "PERDITIO", "q": -1, "r": 0 },
+      { "aspect": "TUTAMEN", "q": 0, "r": 1 }
     ]
   },
   {
@@ -103,11 +344,9 @@
     "pattern": [
       { "aspect": "IGNIS", "q": 0, "r": 0 },
       { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 2, "r": 0 },
-      { "aspect": "PERDITIO", "q": 3, "r": 0 },
-      { "aspect": "IGNIS", "q": 4, "r": 0 },
-      { "aspect": "AER", "q": 5, "r": 0 },
-      { "aspect": "PERDITIO", "q": 6, "r": 0 }
+      { "aspect": "IGNIS", "q": 1, "r": -1 },
+      { "aspect": "AER", "q": 0, "r": -1 },
+      { "aspect": "LUX", "q": 2, "r": 0 }
     ]
   },
   {
@@ -122,11 +361,8 @@
     "pattern": [
       { "aspect": "TERRA", "q": 0, "r": 0 },
       { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "ORDO", "q": 2, "r": 0 },
-      { "aspect": "VACUOS", "q": 3, "r": 0 },
-      { "aspect": "TERRA", "q": 4, "r": 0 },
-      { "aspect": "AQUA", "q": 5, "r": 0 },
-      { "aspect": "ORDO", "q": 6, "r": 0 }
+      { "aspect": "ORDO", "q": 0, "r": 1 },
+      { "aspect": "VINCULUM", "q": 1, "r": -1 }
     ]
   },
   {
@@ -141,12 +377,10 @@
     "pattern": [
       { "aspect": "IGNIS", "q": 0, "r": 0 },
       { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "IGNIS", "q": 2, "r": 0 },
-      { "aspect": "PERDITIO", "q": 3, "r": 0 },
-      { "aspect": "PERDITIO", "q": 4, "r": 0 },
-      { "aspect": "AER", "q": 5, "r": 0 },
-      { "aspect": "AER", "q": 6, "r": 0 },
-      { "aspect": "VOLATUS", "q": 7, "r": 0 }
+      { "aspect": "IGNIS", "q": 1, "r": -1 },
+      { "aspect": "PERDITIO", "q": 0, "r": -1 },
+      { "aspect": "AER", "q": 0, "r": 1 },
+      { "aspect": "VOLATUS", "q": 2, "r": 0 }
     ]
   },
   {
@@ -161,12 +395,11 @@
     "pattern": [
       { "aspect": "AQUA", "q": 0, "r": 0 },
       { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "AQUA", "q": 2, "r": 0 },
-      { "aspect": "PERDITIO", "q": 3, "r": 0 },
-      { "aspect": "PERDITIO", "q": 4, "r": 0 },
-      { "aspect": "AER", "q": 5, "r": 0 },
-      { "aspect": "TERRA", "q": 6, "r": 0 },
-      { "aspect": "GELUM", "q": 7, "r": 0 }
+      { "aspect": "PERDITIO", "q": 1, "r": -1 },
+      { "aspect": "AER", "q": 0, "r": -1 },
+      { "aspect": "TERRA", "q": 0, "r": 1 },
+      { "aspect": "GELUM", "q": 2, "r": 0 },
+      { "aspect": "TEMPESTAS", "q": 2, "r": -1 }
     ]
   },
   {
@@ -181,13 +414,12 @@
     "pattern": [
       { "aspect": "AQUA", "q": 0, "r": 0 },
       { "aspect": "AQUA", "q": 1, "r": 0 },
-      { "aspect": "AQUA", "q": 2, "r": 0 },
-      { "aspect": "GELUM", "q": 3, "r": 0 },
-      { "aspect": "GELUM", "q": 4, "r": 0 },
-      { "aspect": "PERDITIO", "q": 5, "r": 0 },
-      { "aspect": "PERDITIO", "q": 6, "r": 0 },
-      { "aspect": "AER", "q": 7, "r": 0 },
-      { "aspect": "AER", "q": 8, "r": 0 }
+      { "aspect": "GELUM", "q": 1, "r": -1 },
+      { "aspect": "GELUM", "q": 0, "r": -1 },
+      { "aspect": "PERDITIO", "q": 0, "r": 1 },
+      { "aspect": "PERDITIO", "q": -1, "r": 0 },
+      { "aspect": "AER", "q": 2, "r": 0 },
+      { "aspect": "TEMPESTAS", "q": 2, "r": -1 }
     ]
   },
   {
@@ -202,13 +434,13 @@
     "pattern": [
       { "aspect": "AER", "q": 0, "r": 0 },
       { "aspect": "AER", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 2, "r": 0 },
-      { "aspect": "IGNIS", "q": 3, "r": 0 },
-      { "aspect": "IGNIS", "q": 4, "r": 0 },
-      { "aspect": "ORDO", "q": 5, "r": 0 },
-      { "aspect": "TEMPESTAS", "q": 6, "r": 0 },
-      { "aspect": "TEMPESTAS", "q": 7, "r": 0 },
-      { "aspect": "VOLATUS", "q": 8, "r": 0 }
+      { "aspect": "AER", "q": 1, "r": -1 },
+      { "aspect": "IGNIS", "q": 0, "r": -1 },
+      { "aspect": "IGNIS", "q": -1, "r": 1 },
+      { "aspect": "ORDO", "q": 0, "r": 1 },
+      { "aspect": "TEMPESTAS", "q": 2, "r": 0 },
+      { "aspect": "TEMPESTAS", "q": 2, "r": -1 },
+      { "aspect": "VOLATUS", "q": 0, "r": -2 }
     ]
   },
   {
@@ -223,13 +455,14 @@
     "pattern": [
       { "aspect": "IGNIS", "q": 0, "r": 0 },
       { "aspect": "IGNIS", "q": 1, "r": 0 },
-      { "aspect": "IGNIS", "q": 2, "r": 0 },
-      { "aspect": "IGNIS", "q": 3, "r": 0 },
-      { "aspect": "PERDITIO", "q": 4, "r": 0 },
-      { "aspect": "PERDITIO", "q": 5, "r": 0 },
-      { "aspect": "ORDO", "q": 6, "r": 0 },
-      { "aspect": "ORDO", "q": 7, "r": 0 },
-      { "aspect": "POTENTIA", "q": 8, "r": 0 }
+      { "aspect": "IGNIS", "q": 1, "r": -1 },
+      { "aspect": "IGNIS", "q": 0, "r": -1 },
+      { "aspect": "PERDITIO", "q": 0, "r": 1 },
+      { "aspect": "PERDITIO", "q": -1, "r": 1 },
+      { "aspect": "ORDO", "q": -1, "r": 0 },
+      { "aspect": "POTENTIA", "q": 2, "r": 0 },
+      { "aspect": "POTENTIA", "q": 2, "r": -1 },
+      { "aspect": "PRAECANTATIO", "q": 0, "r": -2 }
     ]
   },
   {
@@ -244,13 +477,15 @@
     "pattern": [
       { "aspect": "IGNIS", "q": 0, "r": 0 },
       { "aspect": "AER", "q": 1, "r": 0 },
-      { "aspect": "AER", "q": 2, "r": 0 },
-      { "aspect": "LUX", "q": 3, "r": 0 },
-      { "aspect": "LUX", "q": 4, "r": 0 },
-      { "aspect": "ORDO", "q": 5, "r": 0 },
-      { "aspect": "ORDO", "q": 6, "r": 0 },
-      { "aspect": "POTENTIA", "q": 7, "r": 0 },
-      { "aspect": "POTENTIA", "q": 8, "r": 0 }
+      { "aspect": "AER", "q": 1, "r": -1 },
+      { "aspect": "LUX", "q": 0, "r": -1 },
+      { "aspect": "LUX", "q": -1, "r": 1 },
+      { "aspect": "ORDO", "q": 0, "r": 1 },
+      { "aspect": "ORDO", "q": -1, "r": 0 },
+      { "aspect": "POTENTIA", "q": 2, "r": 0 },
+      { "aspect": "POTENTIA", "q": 2, "r": -1 },
+      { "aspect": "LUX", "q": 0, "r": -2 },
+      { "aspect": "VACUOS", "q": 0, "r": 2 }
     ]
   }
 ]

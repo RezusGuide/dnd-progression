@@ -38,16 +38,41 @@ public class ResearchServiceImpl implements ResearchService {
     // Aspect count required to attempt a research of a given spell level -
     // inclusive on both ends. Declared for from-scratch attempts up front
     // (targetLevel); derived from the spell's own level for hinted ones.
+    // Deliberately small - the original 4-43 range (see git history) was
+    // pure busywork with no real puzzle to it, since it was satisfied by
+    // stacking however many of one or two aspects the player had on hand.
     private static final Map<Integer, int[]> LEVEL_ASPECT_RANGE = Map.ofEntries(
-            Map.entry(1, new int[]{4, 6}),
-            Map.entry(2, new int[]{7, 9}),
-            Map.entry(3, new int[]{10, 15}),
-            Map.entry(4, new int[]{16, 20}),
-            Map.entry(5, new int[]{21, 26}),
-            Map.entry(6, new int[]{27, 32}),
-            Map.entry(7, new int[]{33, 37}),
-            Map.entry(8, new int[]{38, 43})
+            Map.entry(1, new int[]{3, 4}),
+            Map.entry(2, new int[]{4, 5}),
+            Map.entry(3, new int[]{5, 7}),
+            Map.entry(4, new int[]{6, 8}),
+            Map.entry(5, new int[]{7, 9}),
+            Map.entry(6, new int[]{8, 10}),
+            Map.entry(7, new int[]{9, 11}),
+            Map.entry(8, new int[]{10, 12})
     );
+
+    // Minimum number of *distinct* aspect keys among the placements - blocks
+    // "place N of the one aspect I have a pile of" outright, before scoring
+    // even runs.
+    private static final Map<Integer, Integer> MIN_DISTINCT_ASPECTS = Map.ofEntries(
+            Map.entry(1, 2), Map.entry(2, 2), Map.entry(3, 3), Map.entry(4, 3),
+            Map.entry(5, 4), Map.entry(6, 4), Map.entry(7, 5), Map.entry(8, 5)
+    );
+
+    // Minimum number of placed aspects that must be compound ("exotic" -
+    // anything not one of the six primal aspects), scaling with level. This
+    // is the real anti-spam gate: the six primal aspects are the easiest to
+    // stockpile (granted freely, combine into everything else), so a wall
+    // built entirely out of Aer/Ignis/Aqua/Terra/Ordo/Perditio - however
+    // varied - still can't clear it past level 1. Forces actually crafting
+    // up the tree instead of dumping primals into the grid.
+    private static final Map<Integer, Integer> MIN_EXOTIC_ASPECTS = Map.ofEntries(
+            Map.entry(1, 0), Map.entry(2, 1), Map.entry(3, 1), Map.entry(4, 2),
+            Map.entry(5, 2), Map.entry(6, 3), Map.entry(7, 3), Map.entry(8, 4)
+    );
+
+    private static final Set<String> PRIMAL_ASPECTS = Set.of("AER", "IGNIS", "AQUA", "TERRA", "ORDO", "PERDITIO");
 
     // Axial hex neighbor offsets (q, r) - standard six-direction adjacency.
     private static final int[][] HEX_NEIGHBORS = {
@@ -135,6 +160,7 @@ public class ResearchServiceImpl implements ResearchService {
         }
 
         requireValidAspectCount(targetLevel, placements.size());
+        requireVariety(targetLevel, placements);
         requireConnected(placements, hinted ? hintedSpell.getPattern() : null);
 
         // Every attempt spends the aspects placed, successful or not -
@@ -331,6 +357,33 @@ public class ResearchServiceImpl implements ResearchService {
         if (count > range[1]) {
             throw new ResearchException("That's too many aspects for a level " + level
                     + " attempt (need " + range[0] + "-" + range[1] + ", placed " + count + ").");
+        }
+    }
+
+    // Blocks the "spam two aspects" exploit directly, ahead of scoring:
+    // requires both a minimum spread of distinct aspect keys and a minimum
+    // count of non-primal ("exotic") placements, both scaling with level.
+    private void requireVariety(int level, List<GridAnchor> placements) {
+        int minDistinct = MIN_DISTINCT_ASPECTS.getOrDefault(level, 0);
+        int minExotic = MIN_EXOTIC_ASPECTS.getOrDefault(level, 0);
+
+        Set<String> distinct = new HashSet<>();
+        int exotic = 0;
+        for (GridAnchor a : placements) {
+            distinct.add(a.getAspect());
+            if (!PRIMAL_ASPECTS.contains(a.getAspect())) {
+                exotic++;
+            }
+        }
+
+        if (distinct.size() < minDistinct) {
+            throw new ResearchException("A level " + level + " attempt needs at least " + minDistinct
+                    + " different kinds of aspect, not just a pile of one or two (placed " + distinct.size() + ").");
+        }
+        if (exotic < minExotic) {
+            throw new ResearchException("A level " + level + " attempt needs at least " + minExotic
+                    + " compound (non-primal) aspects worked in - the six primal aspects alone aren't enough "
+                    + "past the earliest levels (placed " + exotic + ").");
         }
     }
 

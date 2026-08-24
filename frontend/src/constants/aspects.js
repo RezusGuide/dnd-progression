@@ -64,6 +64,60 @@ export const ASPECTS = [
     { key: 'TUTAMEN', descKey: 'aspectTutamenDesc', primal: false },
 ]
 
+// Mirrors DataSeeder.ensureAspectRecipes on the backend - the crafting page
+// shows this as a browsable compendium instead of making players guess
+// blind among 44 possibilities (there's no "discovery" gating: any pair
+// here has always worked since the first attempt, per the aspect-crafting
+// prompt, so there's no reason to hide the list). Keep in sync manually
+// with the seeded rows the same way LEVEL_ASPECT_RANGE etc. are kept in
+// sync between frontend and backend.
+export const ASPECT_RECIPES = [
+    { result: 'VACUOS', a: 'AER', b: 'PERDITIO' },
+    { result: 'LUX', a: 'AER', b: 'IGNIS' },
+    { result: 'TEMPESTAS', a: 'AER', b: 'AQUA' },
+    { result: 'MOTUS', a: 'AER', b: 'ORDO' },
+    { result: 'VICTUS', a: 'AQUA', b: 'TERRA' },
+    { result: 'POTENTIA', a: 'ORDO', b: 'IGNIS' },
+    { result: 'PERMUTATIO', a: 'ORDO', b: 'PERDITIO' },
+    { result: 'PRAECANTATIO', a: 'VACUOS', b: 'ORDO' },
+    { result: 'TENEBRAE', a: 'VACUOS', b: 'PERDITIO' },
+    { result: 'VITIUM', a: 'TENEBRAE', b: 'PERDITIO' },
+    { result: 'ALIENIS', a: 'VITIUM', b: 'PRAECANTATIO' },
+    { result: 'AURAM', a: 'PRAECANTATIO', b: 'POTENTIA' },
+    { result: 'FAMES', a: 'VICTUS', b: 'VACUOS' },
+    { result: 'VENENUM', a: 'AQUA', b: 'PERDITIO' },
+    { result: 'MORTUUS', a: 'VICTUS', b: 'PERDITIO' },
+    { result: 'SPIRITUS', a: 'VICTUS', b: 'MORTUUS' },
+    { result: 'SANO', a: 'VICTUS', b: 'ORDO' },
+    { result: 'VOLATUS', a: 'AER', b: 'MOTUS' },
+    { result: 'BESTIA', a: 'MOTUS', b: 'VICTUS' },
+    { result: 'CORPUS', a: 'MOTUS', b: 'BESTIA' },
+    { result: 'EXANIMIS', a: 'VACUOS', b: 'MORTUUS' },
+    { result: 'SENSUS', a: 'AER', b: 'SPIRITUS' },
+    { result: 'VINCULUM', a: 'VACUOS', b: 'SPIRITUS' },
+    { result: 'COGNITIO', a: 'SPIRITUS', b: 'ORDO' },
+    { result: 'HUMANUS', a: 'BESTIA', b: 'COGNITIO' },
+    { result: 'INSTRUMENTUM', a: 'HUMANUS', b: 'ORDO' },
+    { result: 'PANNUS', a: 'INSTRUMENTUM', b: 'BESTIA' },
+    { result: 'FABRICO', a: 'HUMANUS', b: 'INSTRUMENTUM' },
+    { result: 'LUCRUM', a: 'HUMANUS', b: 'FAMES' },
+    { result: 'LIMUS', a: 'VICTUS', b: 'AQUA' },
+    { result: 'GELUM', a: 'IGNIS', b: 'PERDITIO' },
+    { result: 'ITER', a: 'MOTUS', b: 'TERRA' },
+    { result: 'HERBA', a: 'VICTUS', b: 'TERRA' },
+    { result: 'GRANUM', a: 'HERBA', b: 'VICTUS' },
+    { result: 'ARBOR', a: 'HERBA', b: 'AER' },
+    { result: 'MESSIS', a: 'HERBA', b: 'HUMANUS' },
+    { result: 'METO', a: 'MESSIS', b: 'INSTRUMENTUM' },
+    { result: 'PERFODIO', a: 'TERRA', b: 'VACUOS' },
+    { result: 'SAXUM', a: 'TERRA', b: 'ORDO' },
+    { result: 'VITREUS', a: 'TERRA', b: 'IGNIS' },
+    { result: 'METALLUM', a: 'TERRA', b: 'VITREUS' },
+    { result: 'TELUM', a: 'INSTRUMENTUM', b: 'IGNIS' },
+    { result: 'MACHINA', a: 'MOTUS', b: 'INSTRUMENTUM' },
+    { result: 'TUTAMEN', a: 'INSTRUMENTUM', b: 'TERRA' },
+]
+
 // "AER" -> "Aer" - the aspect names are Latin proper nouns, this is
 // display formatting only, never translated.
 export function aspectLabel(key) {

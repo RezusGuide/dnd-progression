@@ -258,6 +258,8 @@ const translations = {
         // connectivity feedback
         sheetCraftAspects: 'Craft Aspects →',
         researchAspectsPlaced: 'Aspects placed',
+        researchDistinctPlaced: 'Distinct kinds',
+        researchExoticPlaced: 'Compound aspects',
         researchNotConnected: "Your placed aspects aren't all connected yet.",
         // Aspect crafting page
         craftTitle: 'Aspect Crafting',
@@ -269,6 +271,9 @@ const translations = {
         craftSuccess: 'Combined into',
         craftNoMatch: "That combination doesn't produce anything.",
         craftFailed: 'Could not combine those aspects.',
+        craftCompendiumTitle: 'Known Combinations',
+        craftCompendiumHint: 'Every pair below produces something - any pair not listed just wastes your aspects.',
+        craftCompendiumReady: 'you can make this now',
         // Nav (hub)
         navHome: 'Home',
         navPortfolio: 'Portfolio',
@@ -692,6 +697,8 @@ const translations = {
         // аспектов по уровню, обратная связь по связности
         sheetCraftAspects: 'Скрафтить Аспекты →',
         researchAspectsPlaced: 'Размещено аспектов',
+        researchDistinctPlaced: 'Разных видов',
+        researchExoticPlaced: 'Составных аспектов',
         researchNotConnected: 'Размещённые аспекты пока не все соединены.',
         // Крафт аспектов
         craftTitle: 'Крафт Аспектов',
@@ -703,6 +710,9 @@ const translations = {
         craftSuccess: 'Получен',
         craftNoMatch: 'Эта комбинация ничего не даёт.',
         craftFailed: 'Не удалось скомбинировать эти аспекты.',
+        craftCompendiumTitle: 'Известные Комбинации',
+        craftCompendiumHint: 'Каждая пара ниже что-то даёт — любая другая пара просто тратит ваши аспекты впустую.',
+        craftCompendiumReady: 'можно скрафтить прямо сейчас',
         // Nav (hub)
         navHome: 'Главная',
         navPortfolio: 'Портфолио',

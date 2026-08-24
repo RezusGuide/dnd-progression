@@ -8,10 +8,13 @@ import api from '../api/axios'
 const HEX_SIZE = 35
 const GRID_RADIUS = 4
 
-// Mirrors ResearchServiceImpl.LEVEL_ASPECT_RANGE - kept in sync manually,
-// same as the backend's own comment says to do when correcting a
-// mistranscribed aspect pairing.
-const LEVEL_ASPECT_RANGE = { 1: [4, 6], 2: [7, 9], 3: [10, 15], 4: [16, 20], 5: [21, 26], 6: [27, 32], 7: [33, 37], 8: [38, 43] }
+// Mirrors ResearchServiceImpl.LEVEL_ASPECT_RANGE / MIN_DISTINCT_ASPECTS /
+// MIN_EXOTIC_ASPECTS - kept in sync manually, same as the backend's own
+// comment says to do when correcting a mistranscribed aspect pairing.
+const LEVEL_ASPECT_RANGE = { 1: [3, 4], 2: [4, 5], 3: [5, 7], 4: [6, 8], 5: [7, 9], 6: [8, 10], 7: [9, 11], 8: [10, 12] }
+const MIN_DISTINCT = { 1: 2, 2: 2, 3: 3, 4: 3, 5: 4, 6: 4, 7: 5, 8: 5 }
+const MIN_EXOTIC = { 1: 0, 2: 1, 3: 1, 4: 2, 5: 2, 6: 3, 7: 3, 8: 4 }
+const PRIMAL_KEYS = new Set(ASPECTS.filter((a) => a.primal).map((a) => a.key))
 const RESEARCHABLE_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8]
 
 // Mirrors ResearchServiceImpl.HEX_NEIGHBORS.
@@ -134,8 +137,17 @@ export default function Research() {
     const range = activeLevel ? LEVEL_ASPECT_RANGE[activeLevel] : null
     const countInRange = range ? placedKeys.length >= range[0] && placedKeys.length <= range[1] : false
     const connected = isConnected(placedKeys, guideKeys)
+
+    const placedAspectValues = Object.values(placedNodes)
+    const distinctCount = new Set(placedAspectValues).size
+    const exoticCount = placedAspectValues.filter((a) => !PRIMAL_KEYS.has(a)).length
+    const minDistinct = activeLevel ? MIN_DISTINCT[activeLevel] : 0
+    const minExotic = activeLevel ? MIN_EXOTIC[activeLevel] : 0
+    const varietyMet = distinctCount >= minDistinct
+    const exoticMet = exoticCount >= minExotic
+
     const canSubmit = canResearch && !submitting && placedKeys.length > 0 && countInRange && connected
-        && (mode === 'scratch' || !!selectedSpellId)
+        && varietyMet && exoticMet && (mode === 'scratch' || !!selectedSpellId)
 
     const handleHexClick = (q, r) => {
         if (!canResearch) return
@@ -311,6 +323,16 @@ export default function Research() {
                             {range && (
                                 <p style={{ textAlign: 'center', margin: 0, color: countInRange ? 'var(--ink)' : 'var(--crimson)' }}>
                                     {t('researchAspectsPlaced')}: {placedKeys.length} / {range[0]}-{range[1]}
+                                </p>
+                            )}
+                            {activeLevel && (
+                                <p style={{ textAlign: 'center', margin: 0, color: varietyMet ? 'var(--ink)' : 'var(--crimson)' }}>
+                                    {t('researchDistinctPlaced')}: {distinctCount} / {minDistinct}+
+                                </p>
+                            )}
+                            {activeLevel && minExotic > 0 && (
+                                <p style={{ textAlign: 'center', margin: 0, color: exoticMet ? 'var(--ink)' : 'var(--crimson)' }}>
+                                    {t('researchExoticPlaced')}: {exoticCount} / {minExotic}+
                                 </p>
                             )}
                             {placedKeys.length > 0 && !connected && (

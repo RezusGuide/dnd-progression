@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { ASPECTS, aspectLabel } from '../constants/aspects'
+import { ASPECTS, ASPECT_RECIPES, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 
 // Separate minigame from Research.jsx - combining two held aspects into a
@@ -117,6 +117,31 @@ export default function AspectCraft() {
                         {held.map((a) => (
                             <span key={a.key} className="meta-tag" title={t(a.descKey)}>{aspectLabel(a.key)}: {pouch[a.key]}</span>
                         ))}
+                    </div>
+                </div>
+
+                {/* No discovery gating on recipes - any pair here has always
+                    worked, so there's no reason to make players guess blind
+                    among 44 possibilities. Ready-to-craft pairs (both
+                    components currently held, accounting for needing 2 of
+                    the same aspect if a === b) are called out so the pouch
+                    stops feeling like an opaque dump. */}
+                <div style={{ marginTop: '2rem', width: '100%', maxWidth: '480px' }}>
+                    <h3 className="tome-field-label" style={{ marginBottom: '0.25rem' }}>{t('craftCompendiumTitle')}</h3>
+                    <p className="tome-subtitle" style={{ margin: '0 0 0.75rem', fontSize: '0.85rem' }}>{t('craftCompendiumHint')}</p>
+                    <div className="craft-compendium-list">
+                        {ASPECT_RECIPES.map((r) => {
+                            const stockA = pouch[r.a] || 0
+                            const stockB = pouch[r.b] || 0
+                            const ready = r.a === r.b ? stockA >= 2 : stockA >= 1 && stockB >= 1
+                            return (
+                                <div key={r.result} className={`craft-compendium-row${ready ? ' ready' : ''}`} title={ready ? t('craftCompendiumReady') : ''}>
+                                    <span>{aspectLabel(r.a)} + {aspectLabel(r.b)}</span>
+                                    <span aria-hidden="true">→</span>
+                                    <span><strong>{aspectLabel(r.result)}</strong></span>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </div>
