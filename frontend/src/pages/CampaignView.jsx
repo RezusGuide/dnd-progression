@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function CampaignView() {
@@ -56,7 +55,6 @@ export default function CampaignView() {
 
     return (
         <div className="parchment-page">
-            <LangToggle />
 
             <div className="tome-header">
                 <div>

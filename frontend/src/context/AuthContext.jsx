@@ -20,8 +20,15 @@ export function AuthProvider({ children }) {
         setUser(null)
     }
 
+    // userData.sections comes straight from the backend (Role.sections,
+    // flattened). "*" unlocks everything - that's what OWNER carries.
+    const hasSection = (key) => {
+        if (!user?.sections) return false
+        return user.sections.includes('*') || user.sections.includes(key)
+    }
+
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, hasSection }}>
             {children}
         </AuthContext.Provider>
     )

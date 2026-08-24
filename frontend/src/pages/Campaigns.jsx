@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
 
 export default function Campaigns() {
@@ -43,23 +42,24 @@ export default function Campaigns() {
 
     return (
         <div className="parchment-page">
-            <LangToggle />
 
             <div className="tome-header">
                 <h1 className="tome-title">{t('campaignChronicles')}</h1>
                 <div className="tome-header-right">
                     <Link to="/characters" className="tome-btn-ghost">{t('adventurersVault')}</Link>
-                    <span className="tome-username">{user?.username}</span>
-                    <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>
+                    {user && <span className="tome-username">{user.username}</span>}
+                    {user && <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>}
                 </div>
             </div>
 
             <div className="campaigns-list">
-                <div className="campaign-new-row">
-                    <button className="tome-btn" onClick={() => setShowForm(!showForm)}>
-                        ✦ {t('newCampaign')}
-                    </button>
-                </div>
+                {user && (
+                    <div className="campaign-new-row">
+                        <button className="tome-btn" onClick={() => setShowForm(!showForm)}>
+                            ✦ {t('newCampaign')}
+                        </button>
+                    </div>
+                )}
 
                 {showForm && (
                     <div className="tome-panel" style={{ maxWidth: '600px', marginBottom: '2rem' }}>

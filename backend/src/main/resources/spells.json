@@ -1,0 +1,120 @@
+[
+  {
+    "id": "fire-bolt",
+    "name": "Fire Bolt",
+    "level": 0,
+    "description": "Hurl a mote of fire at a creature or object within range.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "ray-of-frost",
+    "name": "Ray of Frost",
+    "level": 0,
+    "description": "A frigid beam of blue-white light streaks toward a creature.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": []
+  },
+  {
+    "id": "mage-hand",
+    "name": "Mage Hand",
+    "level": 0,
+    "description": "A spectral, floating hand appears and can manipulate objects at a distance.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "1 minute",
+    "pattern": []
+  },
+  {
+    "id": "minor-illusion",
+    "name": "Minor Illusion",
+    "level": 0,
+    "description": "Create a sound or an image of an object within range.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "S, M",
+    "duration": "1 minute",
+    "pattern": []
+  },
+  {
+    "id": "burning-hands",
+    "name": "Burning Hands",
+    "level": 1,
+    "description": "A thin sheet of flame shoots forth from your outstretched fingertips.",
+    "castingTime": "1 action",
+    "range": "Self (15-foot cone)",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "FIRE", "q": 0, "r": -1 },
+      { "aspect": "FIRE", "q": 1, "r": -1 },
+      { "aspect": "AIR", "q": 0, "r": 1 }
+    ]
+  },
+  {
+    "id": "cure-wounds",
+    "name": "Cure Wounds",
+    "level": 1,
+    "description": "A creature you touch regains a number of hit points.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "WATER", "q": -1, "r": 0 },
+      { "aspect": "ORDER", "q": 1, "r": 0 }
+    ]
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "level": 1,
+    "description": "An invisible barrier of magical force appears and protects you.",
+    "castingTime": "1 reaction",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "1 round",
+    "pattern": [
+      { "aspect": "ORDER", "q": 0, "r": -1 },
+      { "aspect": "EARTH", "q": 0, "r": 1 }
+    ]
+  },
+  {
+    "id": "scorching-ray",
+    "name": "Scorching Ray",
+    "level": 2,
+    "description": "Create three rays of fire and hurl them at targets within range.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      { "aspect": "FIRE", "q": -1, "r": -1 },
+      { "aspect": "FIRE", "q": 1, "r": -1 },
+      { "aspect": "AIR", "q": 0, "r": -2 },
+      { "aspect": "ENTROPY", "q": 0, "r": 2 }
+    ]
+  },
+  {
+    "id": "web",
+    "name": "Web",
+    "level": 2,
+    "description": "Thick, sticky webs fill a 20-foot cube, restraining creatures caught in them.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      { "aspect": "EARTH", "q": -1, "r": 1 },
+      { "aspect": "WATER", "q": 1, "r": 1 },
+      { "aspect": "ORDER", "q": 0, "r": -2 }
+    ]
+  }
+]

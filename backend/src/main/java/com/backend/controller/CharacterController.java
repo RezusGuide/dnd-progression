@@ -1,6 +1,7 @@
 package com.backend.controller;
 
 import com.backend.dto.CharacterRequest;
+import com.backend.dto.CharacterSheetRequest;
 import com.backend.entity.Character;
 import com.backend.entity.User;
 import com.backend.service.CharacterService;
@@ -29,16 +30,13 @@ public class CharacterController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Character>> getCharacters(
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(characterService.getCharacters(user.getId()));
+    public ResponseEntity<List<Character>> getCharacters() {
+        return ResponseEntity.ok(characterService.getCharacters());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Character> getCharacter(
-            @PathVariable Long id,
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(characterService.getCharacter(id, user.getId()));
+    public ResponseEntity<Character> getCharacter(@PathVariable Long id) {
+        return ResponseEntity.ok(characterService.getCharacter(id));
     }
 
     @DeleteMapping("/{id}")
@@ -54,5 +52,14 @@ public class CharacterController {
             @RequestBody Map<String, String> body,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(characterService.updateMaterials(id, body.get("materials"), user.getId()));
+    }
+
+    // Full-sheet autosave. Any signed-in account, not just the creator -
+    // see CharacterService#updateSheet.
+    @PutMapping("/{id}/sheet")
+    public ResponseEntity<Character> updateSheet(
+            @PathVariable Long id,
+            @RequestBody CharacterSheetRequest request) {
+        return ResponseEntity.ok(characterService.updateSheet(id, request));
     }
 }

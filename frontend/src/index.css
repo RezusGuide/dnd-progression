@@ -224,6 +224,17 @@ body {
   text-align: center;
 }
 
+.tome-notice {
+  background: rgba(58, 107, 53, 0.12);
+  border: 1px solid var(--gold, #8a7530);
+  border-radius: 2px;
+  padding: 0.5rem 0.75rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .tome-link {
   text-align: center;
   margin-top: 1.25rem;
@@ -415,7 +426,12 @@ body {
   .tome-panel { padding: 1.5rem 1rem; }
 }
 
-/* ── LANG TOGGLE ── */
+/* ── LANG TOGGLE ──
+   Two variants: `.lang-toggle` floats fixed in a corner - only used on the
+   Home page, which has no nav bar to sit in. Everywhere else it renders
+   inline inside the shell nav (`.lang-toggle-inline`) so it can never
+   overlap the login/logout controls the way the old fixed-corner version
+   did (it used to sit right on top of "Enter the Realm"). */
 .lang-toggle {
   position: fixed;
   top: 1rem;
@@ -437,6 +453,26 @@ body {
 .lang-toggle:hover {
   background: var(--gold);
   color: var(--ink);
+}
+
+.lang-toggle-inline {
+  position: static;
+  background: transparent;
+  color: #9aa3b2;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  padding: 0.3rem 0.6rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.lang-toggle-inline:hover {
+  border-color: #7fe3ff;
+  color: #7fe3ff;
 }
 
 /* ── CAMPAIGNS ── */
@@ -733,4 +769,496 @@ body {
 @media (max-width: 700px) {
   .sheet-columns { grid-template-columns: 1fr; }
   .sheet-name { font-size: 1.5rem; }
+}
+
+/* ── SPELL RESEARCH ASPECT GRID ── */
+.research-container {
+  background-color: var(--parchment);
+  font-family: 'Cinzel', serif;
+  border: 3px solid var(--gold);
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hex-polygon {
+  fill: #e8dfc8;
+  stroke: #8b7355;
+  stroke-width: 1px;
+  transition: fill 0.2s, stroke 0.2s;
+  cursor: pointer;
+}
+
+.hex-polygon:hover {
+  fill: #d1c1a3;
+}
+
+.hex-polygon.anchor {
+  stroke: var(--gold);
+  stroke-width: 2px;
+  fill: #5c4a32;
+  cursor: not-allowed;
+}
+
+.hex-polygon.placed {
+  fill: #8b7355;
+}
+
+.aspect-palette {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.aspect-btn {
+  background: var(--parchment-dark);
+  border: 2px solid var(--ink-light);
+  color: var(--ink);
+  font-family: 'Cinzel', serif;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+.aspect-btn:hover {
+  background: var(--parchment-darker);
+}
+
+.aspect-btn.active {
+  border-color: var(--gold);
+  background: var(--ink-light);
+  color: var(--parchment);
+  box-shadow: 0 0 8px var(--gold);
+}
+
+.aspect-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mode 2 (hinted) guide cell - shows where/what to place without
+   pre-filling it for the player, unlike the old .anchor treatment. */
+.hex-polygon.guide {
+  fill: rgba(139, 105, 20, 0.18);
+  stroke: var(--gold);
+  stroke-width: 2px;
+  stroke-dasharray: 3 2;
+}
+.hex-polygon.guide.placed {
+  stroke-dasharray: none;
+}
+
+.research-mode-toggle {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.research-mode-hint {
+  max-width: 480px;
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.research-spell-select {
+  background: var(--parchment-dark);
+  border: 2px solid var(--ink-light);
+  color: var(--ink);
+  font-family: 'Cinzel', serif;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.research-cost-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.research-result {
+  margin-top: 1.5rem;
+  text-align: center;
+  max-width: 420px;
+}
+
+/* ── SITE SHELL NAV ──
+   Deliberately neutral (not tome-styled) - this bar is the one piece of
+   chrome shared by every themed section, so it stays out of each section's
+   own visual language instead of forcing the tome look onto all of them. */
+.hall-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.7rem 1.5rem;
+  background: rgba(10, 12, 16, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.hall-nav-brand {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #eef1f5;
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.hall-nav-links {
+  display: flex;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.hall-nav-link {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #9aa3b2;
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.hall-nav-link:hover,
+.hall-nav-link.active {
+  color: #7fe3ff;
+  border-color: #7fe3ff;
+}
+
+.hall-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Neutral overrides so the login/logout controls match the shell nav
+   instead of the tome theme, wherever they're shown on the page. */
+.hall-nav-right .tome-username {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  color: #cdd4dd;
+  font-size: 0.82rem;
+  letter-spacing: 0;
+}
+
+.hall-nav-right .tome-btn-ghost,
+.hall-nav-right a.tome-btn-ghost {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #cdd4dd;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.72rem;
+  text-decoration: none;
+  display: inline-block;
+}
+.hall-nav-right .tome-btn-ghost:hover,
+.hall-nav-right a.tome-btn-ghost:hover {
+  border-color: #7fe3ff;
+  color: #7fe3ff;
+}
+
+@media (max-width: 800px) {
+  .hall-nav { justify-content: center; text-align: center; }
+  .hall-nav-links { justify-content: center; }
+}
+
+/* ── HOME / HERO ── */
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  padding: 3rem 1rem 2.5rem;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: -20% 10% auto 10%;
+  height: 220px;
+  background: radial-gradient(ellipse at center, rgba(196, 160, 53, 0.35) 0%, transparent 70%);
+  filter: blur(10px);
+  z-index: -1;
+  animation: torch-flicker 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow { animation: none; }
+}
+
+@keyframes torch-flicker {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  35% { opacity: 0.95; transform: scale(1.03); }
+  60% { opacity: 0.65; transform: scale(0.98); }
+  80% { opacity: 0.9; transform: scale(1.01); }
+}
+
+.hero-kicker {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 0.75rem;
+}
+
+.hero-title {
+  font-family: 'MedievalSharp', 'Cinzel', serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--parchment);
+  text-shadow: 0 0 24px rgba(196, 160, 53, 0.4), 2px 2px 0 rgba(0,0,0,0.4);
+  margin-bottom: 0.75rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--parchment-darker);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.hall-sections-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.hall-sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.hall-card {
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.5rem 1.25rem;
+  box-shadow: 0 4px 16px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.hall-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px var(--shadow);
+}
+
+.hall-card.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.hall-card.locked:hover {
+  transform: none;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.hall-card-icon {
+  font-size: 2rem;
+}
+
+.hall-card-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.hall-card-sub {
+  font-size: 0.85rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+/* ── SECTION GATE ── */
+.gate-panel {
+  margin-top: 2rem;
+}
+
+/* ── CODEX (portfolio) ── */
+.codex-form {
+  width: 100%;
+  max-width: 900px;
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.codex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.codex-card {
+  position: relative;
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 16px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.codex-delete {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.tome-link-inline {
+  color: var(--gold);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+/* ── HERALD'S BOARD (announcements) ── */
+.herald-feed {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.herald-entry {
+  position: relative;
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.herald-entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.herald-delete {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+/* ── THE VAULT (downloads) ── */
+.vault-list {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.vault-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--parchment);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 16px var(--shadow);
+  text-decoration: none;
+  transition: transform 0.15s;
+}
+
+.vault-entry:hover {
+  transform: translateY(-2px);
+}
+
+.vault-icon {
+  font-size: 1.5rem;
+}
+
+.vault-entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+
+/* ── REALM GATE (minecraft) ── */
+.realm-gate-card {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.realm-gate-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.realm-gate-ip {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.realm-gate-ip code {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  color: var(--ink);
+  background: rgba(255,255,255,0.4);
+  border: 1px solid var(--parchment-darker);
+  border-radius: 2px;
+  padding: 0.4rem 0.8rem;
+}
+
+/* ── ADMIN (sanctum) ── */
+.admin-section {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1.5rem;
+}
+
+.admin-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-user-row {
+  flex-wrap: wrap;
 }

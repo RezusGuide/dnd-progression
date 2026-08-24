@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import LangToggle from '../components/LangToggle'
 import api from '../api/axios'
+
+// D&D is publicly viewable now (see SecurityConfig) - only logged-in
+// accounts can create/edit/delete, so the "new character" tile and the
+// per-card delete button only show up once someone's signed in.
 
 const CLASSES = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Monk', 'Paladin', 'Bard', 'Druid', 'Sorcerer', 'Warlock', 'Barbarian']
 const RACES = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Half-Orc', 'Half-Elf', 'Tiefling', 'Dragonborn']
@@ -71,14 +74,13 @@ export default function Characters() {
 
     return (
         <div className="parchment-page">
-            <LangToggle />
 
             <div className="tome-header">
                 <h1 className="tome-title">{t('adventurersVault')}</h1>
                 <div className="tome-header-right">
                     <Link to="/campaigns" className="tome-btn-ghost">⚔ {t('campaignChronicles')}</Link>
-                    <span className="tome-username">{user?.username}</span>
-                    <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>
+                    {user && <span className="tome-username">{user.username}</span>}
+                    {user && <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>}
                 </div>
             </div>
 
@@ -92,10 +94,12 @@ export default function Characters() {
                     >
                         <div className="character-card-top">
                             <h2 className="character-name">{char.name}</h2>
-                            <button
-                                className="tome-btn-danger"
-                                onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
-                            >✕</button>
+                            {user && (
+                                <button
+                                    className="tome-btn-danger"
+                                    onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
+                                >✕</button>
+                            )}
                         </div>
                         <div className="character-meta">
                             <span className="meta-tag">{char.characterClass || '—'}</span>
@@ -111,10 +115,12 @@ export default function Characters() {
                     </div>
                 ))}
 
-                <div className="character-card new-card" onClick={() => setShowForm(true)}>
-                    <span className="new-card-icon">✦</span>
-                    <span className="new-card-label">{t('forgeNewCharacter')}</span>
-                </div>
+                {user && (
+                    <div className="character-card new-card" onClick={() => setShowForm(true)}>
+                        <span className="new-card-icon">✦</span>
+                        <span className="new-card-label">{t('forgeNewCharacter')}</span>
+                    </div>
+                )}
             </div>
 
             {showForm && (

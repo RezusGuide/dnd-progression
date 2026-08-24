@@ -21,9 +21,8 @@ public class ResearchDraft {
     @JoinColumn(name = "character_id", nullable = false)
     private Character character;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "spell_id", nullable = false)
-    private Spell spell;
+    @Column(name = "spell_id", nullable = false)
+    private String spellId;
 
     @Column(columnDefinition = "TEXT")
     private String currentGridState; // Serialized partial save data
