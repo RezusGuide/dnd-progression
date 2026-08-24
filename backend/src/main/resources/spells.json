@@ -7180,5 +7180,1791 @@
         "r": 0
       }
     ]
+  },
+  {
+    "id": "animate-objects",
+    "name": "Animate Objects",
+    "level": 5,
+    "description": "Up to ten nonmagical objects spring to life, animated to fight and move at your command.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "METALLUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "FABRICO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "antilife-shell",
+    "name": "Antilife Shell",
+    "level": 5,
+    "description": "A shimmering barrier surrounds you, keeping living creatures from passing through or attacking within.",
+    "castingTime": "1 action",
+    "range": "Self (10-foot radius)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "awaken",
+    "name": "Awaken",
+    "level": 5,
+    "description": "Bestow the spark of true sentience on a beast or plant, granting it intelligence and loyalty.",
+    "castingTime": "8 hours",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "banishing-smite",
+    "name": "Banishing Smite",
+    "level": 5,
+    "description": "Your next weapon hit surrounds the target with force, and enough damage sends it to another plane entirely.",
+    "castingTime": "1 bonus action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "circle-of-power",
+    "name": "Circle of Power",
+    "level": 5,
+    "description": "A 30-foot aura shields your allies from magic, granting advantage on saves against spells.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "cloudkill",
+    "name": "Cloudkill",
+    "level": 5,
+    "description": "A billowing, poisonous cloud spreads out from a point you choose, moving with the wind and choking anything inside.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "commune",
+    "name": "Commune",
+    "level": 5,
+    "description": "Ask your deity three yes-or-no questions and receive an answer, if one can be given.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "commune-with-nature",
+    "name": "Commune with Nature",
+    "level": 5,
+    "description": "Become one with the land, gaining knowledge of the terrain and creatures for miles around.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HERBA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ARBOR",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "conjure-elemental",
+    "name": "Conjure Elemental",
+    "level": 5,
+    "description": "Summon a greater elemental spirit to fight at your command for the duration.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "contact-other-plane",
+    "name": "Contact Other Plane",
+    "level": 5,
+    "description": "Send your mind out to a knowing entity beyond the mortal plane, risking your sanity for answers.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Self",
+    "components": "V",
+    "duration": "1 minute",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "contagion",
+    "name": "Contagion",
+    "level": 5,
+    "description": "Touch a creature and afflict it with a virulent, magical disease that worsens over days.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "7 days",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VENENUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "creation",
+    "name": "Creation",
+    "level": 5,
+    "description": "Shape shadowstuff and raw magic into a nonliving object, real enough for the duration to matter.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Special",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "dispel-evil-and-good",
+    "name": "Dispel Evil and Good",
+    "level": 5,
+    "description": "Call on celestial or fiendish power to protect you and repel or banish otherworldly creatures.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "dominate-person",
+    "name": "Dominate Person",
+    "level": 5,
+    "description": "Seize control of a humanoid's mind, issuing it telepathic commands it must obey.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "dream",
+    "name": "Dream",
+    "level": 5,
+    "description": "Shape a creature's dreams, sending it a message or a nightmare from anywhere on the same plane.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Special",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "flame-strike",
+    "name": "Flame Strike",
+    "level": 5,
+    "description": "A column of divine fire roars down from above, searing everything caught within it.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "geas",
+    "name": "Geas",
+    "level": 5,
+    "description": "Lay a magical command on a creature, punishing it with pain each time it strays from your order.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "30 days",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "greater-restoration",
+    "name": "Greater Restoration",
+    "level": 5,
+    "description": "Undo one of the more debilitating effects afflicting a creature - a curse, exhaustion, even lost ability score.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "SANO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hallow",
+    "name": "Hallow",
+    "level": 5,
+    "description": "Consecrate a site so divine and fell creatures alike find it impossible to enter.",
+    "castingTime": "24 hours (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "hold-monster",
+    "name": "Hold Monster",
+    "level": 5,
+    "description": "A creature is paralyzed, frozen in place unless it can shake off the magic gripping its mind.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "insect-plague",
+    "name": "Insect Plague",
+    "level": 5,
+    "description": "A roiling cloud of biting, stinging locusts fills the area, tearing at anything caught inside.",
+    "castingTime": "1 action",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "legend-lore",
+    "name": "Legend Lore",
+    "level": 5,
+    "description": "Speak the name of a person, place, or object and learn what significant lore you know of it.",
+    "castingTime": "1 minute",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "mass-cure-wounds",
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "description": "A wave of healing energy washes over a group of creatures, restoring hit points to each.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AQUA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "mislead",
+    "name": "Mislead",
+    "level": 5,
+    "description": "You turn invisible while a perfect illusory double of yourself appears and acts as you direct.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "modify-memory",
+    "name": "Modify Memory",
+    "level": 5,
+    "description": "Reach into a creature's mind and reshape a portion of its memories to your liking.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "passwall",
+    "name": "Passwall",
+    "level": 5,
+    "description": "Create a passage through wood, plaster, or stone, open for as long as you maintain the spell.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERFODIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "planar-binding",
+    "name": "Planar Binding",
+    "level": 5,
+    "description": "Bind a celestial, elemental, fey, or fiend into your service for the duration.",
+    "castingTime": "1 hour",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "raise-dead",
+    "name": "Raise Dead",
+    "level": 5,
+    "description": "Return a creature dead no longer than ten days to life, mending its body and calling its soul back.",
+    "castingTime": "1 hour",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "rarys-telepathic-bond",
+    "name": "Rary's Telepathic Bond",
+    "level": 5,
+    "description": "Forge a telepathic link between willing creatures, letting them communicate mind to mind regardless of language.",
+    "castingTime": "1 action (ritual)",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "reincarnate",
+    "name": "Reincarnate",
+    "level": 5,
+    "description": "A dead humanoid's soul is called back and given an entirely new body, of a race not necessarily its own.",
+    "castingTime": "1 hour",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "CORPUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "scrying",
+    "name": "Scrying",
+    "level": 5,
+    "description": "See and hear a particular creature anywhere on the same plane, so long as you resist its will.",
+    "castingTime": "10 minutes",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "seeming",
+    "name": "Seeming",
+    "level": 5,
+    "description": "Every creature you choose takes on a new illusory appearance, disguised down to the voice.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "swift-quiver",
+    "name": "Swift Quiver",
+    "level": 5,
+    "description": "Your quiver refills itself with unerring, self-replenishing ammunition, letting you attack twice as fast.",
+    "castingTime": "1 bonus action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TELUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "telekinesis",
+    "name": "Telekinesis",
+    "level": 5,
+    "description": "Move a creature or object with the power of your mind alone, lifting, dragging, or hurling it about.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "teleportation-circle",
+    "name": "Teleportation Circle",
+    "level": 5,
+    "description": "Draw a circle that opens a temporary portal to a permanent teleportation circle you know elsewhere.",
+    "castingTime": "1 minute",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "tree-stride",
+    "name": "Tree Stride",
+    "level": 5,
+    "description": "Step into a tree and pass instantly through the earth to emerge from another tree of the same kind.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "ARBOR",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "wall-of-force",
+    "name": "Wall of Force",
+    "level": 5,
+    "description": "An invisible wall of pure magical force springs into existence, impassable by anything physical or ethereal.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      }
+    ]
+  },
+  {
+    "id": "wall-of-stone",
+    "name": "Wall of Stone",
+    "level": 5,
+    "description": "Nonmagical stone rises from the ground or air, forming a solid wall you can shape as you like.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERFODIO",
+        "q": -1,
+        "r": 1
+      }
+    ]
   }
 ]
