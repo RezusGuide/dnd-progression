@@ -2,8 +2,11 @@ package com.backend.controller;
 
 import com.backend.dto.AspectGrantRequest;
 import com.backend.dto.HintGrantRequest;
+import com.backend.dto.ItemGrantRequest;
+import com.backend.entity.Character;
 import com.backend.entity.Role;
 import com.backend.entity.User;
+import com.backend.service.CharacterService;
 import com.backend.service.ResearchService;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class AdminController {
 
     private final RoleService roleService;
     private final ResearchService researchService;
+    private final CharacterService characterService;
 
     @PostMapping("/bootstrap-owner")
     public ResponseEntity<User> bootstrapOwner(@AuthenticationPrincipal User user) {
@@ -82,9 +86,15 @@ public class AdminController {
         return ResponseEntity.ok(roleService.resetPassword(userId, body.get("password")));
     }
 
-    // ── Spell research: DM-only grants (see the spell-research prompt,
-    // section 3). Both are additive - there's no player-facing endpoint
-    // anywhere that can increase an aspect count or grant hint access. ──
+    // ── DM-only grants: items, aspects, and hint access. All three are
+    // additive/append-only - there's no player-facing endpoint anywhere
+    // that can add equipment on the DM's behalf, increase an aspect count,
+    // or grant hint access. ──
+
+    @PostMapping("/items/grant")
+    public ResponseEntity<Character> grantItem(@RequestBody ItemGrantRequest request) {
+        return ResponseEntity.ok(characterService.grantItem(request.getCharacterId(), request.getItem()));
+    }
 
     @PostMapping("/aspects/grant")
     public ResponseEntity<Void> grantAspect(@RequestBody AspectGrantRequest request) {

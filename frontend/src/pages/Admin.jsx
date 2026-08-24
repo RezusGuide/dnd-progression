@@ -19,9 +19,12 @@ export default function Admin() {
     const [passwordChoice, setPasswordChoice] = useState({})
     const [showAdvancedRoles, setShowAdvancedRoles] = useState(false)
 
-    // Spell research: DM-only grants (section 3 of the spell-research prompt).
+    // DM-only grants: items (equipment), aspects, and hint access - kept
+    // as three separate forms/endpoints so each is a distinct, deliberate
+    // action rather than one grant type doubling as another.
     const [characters, setCharacters] = useState([])
     const [spells, setSpells] = useState([])
+    const [itemGrantForm, setItemGrantForm] = useState({ characterId: '', item: '' })
     const [aspectGrantForm, setAspectGrantForm] = useState({ characterId: '', aspect: ASPECTS[0].key, amount: 1 })
     const [hintGrantForm, setHintGrantForm] = useState({ characterId: '', spellId: '' })
 
@@ -88,6 +91,23 @@ export default function Admin() {
             refresh()
         } catch (err) {
             setError(err.response?.data?.message || 'Could not create account')
+        }
+    }
+
+    const handleGrantItem = async (e) => {
+        e.preventDefault()
+        setError('')
+        setNotice('')
+        if (!itemGrantForm.characterId || !itemGrantForm.item.trim()) return
+        try {
+            await api.post('/api/admin/items/grant', {
+                characterId: Number(itemGrantForm.characterId),
+                item: itemGrantForm.item.trim(),
+            })
+            setItemGrantForm({ ...itemGrantForm, item: '' })
+            setNotice(t('adminGranted'))
+        } catch (err) {
+            setError(err.response?.data?.message || 'Could not add item')
         }
     }
 
@@ -222,6 +242,41 @@ export default function Admin() {
                         </div>
                     ))}
                 </div>
+            </section>
+
+            <section className="sheet-section admin-section">
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                    {t('adminItemGrant')}
+                </h2>
+                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminItemGrantHint')}</p>
+                <form onSubmit={handleGrantItem} className="tome-form codex-form">
+                    <div className="tome-row">
+                        <div className="tome-field">
+                            <label>{t('adminSelectCharacter')}</label>
+                            <select
+                                value={itemGrantForm.characterId}
+                                onChange={(e) => setItemGrantForm({ ...itemGrantForm, characterId: e.target.value })}
+                                required
+                            >
+                                <option value="">{t('choose')}</option>
+                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="tome-field" style={{ flex: 2 }}>
+                            <label>{t('adminItemLabel')}</label>
+                            <input
+                                type="text"
+                                value={itemGrantForm.item}
+                                onChange={(e) => setItemGrantForm({ ...itemGrantForm, item: e.target.value })}
+                                placeholder={t('adminItemPlaceholder')}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="tome-btn-row">
+                        <button type="submit" className="tome-btn">{t('adminItemGrantBtn')}</button>
+                    </div>
+                </form>
             </section>
 
             <section className="sheet-section admin-section">

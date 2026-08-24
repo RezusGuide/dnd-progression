@@ -139,4 +139,17 @@ public class CharacterService {
 
         return characterRepository.save(character);
     }
+
+    // DM-only (AdminController) - appends one line to the character's
+    // Equipment free text instead of requiring the DM to open the sheet
+    // and retype/edit the whole box by hand, where a slip could wipe out
+    // gear the player already has listed.
+    public Character grantItem(Long characterId, String item) {
+        Character character = characterRepository.findById(characterId)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+        String line = "• " + item.strip();
+        String existing = character.getEquipment();
+        character.setEquipment(existing == null || existing.isBlank() ? line : existing + "\n" + line);
+        return characterRepository.save(character);
+    }
 }

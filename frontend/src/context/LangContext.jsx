@@ -181,6 +181,11 @@ const translations = {
         researchSaveDraft: 'Save Draft',
         researchDraftSaved: 'Draft saved.',
         // Admin: spell research grants
+        adminItemGrant: 'Grant Item',
+        adminItemGrantHint: "Adds a line to the character's Equipment list - existing gear is never touched, so there's no risk of accidentally overwriting it.",
+        adminItemLabel: 'Item Description',
+        adminItemPlaceholder: 'Potion of Healing',
+        adminItemGrantBtn: 'Add Item',
         adminAspectGrant: 'Grant Aspects',
         adminAspectGrantHint: "Add aspects to a character's pouch.",
         adminSelectCharacter: 'Character',
@@ -551,6 +556,11 @@ const translations = {
         researchSaveDraft: 'Сохранить Черновик',
         researchDraftSaved: 'Черновик сохранён.',
         // Админ: выдача для исследования заклинаний
+        adminItemGrant: 'Выдать Предмет',
+        adminItemGrantHint: 'Добавляет строку в список снаряжения персонажа — существующее не затрагивается, случайно стереть ничего нельзя.',
+        adminItemLabel: 'Описание Предмета',
+        adminItemPlaceholder: 'Зелье Лечения',
+        adminItemGrantBtn: 'Добавить Предмет',
         adminAspectGrant: 'Выдать Аспекты',
         adminAspectGrantHint: 'Добавьте аспекты в мешочек персонажа.',
         adminSelectCharacter: 'Персонаж',
