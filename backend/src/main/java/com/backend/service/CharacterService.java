@@ -40,12 +40,16 @@ public class CharacterService {
         return characterRepository.save(character);
     }
 
-    public List<Character> getCharacters(Long userId) {
-        return characterRepository.findByUserId(userId);
+    // D&D is publicly viewable (see SecurityConfig - GET is permitAll), so
+    // listing/reading characters isn't scoped to a logged-in user, same as
+    // CampaignController#getAllCampaigns. Only create/delete/update below
+    // still require an authenticated owner.
+    public List<Character> getCharacters() {
+        return characterRepository.findAll();
     }
 
-    public Character getCharacter(Long characterId, Long userId) {
-        return characterRepository.findByIdAndUserId(characterId, userId)
+    public Character getCharacter(Long characterId) {
+        return characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
     }
 

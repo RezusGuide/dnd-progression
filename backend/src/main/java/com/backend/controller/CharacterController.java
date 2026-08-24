@@ -29,16 +29,13 @@ public class CharacterController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Character>> getCharacters(
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(characterService.getCharacters(user.getId()));
+    public ResponseEntity<List<Character>> getCharacters() {
+        return ResponseEntity.ok(characterService.getCharacters());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Character> getCharacter(
-            @PathVariable Long id,
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(characterService.getCharacter(id, user.getId()));
+    public ResponseEntity<Character> getCharacter(@PathVariable Long id) {
+        return ResponseEntity.ok(characterService.getCharacter(id));
     }
 
     @DeleteMapping("/{id}")

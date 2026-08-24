@@ -15,8 +15,8 @@ export default function Minecraft() {
     // going blank while the fetch is in flight or if the API is briefly
     // unreachable.
     const DEFAULT_SERVER = {
-        ip: 'play.example.net', port: 25565, version: '1.21',
-        motd: 'Whenever the world needs saving.', status: 'unknown', driveUrl: null,
+        ip: 'd2pt.ru', port: 25565, version: '1.20.1',
+        motd: 'Bussy server.', status: 'Alive', driveUrl: null,
     }
 
     const [server, setServer] = useState(DEFAULT_SERVER)
