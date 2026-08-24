@@ -9,7 +9,6 @@ export default function CampaignView() {
     const { t } = useLang()
     const [campaign, setCampaign] = useState(null)
     const [characters, setCharacters] = useState([])
-    const [editingMaterials, setEditingMaterials] = useState({})
 
     useEffect(() => {
         fetchCampaign()
@@ -29,19 +28,6 @@ export default function CampaignView() {
         try {
             const res = await api.get(`/api/campaigns/${id}/characters`)
             setCharacters(res.data)
-            const initial = {}
-            res.data.forEach(c => { initial[c.id] = c.materials || '' })
-            setEditingMaterials(initial)
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    const saveMaterials = async (charId) => {
-        try {
-            await api.patch(`/api/characters/${charId}/materials`, {
-                materials: editingMaterials[charId]
-            })
         } catch (err) {
             console.error(err)
         }
@@ -90,26 +76,15 @@ export default function CampaignView() {
                                 <p className="character-backstory">{char.backstory}</p>
                             )}
 
-                            <div className="materials-section">
-                                <label className="tome-field-label">⚗ {t('materials')}</label>
-                                <textarea
-                                    className="materials-input"
-                                    value={editingMaterials[char.id] || ''}
-                                    onChange={(e) => setEditingMaterials({
-                                        ...editingMaterials,
-                                        [char.id]: e.target.value
-                                    })}
-                                    rows={3}
-                                    placeholder="3x Papyrus, 1x Fire Aspect Crystal..."
-                                />
-                                <button
-                                    className="tome-btn"
-                                    style={{ marginTop: '0.5rem' }}
-                                    onClick={() => saveMaterials(char.id)}
-                                >
-                                    {t('saveMaterials')}
-                                </button>
-                            </div>
+                            {/* Read-only - materials are DM-granted only now (Admin.jsx's
+                                Grant Material), appended so nothing here can be
+                                accidentally overwritten by a player editing this page. */}
+                            {char.materials && (
+                                <div className="materials-section">
+                                    <label className="tome-field-label">⚗ {t('materials')}</label>
+                                    <p className="character-backstory" style={{ whiteSpace: 'pre-line' }}>{char.materials}</p>
+                                </div>
+                            )}
                         </div>
                     ))
                 )}

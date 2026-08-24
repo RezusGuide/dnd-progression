@@ -3,6 +3,7 @@ package com.backend.controller;
 import com.backend.dto.AspectGrantRequest;
 import com.backend.dto.HintGrantRequest;
 import com.backend.dto.ItemGrantRequest;
+import com.backend.dto.MaterialGrantRequest;
 import com.backend.entity.Character;
 import com.backend.entity.Role;
 import com.backend.entity.User;
@@ -94,6 +95,11 @@ public class AdminController {
     @PostMapping("/items/grant")
     public ResponseEntity<Character> grantItem(@RequestBody ItemGrantRequest request) {
         return ResponseEntity.ok(characterService.grantItem(request.getCharacterId(), request.getItem()));
+    }
+
+    @PostMapping("/materials/grant")
+    public ResponseEntity<Character> grantMaterial(@RequestBody MaterialGrantRequest request) {
+        return ResponseEntity.ok(characterService.grantMaterial(request.getCharacterId(), request.getMaterial()));
     }
 
     @PostMapping("/aspects/grant")

@@ -59,17 +59,11 @@ public class CharacterService {
                 .orElseThrow(() -> new RuntimeException("Character not found"));
         characterRepository.delete(character);
     }
-    public Character updateMaterials(Long characterId, String materials, Long userId) {
-        Character character = characterRepository.findByIdAndUserId(characterId, userId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
-        character.setMaterials(materials);
-        return characterRepository.save(character);
-    }
 
     // Any signed-in account can save a sheet, not just its creator - D&D is
     // shared-group access (README: "any logged-in account can create/edit
-    // characters"), unlike deleteCharacter/updateMaterials above which
-    // still predate that and stay owner-only.
+    // characters"), unlike deleteCharacter above which still predates that
+    // and stays owner-only.
     public Character updateSheet(Long characterId, CharacterSheetRequest req) {
         Character character = characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
@@ -147,9 +141,26 @@ public class CharacterService {
     public Character grantItem(Long characterId, String item) {
         Character character = characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
-        String line = "• " + item.strip();
-        String existing = character.getEquipment();
-        character.setEquipment(existing == null || existing.isBlank() ? line : existing + "\n" + line);
+        character.setEquipment(appendLine(character.getEquipment(), item));
         return characterRepository.save(character);
+    }
+
+    // Same pattern as grantItem, targeting Materials instead of Equipment -
+    // spell-research reagents/crafting supplies rather than general gear.
+    // This used to be a player-editable field (CampaignView's old Materials
+    // & Inventory box, PATCH /api/characters/{id}/materials) that any
+    // signed-in account - not just the DM - could fully overwrite; that
+    // endpoint is gone now, this DM-only append is the only way to add to
+    // it going forward.
+    public Character grantMaterial(Long characterId, String material) {
+        Character character = characterRepository.findById(characterId)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+        character.setMaterials(appendLine(character.getMaterials(), material));
+        return characterRepository.save(character);
+    }
+
+    private String appendLine(String existing, String newLine) {
+        String line = "• " + newLine.strip();
+        return existing == null || existing.isBlank() ? line : existing + "\n" + line;
     }
 }

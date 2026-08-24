@@ -25,6 +25,7 @@ export default function Admin() {
     const [characters, setCharacters] = useState([])
     const [spells, setSpells] = useState([])
     const [itemGrantForm, setItemGrantForm] = useState({ characterId: '', item: '' })
+    const [materialGrantForm, setMaterialGrantForm] = useState({ characterId: '', material: '' })
     const [aspectGrantForm, setAspectGrantForm] = useState({ characterId: '', aspect: ASPECTS[0].key, amount: 1 })
     const [hintGrantForm, setHintGrantForm] = useState({ characterId: '', spellId: '' })
 
@@ -108,6 +109,23 @@ export default function Admin() {
             setNotice(t('adminGranted'))
         } catch (err) {
             setError(err.response?.data?.message || 'Could not add item')
+        }
+    }
+
+    const handleGrantMaterial = async (e) => {
+        e.preventDefault()
+        setError('')
+        setNotice('')
+        if (!materialGrantForm.characterId || !materialGrantForm.material.trim()) return
+        try {
+            await api.post('/api/admin/materials/grant', {
+                characterId: Number(materialGrantForm.characterId),
+                material: materialGrantForm.material.trim(),
+            })
+            setMaterialGrantForm({ ...materialGrantForm, material: '' })
+            setNotice(t('adminGranted'))
+        } catch (err) {
+            setError(err.response?.data?.message || 'Could not add material')
         }
     }
 
@@ -275,6 +293,41 @@ export default function Admin() {
                     </div>
                     <div className="tome-btn-row">
                         <button type="submit" className="tome-btn">{t('adminItemGrantBtn')}</button>
+                    </div>
+                </form>
+            </section>
+
+            <section className="sheet-section admin-section">
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                    {t('adminMaterialGrant')}
+                </h2>
+                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminMaterialGrantHint')}</p>
+                <form onSubmit={handleGrantMaterial} className="tome-form codex-form">
+                    <div className="tome-row">
+                        <div className="tome-field">
+                            <label>{t('adminSelectCharacter')}</label>
+                            <select
+                                value={materialGrantForm.characterId}
+                                onChange={(e) => setMaterialGrantForm({ ...materialGrantForm, characterId: e.target.value })}
+                                required
+                            >
+                                <option value="">{t('choose')}</option>
+                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                            </select>
+                        </div>
+                        <div className="tome-field" style={{ flex: 2 }}>
+                            <label>{t('adminMaterialLabel')}</label>
+                            <input
+                                type="text"
+                                value={materialGrantForm.material}
+                                onChange={(e) => setMaterialGrantForm({ ...materialGrantForm, material: e.target.value })}
+                                placeholder={t('adminMaterialPlaceholder')}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="tome-btn-row">
+                        <button type="submit" className="tome-btn">{t('adminMaterialGrantBtn')}</button>
                     </div>
                 </form>
             </section>
