@@ -1,40 +1,47 @@
-/* CharacterSheet.jsx only. Deliberately NOT the parchment/tome theme the
-   rest of D&D uses - see the character sheet rebuild prompt: this page
-   should read like a modern digital sheet (D&D Beyond), not a scanned
-   paper form. Scoped entirely under .beyond-page so nothing here leaks
-   into Characters.jsx / CampaignView.jsx. */
+/* CharacterSheet.jsx only. Started as a dark "D&D Beyond" digital-sheet
+   look; re-themed to match the rest of D&D's parchment/tome styling per
+   feedback, reusing this site's --parchment/--ink/--gold/--crimson
+   palette and Cinzel/Crimson Text fonts instead of a separate dark one.
+   The layout patterns (hexagon ability tiles, shield AC badge, dot-based
+   proficiency list, tabs) stay - only the skin changed. Still scoped
+   entirely under .beyond-page/beyond-* so nothing here leaks into
+   Characters.jsx / CampaignView.jsx, and vice versa. */
 
 .beyond-page {
-    --bey-bg: #17181c;
-    --bey-bg-elevated: #1e1f25;
-    --bey-bg-card: #232430;
-    --bey-bg-card-2: #2a2b38;
-    --bey-border: #383a46;
-    --bey-border-light: #4a4c5c;
-    --bey-text: #eceaf0;
-    --bey-text-dim: #9d9caa;
-    --bey-text-faint: #6c6b7a;
-    --bey-accent: #b3122e;
-    --bey-accent-light: #e0273f;
-    --bey-accent-dim: rgba(179, 18, 46, 0.16);
-    --bey-gold: #cda435;
-    --bey-green: #3ecf6e;
-    --bey-red: #e0273f;
+    --bey-bg-card: var(--parchment);
+    --bey-bg-card-2: var(--parchment-dark);
+    --bey-bg-elevated: rgba(244, 228, 193, 0.94);
+    --bey-border: var(--parchment-darker);
+    --bey-border-light: var(--gold);
+    --bey-text: var(--ink);
+    --bey-text-dim: var(--ink-light);
+    --bey-text-faint: #8a7255;
+    --bey-accent: var(--crimson);
+    --bey-accent-light: var(--crimson-light);
+    --bey-accent-dim: rgba(139, 26, 26, 0.12);
+    --bey-gold: var(--gold);
+    --bey-green: #3a6b35;
+    --bey-red: var(--crimson);
 
     min-height: 100vh;
-    background: var(--bey-bg);
     color: var(--bey-text);
-    font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Crimson Text', Georgia, serif;
     padding: 1.5rem clamp(0.75rem, 3vw, 2.5rem) 4rem;
+
+    background-color: var(--parchment-darker);
+    background-image: url('../assets/parchment-frame.jpg');
+    background-size: cover;
+    background-position: top center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .beyond-page * { box-sizing: border-box; }
 
-/* Native number-input spin buttons render as an opaque light box in most
-   browsers, which on this dark theme overlapped/obscured the number
-   itself (worst on the AC shield and HP current field). All the sheet's
-   number fields are big, click-to-edit values, not steppers, so the
-   spinner adds nothing - hide it everywhere on this page. */
+/* Native number-input spin buttons render as an opaque light box that
+   overlapped/obscured the value itself. All the sheet's number fields are
+   big, click-to-edit values, not steppers, so the spinner adds nothing -
+   hide it everywhere on this page. */
 .beyond-page input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
@@ -52,6 +59,7 @@
     min-height: 60vh;
     color: var(--bey-text-dim);
     font-size: 1.1rem;
+    font-family: 'Cinzel', serif;
 }
 
 /* ── Top bar ── */
@@ -68,16 +76,21 @@
     background: transparent;
     border: 1px solid var(--bey-border);
     color: var(--bey-text-dim);
-    padding: 0.4rem 0.9rem;
-    border-radius: 6px;
+    padding: 0.5rem 1.1rem;
+    border-radius: 2px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     transition: border-color 0.15s, color 0.15s;
 }
-.beyond-back:hover { border-color: var(--bey-accent); color: var(--bey-text); }
+.beyond-back:hover { border-color: var(--bey-accent); color: var(--bey-accent); }
 
 .beyond-save-status {
-    font-size: 0.8rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
     color: var(--bey-text-faint);
     min-width: 5.5rem;
     text-align: right;
@@ -88,28 +101,42 @@
 
 /* ── Header ── */
 .beyond-header {
-    background: linear-gradient(135deg, var(--bey-bg-card), var(--bey-bg-elevated));
-    border: 1px solid var(--bey-border);
-    border-top: 3px solid var(--bey-accent);
-    border-radius: 10px;
+    background: var(--bey-bg-elevated);
+    background-image:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    border: 2px solid var(--bey-gold);
+    border-radius: 4px;
     padding: 1.25rem 1.5rem;
     margin-bottom: 1.25rem;
+    box-shadow: 0 4px 16px var(--shadow);
+    position: relative;
+}
+.beyond-header::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--gold-light);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .beyond-name-input {
     background: transparent;
     border: none;
     color: var(--bey-text);
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 700;
     width: 100%;
     padding: 0.15rem 0.3rem;
-    border-radius: 6px;
+    border-radius: 2px;
     margin-bottom: 0.6rem;
 }
-.beyond-name-input:hover:not(:disabled) { background: var(--bey-bg-card-2); }
-.beyond-name-input:focus { outline: none; background: var(--bey-bg-card-2); box-shadow: 0 0 0 2px var(--bey-accent-dim); }
+.beyond-name-input:hover:not(:disabled) { background: rgba(255,255,255,0.35); }
+.beyond-name-input:focus { outline: none; background: rgba(255,255,255,0.5); box-shadow: 0 0 0 2px var(--bey-accent-dim); }
 .beyond-name-input:disabled { color: var(--bey-text); }
+.beyond-name-input::placeholder { color: var(--bey-text-faint); }
 
 .beyond-header-grid {
     display: grid;
@@ -124,26 +151,28 @@
 }
 
 .beyond-field-label {
-    font-size: 0.68rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.66rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     color: var(--bey-text-faint);
 }
 
 .beyond-input, .beyond-select {
-    background: var(--bey-bg-card);
+    background: rgba(255,255,255,0.4);
     border: 1px solid var(--bey-border);
+    border-bottom: 2px solid var(--bey-gold);
     color: var(--bey-text);
     padding: 0.4rem 0.55rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    border-radius: 2px;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
     width: 100%;
-    font-family: inherit;
 }
 .beyond-input:focus, .beyond-select:focus {
     outline: none;
-    border-color: var(--bey-accent);
-    box-shadow: 0 0 0 2px var(--bey-accent-dim);
+    border-bottom-color: var(--bey-accent);
+    background: rgba(255,255,255,0.6);
 }
 .beyond-input:disabled, .beyond-select:disabled {
     background: transparent;
@@ -152,37 +181,38 @@
     padding-left: 0;
     opacity: 1;
 }
-.beyond-input.beyond-input-sm { padding: 0.3rem 0.4rem; font-size: 0.85rem; }
+.beyond-input.beyond-input-sm { padding: 0.3rem 0.4rem; font-size: 0.88rem; }
 .beyond-input.beyond-input-num { text-align: center; }
 
 .beyond-textarea {
-    background: var(--bey-bg-card);
+    background: rgba(255,255,255,0.4);
     border: 1px solid var(--bey-border);
+    border-bottom: 2px solid var(--bey-gold);
     color: var(--bey-text);
     padding: 0.6rem 0.7rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    border-radius: 2px;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.95rem;
     width: 100%;
     resize: vertical;
-    font-family: inherit;
-    line-height: 1.5;
+    line-height: 1.55;
 }
 .beyond-textarea:focus {
     outline: none;
-    border-color: var(--bey-accent);
-    box-shadow: 0 0 0 2px var(--bey-accent-dim);
+    border-bottom-color: var(--bey-accent);
+    background: rgba(255,255,255,0.6);
 }
 .beyond-textarea:disabled {
     background: transparent;
     border-color: var(--bey-border);
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 /* ── Tabs ── */
 .beyond-tabs {
     display: flex;
     gap: 0.25rem;
-    border-bottom: 1px solid var(--bey-border);
+    border-bottom: 2px solid var(--bey-gold);
     margin-bottom: 1.25rem;
     overflow-x: auto;
 }
@@ -191,29 +221,47 @@
     border: none;
     color: var(--bey-text-dim);
     padding: 0.65rem 1.1rem;
-    font-size: 0.92rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     font-weight: 600;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
     white-space: nowrap;
     transition: color 0.15s, border-color 0.15s;
 }
-.beyond-tab:hover { color: var(--bey-text); }
-.beyond-tab.active { color: var(--bey-accent-light); border-bottom-color: var(--bey-accent); }
+.beyond-tab:hover { color: var(--bey-accent); }
+.beyond-tab.active { color: var(--bey-accent); border-bottom-color: var(--bey-accent); }
 
 /* ── Section card ── */
 .beyond-card {
     background: var(--bey-bg-elevated);
-    border: 1px solid var(--bey-border);
-    border-radius: 10px;
+    background-image:
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    border: 2px solid var(--bey-gold);
+    border-radius: 4px;
     padding: 1.1rem 1.25rem;
     margin-bottom: 1.1rem;
+    box-shadow: 0 4px 16px var(--shadow);
+    position: relative;
+}
+.beyond-card::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--gold-light);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.35;
 }
 .beyond-card-title {
-    font-size: 0.78rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--bey-accent-light);
+    color: var(--bey-accent);
     font-weight: 700;
     margin: 0 0 0.85rem;
     padding-bottom: 0.5rem;
@@ -241,7 +289,7 @@
     position: relative;
     aspect-ratio: 0.92;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background: linear-gradient(160deg, var(--bey-bg-card-2), var(--bey-bg-card));
+    background: linear-gradient(160deg, var(--bey-bg-card), var(--bey-bg-card-2));
     border: none;
     display: flex;
     flex-direction: column;
@@ -255,17 +303,19 @@
     position: absolute;
     inset: 2px;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    border: 1px solid var(--bey-border-light);
+    border: 1.5px solid var(--bey-gold);
     pointer-events: none;
 }
 .beyond-ability-abbr {
-    font-size: 0.66rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.64rem;
     letter-spacing: 0.08em;
     color: var(--bey-text-faint);
     font-weight: 700;
 }
 .beyond-ability-mod {
-    font-size: 1.6rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--bey-text);
     line-height: 1;
@@ -277,12 +327,13 @@
     z-index: 1;
 }
 .beyond-ability-score {
-    background: var(--bey-bg);
-    border: 1px solid var(--bey-border-light);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--bey-gold);
     color: var(--bey-text-dim);
     width: 2.2rem;
     text-align: center;
     border-radius: 4px;
+    font-family: 'Crimson Text', serif;
     font-size: 0.75rem;
     padding: 0.05rem 0;
 }
@@ -296,8 +347,8 @@
     justify-content: space-between;
     gap: 0.6rem;
     padding: 0.32rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 0.87rem;
+    border-bottom: 1px solid rgba(139, 105, 20, 0.15);
+    font-size: 0.9rem;
 }
 .beyond-prof-row:last-child { border-bottom: none; }
 .beyond-prof-left {
@@ -317,14 +368,14 @@
     padding: 0;
     transition: border-color 0.15s, background 0.15s;
 }
-.beyond-dot:hover { border-color: var(--bey-accent-light); }
+.beyond-dot:hover { border-color: var(--bey-accent); }
 .beyond-dot.proficient { background: var(--bey-accent); border-color: var(--bey-accent); }
 .beyond-dot.expertise { background: var(--bey-gold); border-color: var(--bey-gold); box-shadow: 0 0 0 2px var(--bey-accent-dim); }
 .beyond-dot:disabled { cursor: default; }
 
 .beyond-prof-name { color: var(--bey-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.beyond-prof-ability { color: var(--bey-text-faint); font-size: 0.78rem; }
-.beyond-prof-bonus { font-weight: 700; color: var(--bey-text); flex: none; min-width: 2rem; text-align: right; }
+.beyond-prof-ability { color: var(--bey-text-faint); font-size: 0.8rem; }
+.beyond-prof-bonus { font-family: 'Cinzel', serif; font-weight: 700; color: var(--bey-text); flex: none; min-width: 2rem; text-align: right; }
 
 .beyond-passive {
     display: flex;
@@ -333,10 +384,10 @@
     margin-top: 0.75rem;
     padding-top: 0.6rem;
     border-top: 1px solid var(--bey-border);
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: var(--bey-text-dim);
 }
-.beyond-passive strong { color: var(--bey-text); font-size: 1.1rem; }
+.beyond-passive strong { font-family: 'Cinzel', serif; color: var(--bey-text); font-size: 1.1rem; }
 
 /* ── Combat stats ── */
 .beyond-combat-row {
@@ -361,7 +412,7 @@
     width: 78px;
     height: 74px;
     clip-path: polygon(50% 0%, 100% 18%, 100% 62%, 50% 100%, 0% 62%, 0% 18%);
-    background: linear-gradient(160deg, var(--bey-bg-card-2), var(--bey-bg-card));
+    background: linear-gradient(160deg, var(--bey-bg-card), var(--bey-bg-card-2));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -378,19 +429,26 @@
     background: transparent;
     border: none;
     color: var(--bey-text);
-    font-size: 1.7rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
     font-weight: 800;
     width: 2.2rem;
     text-align: center;
     z-index: 1;
 }
 .beyond-ac-value:focus { outline: none; }
-.beyond-ac-label { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--bey-text-faint); text-align: center; }
+.beyond-ac-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
+    color: var(--bey-text-faint);
+    text-align: center;
+}
 
 .beyond-stat-box {
-    background: var(--bey-bg-card);
-    border: 1px solid var(--bey-border);
-    border-radius: 8px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--bey-gold);
+    border-radius: 4px;
     padding: 0.5rem 0.8rem;
     display: flex;
     flex-direction: column;
@@ -404,7 +462,8 @@
     background: transparent;
     border: none;
     color: var(--bey-text);
-    font-size: 1.3rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.25rem;
     font-weight: 800;
     width: 3rem;
     text-align: center;
@@ -414,9 +473,9 @@
 
 .beyond-hp-box {
     flex: 1 1 220px;
-    background: var(--bey-bg-card);
-    border: 1px solid var(--bey-border);
-    border-radius: 8px;
+    background: rgba(255,255,255,0.4);
+    border: 1px solid var(--bey-gold);
+    border-radius: 4px;
     padding: 0.6rem 0.9rem;
 }
 .beyond-hp-top {
@@ -430,7 +489,8 @@
     background: transparent;
     border: none;
     color: var(--bey-green);
-    font-size: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.9rem;
     font-weight: 800;
     width: 3.2rem;
     text-align: right;
@@ -441,7 +501,8 @@
     background: transparent;
     border: none;
     color: var(--bey-text-dim);
-    font-size: 1.4rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.35rem;
     font-weight: 700;
     width: 2.6rem;
 }
@@ -455,8 +516,8 @@
     color: var(--bey-text-faint);
 }
 .beyond-hp-temp {
-    background: var(--bey-bg-card-2);
-    border: 1px solid var(--bey-border-light);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--bey-gold);
     color: var(--bey-text);
     width: 2.4rem;
     text-align: center;
@@ -478,7 +539,7 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--bey-text-faint);
 }
 .beyond-death-dots { display: flex; gap: 0.25rem; }
@@ -505,8 +566,8 @@
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 50%;
-    border: 1.5px solid var(--bey-border-light);
-    background: var(--bey-bg-card);
+    border: 1.5px solid var(--bey-gold);
+    background: rgba(255,255,255,0.4);
     color: var(--bey-text-faint);
     font-size: 1.1rem;
     cursor: pointer;
@@ -540,22 +601,24 @@
     color: var(--bey-text-faint);
     width: 2rem;
     height: 2rem;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     flex: none;
 }
 .beyond-remove-btn:hover { border-color: var(--bey-red); color: var(--bey-red); }
 .beyond-add-btn {
     background: transparent;
-    border: 1px dashed var(--bey-border-light);
+    border: 1px dashed var(--bey-gold);
     color: var(--bey-text-dim);
     padding: 0.4rem 0.8rem;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
     margin-top: 0.3rem;
 }
-.beyond-add-btn:hover { border-color: var(--bey-accent); color: var(--bey-accent-light); }
+.beyond-add-btn:hover { border-color: var(--bey-accent); color: var(--bey-accent); border-style: solid; }
 
 /* ── Currency row ── */
 .beyond-currency-row {
@@ -576,4 +639,4 @@
     .beyond-grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
-.beyond-readonly-empty { color: var(--bey-text-faint); font-style: italic; font-size: 0.88rem; }
+.beyond-readonly-empty { color: var(--bey-text-faint); font-style: italic; font-size: 0.9rem; }
