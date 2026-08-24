@@ -43,4 +43,17 @@ public class SpellRegistry {
         }
         return spell;
     }
+
+    public List<Spell> getAllSpells() {
+        return List.copyOf(spellCache.values());
+    }
+
+    // The research minigame this pass only covers levels 1-2 - cantrips
+    // (level 0) are picked freely with no minigame, and nothing above 2 is
+    // in the catalog yet (see the spell-research prompt's Non-goals).
+    public List<Spell> getResearchableSpells() {
+        return spellCache.values().stream()
+                .filter(s -> s.getLevel() >= 1 && s.getLevel() <= 2)
+                .toList();
+    }
 }

@@ -1,7 +1,10 @@
 package com.backend.controller;
 
+import com.backend.dto.AspectGrantRequest;
+import com.backend.dto.HintGrantRequest;
 import com.backend.entity.Role;
 import com.backend.entity.User;
+import com.backend.service.ResearchService;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,7 @@ import java.util.Map;
 public class AdminController {
 
     private final RoleService roleService;
+    private final ResearchService researchService;
 
     @PostMapping("/bootstrap-owner")
     public ResponseEntity<User> bootstrapOwner(@AuthenticationPrincipal User user) {
@@ -76,5 +80,21 @@ public class AdminController {
     @PutMapping("/users/{userId}/password")
     public ResponseEntity<User> resetPassword(@PathVariable Long userId, @RequestBody Map<String, String> body) {
         return ResponseEntity.ok(roleService.resetPassword(userId, body.get("password")));
+    }
+
+    // ── Spell research: DM-only grants (see the spell-research prompt,
+    // section 3). Both are additive - there's no player-facing endpoint
+    // anywhere that can increase an aspect count or grant hint access. ──
+
+    @PostMapping("/aspects/grant")
+    public ResponseEntity<Void> grantAspect(@RequestBody AspectGrantRequest request) {
+        researchService.grantAspect(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/hints/grant")
+    public ResponseEntity<Void> grantHint(@RequestBody HintGrantRequest request) {
+        researchService.grantHint(request);
+        return ResponseEntity.ok().build();
     }
 }

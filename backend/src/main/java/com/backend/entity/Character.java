@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lombok.Builder;
 
@@ -231,6 +233,17 @@ public class Character {
 
     @Column(columnDefinition = "TEXT")
     private String treasure;
+
+    // ── Material pouch ──
+    // Aspect key (e.g. "FIRE") -> count in stock. Only ever incremented by
+    // a DM grant (AdminController) or decremented by a research attempt
+    // (ResearchServiceImpl) - never directly player-editable.
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "character_aspects", joinColumns = @JoinColumn(name = "character_id"))
+    @MapKeyColumn(name = "aspect")
+    @Column(name = "count")
+    @Builder.Default
+    private Map<String, Integer> aspects = new HashMap<>();
 
     @PrePersist
     protected void onCreate() {
