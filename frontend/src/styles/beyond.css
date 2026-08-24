@@ -22,18 +22,17 @@
     --bey-gold: var(--gold);
     --bey-green: #3a6b35;
     --bey-red: var(--crimson);
+    /* For text/buttons that sit directly on the page background (which is
+       the site's dark body gradient, not a parchment card) - the --bey-text*
+       ink colors above are meant for on-card text and go near-invisible out
+       here. */
+    --bey-onpage: var(--parchment-dark);
+    --bey-onpage-dim: var(--parchment-darker);
 
     min-height: 100vh;
     color: var(--bey-text);
     font-family: 'Crimson Text', Georgia, serif;
     padding: 1.5rem clamp(0.75rem, 3vw, 2.5rem) 4rem;
-
-    background-color: var(--parchment-darker);
-    background-image: url('../assets/parchment-frame.jpg');
-    background-size: cover;
-    background-position: top center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
 }
 
 .beyond-page * { box-sizing: border-box; }
@@ -57,7 +56,7 @@
     align-items: center;
     justify-content: center;
     min-height: 60vh;
-    color: var(--bey-text-dim);
+    color: var(--bey-onpage);
     font-size: 1.1rem;
     font-family: 'Cinzel', serif;
 }
@@ -74,8 +73,8 @@
 
 .beyond-back {
     background: transparent;
-    border: 1px solid var(--bey-border);
-    color: var(--bey-text-dim);
+    border: 1px solid var(--bey-onpage-dim);
+    color: var(--bey-onpage);
     padding: 0.5rem 1.1rem;
     border-radius: 2px;
     cursor: pointer;
@@ -85,19 +84,19 @@
     text-transform: uppercase;
     transition: border-color 0.15s, color 0.15s;
 }
-.beyond-back:hover { border-color: var(--bey-accent); color: var(--bey-accent); }
+.beyond-back:hover { border-color: var(--bey-gold); color: var(--bey-gold); }
 
 .beyond-save-status {
     font-family: 'Cinzel', serif;
     font-size: 0.75rem;
     letter-spacing: 0.05em;
-    color: var(--bey-text-faint);
+    color: var(--bey-onpage-dim);
     min-width: 5.5rem;
     text-align: right;
 }
 .beyond-save-status.saving { color: var(--bey-gold); }
-.beyond-save-status.saved { color: var(--bey-green); }
-.beyond-save-status.error { color: var(--bey-red); }
+.beyond-save-status.saved { color: #6fbf6a; }
+.beyond-save-status.error { color: var(--bey-accent-light); }
 
 /* ── Header ── */
 .beyond-header {
@@ -219,7 +218,7 @@
 .beyond-tab {
     background: transparent;
     border: none;
-    color: var(--bey-text-dim);
+    color: var(--bey-onpage);
     padding: 0.65rem 1.1rem;
     font-family: 'Cinzel', serif;
     font-size: 0.85rem;
