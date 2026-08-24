@@ -1,6 +1,7 @@
 package com.backend.controller;
 
 import com.backend.dto.CharacterRequest;
+import com.backend.dto.CharacterSheetRequest;
 import com.backend.entity.Character;
 import com.backend.entity.User;
 import com.backend.service.CharacterService;
@@ -51,5 +52,14 @@ public class CharacterController {
             @RequestBody Map<String, String> body,
             @AuthenticationPrincipal User user) {
         return ResponseEntity.ok(characterService.updateMaterials(id, body.get("materials"), user.getId()));
+    }
+
+    // Full-sheet autosave. Any signed-in account, not just the creator -
+    // see CharacterService#updateSheet.
+    @PutMapping("/{id}/sheet")
+    public ResponseEntity<Character> updateSheet(
+            @PathVariable Long id,
+            @RequestBody CharacterSheetRequest request) {
+        return ResponseEntity.ok(characterService.updateSheet(id, request));
     }
 }

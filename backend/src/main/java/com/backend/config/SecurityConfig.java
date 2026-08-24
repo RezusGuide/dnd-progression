@@ -56,6 +56,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        // Spring Boot forwards uncaught controller exceptions to /error
+                        // internally to render the response. Without this, that internal
+                        // dispatch falls through to .anyRequest().authenticated() below and
+                        // gets rejected for anonymous callers - so instead of the real error
+                        // status (400/404/500/...) they'd see an opaque, misleading 403.
+                        .requestMatchers("/error").permitAll()
+
                         // Public read-only content - anyone, logged in or not, can view
                         // Portfolio, Media, Announcements, Downloads, D&D and Minecraft.
                         .requestMatchers(HttpMethod.GET, "/api/portfolio/**").permitAll()
