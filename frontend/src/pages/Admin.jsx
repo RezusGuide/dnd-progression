@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
+import { spellName } from '../constants/spellText'
 import api from '../api/axios'
 
 export default function Admin() {
     const { user, hasSection, login } = useAuth()
-    const { t } = useLang()
+    const { t, lang } = useLang()
     const isOwner = hasSection('*')
 
     const [error, setError] = useState('')
@@ -28,6 +29,13 @@ export default function Admin() {
     const [materialGrantForm, setMaterialGrantForm] = useState({ characterId: '', material: '' })
     const [aspectGrantForm, setAspectGrantForm] = useState({ characterId: '', aspect: ASPECTS[0].key, amount: 1 })
     const [hintGrantForm, setHintGrantForm] = useState({ characterId: '', spellId: '' })
+    // Plain-search filters for the two pickers below - with 50 aspects and
+    // ~300 spells in the catalog now, a single flat <select> stopped being
+    // usable, so both are narrowed by a text filter (name/aspect substring,
+    // case-insensitive) before being grouped into <optgroup>s.
+    const [aspectFilter, setAspectFilter] = useState('')
+    const [spellFilter, setSpellFilter] = useState('')
+    const [spellLevelFilter, setSpellLevelFilter] = useState('')
 
     const refresh = () => {
         api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
@@ -187,6 +195,27 @@ export default function Admin() {
                 </div>
             </div>
         )
+    }
+
+    // Aspect picker: filtered by name, then split into Primal / Compound so
+    // the 6 aspects every combo starts from aren't buried in the other 44.
+    const aspectQuery = aspectFilter.trim().toLowerCase()
+    const filteredAspects = ASPECTS.filter((a) => aspectLabel(a.key).toLowerCase().includes(aspectQuery))
+    const primalAspects = filteredAspects.filter((a) => a.primal)
+    const compoundAspects = filteredAspects.filter((a) => !a.primal)
+
+    // Spell picker: filtered by (localized) name substring and/or an exact
+    // level, then grouped into one <optgroup> per level so scrolling ~300
+    // entries isn't the only way to find one.
+    const spellQuery = spellFilter.trim().toLowerCase()
+    const filteredSpells = spells.filter((s) => {
+        const matchesQuery = !spellQuery || spellName(s, lang).toLowerCase().includes(spellQuery)
+        const matchesLevel = !spellLevelFilter || s.level === Number(spellLevelFilter)
+        return matchesQuery && matchesLevel
+    })
+    const spellsByLevel = {}
+    for (const s of filteredSpells) {
+        (spellsByLevel[s.level] ||= []).push(s)
     }
 
     return (
@@ -352,11 +381,29 @@ export default function Admin() {
                         </div>
                         <div className="tome-field">
                             <label>{t('adminSelectAspect')}</label>
+                            <input
+                                type="text"
+                                value={aspectFilter}
+                                onChange={(e) => setAspectFilter(e.target.value)}
+                                placeholder={t('adminSearchAspect')}
+                                style={{ marginBottom: '0.4rem' }}
+                            />
                             <select
                                 value={aspectGrantForm.aspect}
                                 onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, aspect: e.target.value })}
+                                size={Math.min(8, Math.max(4, filteredAspects.length))}
                             >
-                                {ASPECTS.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
+                                {primalAspects.length > 0 && (
+                                    <optgroup label={t('adminAspectPrimal')}>
+                                        {primalAspects.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
+                                    </optgroup>
+                                )}
+                                {compoundAspects.length > 0 && (
+                                    <optgroup label={t('adminAspectCompound')}>
+                                        {compoundAspects.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
+                                    </optgroup>
+                                )}
+                                {filteredAspects.length === 0 && <option disabled>{t('adminNoMatches')}</option>}
                             </select>
                         </div>
                         <div className="tome-field">
@@ -392,15 +439,41 @@ export default function Admin() {
                                 {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
-                        <div className="tome-field">
+                        <div className="tome-field" style={{ flex: 2 }}>
                             <label>{t('adminSelectSpell')}</label>
+                            <div className="tome-row" style={{ gap: '0.4rem', marginBottom: '0.4rem' }}>
+                                <input
+                                    type="text"
+                                    value={spellFilter}
+                                    onChange={(e) => setSpellFilter(e.target.value)}
+                                    placeholder={t('adminSearchSpell')}
+                                    style={{ flex: 2 }}
+                                />
+                                <select
+                                    value={spellLevelFilter}
+                                    onChange={(e) => setSpellLevelFilter(e.target.value)}
+                                    style={{ flex: 1 }}
+                                >
+                                    <option value="">{t('adminAllLevels')}</option>
+                                    {[1, 2, 3, 4, 5, 6, 7, 8].map((lvl) => (
+                                        <option key={lvl} value={lvl}>{t('level')} {lvl}</option>
+                                    ))}
+                                </select>
+                            </div>
                             <select
                                 value={hintGrantForm.spellId}
                                 onChange={(e) => setHintGrantForm({ ...hintGrantForm, spellId: e.target.value })}
+                                size={Math.min(10, Math.max(4, filteredSpells.length))}
                                 required
                             >
-                                <option value="">{t('choose')}</option>
-                                {spells.map((s) => <option key={s.id} value={s.id}>{s.name} (Lv {s.level})</option>)}
+                                {Object.keys(spellsByLevel).sort((a, b) => a - b).map((lvl) => (
+                                    <optgroup key={lvl} label={`${t('level')} ${lvl}`}>
+                                        {spellsByLevel[lvl].map((s) => (
+                                            <option key={s.id} value={s.id}>{spellName(s, lang)}</option>
+                                        ))}
+                                    </optgroup>
+                                ))}
+                                {filteredSpells.length === 0 && <option disabled>{t('adminNoMatches')}</option>}
                             </select>
                         </div>
                     </div>

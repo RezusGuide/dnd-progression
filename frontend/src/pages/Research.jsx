@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
+import { spellName } from '../constants/spellText'
 import api from '../api/axios'
 
 const HEX_SIZE = 35
@@ -74,7 +75,7 @@ export default function Research() {
     const { characterId } = useParams()
     const navigate = useNavigate()
     const { user } = useAuth()
-    const { t } = useLang()
+    const { t, lang } = useLang()
     const canResearch = !!user
 
     const [character, setCharacter] = useState(null)
@@ -262,7 +263,7 @@ export default function Research() {
                         onChange={(e) => setSelectedSpellId(e.target.value)}
                     >
                         <option value="">{t('researchChooseSpell')}</option>
-                        {hintedSpells.map((s) => <option key={s.id} value={s.id}>{s.name} (Lv {s.level})</option>)}
+                        {hintedSpells.map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)} (Lv {s.level})</option>)}
                     </select>
                 )}
                 {mode === 'hinted' && hintedSpells.length === 0 && (

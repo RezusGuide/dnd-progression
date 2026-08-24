@@ -8,7 +8,9 @@
     "range": "120 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Огненный снаряд",
+    "descriptionRu": "Метните искру пламени в существо или предмет в пределах дистанции."
   },
   {
     "id": "ray-of-frost",
@@ -19,7 +21,9 @@
     "range": "60 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Луч холода",
+    "descriptionRu": "Морозный бело-голубой луч устремляется к существу."
   },
   {
     "id": "mage-hand",
@@ -30,7 +34,9 @@
     "range": "30 feet",
     "components": "V, S",
     "duration": "1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Волшебная рука",
+    "descriptionRu": "Призрачная парящая рука появляется и может манипулировать предметами на расстоянии."
   },
   {
     "id": "minor-illusion",
@@ -41,7 +47,9 @@
     "range": "30 feet",
     "components": "S, M",
     "duration": "1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Малая иллюзия",
+    "descriptionRu": "Создайте звук или образ предмета в пределах дистанции."
   },
   {
     "id": "acid-splash",
@@ -52,7 +60,9 @@
     "range": "60 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Кислотный всплеск",
+    "descriptionRu": "Метните пузырь кислоты в одну или две цели в пределах дистанции."
   },
   {
     "id": "blade-ward",
@@ -63,7 +73,9 @@
     "range": "Self",
     "components": "V, S",
     "duration": "1 round",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Заговор клинков",
+    "descriptionRu": "Защититесь от физического урона, получая сопротивление дробящему, колющему и рубящему урону до начала следующего хода."
   },
   {
     "id": "chill-touch",
@@ -74,7 +86,9 @@
     "range": "120 feet",
     "components": "V, S",
     "duration": "1 round",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Замогильный холод",
+    "descriptionRu": "Призрачная костлявая рука тянется к существу, поражая его могильным холодом."
   },
   {
     "id": "dancing-lights",
@@ -85,7 +99,9 @@
     "range": "120 feet",
     "components": "V, S, M",
     "duration": "Concentration, up to 1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Пляшущие огоньки",
+    "descriptionRu": "Создайте до четырёх огоньков размером с факел, которые парят и двигаются по вашей воле."
   },
   {
     "id": "druidcraft",
@@ -96,7 +112,9 @@
     "range": "30 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Друидизм",
+    "descriptionRu": "Вызовите небольшой природный эффект: предскажите погоду или заставьте цветок распуститься."
   },
   {
     "id": "friends",
@@ -107,7 +125,9 @@
     "range": "Self",
     "components": "S, M",
     "duration": "Concentration, up to 1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Дружба",
+    "descriptionRu": "Получите преимущество на проверки Харизмы против одного существа, которое станет враждебным, когда заклинание закончится."
   },
   {
     "id": "guidance",
@@ -118,7 +138,9 @@
     "range": "Touch",
     "components": "V, S",
     "duration": "Concentration, up to 1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Наставление",
+    "descriptionRu": "Коснитесь согласного существа и дайте ему d4, который можно добавить к одной проверке характеристики."
   },
   {
     "id": "light",
@@ -129,7 +151,9 @@
     "range": "Touch",
     "components": "V, M",
     "duration": "1 hour",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Свет",
+    "descriptionRu": "Заставьте предмет излучать яркий свет в радиусе 20 футов."
   },
   {
     "id": "mending",
@@ -140,7 +164,9 @@
     "range": "Touch",
     "components": "V, S, M",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Починка",
+    "descriptionRu": "Почините один разлом или разрыв на предмете, которого касаетесь."
   },
   {
     "id": "message",
@@ -151,7 +177,9 @@
     "range": "120 feet",
     "components": "V, S, M",
     "duration": "1 round",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Послание",
+    "descriptionRu": "Прошепчите сообщение существу по вашему выбору в пределах дистанции, которое услышит только оно."
   },
   {
     "id": "poison-spray",
@@ -162,7 +190,9 @@
     "range": "10 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Ядовитые брызги",
+    "descriptionRu": "Протяните руку к существу и выпустите облако едкого газа."
   },
   {
     "id": "prestidigitation",
@@ -173,7 +203,9 @@
     "range": "10 feet",
     "components": "V, S",
     "duration": "Up to 1 hour",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Фокусы",
+    "descriptionRu": "Исполните мелкий волшебный трюк: искру, запах или другой небольшой эффект."
   },
   {
     "id": "produce-flame",
@@ -184,7 +216,9 @@
     "range": "Self",
     "components": "V, S",
     "duration": "10 minutes",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Создание пламени",
+    "descriptionRu": "Мерцающее пламя появляется в вашей руке - им можно осветить путь или метнуть как снаряд."
   },
   {
     "id": "resistance",
@@ -195,7 +229,9 @@
     "range": "Touch",
     "components": "V, S, M",
     "duration": "Concentration, up to 1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Сопротивление",
+    "descriptionRu": "Коснитесь согласного существа и дайте ему d4, который можно добавить к одному спасброску."
   },
   {
     "id": "sacred-flame",
@@ -206,7 +242,9 @@
     "range": "60 feet",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Священное пламя",
+    "descriptionRu": "Пламеподобное сияние нисходит на существо, которое вы видите, обжигая его святым огнём."
   },
   {
     "id": "shillelagh",
@@ -217,7 +255,9 @@
     "range": "Touch",
     "components": "V, S, M",
     "duration": "1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Дубинка",
+    "descriptionRu": "Наполните дубинку или посох силой природы, позволяя ей бить с волшебной силой."
   },
   {
     "id": "shocking-grasp",
@@ -228,7 +268,9 @@
     "range": "Touch",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Удар молнии",
+    "descriptionRu": "Молния срывается с вашей руки в существо, которого вы касаетесь, и оно не может совершать реакции до начала вашего следующего хода."
   },
   {
     "id": "spare-the-dying",
@@ -239,7 +281,9 @@
     "range": "Touch",
     "components": "V, S",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Пощада умирающего",
+    "descriptionRu": "Коснитесь живого существа с 0 хитов, чтобы стабилизировать его."
   },
   {
     "id": "thaumaturgy",
@@ -250,7 +294,9 @@
     "range": "30 feet",
     "components": "V",
     "duration": "Up to 1 minute",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Чудотворство",
+    "descriptionRu": "Проявите малое чудо: дрожь земли, мерцание пламени, громовой голос."
   },
   {
     "id": "thorn-whip",
@@ -261,7 +307,9 @@
     "range": "30 feet",
     "components": "V, S, M",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Шипастая плеть",
+    "descriptionRu": "Похожий на лозу хлыст обрушивается на существо, нанося урон и притягивая его к вам."
   },
   {
     "id": "true-strike",
@@ -272,7 +320,9 @@
     "range": "30 feet",
     "components": "S",
     "duration": "Concentration, up to 1 round",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Верный удар",
+    "descriptionRu": "Сосредоточьтесь на существе, чтобы получить преимущество на следующую атаку против него."
   },
   {
     "id": "vicious-mockery",
@@ -283,7 +333,9 @@
     "range": "60 feet",
     "components": "V",
     "duration": "Instantaneous",
-    "pattern": []
+    "pattern": [],
+    "nameRu": "Жестокая насмешка",
+    "descriptionRu": "Обрушьте на существо, которое видите, оскорбление, наполненное тонкими чарами."
   },
   {
     "id": "burning-hands",
@@ -310,7 +362,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Горящие руки",
+    "descriptionRu": "Тонкий лист пламени вырывается из ваших вытянутых пальцев."
   },
   {
     "id": "cure-wounds",
@@ -342,7 +396,9 @@
         "q": 1,
         "r": -1
       }
-    ]
+    ],
+    "nameRu": "Лечение ран",
+    "descriptionRu": "Существо, которого вы касаетесь, восстанавливает некоторое количество хитов."
   },
   {
     "id": "shield",
@@ -374,7 +430,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Щит",
+    "descriptionRu": "Невидимый барьер магической силы появляется и защищает вас."
   },
   {
     "id": "scorching-ray",
@@ -797,7 +855,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Тревога",
+    "descriptionRu": "Установите сигнализацию против нежеланного вторжения, которая оповестит вас звуком или мысленно, когда существо войдёт в охраняемую зону."
   },
   {
     "id": "animal-friendship",
@@ -824,7 +884,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Дружба с животными",
+    "descriptionRu": "Убедите зверя, что вы не желаете ему вреда, расположив его к себе на день."
   },
   {
     "id": "bane",
@@ -851,7 +913,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Погибель",
+    "descriptionRu": "До трёх существ по вашему выбору должны вычитать d4 из каждого броска атаки и спасброска."
   },
   {
     "id": "bless",
@@ -878,7 +942,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Благословение",
+    "descriptionRu": "До трёх существ по вашему выбору прибавляют d4 к каждому броску атаки и спасброску."
   },
   {
     "id": "charm-person",
@@ -905,7 +971,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Очарование личности",
+    "descriptionRu": "Один гуманоид, которого вы видите, должен пройти испытание Мудрости, иначе будет считать вас дружелюбным знакомым."
   },
   {
     "id": "chromatic-orb",
@@ -932,7 +1000,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Хроматическая сфера",
+    "descriptionRu": "Метните сферу энергии, тип урона которой вы выбираете на месте."
   },
   {
     "id": "color-spray",
@@ -959,7 +1029,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Цветной луч",
+    "descriptionRu": "Ослепительный сноп мерцающих цветных огней ослепляет существ в конусе."
   },
   {
     "id": "command",
@@ -986,7 +1058,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Приказ",
+    "descriptionRu": "Произнесите одно слово команды, которому существо должно подчиниться."
   },
   {
     "id": "comprehend-languages",
@@ -1013,7 +1087,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Понимание языков",
+    "descriptionRu": "Понимайте буквальный смысл любого языка, который слышите или видите написанным."
   },
   {
     "id": "compelled-duel",
@@ -1040,7 +1116,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Принуждение к поединку",
+    "descriptionRu": "Привяжите внимание существа к себе, давая ему помеху на атаки против кого-либо, кроме вас."
   },
   {
     "id": "create-or-destroy-water",
@@ -1067,7 +1145,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Создание или уничтожение воды",
+    "descriptionRu": "Призовите до 10 галлонов чистой воды или уничтожьте воду в открытом сосуде."
   },
   {
     "id": "detect-evil-and-good",
@@ -1094,7 +1174,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Обнаружение зла и добра",
+    "descriptionRu": "Почувствуйте присутствие и местоположение небожителей, исчадий, нежити и освящённой земли в пределах дистанции."
   },
   {
     "id": "detect-magic",
@@ -1121,7 +1203,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Обнаружение магии",
+    "descriptionRu": "Почувствуйте присутствие магии в пределах 30 футов и увидите слабое сияние вокруг её источника."
   },
   {
     "id": "detect-poison-and-disease",
@@ -1148,7 +1232,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Обнаружение яда и болезни",
+    "descriptionRu": "Почувствуйте присутствие и местоположение ядов, ядовитых существ и болезней в пределах дистанции."
   },
   {
     "id": "disguise-self",
@@ -1175,7 +1261,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Маскировка",
+    "descriptionRu": "Измените свою внешность, включая одежду и снаряжение, приняв облик другого гуманоида."
   },
   {
     "id": "dissonant-whispers",
@@ -1202,7 +1290,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Раздор шёпотом",
+    "descriptionRu": "Прошепчите диссонирующую мелодию, которую услышит только одно существо, терзая его разум мучительной болью."
   },
   {
     "id": "divine-favor",
@@ -1229,7 +1319,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Благоволение",
+    "descriptionRu": "Ваше оружие вспыхивает священной энергией, добавляя урон светом к следующим попаданиям."
   },
   {
     "id": "entangle",
@@ -1256,7 +1348,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Опутывание",
+    "descriptionRu": "Цепкие сорняки и лозы прорастают из земли, превращая её в труднопроходимую местность."
   },
   {
     "id": "ensnaring-strike",
@@ -1283,7 +1377,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Опутывающий удар",
+    "descriptionRu": "Следующее попадание оружием вызывает колючие лозы, опутывающие цель."
   },
   {
     "id": "expeditious-retreat",
@@ -1310,7 +1406,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Стремительное отступление",
+    "descriptionRu": "Ваша скорость увеличивается, позволяя совершать Рывок бонусным действием каждый ход."
   },
   {
     "id": "faerie-fire",
@@ -1337,7 +1435,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Огни фей",
+    "descriptionRu": "Предметы и существа в области очерчиваются цветным светом, теряя пользу от невидимости."
   },
   {
     "id": "false-life",
@@ -1364,7 +1464,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Мнимая жизнь",
+    "descriptionRu": "Укрепите себя некромантическим подобием здоровья, получив временные хиты."
   },
   {
     "id": "feather-fall",
@@ -1391,7 +1493,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Падение пёрышком",
+    "descriptionRu": "Выберите до пяти падающих существ, замедлив их падение до плавного спуска."
   },
   {
     "id": "find-familiar",
@@ -1418,7 +1522,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Призыв фамильяра",
+    "descriptionRu": "Призовите духа, принимающего облик животного по вашему выбору, чтобы служить вам фамильяром."
   },
   {
     "id": "find-steed",
@@ -1445,7 +1551,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Призыв верного скакуна",
+    "descriptionRu": "Призовите духа, принимающего облик верного, разумного скакуна."
   },
   {
     "id": "fog-cloud",
@@ -1472,7 +1580,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Облако тумана",
+    "descriptionRu": "Сфера тумана заполняет область, сильно скрывая её."
   },
   {
     "id": "goodberry",
@@ -1499,7 +1609,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Волшебная ягода",
+    "descriptionRu": "До десяти ягод вырастают, каждая - миниатюрный обед, исцеляющий 1 хит при поедании."
   },
   {
     "id": "grease",
@@ -1526,7 +1638,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Смазка",
+    "descriptionRu": "Скользкая смазка покрывает землю, делая её труднопроходимой и способной сбить существ с ног."
   },
   {
     "id": "guiding-bolt",
@@ -1553,7 +1667,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Направляющая вспышка",
+    "descriptionRu": "Вспышка света устремляется к существу, и следующая атака против него получает преимущество."
   },
   {
     "id": "hail-of-thorns",
@@ -1580,7 +1696,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Град шипов",
+    "descriptionRu": "Ваше следующее попадание дальнобойным оружием разрывается колючими лозами, осыпая уроном соседние существа."
   },
   {
     "id": "healing-word",
@@ -1607,7 +1725,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Слово исцеления",
+    "descriptionRu": "Существо по вашему выбору восстанавливает хиты на расстоянии, без необходимости касания."
   },
   {
     "id": "hellish-rebuke",
@@ -1634,7 +1754,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Адское возмездие",
+    "descriptionRu": "Вы указываете на существо, только что причинившее вам вред, и земля вокруг него охватывается адским пламенем."
   },
   {
     "id": "heroism",
@@ -1661,7 +1783,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Героизм",
+    "descriptionRu": "Согласное существо наполняется отвагой, получая временные хиты и иммунитет к испугу."
   },
   {
     "id": "hex",
@@ -1688,7 +1812,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Проклятие",
+    "descriptionRu": "Прокляните существо, чтобы ваши атаки против него наносили дополнительный урон некротической энергией."
   },
   {
     "id": "hunters-mark",
@@ -1715,7 +1841,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Метка охотника",
+    "descriptionRu": "Отметьте существо как свою добычу, нанося ему дополнительный урон при каждом попадании."
   },
   {
     "id": "identify",
@@ -1742,7 +1870,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Опознание",
+    "descriptionRu": "Узнайте свойства, способ активации и любое проклятие на магическом предмете или длящемся эффекте."
   },
   {
     "id": "illusory-script",
@@ -1769,7 +1899,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Иллюзорный шифр",
+    "descriptionRu": "Напишите сообщение, которое выглядит бессмыслицей для всех, кроме тех, кого вы укажете."
   },
   {
     "id": "inflict-wounds",
@@ -1796,7 +1928,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Причинение ран",
+    "descriptionRu": "Ваше прикосновение направляет отрицательную энергию, выжигая некротические раны на существе."
   },
   {
     "id": "jump",
@@ -1823,7 +1957,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Прыжок",
+    "descriptionRu": "Дальность прыжка существа утраивается на время действия заклинания."
   },
   {
     "id": "longstrider",
@@ -1850,7 +1986,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Длинный шаг",
+    "descriptionRu": "Скорость существа увеличивается на 10 футов."
   },
   {
     "id": "mage-armor",
@@ -1877,7 +2015,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Доспехи мага",
+    "descriptionRu": "Защитная магическая сила окружает существо без доспеха, устанавливая его базовый КД."
   },
   {
     "id": "magic-missile",
@@ -1904,7 +2044,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Волшебная стрела",
+    "descriptionRu": "Три светящихся дротика магической силы поражают без промаха, бросок атаки не требуется."
   },
   {
     "id": "protection-from-evil-and-good",
@@ -1931,7 +2073,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Защита от зла и добра",
+    "descriptionRu": "Защитите существо от аберраций, небожителей, элементалей, фей, исчадий и нежити."
   },
   {
     "id": "purify-food-and-drink",
@@ -1958,7 +2102,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Очищение пищи и питья",
+    "descriptionRu": "Вся немагическая еда и питьё в области очищаются от яда и болезней."
   },
   {
     "id": "ray-of-sickness",
@@ -1985,7 +2131,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Луч тошноты",
+    "descriptionRu": "Луч болезнетворной зеленоватой энергии поражает существо, отравляя его."
   },
   {
     "id": "sanctuary",
@@ -2012,7 +2160,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Убежище",
+    "descriptionRu": "Защитите существо так, чтобы любой нападающий сперва проходил испытание Мудрости, чтобы выбрать его целью."
   },
   {
     "id": "searing-smite",
@@ -2039,7 +2189,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Опаляющий удар",
+    "descriptionRu": "Ваше следующее попадание оружием вспыхивает огнём, нанося дополнительный урон и поджигая цель."
   },
   {
     "id": "shield-of-faith",
@@ -2066,7 +2218,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Щит веры",
+    "descriptionRu": "Мерцающее поле окружает существо, даруя ему бонус к КД."
   },
   {
     "id": "silent-image",
@@ -2093,7 +2247,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Безмолвный образ",
+    "descriptionRu": "Создайте чисто зрительную иллюзию предмета, существа или эффекта."
   },
   {
     "id": "sleep",
@@ -2120,7 +2276,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Сон",
+    "descriptionRu": "Существа в области погружаются в волшебную дрёму, слабейшие первыми."
   },
   {
     "id": "speak-with-animals",
@@ -2147,7 +2305,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Разговор с животными",
+    "descriptionRu": "Получите способность понимать и вербально общаться со зверями."
   },
   {
     "id": "tashas-hideous-laughter",
@@ -2174,7 +2334,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Ужасный хохот Таши",
+    "descriptionRu": "Существо охватывает неудержимое веселье, и оно падает ничком, беспомощное от смеха."
   },
   {
     "id": "tensers-floating-disk",
@@ -2201,7 +2363,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Парящий диск Тензера",
+    "descriptionRu": "Создайте горизонтальный диск силы, парящий за вами и способный нести груз."
   },
   {
     "id": "thunderous-smite",
@@ -2228,7 +2392,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Громовой удар",
+    "descriptionRu": "Ваше следующее попадание оружием раздаётся громом, нанося дополнительный урон и отбрасывая цель."
   },
   {
     "id": "thunderwave",
@@ -2255,7 +2421,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Громовая волна",
+    "descriptionRu": "Волна громовой силы прокатывается от вас, отталкивая существ."
   },
   {
     "id": "unseen-servant",
@@ -2282,7 +2450,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Невидимый слуга",
+    "descriptionRu": "Создайте невидимую, бездумную силу, способную выполнять простую работу по вашей команде."
   },
   {
     "id": "witch-bolt",
@@ -2309,7 +2479,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Ведьмин луч",
+    "descriptionRu": "Луч потрескивающей энергии бьёт в цель и каждый ход возвращается к вам, вновь нанося урон."
   },
   {
     "id": "wrathful-smite",
@@ -2336,7 +2508,9 @@
         "q": 0,
         "r": 1
       }
-    ]
+    ],
+    "nameRu": "Гневный удар",
+    "descriptionRu": "Ваше следующее попадание оружием заряжено психической яростью, нанося дополнительный урон и пугая цель."
   },
   {
     "id": "acid-arrow",
@@ -8964,6 +9138,1514 @@
         "aspect": "PERFODIO",
         "q": -1,
         "r": 1
+      }
+    ]
+  },
+  {
+    "id": "arcane-gate",
+    "name": "Arcane Gate",
+    "level": 6,
+    "description": "Two linked circular portals open, letting anything step from one straight through to the other.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "blade-barrier",
+    "name": "Blade Barrier",
+    "level": 6,
+    "description": "A vertical, twisting wall of whirling blades erupts from the ground, shredding anything that tries to pass.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITREUS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "circle-of-death",
+    "name": "Circle of Death",
+    "level": 6,
+    "description": "A sphere of negative energy bursts outward, draining the life from every creature it touches.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "conjure-fey",
+    "name": "Conjure Fey",
+    "level": 6,
+    "description": "Summon a fey creature or beast tied to the fey to fight at your command.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "HERBA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "contingency",
+    "name": "Contingency",
+    "level": 6,
+    "description": "Store a spell within yourself, primed to trigger the instant a condition you set comes to pass.",
+    "castingTime": "10 minutes",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "10 days",
+    "pattern": [
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "create-undead",
+    "name": "Create Undead",
+    "level": 6,
+    "description": "Raise up to three corpses as ghouls, bound to obey your commands until they're destroyed.",
+    "castingTime": "1 minute",
+    "range": "10 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "EXANIMIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "disintegrate",
+    "name": "Disintegrate",
+    "level": 6,
+    "description": "A thin, green ray lances out and, if it connects hard enough, reduces its target to fine dust.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "drawmijs-instant-summons",
+    "name": "Drawmij's Instant Summons",
+    "level": 6,
+    "description": "Enchant an item so that, once prepared, a single word teleports it straight into your hand.",
+    "castingTime": "1 minute (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "eyebite",
+    "name": "Eyebite",
+    "level": 6,
+    "description": "Your eyes turn black, and a creature you look at is stricken with sleep, fear, or sickness.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "find-the-path",
+    "name": "Find the Path",
+    "level": 6,
+    "description": "Discern the shortest, most direct route to a location you name, however far away it may be.",
+    "castingTime": "1 minute",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 day",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "flesh-to-stone",
+    "name": "Flesh to Stone",
+    "level": 6,
+    "description": "A creature you can see begins to petrify, its flesh slowly hardening to unmoving stone.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "forbiddance",
+    "name": "Forbiddance",
+    "level": 6,
+    "description": "Ward a great tract of land against planar travel and certain kinds of creatures crossing in.",
+    "castingTime": "10 minutes (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 day",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "globe-of-invulnerability",
+    "name": "Globe of Invulnerability",
+    "level": 6,
+    "description": "An immobile, faintly shimmering barrier surrounds you, blocking spells of 5th level and lower.",
+    "castingTime": "1 action",
+    "range": "Self (10-foot radius)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "guards-and-wards",
+    "name": "Guards and Wards",
+    "level": 6,
+    "description": "A whole area is laced with a web of minor magical effects, hindering intruders at every turn.",
+    "castingTime": "10 minutes",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "harm",
+    "name": "Harm",
+    "level": 6,
+    "description": "A violent, virulent affliction of negative energy tears into a creature's body and mind.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "heal",
+    "name": "Heal",
+    "level": 6,
+    "description": "A great surge of positive energy washes through a creature, closing wounds and lifting a blindness or disease.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "heroes-feast",
+    "name": "Heroes' Feast",
+    "level": 6,
+    "description": "A sumptuous feast appears, and everyone who partakes gains resolve, health, and protection for a day.",
+    "castingTime": "10 minutes",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VENENUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "GRANUM",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "mass-suggestion",
+    "name": "Mass Suggestion",
+    "level": 6,
+    "description": "Suggest a reasonable-sounding course of action to up to twelve creatures at once, compelling each to follow through.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "move-earth",
+    "name": "Move Earth",
+    "level": 6,
+    "description": "Excavate, reshape, and relocate great sections of dirt and stone over the course of the spell.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 4 hours",
+    "pattern": [
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERFODIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "otilukes-freezing-sphere",
+    "name": "Otiluke's Freezing Sphere",
+    "level": 6,
+    "description": "A frigid globe of ice streaks to a point and bursts, blasting the area with freezing shards.",
+    "castingTime": "1 action",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "GELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "ottos-irresistible-dance",
+    "name": "Otto's Irresistible Dance",
+    "level": 6,
+    "description": "A creature is compelled to burst into an erratic dance, unable to focus on anything else.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "planar-ally",
+    "name": "Planar Ally",
+    "level": 6,
+    "description": "Call out to an otherworldly entity for aid, offering payment for a service in return.",
+    "castingTime": "10 minutes",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "LUCRUM",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "programmed-illusion",
+    "name": "Programmed Illusion",
+    "level": 6,
+    "description": "An illusion springs to life and performs a scripted routine each time its trigger condition is met.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AURAM",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "sunbeam",
+    "name": "Sunbeam",
+    "level": 6,
+    "description": "A beam of brilliant sunlight flashes out, searing and blinding everything it touches.",
+    "castingTime": "1 action",
+    "range": "Self (60-foot line)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "ARBOR",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "transport-via-plants",
+    "name": "Transport via Plants",
+    "level": 6,
+    "description": "Step into one healthy, Large plant and emerge from another of the same kind, anywhere it may be rooted.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V, S",
+    "duration": "1 round",
+    "pattern": [
+      {
+        "aspect": "ARBOR",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "HERBA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "true-seeing",
+    "name": "True Seeing",
+    "level": 6,
+    "description": "A creature you touch sees truly - through illusions, invisibility, disguise, and the veil into the Ethereal Plane.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "wall-of-ice",
+    "name": "Wall of Ice",
+    "level": 6,
+    "description": "A wall of solid ice rises from the ground, cold enough to numb anything that touches it.",
+    "castingTime": "1 action",
+    "range": "120 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "GELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "wind-walk",
+    "name": "Wind Walk",
+    "level": 6,
+    "description": "You and your companions turn to gaseous, wind-borne mist, flying swiftly and far across the land.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S, M",
+    "duration": "8 hours",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": 0
+      }
+    ]
+  },
+  {
+    "id": "word-of-recall",
+    "name": "Word of Recall",
+    "level": 6,
+    "description": "Speak a word of teleportation and you and your companions are drawn instantly to a sanctuary you've bound the spell to.",
+    "castingTime": "1 action",
+    "range": "5 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 2,
+        "r": 0
       }
     ]
   }

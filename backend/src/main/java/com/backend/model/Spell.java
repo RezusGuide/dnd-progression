@@ -36,4 +36,11 @@ public class Spell {
     private String components;
     private String duration;
     private List<GridAnchor> pattern;
+    // Russian translation of name/description - null until translated (see
+    // spells.json's per-spell nameRu/descriptionRu). The frontend falls
+    // back to the English name/description whenever these are missing, so
+    // the catalog is usable mid-translation rather than needing every
+    // spell done before any of it can ship.
+    private String nameRu;
+    private String descriptionRu;
 }

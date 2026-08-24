@@ -17,4 +17,6 @@ public class KnownSpellResponse {
     private int level;
     private String description;
     private int accuracyPercentage;
+    private String nameRu;
+    private String descriptionRu;
 }

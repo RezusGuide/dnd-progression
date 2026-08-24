@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
+import { spellName } from '../constants/spellText'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 import '../styles/beyond.css'
@@ -115,7 +116,7 @@ export default function CharacterSheet() {
     const { id } = useParams()
     const navigate = useNavigate()
     const { user } = useAuth()
-    const { t } = useLang()
+    const { t, lang } = useLang()
     // D&D is public to view; any signed-in account can edit (not just the
     // creator) - see CharacterService#updateSheet.
     const canEdit = !!user
@@ -535,7 +536,7 @@ export default function CharacterSheet() {
                             {knownSpells.map((s) => (
                                 <div key={s.spellId} className="beyond-prof-row">
                                     <div className="beyond-prof-left">
-                                        <span className="beyond-prof-name">{s.name}</span>
+                                        <span className="beyond-prof-name">{spellName(s, lang)}</span>
                                         <span className="beyond-prof-ability">(Lv {s.level})</span>
                                     </div>
                                     <span className="beyond-prof-bonus">{s.accuracyPercentage}%</span>
@@ -547,7 +548,7 @@ export default function CharacterSheet() {
                                         <option value="">{t('sheetChooseCantrip')}</option>
                                         {cantripCatalog
                                             .filter((s) => !knownSpells.some((k) => k.spellId === s.id))
-                                            .map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                                            .map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)}</option>)}
                                     </select>
                                     <button type="button" className="beyond-add-btn" style={{ marginTop: 0 }} onClick={handleAddCantrip}>{t('sheetAddCantrip')}</button>
                                 </div>

@@ -22,4 +22,6 @@ public class SpellSummary {
     private String range;
     private String components;
     private String duration;
+    private String nameRu;
+    private String descriptionRu;
 }

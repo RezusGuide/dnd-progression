@@ -33,6 +33,7 @@ public class SpellController {
         return SpellSummary.builder()
                 .id(s.getId()).name(s.getName()).level(s.getLevel()).description(s.getDescription())
                 .castingTime(s.getCastingTime()).range(s.getRange()).components(s.getComponents()).duration(s.getDuration())
+                .nameRu(s.getNameRu()).descriptionRu(s.getDescriptionRu())
                 .build();
     }
 }
