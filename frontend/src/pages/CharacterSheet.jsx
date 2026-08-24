@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { spellName } from '../constants/spellText'
+import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
 import '../styles/beyond.css'
@@ -526,32 +527,44 @@ export default function CharacterSheet() {
                         </div>
 
                         {/* Spells known - cantrips picked freely, level 1-2 only added by a
-                            successful research attempt (see Research.jsx). */}
+                            successful research attempt (see Research.jsx). Hidden behind a
+                            plain notice for classes with no spellcasting in the base rules
+                            (Fighter, Barbarian, Rogue, Monk) - see CasterClasses on the
+                            backend for the full reasoning. */}
                         <div className="beyond-card">
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
                                 <h2 className="beyond-card-title" style={{ margin: 0, border: 0, padding: 0 }}>{t('sheetSpellsKnown')}</h2>
-                                <Link to={`/characters/${id}/research`} className="beyond-add-btn" style={{ marginTop: 0, textDecoration: 'none', display: 'inline-block' }}>{t('sheetGoResearch')}</Link>
+                                {!isNonCaster(character.characterClass) && (
+                                    <Link to={`/characters/${id}/research`} className="beyond-add-btn" style={{ marginTop: 0, textDecoration: 'none', display: 'inline-block' }}>{t('sheetGoResearch')}</Link>
+                                )}
                             </div>
-                            {knownSpells.length === 0 && <p className="beyond-readonly-empty">{t('sheetSpellsEmpty')}</p>}
-                            {knownSpells.map((s) => (
-                                <div key={s.spellId} className="beyond-prof-row">
-                                    <div className="beyond-prof-left">
-                                        <span className="beyond-prof-name">{spellName(s, lang)}</span>
-                                        <span className="beyond-prof-ability">(Lv {s.level})</span>
-                                    </div>
-                                    <span className="beyond-prof-bonus">{s.accuracyPercentage}%</span>
-                                </div>
-                            ))}
-                            {canEdit && (
-                                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.9rem' }}>
-                                    <select className="beyond-select" value={cantripChoice} onChange={(e) => setCantripChoice(e.target.value)}>
-                                        <option value="">{t('sheetChooseCantrip')}</option>
-                                        {cantripCatalog
-                                            .filter((s) => !knownSpells.some((k) => k.spellId === s.id))
-                                            .map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)}</option>)}
-                                    </select>
-                                    <button type="button" className="beyond-add-btn" style={{ marginTop: 0 }} onClick={handleAddCantrip}>{t('sheetAddCantrip')}</button>
-                                </div>
+                            {isNonCaster(character.characterClass) ? (
+                                <p className="beyond-readonly-empty">{t('sheetNonCasterNotice').replace('{class}', character.characterClass)}</p>
+                            ) : (
+                                <>
+                                    {knownSpells.length === 0 && <p className="beyond-readonly-empty">{t('sheetSpellsEmpty')}</p>}
+                                    {knownSpells.map((s) => (
+                                        <div key={s.spellId} className="beyond-prof-row">
+                                            <div className="beyond-prof-left">
+                                                <span className="beyond-prof-name">{spellName(s, lang)}</span>
+                                                <span className="beyond-prof-ability">(Lv {s.level})</span>
+                                            </div>
+                                            <span className="beyond-prof-bonus">{s.accuracyPercentage}%</span>
+                                        </div>
+                                    ))}
+                                    {canEdit && (
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.9rem' }}>
+                                            <select className="beyond-select" value={cantripChoice} onChange={(e) => setCantripChoice(e.target.value)}>
+                                                <option value="">{t('sheetChooseCantrip')}</option>
+                                                {cantripCatalog
+                                                    .filter((s) => !knownSpells.some((k) => k.spellId === s.id))
+                                                    .filter((s) => isSpellEligible(character.characterClass, s))
+                                                    .map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)}</option>)}
+                                            </select>
+                                            <button type="button" className="beyond-add-btn" style={{ marginTop: 0 }} onClick={handleAddCantrip}>{t('sheetAddCantrip')}</button>
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
 

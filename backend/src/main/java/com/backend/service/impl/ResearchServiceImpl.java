@@ -14,6 +14,7 @@ import com.backend.repository.CharacterRepository;
 import com.backend.repository.KnownSpellRepository;
 import com.backend.repository.ResearchDraftRepository;
 import com.backend.repository.SpellHintGrantRepository;
+import com.backend.service.CasterClasses;
 import com.backend.service.ResearchService;
 import com.backend.service.SpellRegistry;
 import lombok.RequiredArgsConstructor;
@@ -129,6 +130,8 @@ public class ResearchServiceImpl implements ResearchService {
             throw new ResearchException("This character already knows that cantrip.");
         }
         Character character = requireCharacter(characterId);
+        requireCasterClass(character);
+        requireSpellClassMatch(character, spell);
         knownSpellRepository.save(KnownSpell.builder()
                 .character(character)
                 .spellId(spellId)
@@ -140,6 +143,7 @@ public class ResearchServiceImpl implements ResearchService {
     @Transactional
     public ResearchAttemptResponse attemptResearch(Long characterId, ResearchAttemptRequest request) {
         Character character = requireCharacter(characterId);
+        requireCasterClass(character);
         List<GridAnchor> placements = request.getPlacements() == null ? List.of() : request.getPlacements();
 
         boolean hinted = request.getSpellId() != null && !request.getSpellId().isBlank();
@@ -153,6 +157,7 @@ public class ResearchServiceImpl implements ResearchService {
                 throw new ResearchException("Only level " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
                         + "-" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " spells can be researched.");
             }
+            requireSpellClassMatch(character, hintedSpell);
             targetLevel = hintedSpell.getLevel();
         } else {
             if (request.getTargetLevel() == null) {
@@ -198,6 +203,9 @@ public class ResearchServiceImpl implements ResearchService {
             Spell best = null;
             int bestScore = -1;
             for (Spell candidate : spellRegistry.getSpellsByLevel(targetLevel)) {
+                if (!isClassEligible(character, candidate)) {
+                    continue;
+                }
                 int score = matchPercentage(candidate.getPattern(), placements);
                 if (score > bestScore) {
                     bestScore = score;
@@ -205,7 +213,7 @@ public class ResearchServiceImpl implements ResearchService {
                 }
             }
             if (best == null) {
-                throw new ResearchException("No researchable spells exist at level " + targetLevel + " in the catalog yet.");
+                throw new ResearchException("No level " + targetLevel + " spells on this character's class list exist in the catalog yet.");
             }
             targetSpell = best;
             accuracy = Math.min(bestScore, 80);
@@ -329,6 +337,40 @@ public class ResearchServiceImpl implements ResearchService {
         hintGrantRepository.save(SpellHintGrant.builder().character(character).spellId(request.getSpellId()).build());
     }
 
+    // "Logical connections" gate #1: classes with no spellcasting in the
+    // base rules (Fighter, Barbarian, Rogue, Monk) can't touch the research
+    // system at all. An unrecognized class string (typo, homebrew name,
+    // blank field) is left unrestricted rather than blocked, since we can't
+    // tell a mismatch from an intentional non-standard class name.
+    private void requireCasterClass(Character character) {
+        String cls = CasterClasses.normalize(character.getCharacterClass());
+        if (CasterClasses.NON_CASTER_CLASSES.contains(cls)) {
+            throw new ResearchException(character.getCharacterClass()
+                    + "s don't have spellcasting in the base rules, so there's nothing here to research. "
+                    + "A skills/fighting-style minigame for martial classes is planned separately.");
+        }
+    }
+
+    // "Logical connections" gate #2: a recognized caster class can only
+    // research/unlock spells that are actually on its class list. Same
+    // fail-open behavior for an unrecognized class or a spell with no
+    // classes tagged yet (older cantrip rows predate this field).
+    private void requireSpellClassMatch(Character character, Spell spell) {
+        if (!isClassEligible(character, spell)) {
+            throw new ResearchException(character.getCharacterClass() + "s can't learn " + spell.getName()
+                    + " - it isn't on their spell list.");
+        }
+    }
+
+    private boolean isClassEligible(Character character, Spell spell) {
+        String cls = CasterClasses.normalize(character.getCharacterClass());
+        if (!CasterClasses.CASTER_CLASSES.contains(cls)) {
+            return true; // unrecognized class string - don't block on a guess
+        }
+        List<String> eligible = spell.getClasses();
+        return eligible == null || eligible.isEmpty() || eligible.contains(cls);
+    }
+
     private void requireHintAccess(Long characterId, String spellId) {
         if (!hintGrantRepository.existsByCharacterIdAndSpellId(characterId, spellId)) {
             throw new ResearchException("This character doesn't have hint access for that spell.");
@@ -345,6 +387,7 @@ public class ResearchServiceImpl implements ResearchService {
                 .id(s.getId()).name(s.getName()).level(s.getLevel()).description(s.getDescription())
                 .castingTime(s.getCastingTime()).range(s.getRange()).components(s.getComponents()).duration(s.getDuration())
                 .nameRu(s.getNameRu()).descriptionRu(s.getDescriptionRu())
+                .classes(s.getClasses())
                 .build();
     }
 

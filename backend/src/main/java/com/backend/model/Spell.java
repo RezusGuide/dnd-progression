@@ -43,4 +43,10 @@ public class Spell {
     // spell done before any of it can ship.
     private String nameRu;
     private String descriptionRu;
+    // Which of the eight caster classes (see CasterClasses) can learn this
+    // spell, e.g. ["SORCERER", "WIZARD"] for Fireball. Empty/null for
+    // cantrips that predate this field is treated as "unrestricted" by
+    // ResearchServiceImpl, same fail-open behavior as an unrecognized
+    // character class - never used to silently lock every spell out.
+    private List<String> classes;
 }

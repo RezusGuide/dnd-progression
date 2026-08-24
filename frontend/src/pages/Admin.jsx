@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import { spellName } from '../constants/spellText'
+import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import api from '../api/axios'
 
 export default function Admin() {
@@ -208,10 +209,12 @@ export default function Admin() {
     // level, then grouped into one <optgroup> per level so scrolling ~300
     // entries isn't the only way to find one.
     const spellQuery = spellFilter.trim().toLowerCase()
+    const hintCharacterClass = characters.find((c) => String(c.id) === String(hintGrantForm.characterId))?.characterClass
     const filteredSpells = spells.filter((s) => {
         const matchesQuery = !spellQuery || spellName(s, lang).toLowerCase().includes(spellQuery)
         const matchesLevel = !spellLevelFilter || s.level === Number(spellLevelFilter)
-        return matchesQuery && matchesLevel
+        const matchesClass = !hintCharacterClass || isSpellEligible(hintCharacterClass, s)
+        return matchesQuery && matchesLevel && matchesClass
     })
     const spellsByLevel = {}
     for (const s of filteredSpells) {
@@ -426,13 +429,16 @@ export default function Admin() {
                     {t('adminHintGrant')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminHintGrantHint')}</p>
+                {hintCharacterClass && isNonCaster(hintCharacterClass) && (
+                    <div className="tome-notice">{t('sheetNonCasterNotice').replace('{class}', hintCharacterClass)}</div>
+                )}
                 <form onSubmit={handleGrantHint} className="tome-form codex-form">
                     <div className="tome-row">
                         <div className="tome-field">
                             <label>{t('adminSelectCharacter')}</label>
                             <select
                                 value={hintGrantForm.characterId}
-                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, characterId: e.target.value })}
+                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, characterId: e.target.value, spellId: '' })}
                                 required
                             >
                                 <option value="">{t('choose')}</option>

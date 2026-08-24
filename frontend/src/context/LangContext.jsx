@@ -158,6 +158,7 @@ const translations = {
         sheetAddCantrip: '+ Add Cantrip',
         sheetChooseCantrip: '— Choose a cantrip —',
         sheetGoResearch: 'Research a Spell →',
+        sheetNonCasterNotice: "{class}s don't have spellcasting in the base rules, so there's nothing to research here. A skills/fighting-style minigame for martial classes is planned separately.",
         sheetMaterialPouch: 'Material Pouch',
         sheetPouchEmpty: 'The pouch is empty. Ask your DM for aspects.',
         // Spell research minigame
@@ -603,6 +604,7 @@ const translations = {
         sheetAddCantrip: '+ Добавить Заговор',
         sheetChooseCantrip: '— Выбрать заговор —',
         sheetGoResearch: 'Исследовать Заклинание →',
+        sheetNonCasterNotice: 'У класса «{class}» нет заклинаний по базовым правилам, поэтому исследовать здесь нечего. Мини-игра на основе навыков и боевых стилей для боевых классов планируется отдельно.',
         sheetMaterialPouch: 'Мешочек с Материалами',
         sheetPouchEmpty: 'Мешочек пуст. Попросите ДМа выдать аспекты.',
         // Мини-игра исследования заклинаний
