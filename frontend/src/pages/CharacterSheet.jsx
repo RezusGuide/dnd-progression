@@ -262,7 +262,7 @@ export default function CharacterSheet() {
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('level')}</span>
-                        <input className="beyond-input beyond-input-num" type="number" min="1" max="20" value={form.level} onChange={setNum('level')} disabled={!canEdit} />
+                        <input className="beyond-input beyond-input-num" type="number" min="1" max="20" value={form.level ?? ''} onChange={setNum('level')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('race')}</span>
@@ -282,7 +282,7 @@ export default function CharacterSheet() {
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('sheetXp')}</span>
-                        <input className="beyond-input beyond-input-num" type="number" min="0" value={form.experiencePoints} onChange={setNum('experiencePoints')} disabled={!canEdit} />
+                        <input className="beyond-input beyond-input-num" type="number" min="0" value={form.experiencePoints ?? ''} onChange={setNum('experiencePoints')} disabled={!canEdit} />
                     </div>
                     {character.campaign && (
                         <div className="beyond-field">
@@ -316,7 +316,7 @@ export default function CharacterSheet() {
                                             <input
                                                 className="beyond-ability-score"
                                                 type="number" min="1" max="30"
-                                                value={form[a.field]}
+                                                value={form[a.field] ?? ''}
                                                 onChange={setNum(a.field)}
                                                 disabled={!canEdit}
                                             />
@@ -330,7 +330,7 @@ export default function CharacterSheet() {
                                     className="beyond-input beyond-input-sm beyond-input-num"
                                     style={{ width: '3.5rem' }}
                                     type="number"
-                                    value={form.proficiencyBonus}
+                                    value={form.proficiencyBonus ?? ''}
                                     onChange={setNum('proficiencyBonus')}
                                     disabled={!canEdit}
                                 />
@@ -394,7 +394,7 @@ export default function CharacterSheet() {
                                         <input
                                             className="beyond-ac-value"
                                             type="number"
-                                            value={form.armorClass}
+                                            value={form.armorClass ?? ''}
                                             onChange={setNum('armorClass')}
                                             disabled={!canEdit}
                                         />
@@ -414,7 +414,7 @@ export default function CharacterSheet() {
                                 </div>
                                 <div className="beyond-stat-box">
                                     <span className="beyond-field-label">{t('sheetSpeed')}</span>
-                                    <input className="beyond-stat-value" type="number" value={form.speed} onChange={setNum('speed')} disabled={!canEdit} />
+                                    <input className="beyond-stat-value" type="number" value={form.speed ?? ''} onChange={setNum('speed')} disabled={!canEdit} />
                                 </div>
                                 <div className="beyond-inspiration">
                                     <span className="beyond-field-label">{t('sheetInspiration')}</span>
@@ -429,14 +429,14 @@ export default function CharacterSheet() {
 
                             <div className="beyond-hp-box">
                                 <div className="beyond-hp-top">
-                                    <input className="beyond-hp-current" type="number" value={form.hpCurrent} onChange={setNum('hpCurrent')} disabled={!canEdit} />
+                                    <input className="beyond-hp-current" type="number" value={form.hpCurrent ?? ''} onChange={setNum('hpCurrent')} disabled={!canEdit} />
                                     <span className="beyond-hp-slash">/</span>
-                                    <input className="beyond-hp-max" type="number" value={form.hpMax} onChange={setNum('hpMax')} disabled={!canEdit} />
+                                    <input className="beyond-hp-max" type="number" value={form.hpMax ?? ''} onChange={setNum('hpMax')} disabled={!canEdit} />
                                 </div>
                                 <div className="beyond-hp-sub">
                                     <span>{t('sheetHitPoints')}</span>
                                     <span>· {t('sheetTemp')}</span>
-                                    <input className="beyond-hp-temp" type="number" value={form.hpTemp} onChange={setNum('hpTemp')} disabled={!canEdit} />
+                                    <input className="beyond-hp-temp" type="number" value={form.hpTemp ?? ''} onChange={setNum('hpTemp')} disabled={!canEdit} />
                                 </div>
                             </div>
 
@@ -444,7 +444,7 @@ export default function CharacterSheet() {
                                 <div className="beyond-stat-box">
                                     <span className="beyond-field-label">{t('sheetHitDice')}</span>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                                        <input className="beyond-stat-value" style={{ width: '2.2rem', fontSize: '1.1rem' }} type="number" value={form.hitDiceTotal} onChange={setNum('hitDiceTotal')} disabled={!canEdit} />
+                                        <input className="beyond-stat-value" style={{ width: '2.2rem', fontSize: '1.1rem' }} type="number" value={form.hitDiceTotal ?? ''} onChange={setNum('hitDiceTotal')} disabled={!canEdit} />
                                         <input className="beyond-input beyond-input-sm" style={{ width: '3rem' }} value={form.hitDiceType} onChange={set('hitDiceType')} disabled={!canEdit} />
                                     </div>
                                 </div>
@@ -506,7 +506,7 @@ export default function CharacterSheet() {
                                 {['cp', 'sp', 'ep', 'gp', 'pp'].map((cur) => (
                                     <div key={cur} className="beyond-currency-field">
                                         <span className="beyond-field-label">{cur.toUpperCase()}</span>
-                                        <input className="beyond-input beyond-input-num" type="number" min="0" value={form[cur]} onChange={setNum(cur)} disabled={!canEdit} />
+                                        <input className="beyond-input beyond-input-num" type="number" min="0" value={form[cur] ?? ''} onChange={setNum(cur)} disabled={!canEdit} />
                                     </div>
                                 ))}
                             </div>
