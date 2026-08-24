@@ -8,34 +8,35 @@ import '../styles/beyond.css'
 // 5e reference data - governing ability per skill, per the PHB. Kept as a
 // frontend-only constant; the backend just stores whichever skill/ability
 // keys show up in the proficiency sets, no validation needed there.
+// labelKey/short are translation keys resolved with t() at render time.
 const ABILITIES = [
-    { key: 'STR', field: 'strength', label: 'Strength' },
-    { key: 'DEX', field: 'dexterity', label: 'Dexterity' },
-    { key: 'CON', field: 'constitution', label: 'Constitution' },
-    { key: 'INT', field: 'intelligence', label: 'Intelligence' },
-    { key: 'WIS', field: 'wisdom', label: 'Wisdom' },
-    { key: 'CHA', field: 'charisma', label: 'Charisma' },
+    { key: 'STR', field: 'strength', labelKey: 'abilityStrength' },
+    { key: 'DEX', field: 'dexterity', labelKey: 'abilityDexterity' },
+    { key: 'CON', field: 'constitution', labelKey: 'abilityConstitution' },
+    { key: 'INT', field: 'intelligence', labelKey: 'abilityIntelligence' },
+    { key: 'WIS', field: 'wisdom', labelKey: 'abilityWisdom' },
+    { key: 'CHA', field: 'charisma', labelKey: 'abilityCharisma' },
 ]
 
 const SKILLS = [
-    { key: 'ACROBATICS', label: 'Acrobatics', ability: 'DEX' },
-    { key: 'ANIMAL_HANDLING', label: 'Animal Handling', ability: 'WIS' },
-    { key: 'ARCANA', label: 'Arcana', ability: 'INT' },
-    { key: 'ATHLETICS', label: 'Athletics', ability: 'STR' },
-    { key: 'DECEPTION', label: 'Deception', ability: 'CHA' },
-    { key: 'HISTORY', label: 'History', ability: 'INT' },
-    { key: 'INSIGHT', label: 'Insight', ability: 'WIS' },
-    { key: 'INTIMIDATION', label: 'Intimidation', ability: 'CHA' },
-    { key: 'INVESTIGATION', label: 'Investigation', ability: 'INT' },
-    { key: 'MEDICINE', label: 'Medicine', ability: 'WIS' },
-    { key: 'NATURE', label: 'Nature', ability: 'INT' },
-    { key: 'PERCEPTION', label: 'Perception', ability: 'WIS' },
-    { key: 'PERFORMANCE', label: 'Performance', ability: 'CHA' },
-    { key: 'PERSUASION', label: 'Persuasion', ability: 'CHA' },
-    { key: 'RELIGION', label: 'Religion', ability: 'INT' },
-    { key: 'SLEIGHT_OF_HAND', label: 'Sleight of Hand', ability: 'DEX' },
-    { key: 'STEALTH', label: 'Stealth', ability: 'DEX' },
-    { key: 'SURVIVAL', label: 'Survival', ability: 'WIS' },
+    { key: 'ACROBATICS', labelKey: 'skillAcrobatics', ability: 'DEX' },
+    { key: 'ANIMAL_HANDLING', labelKey: 'skillAnimalHandling', ability: 'WIS' },
+    { key: 'ARCANA', labelKey: 'skillArcana', ability: 'INT' },
+    { key: 'ATHLETICS', labelKey: 'skillAthletics', ability: 'STR' },
+    { key: 'DECEPTION', labelKey: 'skillDeception', ability: 'CHA' },
+    { key: 'HISTORY', labelKey: 'skillHistory', ability: 'INT' },
+    { key: 'INSIGHT', labelKey: 'skillInsight', ability: 'WIS' },
+    { key: 'INTIMIDATION', labelKey: 'skillIntimidation', ability: 'CHA' },
+    { key: 'INVESTIGATION', labelKey: 'skillInvestigation', ability: 'INT' },
+    { key: 'MEDICINE', labelKey: 'skillMedicine', ability: 'WIS' },
+    { key: 'NATURE', labelKey: 'skillNature', ability: 'INT' },
+    { key: 'PERCEPTION', labelKey: 'skillPerception', ability: 'WIS' },
+    { key: 'PERFORMANCE', labelKey: 'skillPerformance', ability: 'CHA' },
+    { key: 'PERSUASION', labelKey: 'skillPersuasion', ability: 'CHA' },
+    { key: 'RELIGION', labelKey: 'skillReligion', ability: 'INT' },
+    { key: 'SLEIGHT_OF_HAND', labelKey: 'skillSleightOfHand', ability: 'DEX' },
+    { key: 'STEALTH', labelKey: 'skillStealth', ability: 'DEX' },
+    { key: 'SURVIVAL', labelKey: 'skillSurvival', ability: 'WIS' },
 ]
 
 const abilityMod = (score) => Math.floor(((score ?? 10) - 10) / 2)
@@ -137,6 +138,7 @@ export default function CharacterSheet() {
             })
             .catch(() => navigate('/characters'))
         return () => { cancelled = true }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     // Autosave: any change to the form queues a debounced PUT of the whole
@@ -162,7 +164,7 @@ export default function CharacterSheet() {
     }, [form])
 
     if (!character || !form) {
-        return <div className="beyond-page"><div className="beyond-loading">Loading character…</div></div>
+        return <div className="beyond-page"><div className="beyond-loading">{t('sheetLoading')}</div></div>
     }
 
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
@@ -221,13 +223,19 @@ export default function CharacterSheet() {
         return mod
     }
 
+    function skillTitle(skillKey) {
+        if (form.expertiseSkills.includes(skillKey)) return t('profExpertise')
+        if (form.proficientSkills.includes(skillKey)) return t('profProficient')
+        return t('profNotProficient')
+    }
+
     const dexMod = abilityMod(form.dexterity)
     const initiative = form.initiativeOverride !== null && form.initiativeOverride !== undefined
         ? form.initiativeOverride
         : dexMod
     const passivePerception = 10 + skillBonus('PERCEPTION')
 
-    const saveLabel = { idle: '', saving: 'Saving…', saved: 'Saved', error: 'Save failed' }[saveState]
+    const saveLabel = { idle: '', saving: t('sheetSaving'), saved: t('sheetSaved'), error: t('sheetSaveFailed') }[saveState]
 
     return (
         <div className="beyond-page">
@@ -245,40 +253,40 @@ export default function CharacterSheet() {
                     value={form.name}
                     onChange={set('name')}
                     disabled={!canEdit}
-                    placeholder="Character Name"
+                    placeholder={t('sheetNamePlaceholder')}
                 />
                 <div className="beyond-header-grid">
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Class</span>
-                        <input className="beyond-input" value={form.characterClass} onChange={set('characterClass')} disabled={!canEdit} placeholder="Wizard" />
+                        <span className="beyond-field-label">{t('class')}</span>
+                        <input className="beyond-input" value={form.characterClass} onChange={set('characterClass')} disabled={!canEdit} placeholder={t('sheetClassPlaceholder')} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Level</span>
+                        <span className="beyond-field-label">{t('level')}</span>
                         <input className="beyond-input beyond-input-num" type="number" min="1" max="20" value={form.level} onChange={setNum('level')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Race</span>
-                        <input className="beyond-input" value={form.race} onChange={set('race')} disabled={!canEdit} placeholder="Human" />
+                        <span className="beyond-field-label">{t('race')}</span>
+                        <input className="beyond-input" value={form.race} onChange={set('race')} disabled={!canEdit} placeholder={t('sheetRacePlaceholder')} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Background</span>
+                        <span className="beyond-field-label">{t('sheetBackground')}</span>
                         <input className="beyond-input" value={form.background} onChange={set('background')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Alignment</span>
+                        <span className="beyond-field-label">{t('sheetAlignment')}</span>
                         <input className="beyond-input" value={form.alignment} onChange={set('alignment')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Player Name</span>
+                        <span className="beyond-field-label">{t('sheetPlayerName')}</span>
                         <input className="beyond-input" value={form.playerName} onChange={set('playerName')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-field">
-                        <span className="beyond-field-label">Experience Points</span>
+                        <span className="beyond-field-label">{t('sheetXp')}</span>
                         <input className="beyond-input beyond-input-num" type="number" min="0" value={form.experiencePoints} onChange={setNum('experiencePoints')} disabled={!canEdit} />
                     </div>
                     {character.campaign && (
                         <div className="beyond-field">
-                            <span className="beyond-field-label">Campaign</span>
+                            <span className="beyond-field-label">{t('campaign')}</span>
                             <input className="beyond-input" value={character.campaign.name} disabled />
                         </div>
                     )}
@@ -287,9 +295,9 @@ export default function CharacterSheet() {
 
             {/* ── TABS ── */}
             <div className="beyond-tabs">
-                <button className={`beyond-tab ${tab === 'main' ? 'active' : ''}`} onClick={() => setTab('main')}>Main</button>
-                <button className={`beyond-tab ${tab === 'background' ? 'active' : ''}`} onClick={() => setTab('background')}>Background & Personality</button>
-                <button className={`beyond-tab ${tab === 'notes' ? 'active' : ''}`} onClick={() => setTab('notes')}>Notes & Backstory</button>
+                <button className={`beyond-tab ${tab === 'main' ? 'active' : ''}`} onClick={() => setTab('main')}>{t('sheetTabMain')}</button>
+                <button className={`beyond-tab ${tab === 'background' ? 'active' : ''}`} onClick={() => setTab('background')}>{t('sheetTabBackground')}</button>
+                <button className={`beyond-tab ${tab === 'notes' ? 'active' : ''}`} onClick={() => setTab('notes')}>{t('sheetTabNotes')}</button>
             </div>
 
             {/* ── MAIN TAB ── */}
@@ -298,10 +306,10 @@ export default function CharacterSheet() {
                     <div>
                         {/* Abilities */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Ability Scores</h2>
+                            <h2 className="beyond-card-title">{t('sheetAbilityScores')}</h2>
                             <div className="beyond-abilities">
                                 {ABILITIES.map((a) => (
-                                    <div key={a.key} className="beyond-ability">
+                                    <div key={a.key} className="beyond-ability" title={t(a.labelKey)}>
                                         <span className="beyond-ability-abbr">{a.key}</span>
                                         <span className="beyond-ability-mod">{fmt(abilityMod(form[a.field]))}</span>
                                         <span className="beyond-ability-score-row">
@@ -317,7 +325,7 @@ export default function CharacterSheet() {
                                 ))}
                             </div>
                             <div className="beyond-passive">
-                                <span>Proficiency Bonus</span>
+                                <span>{t('sheetProficiencyBonus')}</span>
                                 <input
                                     className="beyond-input beyond-input-sm beyond-input-num"
                                     style={{ width: '3.5rem' }}
@@ -331,7 +339,7 @@ export default function CharacterSheet() {
 
                         {/* Saving throws */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Saving Throws</h2>
+                            <h2 className="beyond-card-title">{t('sheetSavingThrows')}</h2>
                             {ABILITIES.map((a) => (
                                 <div key={a.key} className="beyond-prof-row">
                                     <div className="beyond-prof-left">
@@ -340,9 +348,9 @@ export default function CharacterSheet() {
                                             className={`beyond-dot ${form.proficientSaves.includes(a.key) ? 'proficient' : ''}`}
                                             onClick={() => toggleSave(a.key)}
                                             disabled={!canEdit}
-                                            aria-label={`${a.label} save proficiency`}
+                                            aria-label={t(a.labelKey)}
                                         />
-                                        <span className="beyond-prof-name">{a.label}</span>
+                                        <span className="beyond-prof-name">{t(a.labelKey)}</span>
                                     </div>
                                     <span className="beyond-prof-bonus">{fmt(saveBonus(a.key))}</span>
                                 </div>
@@ -351,7 +359,7 @@ export default function CharacterSheet() {
 
                         {/* Skills */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Skills</h2>
+                            <h2 className="beyond-card-title">{t('sheetSkills')}</h2>
                             {SKILLS.map((s) => (
                                 <div key={s.key} className="beyond-prof-row">
                                     <div className="beyond-prof-left">
@@ -360,17 +368,17 @@ export default function CharacterSheet() {
                                             className={`beyond-dot ${form.expertiseSkills.includes(s.key) ? 'expertise' : form.proficientSkills.includes(s.key) ? 'proficient' : ''}`}
                                             onClick={() => cycleSkill(s.key)}
                                             disabled={!canEdit}
-                                            title={form.expertiseSkills.includes(s.key) ? 'Expertise' : form.proficientSkills.includes(s.key) ? 'Proficient' : 'Not proficient'}
-                                            aria-label={`${s.label} proficiency`}
+                                            title={skillTitle(s.key)}
+                                            aria-label={t(s.labelKey)}
                                         />
-                                        <span className="beyond-prof-name">{s.label}</span>
+                                        <span className="beyond-prof-name">{t(s.labelKey)}</span>
                                         <span className="beyond-prof-ability">({s.ability})</span>
                                     </div>
                                     <span className="beyond-prof-bonus">{fmt(skillBonus(s.key))}</span>
                                 </div>
                             ))}
                             <div className="beyond-passive">
-                                <span>Passive Wisdom (Perception)</span>
+                                <span>{t('sheetPassivePerception')}</span>
                                 <strong>{passivePerception}</strong>
                             </div>
                         </div>
@@ -379,35 +387,37 @@ export default function CharacterSheet() {
                     <div>
                         {/* Combat stats */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Combat</h2>
+                            <h2 className="beyond-card-title">{t('sheetCombat')}</h2>
                             <div className="beyond-combat-row">
-                                <div className="beyond-ac-shield">
-                                    <input
-                                        className="beyond-ac-value"
-                                        type="number"
-                                        value={form.armorClass}
-                                        onChange={setNum('armorClass')}
-                                        disabled={!canEdit}
-                                    />
-                                    <span className="beyond-ac-label">ARMOR CLASS</span>
+                                <div className="beyond-ac-wrap">
+                                    <div className="beyond-ac-shield">
+                                        <input
+                                            className="beyond-ac-value"
+                                            type="number"
+                                            value={form.armorClass}
+                                            onChange={setNum('armorClass')}
+                                            disabled={!canEdit}
+                                        />
+                                    </div>
+                                    <span className="beyond-ac-label">{t('sheetArmorClass')}</span>
                                 </div>
                                 <div className="beyond-stat-box">
-                                    <span className="beyond-field-label">Initiative</span>
+                                    <span className="beyond-field-label">{t('sheetInitiative')}</span>
                                     <input
                                         className="beyond-stat-value"
                                         type="number"
                                         value={initiative}
                                         onChange={(e) => setForm((f) => ({ ...f, initiativeOverride: numOrNull(e.target.value) }))}
                                         disabled={!canEdit}
-                                        title="Derived from Dex unless you type your own value"
+                                        title={t('sheetInitiativeHint')}
                                     />
                                 </div>
                                 <div className="beyond-stat-box">
-                                    <span className="beyond-field-label">Speed</span>
+                                    <span className="beyond-field-label">{t('sheetSpeed')}</span>
                                     <input className="beyond-stat-value" type="number" value={form.speed} onChange={setNum('speed')} disabled={!canEdit} />
                                 </div>
                                 <div className="beyond-inspiration">
-                                    <span className="beyond-field-label">Inspiration</span>
+                                    <span className="beyond-field-label">{t('sheetInspiration')}</span>
                                     <button
                                         type="button"
                                         className={`beyond-inspiration-btn ${form.inspiration ? 'on' : ''}`}
@@ -424,15 +434,15 @@ export default function CharacterSheet() {
                                     <input className="beyond-hp-max" type="number" value={form.hpMax} onChange={setNum('hpMax')} disabled={!canEdit} />
                                 </div>
                                 <div className="beyond-hp-sub">
-                                    <span>Hit Points</span>
-                                    <span>· Temp</span>
+                                    <span>{t('sheetHitPoints')}</span>
+                                    <span>· {t('sheetTemp')}</span>
                                     <input className="beyond-hp-temp" type="number" value={form.hpTemp} onChange={setNum('hpTemp')} disabled={!canEdit} />
                                 </div>
                             </div>
 
                             <div className="beyond-hitdice-death" style={{ marginTop: '0.75rem' }}>
                                 <div className="beyond-stat-box">
-                                    <span className="beyond-field-label">Hit Dice</span>
+                                    <span className="beyond-field-label">{t('sheetHitDice')}</span>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
                                         <input className="beyond-stat-value" style={{ width: '2.2rem', fontSize: '1.1rem' }} type="number" value={form.hitDiceTotal} onChange={setNum('hitDiceTotal')} disabled={!canEdit} />
                                         <input className="beyond-input beyond-input-sm" style={{ width: '3rem' }} value={form.hitDiceType} onChange={set('hitDiceType')} disabled={!canEdit} />
@@ -440,7 +450,7 @@ export default function CharacterSheet() {
                                 </div>
                                 <div className="beyond-death-saves">
                                     <div className="beyond-death-row success">
-                                        <span>Successes</span>
+                                        <span>{t('sheetSuccesses')}</span>
                                         <div className="beyond-death-dots">
                                             {[0, 1, 2].map((i) => (
                                                 <button key={i} type="button" className={`beyond-death-dot ${i < form.deathSaveSuccesses ? 'filled' : ''}`} onClick={() => toggleDeathDot('success', i)} disabled={!canEdit} />
@@ -448,26 +458,26 @@ export default function CharacterSheet() {
                                         </div>
                                     </div>
                                     <div className="beyond-death-row failure">
-                                        <span>Failures</span>
+                                        <span>{t('sheetFailures')}</span>
                                         <div className="beyond-death-dots">
                                             {[0, 1, 2].map((i) => (
                                                 <button key={i} type="button" className={`beyond-death-dot ${i < form.deathSaveFailures ? 'filled' : ''}`} onClick={() => toggleDeathDot('failure', i)} disabled={!canEdit} />
                                             ))}
                                         </div>
                                     </div>
-                                    <span style={{ fontSize: '0.68rem', color: 'var(--bey-text-faint)' }}>Death Saves</span>
+                                    <span style={{ fontSize: '0.68rem', color: 'var(--bey-text-faint)' }}>{t('sheetDeathSaves')}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Attacks & spellcasting */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Attacks & Spellcasting</h2>
+                            <h2 className="beyond-card-title">{t('sheetAttacksSpellcasting')}</h2>
                             {form.attacks.length > 0 && (
                                 <div className="beyond-attack-header">
-                                    <span className="beyond-field-label">Name</span>
-                                    <span className="beyond-field-label">Bonus</span>
-                                    <span className="beyond-field-label">Damage / Type</span>
+                                    <span className="beyond-field-label">{t('sheetAttackName')}</span>
+                                    <span className="beyond-field-label">{t('sheetAttackBonus')}</span>
+                                    <span className="beyond-field-label">{t('sheetDamageType')}</span>
                                     <span />
                                 </div>
                             )}
@@ -475,22 +485,22 @@ export default function CharacterSheet() {
                                 <div key={i} className="beyond-attack-row">
                                     <input className="beyond-input beyond-input-sm" value={atk.name || ''} onChange={(e) => updateAttack(i, 'name', e.target.value)} disabled={!canEdit} />
                                     <input className="beyond-input beyond-input-sm" value={atk.attackBonus || ''} onChange={(e) => updateAttack(i, 'attackBonus', e.target.value)} disabled={!canEdit} placeholder="+5" />
-                                    <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3 slashing" />
+                                    <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3" />
                                     {canEdit && <button type="button" className="beyond-remove-btn" onClick={() => removeAttack(i)}>✕</button>}
                                 </div>
                             ))}
-                            {form.attacks.length === 0 && !canEdit && <p className="beyond-readonly-empty">No attacks recorded.</p>}
-                            {canEdit && <button type="button" className="beyond-add-btn" onClick={addAttack}>+ Add Attack</button>}
+                            {form.attacks.length === 0 && !canEdit && <p className="beyond-readonly-empty">{t('sheetNoAttacks')}</p>}
+                            {canEdit && <button type="button" className="beyond-add-btn" onClick={addAttack}>{t('sheetAddAttack')}</button>}
 
                             <div style={{ marginTop: '0.9rem' }}>
-                                <span className="beyond-field-label">Spell Notes (save DC, attack bonus, prepared spells)</span>
+                                <span className="beyond-field-label">{t('sheetSpellNotes')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.spellNotes} onChange={set('spellNotes')} disabled={!canEdit} style={{ marginTop: '0.3rem' }} />
                             </div>
                         </div>
 
                         {/* Equipment */}
                         <div className="beyond-card">
-                            <h2 className="beyond-card-title">Equipment</h2>
+                            <h2 className="beyond-card-title">{t('sheetEquipment')}</h2>
                             <textarea className="beyond-textarea" rows={4} value={form.equipment} onChange={set('equipment')} disabled={!canEdit} />
                             <div className="beyond-currency-row">
                                 {['cp', 'sp', 'ep', 'gp', 'pp'].map((cur) => (
@@ -501,7 +511,7 @@ export default function CharacterSheet() {
                                 ))}
                             </div>
                             <div style={{ marginTop: '0.9rem' }}>
-                                <span className="beyond-field-label">Other Proficiencies & Languages</span>
+                                <span className="beyond-field-label">{t('sheetOtherProficiencies')}</span>
                                 <textarea className="beyond-textarea" rows={3} value={form.otherProficiencies} onChange={set('otherProficiencies')} disabled={!canEdit} style={{ marginTop: '0.3rem' }} />
                             </div>
                         </div>
@@ -513,56 +523,56 @@ export default function CharacterSheet() {
             {tab === 'background' && (
                 <div>
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Personality</h2>
+                        <h2 className="beyond-card-title">{t('sheetPersonality')}</h2>
                         <div className="beyond-grid-2">
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Personality Traits</span>
+                                <span className="beyond-field-label">{t('sheetPersonalityTraits')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.personalityTraits} onChange={set('personalityTraits')} disabled={!canEdit} />
                             </div>
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Ideals</span>
+                                <span className="beyond-field-label">{t('sheetIdeals')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.ideals} onChange={set('ideals')} disabled={!canEdit} />
                             </div>
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Bonds</span>
+                                <span className="beyond-field-label">{t('sheetBonds')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.bonds} onChange={set('bonds')} disabled={!canEdit} />
                             </div>
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Flaws</span>
+                                <span className="beyond-field-label">{t('sheetFlaws')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.flaws} onChange={set('flaws')} disabled={!canEdit} />
                             </div>
                         </div>
                     </div>
 
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Features & Traits</h2>
-                        <textarea className="beyond-textarea" rows={5} value={form.featuresAndTraits} onChange={set('featuresAndTraits')} disabled={!canEdit} placeholder="Class/race features, feats…" />
+                        <h2 className="beyond-card-title">{t('sheetFeaturesTraits')}</h2>
+                        <textarea className="beyond-textarea" rows={5} value={form.featuresAndTraits} onChange={set('featuresAndTraits')} disabled={!canEdit} placeholder={t('sheetFeaturesPlaceholder')} />
                     </div>
 
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Character Details</h2>
+                        <h2 className="beyond-card-title">{t('sheetCharacterDetails')}</h2>
                         <div className="beyond-grid-6">
                             {[
-                                ['age', 'Age'], ['height', 'Height'], ['weight', 'Weight'],
-                                ['eyes', 'Eyes'], ['skin', 'Skin'], ['hair', 'Hair'],
-                            ].map(([key, label]) => (
+                                ['age', 'sheetAge'], ['height', 'sheetHeight'], ['weight', 'sheetWeight'],
+                                ['eyes', 'sheetEyes'], ['skin', 'sheetSkin'], ['hair', 'sheetHair'],
+                            ].map(([key, labelKey]) => (
                                 <div key={key} className="beyond-field">
-                                    <span className="beyond-field-label">{label}</span>
+                                    <span className="beyond-field-label">{t(labelKey)}</span>
                                     <input className="beyond-input" value={form[key]} onChange={set(key)} disabled={!canEdit} />
                                 </div>
                             ))}
                         </div>
                         <div style={{ marginTop: '0.9rem' }}>
-                            <span className="beyond-field-label">Character Appearance</span>
+                            <span className="beyond-field-label">{t('sheetAppearance')}</span>
                             <textarea className="beyond-textarea" rows={3} value={form.appearance} onChange={set('appearance')} disabled={!canEdit} style={{ marginTop: '0.3rem' }} />
                         </div>
                         <div className="beyond-grid-2" style={{ marginTop: '0.9rem' }}>
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Organization / Faction</span>
+                                <span className="beyond-field-label">{t('sheetOrganization')}</span>
                                 <input className="beyond-input" value={form.organizationName} onChange={set('organizationName')} disabled={!canEdit} />
                             </div>
                             <div className="beyond-field">
-                                <span className="beyond-field-label">Allies & Organizations</span>
+                                <span className="beyond-field-label">{t('sheetAlliesOrganizations')}</span>
                                 <textarea className="beyond-textarea" rows={3} value={form.alliesOrganizations} onChange={set('alliesOrganizations')} disabled={!canEdit} />
                             </div>
                         </div>
@@ -574,15 +584,15 @@ export default function CharacterSheet() {
             {tab === 'notes' && (
                 <div>
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Character Backstory</h2>
-                        <textarea className="beyond-textarea" rows={12} value={form.backstory} onChange={set('backstory')} disabled={!canEdit} placeholder="Who were you before the adventure began…" />
+                        <h2 className="beyond-card-title">{t('sheetCharacterBackstory')}</h2>
+                        <textarea className="beyond-textarea" rows={12} value={form.backstory} onChange={set('backstory')} disabled={!canEdit} placeholder={t('backstoryPlaceholder')} />
                     </div>
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Additional Features & Traits</h2>
+                        <h2 className="beyond-card-title">{t('sheetAdditionalFeatures')}</h2>
                         <textarea className="beyond-textarea" rows={5} value={form.additionalFeatures} onChange={set('additionalFeatures')} disabled={!canEdit} />
                     </div>
                     <div className="beyond-card">
-                        <h2 className="beyond-card-title">Treasure</h2>
+                        <h2 className="beyond-card-title">{t('sheetTreasure')}</h2>
                         <textarea className="beyond-textarea" rows={4} value={form.treasure} onChange={set('treasure')} disabled={!canEdit} />
                     </div>
                 </div>

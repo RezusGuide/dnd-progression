@@ -30,6 +30,21 @@
 
 .beyond-page * { box-sizing: border-box; }
 
+/* Native number-input spin buttons render as an opaque light box in most
+   browsers, which on this dark theme overlapped/obscured the number
+   itself (worst on the AC shield and HP current field). All the sheet's
+   number fields are big, click-to-edit values, not steppers, so the
+   spinner adds nothing - hide it everywhere on this page. */
+.beyond-page input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.beyond-page input[type="number"]::-webkit-outer-spin-button,
+.beyond-page input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .beyond-loading {
     display: flex;
     align-items: center;
@@ -331,15 +346,23 @@
     margin-bottom: 1.1rem;
 }
 
+/* Wraps the shield + its label as two separate elements - the label used
+   to live inside the clipped shield shape and got cut off by the point at
+   the bottom, so it now sits underneath, unclipped. */
+.beyond-ac-wrap {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
 .beyond-ac-shield {
     position: relative;
-    width: 74px;
-    height: 82px;
-    flex: none;
+    width: 78px;
+    height: 74px;
     clip-path: polygon(50% 0%, 100% 18%, 100% 62%, 50% 100%, 0% 62%, 0% 18%);
     background: linear-gradient(160deg, var(--bey-bg-card-2), var(--bey-bg-card));
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -362,7 +385,7 @@
     z-index: 1;
 }
 .beyond-ac-value:focus { outline: none; }
-.beyond-ac-label { font-size: 0.6rem; letter-spacing: 0.08em; color: var(--bey-text-faint); z-index: 1; }
+.beyond-ac-label { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--bey-text-faint); text-align: center; }
 
 .beyond-stat-box {
     background: var(--bey-bg-card);
