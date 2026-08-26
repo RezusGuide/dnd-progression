@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
+import CombatTracker from '../components/CombatTracker'
 import api from '../api/axios'
 
 export default function CampaignView() {
@@ -53,6 +54,8 @@ export default function CampaignView() {
                     )}
                 </div>
             </div>
+
+            <CombatTracker campaignId={id} rosterCharacters={characters} />
 
             <div className="campaigns-list">
                 {characters.length === 0 ? (

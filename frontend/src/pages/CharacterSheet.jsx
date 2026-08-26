@@ -5,6 +5,7 @@ import { useLang } from '../context/LangContext'
 import { spellName } from '../constants/spellText'
 import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
+import DiceRoller from '../components/DiceRoller'
 import api from '../api/axios'
 import '../styles/beyond.css'
 
@@ -121,6 +122,7 @@ export default function CharacterSheet() {
     // D&D is public to view; any signed-in account can edit (not just the
     // creator) - see CharacterService#updateSheet.
     const canEdit = !!user
+    const diceRef = useRef(null)
 
     const [character, setCharacter] = useState(null)
     const [form, setForm] = useState(null)
@@ -272,6 +274,11 @@ export default function CharacterSheet() {
                 {canEdit && saveLabel && (
                     <span className={`beyond-save-status ${saveState}`}>{saveLabel}</span>
                 )}
+                {/* Browser print dialog, not a generated file - "Save as PDF" is a
+                    standard destination in every browser's print dialog, so this
+                    covers PDF export without a rendering dependency. Only exports
+                    whichever tab is currently open - see the print stylesheet. */}
+                <button type="button" className="beyond-back" style={{ marginLeft: 'auto' }} onClick={() => window.print()}>🖨 {t('sheetPrint')}</button>
             </div>
 
             {/* ── HEADER ── */}
@@ -339,7 +346,11 @@ export default function CharacterSheet() {
                                 {ABILITIES.map((a) => (
                                     <div key={a.key} className="beyond-ability" title={t(a.labelKey)}>
                                         <span className="beyond-ability-abbr">{a.key}</span>
-                                        <span className="beyond-ability-mod">{fmt(abilityMod(form[a.field]))}</span>
+                                        <span className="beyond-ability-mod">
+                                            {fmt(abilityMod(form[a.field]))}
+                                            <button type="button" className="beyond-roll-btn" title={`${t(a.labelKey)} ${t('diceCheck')}`}
+                                                onClick={() => diceRef.current?.roll({ sides: 20, modifier: abilityMod(form[a.field]), label: `${t(a.labelKey)} ${t('diceCheck')}` })}>🎲</button>
+                                        </span>
                                         <span className="beyond-ability-score-row">
                                             <input
                                                 className="beyond-ability-score"
@@ -380,7 +391,11 @@ export default function CharacterSheet() {
                                         />
                                         <span className="beyond-prof-name">{t(a.labelKey)}</span>
                                     </div>
-                                    <span className="beyond-prof-bonus">{fmt(saveBonus(a.key))}</span>
+                                    <span className="beyond-prof-bonus">
+                                        {fmt(saveBonus(a.key))}
+                                        <button type="button" className="beyond-roll-btn" title={`${t(a.labelKey)} ${t('diceSave')}`}
+                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: saveBonus(a.key), label: `${t(a.labelKey)} ${t('diceSave')}` })}>🎲</button>
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -402,7 +417,11 @@ export default function CharacterSheet() {
                                         <span className="beyond-prof-name">{t(s.labelKey)}</span>
                                         <span className="beyond-prof-ability">({s.ability})</span>
                                     </div>
-                                    <span className="beyond-prof-bonus">{fmt(skillBonus(s.key))}</span>
+                                    <span className="beyond-prof-bonus">
+                                        {fmt(skillBonus(s.key))}
+                                        <button type="button" className="beyond-roll-btn" title={t(s.labelKey)}
+                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: skillBonus(s.key), label: t(s.labelKey) })}>🎲</button>
+                                    </span>
                                 </div>
                             ))}
                             <div className="beyond-passive">
@@ -512,8 +531,16 @@ export default function CharacterSheet() {
                             {form.attacks.map((atk, i) => (
                                 <div key={i} className="beyond-attack-row">
                                     <input className="beyond-input beyond-input-sm" value={atk.name || ''} onChange={(e) => updateAttack(i, 'name', e.target.value)} disabled={!canEdit} />
-                                    <input className="beyond-input beyond-input-sm" value={atk.attackBonus || ''} onChange={(e) => updateAttack(i, 'attackBonus', e.target.value)} disabled={!canEdit} placeholder="+5" />
-                                    <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3" />
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
+                                        <input className="beyond-input beyond-input-sm" value={atk.attackBonus || ''} onChange={(e) => updateAttack(i, 'attackBonus', e.target.value)} disabled={!canEdit} placeholder="+5" />
+                                        <button type="button" className="beyond-roll-btn" title={`${atk.name || t('sheetAttackName')} - ${t('diceToHit')}`}
+                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: parseInt(String(atk.attackBonus || '0').replace(/\s+/g, ''), 10) || 0, label: `${atk.name || t('sheetAttackName')} - ${t('diceToHit')}` })}>🎲</button>
+                                    </span>
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
+                                        <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3" />
+                                        <button type="button" className="beyond-roll-btn" title={`${atk.name || t('sheetAttackName')} - ${t('diceDamage')}`}
+                                            onClick={() => diceRef.current?.rollNotation(atk.damageType, `${atk.name || t('sheetAttackName')} - ${t('diceDamage')}`)}>🎲</button>
+                                    </span>
                                     {canEdit && <button type="button" className="beyond-remove-btn" onClick={() => removeAttack(i)}>✕</button>}
                                 </div>
                             ))}
@@ -688,6 +715,7 @@ export default function CharacterSheet() {
                     </div>
                 </div>
             )}
+            <DiceRoller ref={diceRef} />
         </div>
     )
 }

@@ -639,3 +639,40 @@
 }
 
 .beyond-readonly-empty { color: var(--bey-text-faint); font-style: italic; font-size: 0.9rem; }
+
+/* ── Print / "Save as PDF" ──
+   No PDF-generation library involved - the browser's own print dialog
+   already offers "Save as PDF" as a destination, so this stylesheet just
+   makes the result look like a sheet instead of a website: strip chrome
+   (nav, tabs, dice widget, edit-only controls), force black-on-white
+   regardless of theme, and let inputs read as plain values. Only the
+   currently open tab prints, since the other tabs' content isn't mounted
+   in the DOM while inactive. */
+@media print {
+    .hall-nav, .lang-toggle, .beyond-topbar, .beyond-tabs,
+    .dice-fab, .dice-panel,
+    .beyond-add-btn, .beyond-remove-btn, .beyond-death-dot, .beyond-roll-btn {
+        display: none !important;
+    }
+
+    .beyond-page {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+    }
+
+    .beyond-card, .beyond-header, .beyond-column {
+        background: #fff !important;
+        border: 1px solid #999 !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+    }
+
+    .beyond-input, .beyond-textarea, .beyond-ability-score,
+    .beyond-name-input, .beyond-select {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid #999 !important;
+        color: #000 !important;
+    }
+}
