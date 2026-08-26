@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
-import '../styles/media.css'
 
 const GROUPS = [
     { type: 'SOCIAL', labelKey: 'mediaGroupSocial' },
@@ -53,82 +52,94 @@ export default function Media() {
     }
 
     return (
-        <div className="bw-page">
-            <div className="bw-wrap">
-                <p className="bw-kicker">{t('mediaKicker')}</p>
-                <h1 className="bw-title">{t('mediaTitle')}</h1>
+        <div className="hub-page">
+            <div className="hub-hero">
+                <p className="hub-kicker">{t('mediaKicker')}</p>
+                <h1 className="hub-name">{t('mediaTitle')}</h1>
+            </div>
 
-                <p className="bw-group-label" style={{ marginTop: 0 }}>{t('mediaAbout')}</p>
-                {profile && !editingDesc && <p className="bw-desc">{profile.description}</p>}
+            <div className="hub-section">
+                <p className="hub-section-label">{t('mediaAbout')}</p>
+                {profile && !editingDesc && (
+                    <div className="hub-card">
+                        <p className="hub-text">{profile.description}</p>
+                    </div>
+                )}
                 {canEdit && !editingDesc && (
-                    <button className="bw-btn-ghost" style={{ marginTop: '0.75rem' }} onClick={startEditDesc}>
+                    <button className="hub-btn-ghost" style={{ marginTop: '0.9rem' }} onClick={startEditDesc}>
                         {t('mediaEditDesc')}
                     </button>
                 )}
                 {editingDesc && (
-                    <form onSubmit={saveDesc} className="bw-form">
-                        <textarea className="bw-textarea" rows={4} value={descDraft} onChange={(e) => setDescDraft(e.target.value)} />
+                    <form onSubmit={saveDesc} className="hub-card">
+                        <textarea className="hub-textarea" rows={4} value={descDraft} onChange={(e) => setDescDraft(e.target.value)} style={{ marginBottom: '0.9rem' }} />
                         <div>
-                            <button type="submit" className="bw-btn">{t('mediaSaveDesc')}</button>{' '}
-                            <button type="button" className="bw-btn-ghost" onClick={() => setEditingDesc(false)}>✕</button>
+                            <button type="submit" className="hub-btn">{t('mediaSaveDesc')}</button>{' '}
+                            <button type="button" className="hub-btn-ghost" onClick={() => setEditingDesc(false)}>✕</button>
                         </div>
                     </form>
                 )}
+            </div>
 
-                <hr className="bw-divider" />
+            <hr className="hub-divider" />
 
+            <div className="hub-section">
                 {canEdit && (
                     <div style={{ marginBottom: '1rem' }}>
-                        <button className="bw-btn-ghost" onClick={() => setShowForm((v) => !v)}>{t('mediaAddLink')}</button>
+                        <button className="hub-btn-ghost" onClick={() => setShowForm((v) => !v)}>{t('mediaAddLink')}</button>
                     </div>
                 )}
 
                 {showForm && (
-                    <form onSubmit={handleCreateLink} className="bw-form">
-                        <div className="bw-row">
-                            <div>
-                                <label className="bw-label">{t('mediaLinkType')}</label>
-                                <select className="bw-select" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
+                    <form onSubmit={handleCreateLink} className="hub-card" style={{ marginBottom: '1.5rem' }}>
+                        <div className="hub-form-row">
+                            <div className="hub-form-field">
+                                <label className="hub-label">{t('mediaLinkType')}</label>
+                                <select className="hub-select" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
                                     {GROUPS.map((g) => <option key={g.type} value={g.type}>{t(g.labelKey)}</option>)}
                                 </select>
                             </div>
-                            <div>
-                                <label className="bw-label">{t('mediaLinkLabel')}</label>
-                                <input className="bw-input" value={form.label} onChange={(e) => setForm({ ...form, label: e.target.value })} required />
+                            <div className="hub-form-field">
+                                <label className="hub-label">{t('mediaLinkLabel')}</label>
+                                <input className="hub-input" value={form.label} onChange={(e) => setForm({ ...form, label: e.target.value })} required />
                             </div>
                         </div>
-                        <div>
-                            <label className="bw-label">{t('mediaLinkUrl')}</label>
-                            <input className="bw-input" value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} required />
+                        <div className="hub-form-field" style={{ marginBottom: '0.9rem' }}>
+                            <label className="hub-label">{t('mediaLinkUrl')}</label>
+                            <input className="hub-input" value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} required />
                         </div>
-                        <div>
-                            <label className="bw-label">{t('mediaLinkDesc')}</label>
-                            <input className="bw-input" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+                        <div className="hub-form-field" style={{ marginBottom: '0.9rem' }}>
+                            <label className="hub-label">{t('mediaLinkDesc')}</label>
+                            <input className="hub-input" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
                         </div>
-                        <button type="submit" className="bw-btn">{t('save')}</button>
+                        <button type="submit" className="hub-btn">{t('save')}</button>
                     </form>
                 )}
 
                 {GROUPS.map((group) => {
                     const groupLinks = links.filter((l) => l.type === group.type)
                     return (
-                        <div key={group.type}>
-                            <p className="bw-group-label">{t(group.labelKey)}</p>
-                            {groupLinks.length === 0 && <p className="bw-empty">{t('mediaEmpty')}</p>}
-                            {groupLinks.map((l) => (
-                                <div key={l.id} className="bw-link-row">
-                                    <div>
-                                        <div className="bw-link-label">{l.label}</div>
-                                        {l.description && <div className="bw-link-desc">{l.description}</div>}
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <a href={l.url} target="_blank" rel="noreferrer" className="bw-link-url">{l.url}</a>
-                                        {canEdit && (
-                                            <button className="bw-btn-danger" onClick={() => handleDeleteLink(l.id)}>✕</button>
-                                        )}
-                                    </div>
+                        <div key={group.type} style={{ marginBottom: '1.75rem' }}>
+                            <p className="hub-section-label">{t(group.labelKey)}</p>
+                            {groupLinks.length === 0 && <p className="hub-empty">{t('mediaEmpty')}</p>}
+                            {groupLinks.length > 0 && (
+                                <div className="hub-card">
+                                    {groupLinks.map((l) => (
+                                        <div key={l.id} className="hub-link-row">
+                                            <div>
+                                                <div className="hub-link-label">{l.label}</div>
+                                                {l.description && <div className="hub-link-desc">{l.description}</div>}
+                                            </div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                <a href={l.url} target="_blank" rel="noreferrer" className="hub-link-url">{l.url}</a>
+                                                {canEdit && (
+                                                    <button className="hub-btn-danger" onClick={() => handleDeleteLink(l.id)}>✕</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            )}
                         </div>
                     )
                 })}

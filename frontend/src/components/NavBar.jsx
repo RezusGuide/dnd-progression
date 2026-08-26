@@ -1,17 +1,15 @@
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import LangToggle from './LangToggle'
 
+// Shown on every page, Home included - it used to hide on Home for a
+// cinematic 3D scene whose own portal buttons acted as navigation; that
+// scene's gone now (broken WebGL rendering, see git history), so the shell
+// nav is the one consistent way to move around everywhere.
 export default function NavBar() {
     const { user, logout, hasSection } = useAuth()
     const { t } = useLang()
-    const location = useLocation()
-
-    // Home is the full-bleed cinematic 3D scene - its own five invisible
-    // portal buttons ARE the navigation there, so the shell nav would only
-    // get in the way.
-    if (location.pathname === '/') return null
 
     return (
         <nav className="hall-nav">
