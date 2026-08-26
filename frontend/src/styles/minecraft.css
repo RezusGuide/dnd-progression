@@ -233,3 +233,23 @@
   color: #b9b98c;
   font-style: italic;
 }
+
+/* ── Phone-width layout ── */
+@media (max-width: 480px) {
+  .mc-page { padding: 1.5rem 0.9rem 3rem; }
+  .mc-panel, .mc-poll-card { padding: 1rem 1rem; }
+
+  /* Two fields side by side (min-width 140px each) is tight enough to
+     nearly overflow a phone-width panel once its own padding is
+     subtracted - stack instead of shrinking them further. */
+  .mc-row { flex-direction: column; }
+  .mc-row > * { min-width: 0; }
+
+  /* A poll option is label + progress bar + vote count in one flex row -
+     fine on desktop, but a long (especially Cyrillic) option label has
+     no shrink room next to the bar and vote text. Push the label onto
+     its own line and let the bar + count share the next one. */
+  .mc-poll-option { flex-wrap: wrap; }
+  .mc-poll-option > span:first-child { flex-basis: 100%; }
+  .mc-poll-bar-bg { margin: 0.35rem 0.6rem 0.35rem 0; }
+}

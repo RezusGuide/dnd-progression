@@ -960,6 +960,25 @@ body {
   max-width: 420px;
 }
 
+/* The hex grid used to be a fixed 600x500 <svg>, which forced horizontal
+   page-scroll on any phone-width screen since a viewBox alone doesn't
+   scale the rendered size. Sizing it off CSS instead lets it shrink to
+   fit its container while the viewBox keeps hex-click math untouched. */
+.research-hex-svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.research-spell-select { max-width: 100%; }
+
+@media (max-width: 640px) {
+  .research-container { padding: 1.25rem 0.9rem; }
+  .research-spell-select { width: 100%; }
+}
+
 /* ── SITE SHELL NAV ──
    The one piece of chrome shared by every themed section - carries the
    hub identity (Space Grotesk brand mark, Inter links, amber accent) so
@@ -1056,9 +1075,87 @@ body {
   color: var(--hub-accent);
 }
 
+/* Only relevant once the mobile breakpoint below turns it into the
+   brand/hamburger row - on desktop .hall-nav-top isn't a distinct visual
+   unit, it just contributes its two children as ordinary flex items. */
+.hall-nav-top {
+  display: contents;
+}
+
+.hall-nav-toggle {
+  display: none;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: column;
+  background: transparent;
+  border: 1px solid var(--hub-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.hall-nav-toggle span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--hub-text-dim);
+  transition: background 0.15s;
+}
+.hall-nav-toggle:hover span { background: var(--hub-accent); }
+
 @media (max-width: 800px) {
-  .hall-nav { justify-content: center; text-align: center; }
-  .hall-nav-links { justify-content: center; gap: 1.1rem; }
+  .hall-nav {
+    justify-content: flex-start;
+    text-align: left;
+    /* The base 1.5rem gap is meant to space out the 3 desktop flex items
+       (brand, links, right) - at this width they stack into rows, and the
+       gap would still apply between all 3 even while links/right are
+       collapsed to 0 height. Each collapsible section supplies its own
+       margin-top only when .open, so the collapsed nav doesn't carry two
+       gap-widths' worth of dead space above nothing. */
+    gap: 0;
+  }
+  .hall-nav-top {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .hall-nav-toggle { display: flex; }
+
+  /* Collapsed by default; JS toggles .open by adding the class (see
+     NavBar.jsx) rather than a CSS-only checkbox hack, since the menu
+     also needs to auto-close on navigation. max-height (not display)
+     so the collapse/expand can transition instead of snapping. */
+  .hall-nav-links,
+  .hall-nav-right {
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease;
+  }
+  .hall-nav-links.open {
+    max-height: 320px;
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--hub-border);
+  }
+  .hall-nav-right.open {
+    max-height: 160px;
+    gap: 0.7rem;
+    margin-top: 0.9rem;
+    align-items: stretch;
+  }
+  .hall-nav-right.open .tome-btn-ghost,
+  .hall-nav-right.open a.tome-btn-ghost {
+    text-align: center;
+  }
 }
 
 /* ── HUB ── shared identity for the public-facing pages (Home, Portfolio,
@@ -1354,8 +1451,24 @@ body {
 
 .hub-link-label { font-weight: 600; font-size: 0.9rem; color: var(--hub-text); }
 .hub-link-desc { font-size: 0.8rem; color: var(--hub-text-faint); margin-top: 0.15rem; }
-.hub-link-url { font-size: 0.82rem; color: var(--hub-accent); text-decoration: none; }
+.hub-link-url {
+  font-size: 0.82rem;
+  color: var(--hub-accent);
+  text-decoration: none;
+  /* Link URLs are free-text the DM types in (Media.jsx's link form) and
+     can run long with no spaces to break on - without this a single link
+     row could force the whole page to scroll horizontally on a phone. */
+  word-break: break-all;
+}
 .hub-link-url:hover { text-decoration: underline; }
+
+.hub-link-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
 
 .hub-divider {
   border: none;
@@ -1364,6 +1477,13 @@ body {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (max-width: 480px) {
+  .hub-hero { padding: 3rem 1.25rem 2rem; }
+  .hub-section { padding: 0 1.25rem 2rem; }
+  .hub-link-row { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .hub-link-row-actions { width: 100%; justify-content: space-between; }
 }
 
 /* ── CODEX (portfolio) ── */

@@ -287,7 +287,7 @@ export default function Research() {
 
                 {(mode === 'scratch' || selectedSpellId) && (
                     <>
-                        <svg width="600" height="500" viewBox="-300 -250 600 500">
+                        <svg className="research-hex-svg" viewBox="-300 -250 600 500" preserveAspectRatio="xMidYMid meet">
                             {hexes.map(({ q, r }) => {
                                 const key = `${q},${r}`
                                 const guideAspect = mode === 'hinted' ? guidePattern.find((p) => p.q === q && p.r === r)?.aspect : null

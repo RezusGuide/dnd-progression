@@ -130,7 +130,7 @@ export default function Media() {
                                                 <div className="hub-link-label">{l.label}</div>
                                                 {l.description && <div className="hub-link-desc">{l.description}</div>}
                                             </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <div className="hub-link-row-actions">
                                                 <a href={l.url} target="_blank" rel="noreferrer" className="hub-link-url">{l.url}</a>
                                                 {canEdit && (
                                                     <button className="hub-btn-danger" onClick={() => handleDeleteLink(l.id)}>✕</button>

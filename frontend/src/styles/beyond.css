@@ -667,7 +667,10 @@
 /* ── Currency row ── */
 .beyond-currency-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    /* minmax(0, 1fr), not bare 1fr - without the 0 floor, a track's
+       automatic minimum is its content's min-content width, which for 5
+       number inputs is wide enough to overflow a phone-width card. */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 0.5rem;
     margin-top: 0.75rem;
 }
@@ -684,3 +687,24 @@
 }
 
 .beyond-readonly-empty { color: var(--bey-text-faint); font-style: italic; font-size: 0.9rem; }
+
+/* ── Phone-width layout ── */
+@media (max-width: 480px) {
+    /* The 4-column attack grid (name/bonus/damage/remove) has enough
+       min-content width across three text inputs that it stays cramped
+       even with minmax(0, 1fr) tracks. Stack each attack into its own
+       block instead - the column header row becomes redundant once
+       there's nothing left to line up against, so it's hidden too. */
+    .beyond-attack-header { display: none; }
+    .beyond-attack-row {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.6rem;
+        border-bottom: 1px dashed var(--bey-border);
+    }
+    .beyond-attack-row:last-of-type { border-bottom: none; }
+
+    .beyond-combat-row { justify-content: center; }
+    .beyond-currency-row { gap: 0.35rem; }
+}

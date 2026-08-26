@@ -304,6 +304,7 @@ const translations = {
         navDownloads: 'Downloads',
         navAnnouncements: 'Log',
         navAdmin: 'Sanctum',
+        navToggleMenu: 'Toggle menu',
         // Media (black & white theme)
         mediaKicker: 'Elsewhere',
         mediaTitle: 'Media',
@@ -772,6 +773,7 @@ const translations = {
         navDownloads: 'Загрузки',
         navAnnouncements: 'Журнал',
         navAdmin: 'Святилище',
+        navToggleMenu: 'Меню',
         // Media (чёрно-белая тема)
         mediaKicker: 'Ещё',
         mediaTitle: 'Медиа',

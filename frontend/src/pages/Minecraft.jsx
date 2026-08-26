@@ -100,7 +100,7 @@ export default function Minecraft() {
             <p className="mc-sub">{t('minecraftSubtitle')}</p>
 
             <div className="mc-panel">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <h2 className="mc-panel-title">SERVER.INFO</h2>
                     {canEdit && !editing && <button className="mc-btn-ghost" onClick={startEdit}>{t('minecraftEdit')}</button>}
                 </div>
@@ -179,7 +179,7 @@ export default function Minecraft() {
             </div>
 
             <div style={{ maxWidth: 720 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
                     <h2 className="mc-title" style={{ fontSize: '1.1rem' }}>{t('mcPolls')}</h2>
                     {canCrud && <button className="mc-btn" onClick={() => setShowPollForm((v) => !v)}>{t('mcNewPoll')}</button>}
                 </div>
