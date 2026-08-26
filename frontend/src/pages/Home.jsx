@@ -10,6 +10,7 @@ import api from '../api/axios'
 const SECTIONS = [
     { key: 'portfolio', route: '/portfolio', icon: '◆', labelKey: 'navPortfolio', descKey: 'homeSectionPortfolio' },
     { key: 'media', route: '/media', icon: '▶', labelKey: 'navMedia', descKey: 'homeSectionMedia' },
+    { key: 'gallery', route: '/gallery', icon: '◈', labelKey: 'navGallery', descKey: 'homeSectionGallery' },
     { key: 'dnd', route: '/characters', icon: '⚔', labelKey: 'navDnd', descKey: 'homeSectionDnd' },
     { key: 'minecraft', route: '/minecraft', icon: '⛏', labelKey: 'navMinecraft', descKey: 'homeSectionMinecraft' },
 ]

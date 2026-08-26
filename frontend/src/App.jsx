@@ -6,6 +6,7 @@ import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import Portfolio from './pages/Portfolio'
 import Media from './pages/Media'
+import Gallery from './pages/Gallery'
 import Minecraft from './pages/Minecraft'
 import UsefulFunctions from './pages/UsefulFunctions'
 import Downloads from './pages/Downloads'
@@ -36,6 +37,7 @@ function AppRoutes() {
                 anyone not signed in, and let any logged-in account CRUD. */}
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/media" element={<Media />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/minecraft" element={<Minecraft />} />
