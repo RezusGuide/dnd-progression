@@ -180,10 +180,27 @@ public class Character {
     private List<Attack> attacks = new ArrayList<>();
 
     // Spell save DC, spell attack bonus, prepared spells - one flexible
-    // block rather than a full spell-slot tracker (see the sheet prompt's
-    // Non-goals).
+    // free-text block.
     @Column(name = "spell_notes", columnDefinition = "TEXT")
     private String spellNotes;
+
+    // Spell slots per level (1-9), stored as JSON - {"1":{"max":4,"current":2},...}
+    // - same "store as a TEXT blob, translate in the service layer" pattern
+    // as ResearchDraft#currentGridState, rather than a JPA element
+    // collection of a nested object (the exact kind of mapping that's
+    // caused real pain elsewhere in this codebase). CharacterSheetRequest
+    // carries this as a proper Map so the frontend never has to
+    // stringify/parse it manually.
+    @Column(name = "spell_slots_json", columnDefinition = "TEXT")
+    private String spellSlotsJson;
+
+    // Optional variant rule (DMG) some casters use instead of slots - kept
+    // as plain columns since it's just two numbers, no nested structure.
+    @Column(name = "spell_points_max")
+    private Integer spellPointsMax;
+
+    @Column(name = "spell_points_current")
+    private Integer spellPointsCurrent;
 
     // ── Equipment & currency ──
     @Column(columnDefinition = "TEXT")

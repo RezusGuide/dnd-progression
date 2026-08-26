@@ -4,6 +4,7 @@ import com.backend.entity.Attack;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -57,6 +58,12 @@ public class CharacterSheetRequest {
     // Attacks & spellcasting
     private List<Attack> attacks;
     private String spellNotes;
+
+    // Spell slots (key: level as a string, "1".."9") and the optional
+    // spell-points variant - see Character#spellSlotsJson.
+    private Map<String, SpellSlotLevel> spellSlots;
+    private Integer spellPointsMax;
+    private Integer spellPointsCurrent;
 
     // Equipment & currency
     private String equipment;

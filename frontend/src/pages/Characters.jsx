@@ -20,6 +20,16 @@ export default function Characters() {
     const [showForm, setShowForm] = useState(false)
     const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
     const [error, setError] = useState('')
+    const [copiedId, setCopiedId] = useState(null)
+
+    const handleShare = async (e, charId) => {
+        e.stopPropagation()
+        try {
+            await navigator.clipboard.writeText(`${window.location.origin}/characters/${charId}`)
+            setCopiedId(charId)
+            setTimeout(() => setCopiedId((id) => (id === charId ? null : id)), 1500)
+        } catch { /* clipboard not available - ignore */ }
+    }
 
     useEffect(() => {
         fetchCharacters()
@@ -99,12 +109,20 @@ export default function Characters() {
                                 </span>
                                 <h2 className="character-name">{char.name}</h2>
                             </div>
-                            {user && (
+                            <div style={{ display: 'flex', gap: '0.35rem' }}>
                                 <button
-                                    className="tome-btn-danger"
-                                    onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
-                                >✕</button>
-                            )}
+                                    className="tome-btn-ghost"
+                                    style={{ padding: '0.3rem 0.6rem', fontSize: '0.75rem' }}
+                                    onClick={(e) => handleShare(e, char.id)}
+                                    title={t('sheetShareLink')}
+                                >{copiedId === char.id ? '✓' : '🔗'}</button>
+                                {user && (
+                                    <button
+                                        className="tome-btn-danger"
+                                        onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
+                                    >✕</button>
+                                )}
+                            </div>
                         </div>
                         <div className="character-meta">
                             <span className="meta-tag">{char.characterClass || '—'}</span>

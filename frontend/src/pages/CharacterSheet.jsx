@@ -74,6 +74,17 @@ function resizeImageFile(file) {
     })
 }
 
+function safeParseJson(raw, fallback) {
+    if (!raw) return fallback
+    try {
+        return JSON.parse(raw)
+    } catch {
+        return fallback
+    }
+}
+
+const SPELL_SLOT_LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 // Every character fetched from the API may have nulls on any sheet field -
 // either it predates this rebuild, or a field was just never filled in.
 // This coalesces those into safe, editable defaults exactly once, when the
@@ -116,6 +127,13 @@ function hydrate(c) {
 
         attacks: c.attacks && c.attacks.length ? c.attacks : [],
         spellNotes: c.spellNotes || '',
+        // Stored on the entity as a JSON string (Character#spellSlotsJson);
+        // parsed here into a plain object keyed "1".."9" for editing, and
+        // sent back as that same object - CharacterSheetRequest#spellSlots
+        // is a proper Map, no re-stringifying needed on the way out.
+        spellSlots: safeParseJson(c.spellSlotsJson, {}),
+        spellPointsMax: c.spellPointsMax ?? null,
+        spellPointsCurrent: c.spellPointsCurrent ?? null,
 
         equipment: c.equipment || '',
         cp: c.cp ?? 0, sp: c.sp ?? 0, ep: c.ep ?? 0, gp: c.gp ?? 0, pp: c.pp ?? 0,
@@ -155,6 +173,15 @@ export default function CharacterSheet() {
     const [form, setForm] = useState(null)
     const [tab, setTab] = useState('main')
     const [saveState, setSaveState] = useState('idle') // idle | saving | saved | error
+    const [linkCopied, setLinkCopied] = useState(false)
+
+    const handleShareLink = async () => {
+        try {
+            await navigator.clipboard.writeText(window.location.href)
+            setLinkCopied(true)
+            setTimeout(() => setLinkCopied(false), 1500)
+        } catch { /* clipboard not available - ignore, same as Minecraft.jsx's copy button */ }
+    }
 
     const saveTimer = useRef(null)
     const skipNextSave = useRef(true)
@@ -226,6 +253,37 @@ export default function CharacterSheet() {
 
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
     const setNum = (key) => (e) => setForm((f) => ({ ...f, [key]: numOrNull(e.target.value) }))
+
+    const setSpellSlot = (level, field) => (e) => {
+        const raw = e.target.value
+        const value = raw === '' ? null : Math.max(0, Number(raw))
+        setForm((f) => {
+            const existing = f.spellSlots[level] || {}
+            const updated = { ...existing, [field]: value }
+            // A max of 0 (or unset) with no current in use isn't worth
+            // keeping a row for - drop it so an empty sheet doesn't grow a
+            // spellSlots object full of {max:0,current:0} noise.
+            const isEmpty = !updated.max && !updated.current
+            const nextLevels = { ...f.spellSlots }
+            if (isEmpty) delete nextLevels[level]
+            else nextLevels[level] = updated
+            return { ...f, spellSlots: nextLevels }
+        })
+    }
+
+    const handleLongRest = () => {
+        setForm((f) => {
+            const rested = {}
+            for (const [level, slot] of Object.entries(f.spellSlots)) {
+                rested[level] = { ...slot, current: slot.max ?? 0 }
+            }
+            return {
+                ...f,
+                spellSlots: rested,
+                spellPointsCurrent: f.spellPointsMax ?? f.spellPointsCurrent,
+            }
+        })
+    }
 
     const handlePortraitChange = async (e) => {
         const file = e.target.files?.[0]
@@ -313,6 +371,13 @@ export default function CharacterSheet() {
                 {canEdit && saveLabel && (
                     <span className={`beyond-save-status ${saveState}`}>{saveLabel}</span>
                 )}
+                {/* GET /api/characters/{id} is already public/unauthenticated
+                    (see SecurityConfig) - this page has always been viewable
+                    by anyone with the URL, read-only. This button just makes
+                    that shareable link easy to grab. */}
+                <button type="button" className="beyond-back" style={{ marginLeft: 'auto' }} onClick={handleShareLink}>
+                    🔗 {linkCopied ? t('sheetLinkCopied') : t('sheetShareLink')}
+                </button>
             </div>
 
             {/* ── HEADER ── */}
@@ -572,6 +637,61 @@ export default function CharacterSheet() {
                             <div style={{ marginTop: '0.9rem' }}>
                                 <span className="beyond-field-label">{t('sheetSpellNotes')}</span>
                                 <textarea className="beyond-textarea" rows={4} value={form.spellNotes} onChange={set('spellNotes')} disabled={!canEdit} style={{ marginTop: '0.3rem' }} />
+                            </div>
+                        </div>
+
+                        {/* Spell slots + optional spell-points variant */}
+                        <div className="beyond-card">
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <h2 className="beyond-card-title" style={{ margin: 0, border: 0, padding: 0 }}>{t('sheetSpellSlots')}</h2>
+                                {canEdit && <button type="button" className="beyond-add-btn" onClick={handleLongRest}>🌙 {t('sheetLongRest')}</button>}
+                            </div>
+                            <div className="beyond-spell-slots" style={{ marginTop: '0.6rem' }}>
+                                {SPELL_SLOT_LEVELS.map((level) => {
+                                    const slot = form.spellSlots[level] || {}
+                                    return (
+                                        <div key={level} className="beyond-spell-slot-row">
+                                            <span className="beyond-spell-slot-level">{t('level')} {level}</span>
+                                            <input
+                                                className="beyond-input beyond-input-sm beyond-input-num"
+                                                type="number" min="0"
+                                                value={slot.current ?? ''}
+                                                onChange={setSpellSlot(level, 'current')}
+                                                disabled={!canEdit}
+                                                title={t('sheetSlotsCurrent')}
+                                            />
+                                            <span className="beyond-hp-slash">/</span>
+                                            <input
+                                                className="beyond-input beyond-input-sm beyond-input-num"
+                                                type="number" min="0"
+                                                value={slot.max ?? ''}
+                                                onChange={setSpellSlot(level, 'max')}
+                                                disabled={!canEdit}
+                                                title={t('sheetSlotsMax')}
+                                            />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className="beyond-spell-slot-row" style={{ marginTop: '0.75rem', borderTop: '1px solid var(--bey-border)', paddingTop: '0.6rem' }}>
+                                <span className="beyond-spell-slot-level">{t('sheetSpellPoints')}</span>
+                                <input
+                                    className="beyond-input beyond-input-sm beyond-input-num"
+                                    type="number" min="0"
+                                    value={form.spellPointsCurrent ?? ''}
+                                    onChange={setNum('spellPointsCurrent')}
+                                    disabled={!canEdit}
+                                    title={t('sheetSlotsCurrent')}
+                                />
+                                <span className="beyond-hp-slash">/</span>
+                                <input
+                                    className="beyond-input beyond-input-sm beyond-input-num"
+                                    type="number" min="0"
+                                    value={form.spellPointsMax ?? ''}
+                                    onChange={setNum('spellPointsMax')}
+                                    disabled={!canEdit}
+                                    title={t('sheetSlotsMax')}
+                                />
                             </div>
                         </div>
 

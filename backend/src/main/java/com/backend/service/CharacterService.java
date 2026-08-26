@@ -2,15 +2,21 @@ package com.backend.service;
 
 import com.backend.dto.CharacterRequest;
 import com.backend.dto.CharacterSheetRequest;
+import com.backend.dto.SpellSlotLevel;
 import com.backend.entity.Character;
 import com.backend.entity.User;
 import com.backend.repository.CharacterRepository;
 import com.backend.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CharacterService {
@@ -18,6 +24,11 @@ public class CharacterService {
     private final CharacterRepository characterRepository;
     private final UserRepository userRepository;
     private final com.backend.repository.CampaignRepository campaignRepository;
+    // Instantiated directly rather than injected - same reasoning as
+    // SpellRegistry/CombatService/MinecraftPingService: this project's
+    // auto-configured Jackson bean is Jackson 3
+    // (tools.jackson.databind.ObjectMapper), not this classic Jackson 2 one.
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public Character createCharacter(CharacterRequest request, Long userId) {
         User user = userRepository.findById(userId)
@@ -104,6 +115,9 @@ public class CharacterService {
 
         character.setAttacks(req.getAttacks());
         character.setSpellNotes(req.getSpellNotes());
+        character.setSpellSlotsJson(writeSpellSlots(req.getSpellSlots()));
+        character.setSpellPointsMax(req.getSpellPointsMax());
+        character.setSpellPointsCurrent(req.getSpellPointsCurrent());
 
         character.setEquipment(req.getEquipment());
         character.setCp(req.getCp());
@@ -163,5 +177,20 @@ public class CharacterService {
     private String appendLine(String existing, String newLine) {
         String line = "• " + newLine.strip();
         return existing == null || existing.isBlank() ? line : existing + "\n" + line;
+    }
+
+    // Null/empty maps serialize to null rather than "{}" or "null" - keeps
+    // a character with no spell slots set up from getting a junk non-empty
+    // value written to its row.
+    private String writeSpellSlots(Map<String, SpellSlotLevel> spellSlots) {
+        if (spellSlots == null || spellSlots.isEmpty()) {
+            return null;
+        }
+        try {
+            return objectMapper.writeValueAsString(spellSlots);
+        } catch (JsonProcessingException e) {
+            log.warn("Could not serialize spell slots, dropping the update", e);
+            return null;
+        }
     }
 }

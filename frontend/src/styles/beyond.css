@@ -520,6 +520,27 @@
 }
 .beyond-hp-current:focus { outline: none; }
 .beyond-hp-slash { color: var(--bey-text-faint); font-size: 1.4rem; }
+
+.beyond-spell-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.5rem 1rem;
+}
+.beyond-spell-slot-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.beyond-spell-slot-level {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--bey-text-faint);
+    width: 3.4rem;
+    flex-shrink: 0;
+}
+.beyond-spell-slot-row .beyond-input-num { width: 3rem; }
 .beyond-hp-max {
     background: transparent;
     border: none;
