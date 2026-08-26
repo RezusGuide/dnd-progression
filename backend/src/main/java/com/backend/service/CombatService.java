@@ -32,7 +32,13 @@ public class CombatService {
 
     private final CombatEncounterRepository combatEncounterRepository;
     private final CampaignRepository campaignRepository;
-    private final ObjectMapper objectMapper;
+    // Instantiated directly rather than @Autowired, same reasoning as
+    // SpellRegistry - this project's auto-configured Jackson bean is
+    // tools.jackson.databind.ObjectMapper (Jackson 3), not this classic
+    // com.fasterxml.jackson.databind.ObjectMapper (Jackson 2), so
+    // constructor injection of this type has no matching bean and fails
+    // application startup outright.
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public CombatEncounterResponse getEncounter(Long campaignId) {
         return toResponse(getOrCreate(campaignId));
