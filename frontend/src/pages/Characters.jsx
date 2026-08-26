@@ -93,7 +93,12 @@ export default function Characters() {
                         style={{ cursor: 'pointer' }}
                     >
                         <div className="character-card-top">
-                            <h2 className="character-name">{char.name}</h2>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: 0 }}>
+                                <span className="character-portrait">
+                                    {char.portraitData ? <img src={char.portraitData} alt="" /> : '🗡'}
+                                </span>
+                                <h2 className="character-name">{char.name}</h2>
+                            </div>
                             {user && (
                                 <button
                                     className="tome-btn-danger"

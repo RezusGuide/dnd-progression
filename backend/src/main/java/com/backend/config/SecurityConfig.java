@@ -54,6 +54,14 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Carved out of the otherwise-permitAll /api/auth/** below -
+                        // needs @AuthenticationPrincipal User to be non-null, so it
+                        // must actually require a valid session. Declared first:
+                        // Spring Security's authorizeHttpRequests takes the first
+                        // matching rule, so this has to come before the broader
+                        // permitAll or it would never be reached.
+                        .requestMatchers(HttpMethod.POST, "/api/auth/recovery-code").authenticated()
                         .requestMatchers("/api/auth/**").permitAll()
 
                         // Spring Boot forwards uncaught controller exceptions to /error

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
-import CombatTracker from '../components/CombatTracker'
 import api from '../api/axios'
 
 export default function CampaignView() {
@@ -55,8 +54,6 @@ export default function CampaignView() {
                 </div>
             </div>
 
-            <CombatTracker campaignId={id} rosterCharacters={characters} />
-
             <div className="campaigns-list">
                 {characters.length === 0 ? (
                     <p className="tome-empty">{t('noCharacters')}</p>
@@ -64,13 +61,18 @@ export default function CampaignView() {
                     characters.map((char) => (
                         <div key={char.id} className="campaign-char-card">
                             <div className="campaign-char-top">
-                                <div>
-                                    <h2 className="character-name">{char.name}</h2>
-                                    <div className="character-meta" style={{ marginTop: '0.4rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                                    <span className="character-portrait">
+                                        {char.portraitData ? <img src={char.portraitData} alt="" /> : '🗡'}
+                                    </span>
+                                    <div>
+                                        <h2 className="character-name">{char.name}</h2>
+                                        <div className="character-meta" style={{ marginTop: '0.4rem' }}>
                                         <span className="meta-tag">{char.characterClass || '—'}</span>
                                         <span className="meta-tag">{char.race || '—'}</span>
                                         <span className="meta-tag level-tag">{t('level')} {char.level}</span>
                                         <span className="meta-tag">{char.user?.username}</span>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

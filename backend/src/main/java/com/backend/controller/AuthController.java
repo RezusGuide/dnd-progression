@@ -2,12 +2,15 @@ package com.backend.controller;
 
 import com.backend.dto.AuthResponse;
 import com.backend.dto.LoginRequest;
+import com.backend.dto.ResetPasswordRequest;
 import com.backend.entity.User;
 import com.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 // No public /register endpoint on purpose - every account is created by
 // the owner from /admin (see AdminController.createUser), who hands the
@@ -31,5 +34,25 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<AuthResponse> me(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(authService.me(user.getId()));
+    }
+
+    // Requires being logged in already (see SecurityConfig - this specific
+    // path is carved out of the otherwise-permitAll /api/auth/** prefix).
+    // Generating a new code invalidates any old one - only ever one live
+    // code per account.
+    @PostMapping("/recovery-code")
+    public ResponseEntity<Map<String, String>> generateRecoveryCode(@AuthenticationPrincipal User user) {
+        String code = authService.generateRecoveryCode(user.getId());
+        return ResponseEntity.ok(Map.of("recoveryCode", code));
+    }
+
+    // Public on purpose - this IS the "I'm locked out" path, so it can't
+    // require being logged in. Safety comes from the recovery code itself
+    // (single-use, bcrypt-hashed, generated ahead of time by the account
+    // holder), not from an auth check here.
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
+        authService.resetPasswordWithRecoveryCode(request.getEmail(), request.getRecoveryCode(), request.getNewPassword());
+        return ResponseEntity.ok().build();
     }
 }

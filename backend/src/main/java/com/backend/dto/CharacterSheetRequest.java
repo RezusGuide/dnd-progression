@@ -25,6 +25,7 @@ public class CharacterSheetRequest {
     private String playerName;
     private String alignment;
     private Integer experiencePoints;
+    private String portraitData;
 
     // Ability scores
     private Integer strength;

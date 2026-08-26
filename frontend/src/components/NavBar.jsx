@@ -54,7 +54,7 @@ export default function NavBar() {
                 <LangToggle />
                 {user ? (
                     <>
-                        <span className="tome-username">{user.username}</span>
+                        <NavLink to="/account" className="tome-username" style={{ textDecoration: 'none' }} title={t('accountTitle')}>{user.username}</NavLink>
                         <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>
                     </>
                 ) : (

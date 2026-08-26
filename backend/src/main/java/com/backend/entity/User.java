@@ -36,6 +36,14 @@ public class User {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    // BCrypt hash of a self-service recovery code (see AuthService), null
+    // until the user generates one. Single-use - cleared the moment it's
+    // spent on a password reset, same as the plaintext code itself is
+    // shown to the user exactly once and never stored.
+    @JsonIgnore
+    @Column(name = "recovery_code_hash")
+    private String recoveryCodeHash;
+
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude

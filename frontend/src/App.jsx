@@ -11,6 +11,7 @@ import UsefulFunctions from './pages/UsefulFunctions'
 import Downloads from './pages/Downloads'
 import Announcements from './pages/Announcements'
 import Admin from './pages/Admin'
+import Account from './pages/Account'
 import Login from './pages/Login'
 import Characters from './pages/Characters'
 import Campaigns from './pages/Campaigns'
@@ -50,6 +51,7 @@ function AppRoutes() {
                 route wrapper is needed. */}
             <Route path="/useful" element={<UsefulFunctions />} />
             <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
 
             {/* No self-registration anymore - you create every account
                 yourself from /admin and hand out the login directly, so

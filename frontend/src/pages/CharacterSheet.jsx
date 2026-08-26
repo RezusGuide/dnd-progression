@@ -5,7 +5,6 @@ import { useLang } from '../context/LangContext'
 import { spellName } from '../constants/spellText'
 import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
-import DiceRoller from '../components/DiceRoller'
 import api from '../api/axios'
 import '../styles/beyond.css'
 
@@ -47,6 +46,34 @@ const abilityMod = (score) => Math.floor(((score ?? 10) - 10) / 2)
 const fmt = (n) => (n >= 0 ? `+${n}` : `${n}`)
 const numOrNull = (raw) => (raw === '' ? null : Number(raw))
 
+// Downscales/recompresses an uploaded image client-side before it ever
+// reaches the server - there's no file-storage service here, portraits are
+// stored as a data URI directly on the character row (see
+// Character#portraitData), so keeping each one small matters. 256x256 cap,
+// JPEG at 0.85 quality; typically lands well under 50KB.
+const MAX_PORTRAIT_DIMENSION = 256
+function resizeImageFile(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onerror = () => reject(reader.error)
+        reader.onload = () => {
+            const img = new Image()
+            img.onerror = () => reject(new Error('Could not read image'))
+            img.onload = () => {
+                const scale = Math.min(1, MAX_PORTRAIT_DIMENSION / Math.max(img.width, img.height))
+                const canvas = document.createElement('canvas')
+                canvas.width = Math.round(img.width * scale)
+                canvas.height = Math.round(img.height * scale)
+                const ctx = canvas.getContext('2d')
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+                resolve(canvas.toDataURL('image/jpeg', 0.85))
+            }
+            img.src = reader.result
+        }
+        reader.readAsDataURL(file)
+    })
+}
+
 // Every character fetched from the API may have nulls on any sheet field -
 // either it predates this rebuild, or a field was just never filled in.
 // This coalesces those into safe, editable defaults exactly once, when the
@@ -61,6 +88,7 @@ function hydrate(c) {
         playerName: c.playerName || '',
         alignment: c.alignment || '',
         experiencePoints: c.experiencePoints ?? 0,
+        portraitData: c.portraitData || '',
 
         strength: c.strength ?? 10,
         dexterity: c.dexterity ?? 10,
@@ -122,7 +150,6 @@ export default function CharacterSheet() {
     // D&D is public to view; any signed-in account can edit (not just the
     // creator) - see CharacterService#updateSheet.
     const canEdit = !!user
-    const diceRef = useRef(null)
 
     const [character, setCharacter] = useState(null)
     const [form, setForm] = useState(null)
@@ -200,6 +227,18 @@ export default function CharacterSheet() {
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
     const setNum = (key) => (e) => setForm((f) => ({ ...f, [key]: numOrNull(e.target.value) }))
 
+    const handlePortraitChange = async (e) => {
+        const file = e.target.files?.[0]
+        e.target.value = '' // let re-selecting the same file re-fire onChange
+        if (!file) return
+        try {
+            const dataUri = await resizeImageFile(file)
+            setForm((f) => ({ ...f, portraitData: dataUri }))
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     const toggleSave = (abilityKey) => {
         if (!canEdit) return
         setForm((f) => {
@@ -274,22 +313,25 @@ export default function CharacterSheet() {
                 {canEdit && saveLabel && (
                     <span className={`beyond-save-status ${saveState}`}>{saveLabel}</span>
                 )}
-                {/* Browser print dialog, not a generated file - "Save as PDF" is a
-                    standard destination in every browser's print dialog, so this
-                    covers PDF export without a rendering dependency. Only exports
-                    whichever tab is currently open - see the print stylesheet. */}
-                <button type="button" className="beyond-back" style={{ marginLeft: 'auto' }} onClick={() => window.print()}>🖨 {t('sheetPrint')}</button>
             </div>
 
             {/* ── HEADER ── */}
             <div className="beyond-header">
-                <input
-                    className="beyond-name-input"
-                    value={form.name}
-                    onChange={set('name')}
-                    disabled={!canEdit}
-                    placeholder={t('sheetNamePlaceholder')}
-                />
+                <div className="beyond-header-top">
+                    <label className={`beyond-portrait ${canEdit ? 'editable' : ''}`}>
+                        {form.portraitData
+                            ? <img src={form.portraitData} alt="" className="beyond-portrait-img" />
+                            : <span className="beyond-portrait-placeholder">🗡</span>}
+                        {canEdit && <input type="file" accept="image/*" onChange={handlePortraitChange} hidden />}
+                    </label>
+                    <input
+                        className="beyond-name-input"
+                        value={form.name}
+                        onChange={set('name')}
+                        disabled={!canEdit}
+                        placeholder={t('sheetNamePlaceholder')}
+                    />
+                </div>
                 <div className="beyond-header-grid">
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('class')}</span>
@@ -346,11 +388,7 @@ export default function CharacterSheet() {
                                 {ABILITIES.map((a) => (
                                     <div key={a.key} className="beyond-ability" title={t(a.labelKey)}>
                                         <span className="beyond-ability-abbr">{a.key}</span>
-                                        <span className="beyond-ability-mod">
-                                            {fmt(abilityMod(form[a.field]))}
-                                            <button type="button" className="beyond-roll-btn" title={`${t(a.labelKey)} ${t('diceCheck')}`}
-                                                onClick={() => diceRef.current?.roll({ sides: 20, modifier: abilityMod(form[a.field]), label: `${t(a.labelKey)} ${t('diceCheck')}` })}>🎲</button>
-                                        </span>
+                                        <span className="beyond-ability-mod">{fmt(abilityMod(form[a.field]))}</span>
                                         <span className="beyond-ability-score-row">
                                             <input
                                                 className="beyond-ability-score"
@@ -391,11 +429,7 @@ export default function CharacterSheet() {
                                         />
                                         <span className="beyond-prof-name">{t(a.labelKey)}</span>
                                     </div>
-                                    <span className="beyond-prof-bonus">
-                                        {fmt(saveBonus(a.key))}
-                                        <button type="button" className="beyond-roll-btn" title={`${t(a.labelKey)} ${t('diceSave')}`}
-                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: saveBonus(a.key), label: `${t(a.labelKey)} ${t('diceSave')}` })}>🎲</button>
-                                    </span>
+                                    <span className="beyond-prof-bonus">{fmt(saveBonus(a.key))}</span>
                                 </div>
                             ))}
                         </div>
@@ -417,11 +451,7 @@ export default function CharacterSheet() {
                                         <span className="beyond-prof-name">{t(s.labelKey)}</span>
                                         <span className="beyond-prof-ability">({s.ability})</span>
                                     </div>
-                                    <span className="beyond-prof-bonus">
-                                        {fmt(skillBonus(s.key))}
-                                        <button type="button" className="beyond-roll-btn" title={t(s.labelKey)}
-                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: skillBonus(s.key), label: t(s.labelKey) })}>🎲</button>
-                                    </span>
+                                    <span className="beyond-prof-bonus">{fmt(skillBonus(s.key))}</span>
                                 </div>
                             ))}
                             <div className="beyond-passive">
@@ -531,16 +561,8 @@ export default function CharacterSheet() {
                             {form.attacks.map((atk, i) => (
                                 <div key={i} className="beyond-attack-row">
                                     <input className="beyond-input beyond-input-sm" value={atk.name || ''} onChange={(e) => updateAttack(i, 'name', e.target.value)} disabled={!canEdit} />
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
-                                        <input className="beyond-input beyond-input-sm" value={atk.attackBonus || ''} onChange={(e) => updateAttack(i, 'attackBonus', e.target.value)} disabled={!canEdit} placeholder="+5" />
-                                        <button type="button" className="beyond-roll-btn" title={`${atk.name || t('sheetAttackName')} - ${t('diceToHit')}`}
-                                            onClick={() => diceRef.current?.roll({ sides: 20, modifier: parseInt(String(atk.attackBonus || '0').replace(/\s+/g, ''), 10) || 0, label: `${atk.name || t('sheetAttackName')} - ${t('diceToHit')}` })}>🎲</button>
-                                    </span>
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.15rem' }}>
-                                        <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3" />
-                                        <button type="button" className="beyond-roll-btn" title={`${atk.name || t('sheetAttackName')} - ${t('diceDamage')}`}
-                                            onClick={() => diceRef.current?.rollNotation(atk.damageType, `${atk.name || t('sheetAttackName')} - ${t('diceDamage')}`)}>🎲</button>
-                                    </span>
+                                    <input className="beyond-input beyond-input-sm" value={atk.attackBonus || ''} onChange={(e) => updateAttack(i, 'attackBonus', e.target.value)} disabled={!canEdit} placeholder="+5" />
+                                    <input className="beyond-input beyond-input-sm" value={atk.damageType || ''} onChange={(e) => updateAttack(i, 'damageType', e.target.value)} disabled={!canEdit} placeholder="1d8+3" />
                                     {canEdit && <button type="button" className="beyond-remove-btn" onClick={() => removeAttack(i)}>✕</button>}
                                 </div>
                             ))}
@@ -715,7 +737,6 @@ export default function CharacterSheet() {
                     </div>
                 </div>
             )}
-            <DiceRoller ref={diceRef} />
         </div>
     )
 }

@@ -1,39 +1,8 @@
 /* ============================================================
-   HOME — cinematic 3D scene. Scoped under .home3d-*.
+   HOME — plain landing page (formerly a cinematic 3D scene, removed
+   after the WebGL scene proved unreliable in practice; the file/class
+   names kept the home3d- prefix rather than a risky rename).
    ============================================================ */
-
-.home3d-spacer {
-  position: relative;
-  height: 320vh;
-  background: #05070a;
-}
-
-.home3d-stage {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  background: #05070a;
-}
-
-.home3d-canvas {
-  position: absolute;
-  inset: 0;
-}
-
-.home3d-intro {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  pointer-events: none;
-  color: #eaf6ff;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  transition: opacity 0.15s linear;
-}
 
 .home3d-kicker {
   letter-spacing: 0.3em;
@@ -57,79 +26,6 @@
   color: #c7dee6;
 }
 
-.home3d-scrollhint {
-  position: absolute;
-  bottom: 2.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #7fe3ff;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  animation: home3d-bob 1.8s ease-in-out infinite;
-}
-@keyframes home3d-bob {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, 8px); }
-}
-
-.home3d-portal {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.home3d-portal-label {
-  position: absolute;
-  top: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #eaf6ff;
-  text-shadow: 0 0 8px rgba(0,0,0,0.9), 0 0 4px currentColor;
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
-.home3d-portal:hover .home3d-portal-label,
-.home3d-portal:focus-visible .home3d-portal-label {
-  opacity: 1;
-}
-.home3d-portal:focus-visible {
-  outline: 2px solid #7fe3ff;
-  outline-offset: 4px;
-}
-
-.home3d-portal-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.home3d-portal:hover .home3d-portal-ring,
-.home3d-portal:focus-visible .home3d-portal-ring {
-  opacity: 0.85;
-  transform: scale(1.15);
-}
-
-/* Plain fallback shown when WebGL isn't available - no 3D scene, just the
-   bio and ordinary visible links to every section. */
 .home3d-fallback {
   position: relative;
   min-height: 100vh;

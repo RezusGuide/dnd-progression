@@ -99,6 +99,9 @@
   border: 2px solid #3a2818;
 }
 
+.mc-tag-online { border-color: #3a6b35; }
+.mc-tag-offline { border-color: #8b1a1a; }
+
 .mc-drive-link {
   display: inline-block;
   margin-top: 0.5rem;

@@ -50,6 +50,14 @@ public class Character {
     @Column(columnDefinition = "TEXT")
     private String backstory;
 
+    // Base64 data URI (e.g. "data:image/jpeg;base64,...") - resized/
+    // compressed client-side before upload (see CharacterSheet.jsx's
+    // portrait handler) to keep this from bloating the row. TEXT rather
+    // than a file-storage reference since this app has no file storage
+    // service to point at.
+    @Column(name = "portrait_data", columnDefinition = "TEXT")
+    private String portraitData;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

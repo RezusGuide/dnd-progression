@@ -76,6 +76,7 @@ public class CharacterService {
         character.setPlayerName(req.getPlayerName());
         character.setAlignment(req.getAlignment());
         character.setExperiencePoints(req.getExperiencePoints());
+        character.setPortraitData(req.getPortraitData());
 
         character.setStrength(req.getStrength());
         character.setDexterity(req.getDexterity());

@@ -24,14 +24,28 @@ export default function Minecraft() {
     const [editing, setEditing] = useState(false)
     const [form, setForm] = useState(null)
     const [copied, setCopied] = useState(false)
+    // Live status - an actual Server List Ping to the real server, distinct
+    // from the DM-editable `server.status` free-text field above. null
+    // while the first ping is still in flight.
+    const [liveStatus, setLiveStatus] = useState(null)
 
     const [polls, setPolls] = useState([])
     const [showPollForm, setShowPollForm] = useState(false)
     const [pollForm, setPollForm] = useState({ question: '', options: '' })
 
+    const fetchLiveStatus = () => {
+        api.get('/api/minecraft/status').then((res) => setLiveStatus(res.data)).catch(() => setLiveStatus({ online: false }))
+    }
+
     useEffect(() => {
         api.get('/api/minecraft').then((res) => setServer(res.data)).catch(() => {})
         api.get('/api/polls').then((res) => setPolls(res.data)).catch(() => setPolls([]))
+        fetchLiveStatus()
+        // A ping is a live network round-trip, not something worth hammering
+        // - refresh every 30s while the tab is actually open, not on a timer
+        // that keeps running after the user's navigated away.
+        const interval = setInterval(fetchLiveStatus, 30000)
+        return () => clearInterval(interval)
     }, [])
 
     const startEdit = () => {
@@ -136,6 +150,22 @@ export default function Minecraft() {
                         <div className="mc-tags">
                             <span className="mc-tag">{t('minecraftVersion')}: {server.version}</span>
                             <span className="mc-tag">{t('minecraftStatus')}: {server.status}</span>
+                        </div>
+
+                        {/* Actual Server List Ping result, separate from the DM-set
+                            `status` text tag above - refreshes itself every 30s. */}
+                        <div className="mc-tags" style={{ marginTop: '0.4rem' }}>
+                            {liveStatus === null ? (
+                                <span className="mc-tag">{t('minecraftPinging')}</span>
+                            ) : liveStatus.online ? (
+                                <span className="mc-tag mc-tag-online">
+                                    🟢 {t('minecraftOnline')}
+                                    {liveStatus.playersOnline != null && ` — ${liveStatus.playersOnline}/${liveStatus.playersMax ?? '?'} ${t('minecraftPlayers')}`}
+                                </span>
+                            ) : (
+                                <span className="mc-tag mc-tag-offline">🔴 {t('minecraftOffline')}</span>
+                            )}
+                            <button className="mc-btn-ghost" onClick={fetchLiveStatus} title={t('minecraftRefresh')}>↻</button>
                         </div>
                         {server.driveUrl && (
                             <div>
