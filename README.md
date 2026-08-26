@@ -1,35 +1,35 @@
 # Batyr's Hub
 
 Your existing D&D Progression app (Spring Boot + React), extended into a
-personal hub with six distinctly themed parts, real accounts, and one
+personal hub with several distinctly themed parts, real accounts, and one
 simple access rule: **everything is public to view except Useful
 Functions, which is yours alone; any account you hand out can create and
 edit in the D&D and Minecraft sections.**
 
-## The six parts
+## The parts
 
-1. **Home** (`/`) — a full-bleed cinematic 3D scene (three.js): a stylized
-   laptop resting on a brick pedestal. It opens tight on the glowing
-   screen with a few words about you; scrolling pulls the camera back
-   until the whole laptop is in view with five glowing portals floating
-   around it — real, invisible, keyboard-accessible buttons routing to
-   the other five sections.
+1. **Home** (`/`) — the shared "hub" design system (dark, Space
+   Grotesk/Inter, amber accent): your name/tagline plus a card grid
+   linking to every other public section.
 2. **Portfolio** (`/portfolio`) — terminal-styled public page: bio,
    education, skills, and a project list. Publicly viewable; owner-editable.
-3. **Media** (`/media`) — black & white page listing your socials, Boosty,
-   and partners, plus a short "what I make" description. Publicly
-   viewable; owner-editable.
-4. **Useful Functions** (`/useful`) — cyberpunk-themed personal CRM:
+3. **Media** (`/media`) — built on the same hub design system as Home:
+   your socials, Boosty, and partner links, plus a short "what I make"
+   description. Publicly viewable; owner-editable.
+4. **Gallery** (`/gallery`) — a photo grid backed by a plain folder
+   (`frontend/src/assets/gallery/` — see the README in there), no backend
+   or upload form involved. Publicly viewable.
+5. **Useful Functions** (`/useful`) — cyberpunk-themed personal CRM:
    birthday tracking and a hand-rolled force-directed relationship graph
    (drag nodes, click one for full info). **Owner-only, full stop** — not
    even logged-in friends can see this page or its API.
-5. **D&D** (`/characters`, `/campaigns`, …) — the original app, unchanged
+6. **D&D** (`/characters`, `/campaigns`, …) — the original app, unchanged
    visually (tome/parchment theme). Publicly viewable now; any logged-in
    account can create/edit characters, campaigns, and run spell research.
-6. **Minecraft** (`/minecraft`) — pixel-styled server info page: IP, version,
-   status, a Google Drive link, and community polls about the server's
-   future. Publicly viewable; any logged-in account can edit server info,
-   create polls, and vote.
+7. **Minecraft** (`/minecraft`) — pixel-styled server info page: IP, version,
+   status, a live server ping, a Google Drive link, and community polls
+   about the server's future. Publicly viewable; any logged-in account can
+   edit server info, create polls, and vote.
 
 `backend/` is the Spring Boot (Java 21) API — deploys to **Railway**.
 `frontend/` is the React + Vite app — deploys to **Vercel**. Both talk to
@@ -77,9 +77,7 @@ npm run dev
 ```
 
 The frontend defaults to `http://localhost:8080` for the API; override with
-`VITE_API_URL` (see `frontend/.env.example`). `npm install` will pull in
-`three` (new dependency, for the Home page's 3D scene) alongside the
-existing packages.
+`VITE_API_URL` (see `frontend/.env.example`).
 
 ## 3. Deploy the backend to Railway
 
@@ -146,26 +144,30 @@ password from the same page later if they lose it.
 
 ## Known limitations / good next steps
 
-- No email verification or password reset flow for self-registration (not
-  that it matters much now — friends get accounts handed to them directly).
-- No rate limiting on `/api/auth/login`, `/api/auth/register`, or voting.
-- The Java backend couldn't be compiled in the sandbox this was built in
-  (no outbound access to Maven Central / the Gradle Plugin Portal there),
-  so it's been carefully hand-reviewed against your existing, working code
-  rather than build-verified. Run `./gradlew build` locally (or just watch
-  Railway's first deploy log) before you fully trust it.
-- The frontend *was* built, linted, and smoke-tested in the sandbox
-  (`npm run build`, `npx oxlint src`, and a headless Chromium pass over
-  every route including a scroll-through of the 3D home page) — no console
-  or runtime errors turned up.
-- The reference photos/screenshots you sent weren't available to re-check
-  against pixel-for-pixel; the five themes (terminal, black & white,
-  cyberpunk, Minecraft, and the 3D laptop scene) were built from your
-  written description and best judgment, not a literal recreation — treat
-  them as a strong starting point to refine rather than a finished match.
-- `frontend/src/components/SectionGate.jsx` is now unused (nothing routes
-  through it anymore, since D&D/Minecraft are public) — harmless leftover,
-  safe to delete whenever.
+- Self-service password reset exists (`/login` → "Forgot password?" using a
+  one-time recovery code from `/account`), but there's still no email
+  verification for the initial account creation flow, and no rate limiting
+  on `/api/auth/login` or voting.
+- `frontend/src/components/SectionGate.jsx` is unused (nothing routes
+  through it, since D&D/Minecraft are public) — harmless leftover, safe to
+  delete whenever.
 - Bio/tagline on the Home page and the Portfolio page both read from the
   same `AboutProfile` record (`/api/portfolio/profile`), so editing your
   bio once in Portfolio (as owner) updates both places.
+- Gallery photos live in `frontend/src/assets/gallery/` and get bundled
+  into the production build (see the README in that folder) — they're not
+  stored in Postgres or served from the backend at all.
+
+### A real secret was in this repo's early history
+
+An early commit had a real Neon database password and host string
+committed in plain text. It's been scrubbed from the entire git history
+(`git filter-repo --replace-text`, force-pushed), **but scrubbing history
+alone doesn't invalidate a leaked credential** — rotating the actual
+password in the Neon dashboard (Project → Branches → your branch → Reset
+password) is the step that matters; do that if you haven't yet, then use
+the new password everywhere (local `application-local.properties` and the
+`DATABASE_PASSWORD` env var on Railway). If you ever see
+`application.properties` with a hardcoded password again instead of an
+`${ENV_VAR}` placeholder, treat it the same way: rotate the credential
+immediately, then worry about cleaning history.
