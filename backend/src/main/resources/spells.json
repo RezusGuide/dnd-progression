@@ -12360,5 +12360,3337 @@
     ],
     "nameRu": "Слово возвращения",
     "descriptionRu": "Произнесите слово телепортации, и вы вместе со спутниками мгновенно переноситесь в убежище, к которому привязано заклинание."
+  },
+  {
+    "id": "conjure-celestial",
+    "name": "Conjure Celestial",
+    "level": 7,
+    "description": "Summon a celestial spirit to fight at your command for the duration.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Призыв небожителя",
+    "descriptionRu": "Призовите небесного духа, чтобы сражаться по вашей команде на время действия.",
+    "classes": [
+      "CLERIC"
+    ]
+  },
+  {
+    "id": "divine-word",
+    "name": "Divine Word",
+    "level": 7,
+    "description": "Utter a divine word that afflicts creatures with escalating effects depending on how badly hurt they are.",
+    "castingTime": "1 bonus action",
+    "range": "30 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Слово божества",
+    "descriptionRu": "Произнесите божественное слово, поражающее существ нарастающими эффектами в зависимости от того, насколько они ранены.",
+    "classes": [
+      "CLERIC"
+    ]
+  },
+  {
+    "id": "etherealness",
+    "name": "Etherealness",
+    "level": 7,
+    "description": "Step into the Border Ethereal, able to see and move through the material world without being seen.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S",
+    "duration": "Up to 8 hours",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Эфирность",
+    "descriptionRu": "Шагните на Пограничный Эфир, получив способность видеть и перемещаться сквозь материальный мир, оставаясь невидимым.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "finger-of-death",
+    "name": "Finger of Death",
+    "level": 7,
+    "description": "Point a finger crackling with negative energy at a creature, dealing brutal necrotic damage.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "EXANIMIS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Перст смерти",
+    "descriptionRu": "Направьте на существо палец, потрескивающий отрицательной энергией, нанося ему жестокий некротический урон.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "fire-storm",
+    "name": "Fire Storm",
+    "level": 7,
+    "description": "A storm of roaring flame erupts in the area, scorching the ground and everything on it.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ARBOR",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Огненная буря",
+    "descriptionRu": "Буря ревущего пламени вспыхивает в области, опаляя землю и всё на ней.",
+    "classes": [
+      "CLERIC",
+      "DRUID",
+      "SORCERER"
+    ]
+  },
+  {
+    "id": "forcecage",
+    "name": "Forcecage",
+    "level": 7,
+    "description": "An invisible cage or barred prison of pure force springs up, trapping everything inside.",
+    "castingTime": "1 action",
+    "range": "100 feet",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Силовая клетка",
+    "descriptionRu": "Невидимая клетка или тюрьма из чистой силы возникает, запирая всё внутри.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "mordenkainens-magnificent-mansion",
+    "name": "Mordenkainen's Magnificent Mansion",
+    "level": 7,
+    "description": "Conjure an extradimensional dwelling, fully furnished and staffed, accessible through a single door.",
+    "castingTime": "1 minute",
+    "range": "300 feet",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "FABRICO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Особняк Морденкайнена",
+    "descriptionRu": "Призовите внепространственное жилище, полностью обставленное и с прислугой, доступное через единственную дверь.",
+    "classes": [
+      "BARD",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "mirage-arcane",
+    "name": "Mirage Arcane",
+    "level": 7,
+    "description": "A square mile of terrain transforms in appearance, sound, and smell into a landscape of your design.",
+    "castingTime": "10 minutes",
+    "range": "Sight",
+    "components": "V, S",
+    "duration": "10 days",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ARBOR",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AQUA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Волшебный мираж",
+    "descriptionRu": "Квадратная миля местности преображается по виду, звучанию и запаху в ландшафт по вашему замыслу.",
+    "classes": [
+      "BARD",
+      "DRUID",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "mordenkainens-sword",
+    "name": "Mordenkainen's Sword",
+    "level": 7,
+    "description": "Create a sword-shaped blade of shimmering, magical energy that strikes wherever you direct it.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TELUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "METALLUM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VITREUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Клинок Морденкайнена",
+    "descriptionRu": "Создайте лезвие в форме меча из мерцающей магической энергии, разящее туда, куда вы укажете.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "plane-shift",
+    "name": "Plane Shift",
+    "level": 7,
+    "description": "Transport yourself and up to eight willing creatures to a different plane of existence entirely.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Смещение плана",
+    "descriptionRu": "Перенеситесь сами и до восьми согласных существ на совершенно другой план бытия.",
+    "classes": [
+      "CLERIC",
+      "DRUID",
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "prismatic-spray",
+    "name": "Prismatic Spray",
+    "level": 7,
+    "description": "Eight rays of blazing, multicolored light flash out in a cone, each ray a different, unpredictable effect.",
+    "castingTime": "1 action",
+    "range": "Self (60-foot cone)",
+    "components": "V, S",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Радужный веер",
+    "descriptionRu": "Восемь лучей ослепительного разноцветного света вырываются конусом, каждый луч - со своим непредсказуемым эффектом.",
+    "classes": [
+      "SORCERER",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "project-image",
+    "name": "Project Image",
+    "level": 7,
+    "description": "An illusory double of yourself appears anywhere you can visualize, and acts fully at your command.",
+    "castingTime": "1 action",
+    "range": "500 miles",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 day",
+    "pattern": [
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Проекция образа",
+    "descriptionRu": "Иллюзорный двойник вас появляется в любом месте, которое вы можете представить, и полностью действует по вашей команде.",
+    "classes": [
+      "BARD",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "regenerate",
+    "name": "Regenerate",
+    "level": 7,
+    "description": "A creature's wounds close, lost limbs regrow, and it regains hit points steadily for the duration.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "HERBA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Регенерация",
+    "descriptionRu": "Раны существа закрываются, утраченные конечности отрастают заново, и оно постепенно восстанавливает хиты в течение действия заклинания.",
+    "classes": [
+      "BARD",
+      "CLERIC",
+      "DRUID"
+    ]
+  },
+  {
+    "id": "resurrection",
+    "name": "Resurrection",
+    "level": 7,
+    "description": "Return a creature dead no more than a century to life, restoring it whole and free of old afflictions.",
+    "castingTime": "1 hour",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SANO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Воскрешение",
+    "descriptionRu": "Верните к жизни существо, умершее не более века назад, полностью восстановив его тело и избавив от прежних недугов.",
+    "classes": [
+      "BARD",
+      "CLERIC"
+    ]
+  },
+  {
+    "id": "reverse-gravity",
+    "name": "Reverse Gravity",
+    "level": 7,
+    "description": "Gravity reverses in a cylindrical area, sending everything not anchored down hurtling upward instead.",
+    "castingTime": "1 action",
+    "range": "100 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Обратная гравитация",
+    "descriptionRu": "Гравитация обращается вспять в цилиндрической области, отправляя всё незакреплённое стремительно вверх вместо падения вниз.",
+    "classes": [
+      "DRUID",
+      "SORCERER",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "sequester",
+    "name": "Sequester",
+    "level": 7,
+    "description": "A willing creature or object is hidden from sight, magic, and time itself, sealed away until a trigger you set.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "AURAM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Сокрытие",
+    "descriptionRu": "Согласное существо или предмет скрывается от взгляда, магии и самого времени, запечатанный до срабатывания заданного вами условия.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "simulacrum",
+    "name": "Simulacrum",
+    "level": 7,
+    "description": "Shape snow and ice into a duplicate of a creature, obedient to you but only ever half as strong as the original.",
+    "castingTime": "12 hours",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until destroyed",
+    "pattern": [
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "GELUM",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Симулякр",
+    "descriptionRu": "Слепите из снега и льда двойника существа, покорного вам, но всегда вдвое слабее оригинала.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "symbol",
+    "name": "Symbol",
+    "level": 7,
+    "description": "Inscribe a harmful glyph that triggers a powerful effect on whoever sets it off within range.",
+    "castingTime": "1 minute",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Until dispelled",
+    "pattern": [
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Символ",
+    "descriptionRu": "Начертите зловредный символ, срабатывающий мощным эффектом на том, кто активирует его в пределах области.",
+    "classes": [
+      "BARD",
+      "CLERIC",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "teleport",
+    "name": "Teleport",
+    "level": 7,
+    "description": "Instantly transport yourself and up to eight willing creatures to a destination you know well.",
+    "castingTime": "1 action",
+    "range": "10 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": -2
+      }
+    ],
+    "nameRu": "Телепортация",
+    "descriptionRu": "Мгновенно перенесите себя и до восьми согласных существ в место, которое вы хорошо знаете.",
+    "classes": [
+      "BARD",
+      "SORCERER",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "animal-shapes",
+    "name": "Animal Shapes",
+    "level": 8,
+    "description": "Willing creatures transform into beasts of the same general size, their new forms lasting until the spell ends.",
+    "castingTime": "1 action",
+    "range": "30 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 24 hours",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AQUA",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Звериные обличья",
+    "descriptionRu": "Согласные существа превращаются в зверей примерно того же размера, сохраняя новый облик, пока заклинание не закончится.",
+    "classes": [
+      "DRUID"
+    ]
+  },
+  {
+    "id": "antimagic-field",
+    "name": "Antimagic Field",
+    "level": 8,
+    "description": "A 10-foot sphere of invisible force surrounds you, suppressing magic and preventing spells from functioning within it.",
+    "castingTime": "1 action",
+    "range": "Self (10-foot radius)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Поле антимагии",
+    "descriptionRu": "Невидимая сфера силы радиусом 10 футов окружает вас, подавляя магию и не позволяя заклинаниям действовать внутри неё.",
+    "classes": [
+      "CLERIC",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "antipathy-sympathy",
+    "name": "Antipathy/Sympathy",
+    "level": 8,
+    "description": "Enchant an object or location to either draw a kind of creature irresistibly toward it, or drive that same kind away in dread.",
+    "castingTime": "1 hour",
+    "range": "60 feet",
+    "components": "V, S, M",
+    "duration": "10 days",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "BESTIA",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Антипатия/Симпатия",
+    "descriptionRu": "Зачаруйте предмет или место, чтобы неудержимо притягивать определённый вид существ к нему, либо в ужасе отгонять их прочь.",
+    "classes": [
+      "DRUID",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "clone",
+    "name": "Clone",
+    "level": 8,
+    "description": "Grow a duplicate body for a living creature in a vessel, ready to receive its soul the instant the original dies.",
+    "castingTime": "1 hour",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "CORPUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SANO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "GRANUM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Клонирование",
+    "descriptionRu": "Вырастите двойника тела живого существа в сосуде, готового принять его душу в миг гибели оригинала.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "control-weather",
+    "name": "Control Weather",
+    "level": 8,
+    "description": "Change the weather in the vicinity, shifting between clear skies, rain, storms, snow, or fog over the course of the spell.",
+    "castingTime": "10 minutes",
+    "range": "Self (5-mile radius)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 8 hours",
+    "pattern": [
+      {
+        "aspect": "TEMPESTAS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "IGNIS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "GELUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Управление погодой",
+    "descriptionRu": "Измените погоду в округе, переключаясь между ясным небом, дождём, бурей, снегом или туманом на протяжении действия заклинания.",
+    "classes": [
+      "CLERIC",
+      "DRUID",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "demiplane",
+    "name": "Demiplane",
+    "level": 8,
+    "description": "A shadowy door appears in an unoccupied space, opening into a plain, featureless room in a demiplane you create.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "S",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Демиплан",
+    "descriptionRu": "Теневая дверь появляется в свободном пространстве, ведя в простую пустую комнату на демиплане, который вы создаёте.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "dominate-monster",
+    "name": "Dominate Monster",
+    "level": 8,
+    "description": "Seize control of any creature's mind, no matter how monstrous, issuing it telepathic commands it must obey.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Подчинение монстра",
+    "descriptionRu": "Захватите контроль над разумом любого существа, каким бы чудовищным оно ни было, отдавая ему телепатические приказы, которым оно обязано подчиняться.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "earthquake",
+    "name": "Earthquake",
+    "level": 8,
+    "description": "The ground shakes violently in the area, opening fissures, toppling structures, and knocking creatures prone.",
+    "castingTime": "1 action",
+    "range": "500 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERFODIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Землетрясение",
+    "descriptionRu": "Земля яростно сотрясается в области, раскрывая трещины, обрушивая строения и сбивая существ с ног.",
+    "classes": [
+      "CLERIC",
+      "DRUID",
+      "SORCERER"
+    ]
+  },
+  {
+    "id": "feeblemind",
+    "name": "Feeblemind",
+    "level": 8,
+    "description": "Blast a creature's mind with psychic energy powerful enough to shatter its intellect and personality permanently.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Слабоумие",
+    "descriptionRu": "Обрушьте на разум существа психическую энергию, достаточно мощную, чтобы навсегда разрушить его интеллект и личность.",
+    "classes": [
+      "BARD",
+      "DRUID",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "glibness",
+    "name": "Glibness",
+    "level": 8,
+    "description": "Your words become effortlessly convincing, letting you replace any Charisma check roll with a flat, high result and even fool truth-detecting magic.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V",
+    "duration": "1 hour",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "HUMANUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Красноречие",
+    "descriptionRu": "Ваши слова становятся неотразимо убедительными, позволяя заменить любой бросок проверки Харизмы фиксированным высоким результатом и даже обмануть магию, распознающую ложь.",
+    "classes": [
+      "BARD",
+      "WARLOCK"
+    ]
+  },
+  {
+    "id": "holy-aura",
+    "name": "Holy Aura",
+    "level": 8,
+    "description": "Divine light flares from you, granting allies advantage on saving throws and making them shine in the dark.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Священная аура",
+    "descriptionRu": "Божественный свет вспыхивает от вас, даруя союзникам преимущество на спасброски и заставляя их сиять в темноте.",
+    "classes": [
+      "CLERIC"
+    ]
+  },
+  {
+    "id": "incendiary-cloud",
+    "name": "Incendiary Cloud",
+    "level": 8,
+    "description": "A cloud of roiling smoke shot through with sparks fills the area, igniting each round and scorching everything inside.",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "LUX",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "VOLATUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Огненное облако",
+    "descriptionRu": "Клубящееся облако дыма, пронизанное искрами, заполняет область, вспыхивая каждый раунд и опаляя всё внутри.",
+    "classes": [
+      "SORCERER",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "maze",
+    "name": "Maze",
+    "level": 8,
+    "description": "Banish a creature into a labyrinthine demiplane, from which it must find its own way out or remain trapped.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V, S",
+    "duration": "Concentration, up to 10 minutes",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Лабиринт",
+    "descriptionRu": "Изгоните существо в лабиринтообразный демиплан, откуда оно должно найти выход само, иначе останется в ловушке.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "mind-blank",
+    "name": "Mind Blank",
+    "level": 8,
+    "description": "A creature becomes permanently immune to psychic damage, mind control, and all forms of divination magic.",
+    "castingTime": "1 action",
+    "range": "Touch",
+    "components": "V, S",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Непроницаемый разум",
+    "descriptionRu": "Существо становится полностью невосприимчивым к психическому урону, контролю над разумом и всем видам гадательной магии.",
+    "classes": [
+      "BARD",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "power-word-stun",
+    "name": "Power Word Stun",
+    "level": 8,
+    "description": "Speak a word of power that instantly stuns a creature outright, no roll required if it's hurt badly enough.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Слово силы: оглушение",
+    "descriptionRu": "Произнесите слово силы, мгновенно оглушающее существо без броска, если оно достаточно ранено.",
+    "classes": [
+      "BARD",
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "telepathy",
+    "name": "Telepathy",
+    "level": 8,
+    "description": "Form a telepathic link with a familiar creature anywhere on the same plane, letting you converse silently for a day.",
+    "castingTime": "1 action",
+    "range": "Unlimited",
+    "components": "V, S, M",
+    "duration": "24 hours",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VINCULUM",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "AER",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "ITER",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Телепатия",
+    "descriptionRu": "Установите телепатическую связь со знакомым существом в любой точке того же плана, позволяя молча общаться в течение дня.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "tsunami",
+    "name": "Tsunami",
+    "level": 8,
+    "description": "A massive wall of water rises and crashes down across the battlefield, sweeping away everything in its path.",
+    "castingTime": "1 action",
+    "range": "1 mile",
+    "components": "V, S",
+    "duration": "Concentration, up to 6 rounds",
+    "pattern": [
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "POTENTIA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TEMPESTAS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 2,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": 0,
+        "r": -2
+      },
+      {
+        "aspect": "GELUM",
+        "q": 0,
+        "r": 2
+      }
+    ],
+    "nameRu": "Цунами",
+    "descriptionRu": "Огромная стена воды поднимается и обрушивается на поле боя, сметая всё на своём пути.",
+    "classes": [
+      "DRUID"
+    ]
+  },
+  {
+    "id": "sword-burst",
+    "name": "Sword Burst",
+    "level": 0,
+    "description": "Ghostly blades sweep out from you, biting at every creature in a 5-foot radius that fails a Dexterity save.",
+    "castingTime": "1 action",
+    "range": "Self (5-foot radius)",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [],
+    "nameRu": "Вспышка мечей",
+    "descriptionRu": "Призрачные клинки веером проносятся от вас, разя каждое существо в радиусе 5 футов, не прошедшее испытание Ловкости.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "booming-blade",
+    "name": "Booming Blade",
+    "level": 0,
+    "description": "Your melee weapon strike is charged with thunderous energy that echoes even louder if the target dares to move.",
+    "castingTime": "1 action",
+    "range": "Self (5-foot radius)",
+    "components": "S, M",
+    "duration": "Instantaneous",
+    "pattern": [],
+    "nameRu": "Громовой клинок",
+    "descriptionRu": "Ваш удар оружием ближнего боя заряжается громовой энергией, которая гремит ещё громче, если цель осмелится сдвинуться с места.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "green-flame-blade",
+    "name": "Green-Flame Blade",
+    "level": 0,
+    "description": "Your melee weapon strike ignites with green fire that leaps to sear a second creature standing near your target.",
+    "castingTime": "1 action",
+    "range": "Self (5-foot radius)",
+    "components": "S, M",
+    "duration": "Instantaneous",
+    "pattern": [],
+    "nameRu": "Клинок зелёного пламени",
+    "descriptionRu": "Ваш удар оружием ближнего боя вспыхивает зелёным пламенем, которое перекидывается и обжигает второе существо рядом с целью.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "lightning-lure",
+    "name": "Lightning Lure",
+    "level": 0,
+    "description": "A whip of crackling lightning lashes out at a creature, dealing damage and yanking it toward you.",
+    "castingTime": "1 action",
+    "range": "Self (15 feet)",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [],
+    "nameRu": "Лассо молнии",
+    "descriptionRu": "Хлыст из потрескивающей молнии обрушивается на существо, нанося урон и притягивая его к вам.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "mind-sliver",
+    "name": "Mind Sliver",
+    "level": 0,
+    "description": "A disorienting sliver of psychic energy stabs into a creature's mind, and if it hurts badly enough, saps its resistance to your next spell.",
+    "castingTime": "1 action",
+    "range": "60 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [],
+    "nameRu": "Расщепление разума",
+    "descriptionRu": "Дезориентирующий осколок психической энергии вонзается в разум существа, и, если урон достаточно велик, ослабляет его сопротивление вашему следующему заклинанию.",
+    "classes": [
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "tashas-caustic-brew",
+    "name": "Tasha's Caustic Brew",
+    "level": 1,
+    "description": "A stream of acid sprays out in a line, corroding armor and flesh alike each round a creature remains within it.",
+    "castingTime": "1 action",
+    "range": "Self (30-foot line)",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "VENENUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      }
+    ],
+    "nameRu": "Едкое варево Таши",
+    "descriptionRu": "Струя кислоты выплёскивается линией, разъедая доспехи и плоть каждый раунд, что существо остаётся внутри неё.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-beast",
+    "name": "Summon Beast",
+    "level": 2,
+    "description": "Call forth a fey spirit that takes the shape of a ferocious beast, fighting at your command.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "BESTIA",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 0,
+        "r": -1
+      }
+    ],
+    "nameRu": "Призыв духа зверя",
+    "descriptionRu": "Призовите фейского духа, принимающего облик свирепого зверя, сражающегося по вашей команде.",
+    "classes": [
+      "DRUID",
+      "RANGER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "tashas-mind-whip",
+    "name": "Tasha's Mind Whip",
+    "level": 2,
+    "description": "Lash a creature's mind with psychic force, dealing damage and, if it's hurt badly enough, stealing its action or movement for the round.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": -1
+      }
+    ],
+    "nameRu": "Психическая плеть Таши",
+    "descriptionRu": "Хлестните разум существа психической силой, нанося урон и, если урон достаточно велик, лишая его действия или передвижения в этот раунд.",
+    "classes": [
+      "BARD",
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "intellect-fortress",
+    "name": "Intellect Fortress",
+    "level": 3,
+    "description": "Your mind and the minds of allies nearby become fortified, granting resistance to psychic damage and advantage on Intelligence, Wisdom, and Charisma saves.",
+    "castingTime": "1 action",
+    "range": "Self",
+    "components": "V",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "COGNITIO",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TUTAMEN",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 0,
+        "r": -1
+      }
+    ],
+    "nameRu": "Крепость интеллекта",
+    "descriptionRu": "Ваш разум и разум союзников поблизости укрепляются, даруя сопротивление психическому урону и преимущество на спасброски Интеллекта, Мудрости и Харизмы.",
+    "classes": [
+      "BARD",
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "spirit-shroud",
+    "name": "Spirit Shroud",
+    "level": 3,
+    "description": "Ghostly spirits swirl around you, weakening and harming any creature that strays too close.",
+    "castingTime": "1 bonus action",
+    "range": "Self (10-foot radius)",
+    "components": "V, S",
+    "duration": "Concentration, up to 1 minute",
+    "pattern": [
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "MORTUUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      }
+    ],
+    "nameRu": "Покров духа",
+    "descriptionRu": "Призрачные духи кружат вокруг вас, ослабляя и раня любое существо, оказавшееся слишком близко.",
+    "classes": [
+      "CLERIC",
+      "PALADIN",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-undead",
+    "name": "Summon Undead",
+    "level": 3,
+    "description": "Call forth a spectral undead spirit that takes physical form, obeying your commands until the spell ends.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "MORTUUS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "EXANIMIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа нежити",
+    "descriptionRu": "Призовите призрачного духа нежити, принимающего физическую форму и подчиняющегося вашим командам до конца действия заклинания.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-shadowspawn",
+    "name": "Summon Shadowspawn",
+    "level": 3,
+    "description": "Call forth a spirit of shadow, taking a physical form woven from darkness itself, to fight at your side.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "TENEBRAE",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа тени",
+    "descriptionRu": "Призовите духа тени, принимающего физическую форму, сотканную из самой тьмы, чтобы сражаться на вашей стороне.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-fey",
+    "name": "Summon Fey",
+    "level": 3,
+    "description": "Call forth a fey spirit, bound to serve you in battle until the spell ends.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "HERBA",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа феи",
+    "descriptionRu": "Призовите фейского духа, обязанного служить вам в бою до конца действия заклинания.",
+    "classes": [
+      "DRUID",
+      "RANGER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-aberration",
+    "name": "Summon Aberration",
+    "level": 4,
+    "description": "Call forth an alien spirit of the Far Realm, taking monstrous physical form, obeying your commands.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "VACUOS",
+        "q": -1,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа аберрации",
+    "descriptionRu": "Призовите чуждого духа Дальнего Предела, принимающего чудовищную физическую форму и подчиняющегося вашим командам.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-construct",
+    "name": "Summon Construct",
+    "level": 4,
+    "description": "Call forth a spirit that animates into a mechanical construct of stone, metal, or clay to serve you.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "INSTRUMENTUM",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "METALLUM",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SAXUM",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "FABRICO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "TERRA",
+        "q": -1,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа конструкта",
+    "descriptionRu": "Призовите духа, оживающего в механического голема из камня, металла или глины, чтобы служить вам.",
+    "classes": [
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-elemental",
+    "name": "Summon Elemental",
+    "level": 4,
+    "description": "Call forth an elemental spirit, taking form from air, earth, fire, or water, to fight by your side.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "AQUA",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "TERRA",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PERMUTATIO",
+        "q": -1,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа стихии",
+    "descriptionRu": "Призовите элементального духа, принимающего облик из воздуха, земли, огня или воды, чтобы сражаться рядом с вами.",
+    "classes": [
+      "DRUID",
+      "RANGER",
+      "SORCERER",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-celestial",
+    "name": "Summon Celestial",
+    "level": 5,
+    "description": "Call forth a celestial spirit, taking angelic form, whose radiant presence heals allies and burns your foes.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "LUX",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ALIENIS",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "SANO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "VICTUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": -1,
+        "r": 1
+      }
+    ],
+    "nameRu": "Призыв духа небожителя",
+    "descriptionRu": "Призовите небесного духа, принимающего ангельский облик, чьё лучезарное присутствие исцеляет союзников и обжигает врагов.",
+    "classes": [
+      "CLERIC",
+      "PALADIN",
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "summon-fiend",
+    "name": "Summon Fiend",
+    "level": 6,
+    "description": "Call forth a fiendish spirit, taking demonic or devilish form, to terrorize your enemies at your command.",
+    "castingTime": "1 action",
+    "range": "90 feet",
+    "components": "V, S, M",
+    "duration": "Concentration, up to 1 hour",
+    "pattern": [
+      {
+        "aspect": "ALIENIS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "IGNIS",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "PERDITIO",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "VITIUM",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "COGNITIO",
+        "q": 2,
+        "r": 0
+      }
+    ],
+    "nameRu": "Призыв духа исчадия",
+    "descriptionRu": "Призовите исчадийского духа, принимающего демонический или дьявольский облик, чтобы устрашать ваших врагов по вашей команде.",
+    "classes": [
+      "WARLOCK",
+      "WIZARD"
+    ]
+  },
+  {
+    "id": "dream-of-the-blue-veil",
+    "name": "Dream of the Blue Veil",
+    "level": 7,
+    "description": "You and up to eight companions cross briefly into the Ethereal Plane's shimmering veil, emerging at a distant place you've been before.",
+    "castingTime": "1 hour (ritual)",
+    "range": "Touch",
+    "components": "V, S, M",
+    "duration": "Instantaneous",
+    "pattern": [
+      {
+        "aspect": "VACUOS",
+        "q": 0,
+        "r": 0
+      },
+      {
+        "aspect": "ITER",
+        "q": 1,
+        "r": 0
+      },
+      {
+        "aspect": "PRAECANTATIO",
+        "q": 0,
+        "r": 1
+      },
+      {
+        "aspect": "SENSUS",
+        "q": 1,
+        "r": -1
+      },
+      {
+        "aspect": "AER",
+        "q": 0,
+        "r": -1
+      },
+      {
+        "aspect": "SPIRITUS",
+        "q": -1,
+        "r": 0
+      },
+      {
+        "aspect": "ORDO",
+        "q": -1,
+        "r": 1
+      },
+      {
+        "aspect": "MOTUS",
+        "q": 2,
+        "r": 0
+      },
+      {
+        "aspect": "TENEBRAE",
+        "q": 2,
+        "r": -1
+      }
+    ],
+    "nameRu": "Сон синей вуали",
+    "descriptionRu": "Вы и до восьми спутников ненадолго пересекаете мерцающую завесу Эфирного Плана, появляясь в отдалённом месте, где вы уже бывали.",
+    "classes": [
+      "BARD",
+      "WARLOCK",
+      "WIZARD"
+    ]
   }
 ]
