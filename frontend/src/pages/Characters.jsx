@@ -150,6 +150,15 @@ export default function Characters() {
                 )}
             </div>
 
+            {/* This list only ever shows your own characters now (or
+                everyone's, for the DM) - a signed-out visitor with zero
+                characters would otherwise see a totally blank vault with
+                no explanation why. Direct share links to a specific
+                character still work regardless - see sheetShareLink. */}
+            {characters.length === 0 && !user && (
+                <p className="tome-empty" style={{ marginTop: '1rem' }}>{t('vaultSignInHint')}</p>
+            )}
+
             {showForm && (
                 <div className="tome-overlay">
                     <div className="tome-modal">

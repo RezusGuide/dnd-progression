@@ -28,9 +28,13 @@ public class CharacterController {
         );
     }
 
+    // Browse/list is scoped to the caller now (own characters only, or
+    // everything for the DM) - see CharacterService#getCharacters. user is
+    // nullable here: this path is still permitAll, an anonymous request
+    // just arrives with no principal.
     @GetMapping
-    public ResponseEntity<List<Character>> getCharacters() {
-        return ResponseEntity.ok(characterService.getCharacters());
+    public ResponseEntity<List<Character>> getCharacters(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(characterService.getCharacters(user));
     }
 
     @GetMapping("/{id}")

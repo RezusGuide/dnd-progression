@@ -30,6 +30,7 @@ const translations = {
         accountRecoveryFailed: 'Could not generate a recovery code.',
         // Characters
         adventurersVault: "The Adventurer's Vault",
+        vaultSignInHint: 'Sign in to see your own characters, or open a specific character with a share link.',
         forgeNewCharacter: 'Forge New Character',
         forgeALegend: 'Forge a Legend',
         characterName: 'Character Name',
@@ -506,6 +507,7 @@ const translations = {
         accountRecoveryFailed: 'Не удалось создать код восстановления.',
         // Characters
         adventurersVault: 'Хранилище Искателей',
+        vaultSignInHint: 'Войдите, чтобы увидеть своих персонажей, или откройте конкретного по ссылке.',
         forgeNewCharacter: 'Создать Персонажа',
         forgeALegend: 'Выковать Легенду',
         characterName: 'Имя Персонажа',

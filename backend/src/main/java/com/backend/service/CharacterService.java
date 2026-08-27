@@ -52,12 +52,23 @@ public class CharacterService {
         return characterRepository.save(character);
     }
 
-    // D&D is publicly viewable (see SecurityConfig - GET is permitAll), so
-    // listing/reading characters isn't scoped to a logged-in user, same as
-    // CampaignController#getAllCampaigns. Only create/delete/update below
-    // still require an authenticated owner.
-    public List<Character> getCharacters() {
-        return characterRepository.findAll();
+    // This is the "browse everything" listing (Characters.jsx's vault grid,
+    // and Admin.jsx's character picker) - GET is still permitAll at the
+    // security-filter level (SecurityConfig), but that no longer means
+    // "hand out every character on the site". A specific character by id
+    // (getCharacter below) is still fully public either way - that's the
+    // deliberate "share this link" feature - only the browse/list surface
+    // changes here: anonymous visitors get nothing, a regular account gets
+    // only what it owns, and the DM (OWNER role) still sees everyone's,
+    // since Admin.jsx needs the full roster to grant items/materials.
+    public List<Character> getCharacters(User actingUser) {
+        if (actingUser == null) {
+            return List.of();
+        }
+        if (actingUser.getSectionKeys().contains("*")) {
+            return characterRepository.findAll();
+        }
+        return characterRepository.findByUserId(actingUser.getId());
     }
 
     public Character getCharacter(Long characterId) {
