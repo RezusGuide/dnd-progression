@@ -5,14 +5,18 @@ import { useLang } from '../context/LangContext'
 import api from '../api/axios'
 
 // D&D is publicly viewable now (see SecurityConfig) - only logged-in
-// accounts can create/edit/delete, so the "new character" tile and the
-// per-card delete button only show up once someone's signed in.
+// accounts can create characters, so the "new character" tile only shows
+// up once someone's signed in. Per-card delete is further restricted to
+// that character's own creator (or an OWNER-role/DM account) - see
+// CharacterService#deleteCharacter, which already enforced this
+// server-side; the button itself now matches, instead of showing to
+// every signed-in account and failing silently for non-owners.
 
 const CLASSES = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Monk', 'Paladin', 'Bard', 'Druid', 'Sorcerer', 'Warlock', 'Barbarian']
 const RACES = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Half-Orc', 'Half-Elf', 'Tiefling', 'Dragonborn']
 
 export default function Characters() {
-    const { user, logout } = useAuth()
+    const { user, logout, hasSection } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [characters, setCharacters] = useState([])
@@ -116,7 +120,7 @@ export default function Characters() {
                                     onClick={(e) => handleShare(e, char.id)}
                                     title={t('sheetShareLink')}
                                 >{copiedId === char.id ? '✓' : '🔗'}</button>
-                                {user && (
+                                {user && (hasSection('*') || char.ownerId === user.userId) && (
                                     <button
                                         className="tome-btn-danger"
                                         onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}

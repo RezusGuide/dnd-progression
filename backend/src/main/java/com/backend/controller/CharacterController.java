@@ -45,12 +45,14 @@ public class CharacterController {
         characterService.deleteCharacter(id, user.getId());
         return ResponseEntity.noContent().build();
     }
-    // Full-sheet autosave. Any signed-in account, not just the creator -
-    // see CharacterService#updateSheet.
+    // Full-sheet autosave. Owner-only (creator, or an OWNER-role/DM
+    // account) - see CharacterService#updateSheet.
     @PutMapping("/{id}/sheet")
     public ResponseEntity<Character> updateSheet(
             @PathVariable Long id,
-            @RequestBody CharacterSheetRequest request) {
-        return ResponseEntity.ok(characterService.updateSheet(id, request));
+            @RequestBody CharacterSheetRequest request,
+            @AuthenticationPrincipal User user) {
+        boolean isOwner = user.getSectionKeys().contains("*");
+        return ResponseEntity.ok(characterService.updateSheet(id, request, user.getId(), isOwner));
     }
 }

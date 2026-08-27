@@ -1,6 +1,7 @@
 package com.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -67,6 +68,15 @@ public class Character {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User user;
+
+    // The full User (above) is @JsonIgnore'd to keep its password hash/
+    // email off the wire - this exposes just enough (a numeric id) for the
+    // frontend to compare against the logged-in account and decide whether
+    // to show editable fields (see CharacterSheet.jsx's canEdit).
+    @JsonProperty("ownerId")
+    public Long getOwnerId() {
+        return user != null ? user.getId() : null;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id")

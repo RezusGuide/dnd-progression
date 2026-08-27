@@ -1,10 +1,12 @@
 package com.backend.controller;
 
 import com.backend.dto.*;
+import com.backend.entity.User;
 import com.backend.model.GridAnchor;
 import com.backend.service.ResearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,21 +50,26 @@ public class ResearchController {
     public ResponseEntity<Void> saveDraft(
             @PathVariable Long characterId,
             @PathVariable String spellId,
-            @RequestBody SaveDraftRequest request) {
-        researchService.saveDraftState(characterId, spellId, request.getGridState());
+            @RequestBody SaveDraftRequest request,
+            @AuthenticationPrincipal User user) {
+        researchService.saveDraftState(characterId, spellId, request.getGridState(), user.getId(), isOwner(user));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/research/attempt")
     public ResponseEntity<ResearchAttemptResponse> attemptResearch(
             @PathVariable Long characterId,
-            @RequestBody ResearchAttemptRequest request) {
-        return ResponseEntity.ok(researchService.attemptResearch(characterId, request));
+            @RequestBody ResearchAttemptRequest request,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(researchService.attemptResearch(characterId, request, user.getId(), isOwner(user)));
     }
 
     @PostMapping("/cantrips/{spellId}")
-    public ResponseEntity<Void> unlockCantrip(@PathVariable Long characterId, @PathVariable String spellId) {
-        researchService.unlockCantrip(characterId, spellId);
+    public ResponseEntity<Void> unlockCantrip(
+            @PathVariable Long characterId,
+            @PathVariable String spellId,
+            @AuthenticationPrincipal User user) {
+        researchService.unlockCantrip(characterId, spellId, user.getId(), isOwner(user));
         return ResponseEntity.ok().build();
     }
 
@@ -71,7 +78,14 @@ public class ResearchController {
     @PostMapping("/aspects/craft")
     public ResponseEntity<AspectCraftResponse> craftAspect(
             @PathVariable Long characterId,
-            @RequestBody AspectCraftRequest request) {
-        return ResponseEntity.ok(researchService.craftAspect(characterId, request));
+            @RequestBody AspectCraftRequest request,
+            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(researchService.craftAspect(characterId, request, user.getId(), isOwner(user)));
+    }
+
+    // The DM (OWNER role) can act on any character, not just their own -
+    // same override CharacterController#updateSheet uses.
+    private boolean isOwner(User user) {
+        return user.getSectionKeys().contains("*");
     }
 }

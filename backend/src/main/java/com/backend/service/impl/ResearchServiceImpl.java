@@ -121,7 +121,7 @@ public class ResearchServiceImpl implements ResearchService {
 
     @Override
     @Transactional
-    public void unlockCantrip(Long characterId, String spellId) {
+    public void unlockCantrip(Long characterId, String spellId, Long actingUserId, boolean actingUserIsOwner) {
         Spell spell = spellRegistry.getSpell(spellId);
         if (spell.getLevel() != 0) {
             throw new ResearchException("Only cantrips can be unlocked without research.");
@@ -129,7 +129,7 @@ public class ResearchServiceImpl implements ResearchService {
         if (knownSpellRepository.existsByCharacterIdAndSpellId(characterId, spellId)) {
             throw new ResearchException("This character already knows that cantrip.");
         }
-        Character character = requireCharacter(characterId);
+        Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
         requireCasterClass(character);
         requireSpellClassMatch(character, spell);
         knownSpellRepository.save(KnownSpell.builder()
@@ -141,8 +141,8 @@ public class ResearchServiceImpl implements ResearchService {
 
     @Override
     @Transactional
-    public ResearchAttemptResponse attemptResearch(Long characterId, ResearchAttemptRequest request) {
-        Character character = requireCharacter(characterId);
+    public ResearchAttemptResponse attemptResearch(Long characterId, ResearchAttemptRequest request, Long actingUserId, boolean actingUserIsOwner) {
+        Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
         requireCasterClass(character);
         List<GridAnchor> placements = request.getPlacements() == null ? List.of() : request.getPlacements();
 
@@ -251,14 +251,14 @@ public class ResearchServiceImpl implements ResearchService {
 
     @Override
     @Transactional
-    public AspectCraftResponse craftAspect(Long characterId, AspectCraftRequest request) {
+    public AspectCraftResponse craftAspect(Long characterId, AspectCraftRequest request, Long actingUserId, boolean actingUserIsOwner) {
         String a = request.getAspectA();
         String b = request.getAspectB();
         if (a == null || a.isBlank() || b == null || b.isBlank()) {
             throw new ResearchException("Pick two aspects to combine.");
         }
 
-        Character character = requireCharacter(characterId);
+        Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
         Map<String, Integer> pouch = character.getAspects();
 
         Map<String, Integer> required = new HashMap<>();
@@ -302,8 +302,8 @@ public class ResearchServiceImpl implements ResearchService {
 
     @Override
     @Transactional
-    public void saveDraftState(Long characterId, String spellId, String gridState) {
-        Character character = requireCharacter(characterId);
+    public void saveDraftState(Long characterId, String spellId, String gridState, Long actingUserId, boolean actingUserIsOwner) {
+        Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
         ResearchDraft draft = draftRepository.findByCharacterIdAndSpellId(characterId, spellId)
                 .orElse(ResearchDraft.builder().character(character).spellId(spellId).build());
         draft.setCurrentGridState(gridState);
@@ -380,6 +380,20 @@ public class ResearchServiceImpl implements ResearchService {
     private Character requireCharacter(Long characterId) {
         return characterRepository.findById(characterId)
                 .orElseThrow(() -> new ResearchException("Character not found."));
+    }
+
+    // Used only by the player-facing mutating actions (cantrips, research
+    // attempts, aspect crafting, draft autosave) - grantAspect/grantHint
+    // deliberately keep using the unrestricted requireCharacter above,
+    // since those are DM-only actions (see AdminController, already gated
+    // by SecurityConfig's OWNER-role requirement on /api/admin/**) that by
+    // design target a *player's* character, not the DM's own.
+    private Character requireOwnedCharacter(Long characterId, Long actingUserId, boolean actingUserIsOwner) {
+        Character character = requireCharacter(characterId);
+        if (!actingUserIsOwner && !character.getUser().getId().equals(actingUserId)) {
+            throw new ResearchException("Character not found.");
+        }
+        return character;
     }
 
     private SpellSummary toSummary(Spell s) {

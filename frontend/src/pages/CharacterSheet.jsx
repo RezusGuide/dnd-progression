@@ -163,13 +163,16 @@ function hydrate(c) {
 export default function CharacterSheet() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const { user } = useAuth()
+    const { user, hasSection } = useAuth()
     const { t, lang } = useLang()
-    // D&D is public to view; any signed-in account can edit (not just the
-    // creator) - see CharacterService#updateSheet.
-    const canEdit = !!user
 
     const [character, setCharacter] = useState(null)
+    // D&D is public to view; only the character's own creator, or an
+    // OWNER-role/DM account, can edit it - see CharacterService#updateSheet.
+    // character starts null until the fetch below resolves, so this is
+    // false during the initial load; that's fine, nothing reads it before
+    // the "!character" loading guard further down returns early.
+    const canEdit = !!user && (hasSection('*') || character?.ownerId === user.userId)
     const [form, setForm] = useState(null)
     const [tab, setTab] = useState('main')
     const [saveState, setSaveState] = useState('idle') // idle | saving | saved | error

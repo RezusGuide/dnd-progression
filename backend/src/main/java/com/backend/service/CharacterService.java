@@ -71,13 +71,19 @@ public class CharacterService {
         characterRepository.delete(character);
     }
 
-    // Any signed-in account can save a sheet, not just its creator - D&D is
-    // shared-group access (README: "any logged-in account can create/edit
-    // characters"), unlike deleteCharacter above which still predates that
-    // and stays owner-only.
-    public Character updateSheet(Long characterId, CharacterSheetRequest req) {
+    // Only the character's creator, or an account with the OWNER role (the
+    // DM), can save sheet edits - same rule deleteCharacter above already
+    // enforced. This used to be open to any signed-in account; that let one
+    // player's account silently edit another player's sheet, which is the
+    // opposite of what "any logged-in account can create/edit characters"
+    // in the README was meant to cover (creating/editing *your own*
+    // characters, not everyone else's).
+    public Character updateSheet(Long characterId, CharacterSheetRequest req, Long actingUserId, boolean actingUserIsOwner) {
         Character character = characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
+        if (!actingUserIsOwner && !character.getUser().getId().equals(actingUserId)) {
+            throw new RuntimeException("Character not found");
+        }
 
         character.setName(req.getName());
         character.setCharacterClass(req.getCharacterClass());
