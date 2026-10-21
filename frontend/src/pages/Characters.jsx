@@ -3,6 +3,9 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
+import { classifyApiError } from '../api/apiErrors'
+import ErrorScreen from '../components/errors/ErrorScreen'
+import { EmptyState, Loader } from '../components/ui'
 
 // D&D is publicly viewable now (see SecurityConfig) - only logged-in
 // accounts can create characters, so the "new character" tile only shows
@@ -25,6 +28,8 @@ export default function Characters() {
     const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
     const [error, setError] = useState('')
     const [copiedId, setCopiedId] = useState(null)
+    // 'loading' | 'ok' | an ErrorScreen code when the list itself failed
+    const [status, setStatus] = useState('loading')
 
     const handleShare = async (e, charId) => {
         e.stopPropagation()
@@ -44,9 +49,11 @@ export default function Characters() {
         try {
             const res = await api.get('/api/characters')
             setCharacters(Array.isArray(res.data) ? res.data : [])
+            setStatus('ok')
         } catch (err) {
             console.error(err)
             setCharacters([])
+            setStatus(classifyApiError(err) || 'ok')
         }
     }
 
@@ -86,6 +93,12 @@ export default function Characters() {
         }
     }
 
+    // The list itself didn't load (server down / no connection): a full
+    // error screen beats an empty vault that looks like "no characters".
+    if (status !== 'loading' && status !== 'ok') {
+        return <ErrorScreen code={status} onRetry={() => { setStatus('loading'); fetchCharacters() }} />
+    }
+
     return (
         <div className="parchment-page">
 
@@ -98,7 +111,18 @@ export default function Characters() {
                 </div>
             </div>
 
-            <div className="characters-grid">
+            {status === 'loading' && <Loader />}
+
+            {/* This list only ever shows your own characters now (or
+                everyone's, for the DM) - a signed-out visitor with zero
+                characters would otherwise see a totally blank vault with
+                no explanation why. Direct share links to a specific
+                character still work regardless - see sheetShareLink. */}
+            {status === 'ok' && characters.length === 0 && (
+                <EmptyState>{user ? 'Дел пока нет. Секретарша проверит позже.' : t('vaultSignInHint')}</EmptyState>
+            )}
+
+            {status === 'ok' && <div className="characters-grid">
                 {characters.map((char) => (
                     <div
                         key={char.id}
@@ -148,16 +172,7 @@ export default function Characters() {
                         <span className="new-card-label">{t('forgeNewCharacter')}</span>
                     </div>
                 )}
-            </div>
-
-            {/* This list only ever shows your own characters now (or
-                everyone's, for the DM) - a signed-out visitor with zero
-                characters would otherwise see a totally blank vault with
-                no explanation why. Direct share links to a specific
-                character still work regardless - see sheetShareLink. */}
-            {characters.length === 0 && !user && (
-                <p className="tome-empty" style={{ marginTop: '1rem' }}>{t('vaultSignInHint')}</p>
-            )}
+            </div>}
 
             {showForm && (
                 <div className="tome-overlay">

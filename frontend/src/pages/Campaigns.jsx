@@ -3,12 +3,14 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
+import { EmptyState, Loader } from '../components/ui'
 
 export default function Campaigns() {
     const { user, logout } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [campaigns, setCampaigns] = useState([])
+    const [loading, setLoading] = useState(true)
     const [showForm, setShowForm] = useState(false)
     const [form, setForm] = useState({ name: '', description: '' })
     const [error, setError] = useState('')
@@ -24,6 +26,8 @@ export default function Campaigns() {
         } catch (err) {
             console.error(err)
             setCampaigns([])
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -90,8 +94,10 @@ export default function Campaigns() {
                     </div>
                 )}
 
-                {campaigns.length === 0 ? (
-                    <p className="tome-empty">{t('noCampaigns')}</p>
+                {loading ? (
+                    <Loader />
+                ) : campaigns.length === 0 ? (
+                    <EmptyState>{t('noCampaigns')}</EmptyState>
                 ) : (
                     campaigns.map((c) => (
                         <div key={c.id} className="campaign-card">

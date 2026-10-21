@@ -4,12 +4,16 @@ import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import { spellName } from '../constants/spellText'
 import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
+import { useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
+import ErrorScreen from '../components/errors/ErrorScreen'
 
 export default function Admin() {
     const { user, hasSection, login } = useAuth()
-    const { t, lang } = useLang()
+    const { t } = useLang()
     const isOwner = hasSection('*')
+    const [searchParams] = useSearchParams()
+    const isSetup = searchParams.get('setup') === '1'
 
     const [error, setError] = useState('')
     const [notice, setNotice] = useState('')
@@ -185,6 +189,13 @@ export default function Admin() {
         }
     }
 
+    // Not the GM: "access denied". The one exception is first-time setup -
+    // /admin?setup=1 still shows the claim-ownership panel, since the
+    // backend only honours bootstrap-owner while nobody holds OWNER yet.
+    if (!isOwner && !isSetup) {
+        return <ErrorScreen code={403} />
+    }
+
     if (!isOwner) {
         return (
             <div className="parchment-page">
@@ -211,7 +222,7 @@ export default function Admin() {
     const spellQuery = spellFilter.trim().toLowerCase()
     const hintCharacterClass = characters.find((c) => String(c.id) === String(hintGrantForm.characterId))?.characterClass
     const filteredSpells = spells.filter((s) => {
-        const matchesQuery = !spellQuery || spellName(s, lang).toLowerCase().includes(spellQuery)
+        const matchesQuery = !spellQuery || spellName(s).toLowerCase().includes(spellQuery)
         const matchesLevel = !spellLevelFilter || s.level === Number(spellLevelFilter)
         const matchesClass = !hintCharacterClass || isSpellEligible(hintCharacterClass, s)
         return matchesQuery && matchesLevel && matchesClass
@@ -229,7 +240,7 @@ export default function Admin() {
             {notice && <div className="tome-notice">{notice}</div>}
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminAccounts')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminAccountsHint')}</p>
@@ -256,7 +267,7 @@ export default function Admin() {
             </section>
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminUsers')}
                 </h2>
                 <div className="admin-users-list">
@@ -273,7 +284,7 @@ export default function Admin() {
                                                 <button
                                                     type="button"
                                                     onClick={() => handleRevoke(u.id, r.key)}
-                                                    style={{ marginLeft: '0.4rem', background: 'none', border: 'none', color: 'var(--crimson)', cursor: 'pointer' }}
+                                                    style={{ marginLeft: '0.4rem', background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer' }}
                                                 >✕</button>
                                             )}
                                         </span>
@@ -295,7 +306,7 @@ export default function Admin() {
             </section>
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminItemGrant')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminItemGrantHint')}</p>
@@ -330,7 +341,7 @@ export default function Admin() {
             </section>
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminMaterialGrant')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminMaterialGrantHint')}</p>
@@ -365,7 +376,7 @@ export default function Admin() {
             </section>
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminAspectGrant')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminAspectGrantHint')}</p>
@@ -425,7 +436,7 @@ export default function Admin() {
             </section>
 
             <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '1rem' }}>
+                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
                     {t('adminHintGrant')}
                 </h2>
                 <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminHintGrantHint')}</p>
@@ -475,7 +486,7 @@ export default function Admin() {
                                 {Object.keys(spellsByLevel).sort((a, b) => a - b).map((lvl) => (
                                     <optgroup key={lvl} label={`${t('level')} ${lvl}`}>
                                         {spellsByLevel[lvl].map((s) => (
-                                            <option key={s.id} value={s.id}>{spellName(s, lang)}</option>
+                                            <option key={s.id} value={s.id}>{spellName(s)}</option>
                                         ))}
                                     </optgroup>
                                 ))}
@@ -492,7 +503,7 @@ export default function Admin() {
             <section className="sheet-section admin-section">
                 <h2
                     className="sheet-column-title"
-                    style={{ background: 'transparent', color: 'var(--ink)', padding: 0, border: 0, marginBottom: '0.5rem', cursor: 'pointer' }}
+                    style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '0.5rem', cursor: 'pointer' }}
                     onClick={() => setShowAdvancedRoles((v) => !v)}
                 >
                     {showAdvancedRoles ? '▾' : '▸'} {t('adminRolesAdvanced')}

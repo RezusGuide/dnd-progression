@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, ASPECT_RECIPES, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
+import { Loader } from '../components/ui'
 
 // Separate minigame from Research.jsx - combining two held aspects into a
 // new one per the backend's AspectRecipe table. No "discovery" state: any
@@ -33,7 +34,7 @@ export default function AspectCraft() {
     }, [characterId])
 
     if (!character) {
-        return <div className="parchment-page"><p className="tome-empty">Loading...</p></div>
+        return <div className="parchment-page" data-theme="night"><Loader /></div>
     }
 
     const pouch = character.aspects || {}
@@ -64,7 +65,7 @@ export default function AspectCraft() {
     }
 
     return (
-        <div className="parchment-page">
+        <div className="parchment-page" data-theme="night">
             <div className="research-container">
                 <Link to={`/characters/${characterId}`} className="tome-btn-ghost" style={{ alignSelf: 'flex-start', marginBottom: '1rem' }}>
                     {t('researchBackToSheet')}
@@ -83,7 +84,7 @@ export default function AspectCraft() {
                             {held.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)} ({pouch[a.key]})</option>)}
                         </select>
                     </div>
-                    <span style={{ fontFamily: 'Cinzel, serif', fontSize: '1.3rem', color: 'var(--gold)' }}>+</span>
+                    <span style={{ fontFamily: 'var(--font-label)', fontSize: '1.3rem', color: 'var(--accent-text)' }}>+</span>
                     <div className="tome-field">
                         <label>{t('craftSlotB')}</label>
                         <select value={aspectB} onChange={(e) => setAspectB(e.target.value)} disabled={!canCraft}>

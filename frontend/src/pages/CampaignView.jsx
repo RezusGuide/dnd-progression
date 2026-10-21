@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
+import { EmptyState, Loader } from '../components/ui'
 
 export default function CampaignView() {
     const { id } = useParams()
@@ -35,7 +36,7 @@ export default function CampaignView() {
 
     if (!campaign) return (
         <div className="parchment-page">
-            <p className="tome-empty">Loading...</p>
+            <Loader />
         </div>
     )
 
@@ -56,7 +57,7 @@ export default function CampaignView() {
 
             <div className="campaigns-list">
                 {characters.length === 0 ? (
-                    <p className="tome-empty">{t('noCharacters')}</p>
+                    <EmptyState>{t('noCharacters')}</EmptyState>
                 ) : (
                     characters.map((char) => (
                         <div key={char.id} className="campaign-char-card">

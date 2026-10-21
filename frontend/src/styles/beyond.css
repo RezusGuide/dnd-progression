@@ -1,37 +1,14 @@
-/* CharacterSheet.jsx only. Started as a dark "D&D Beyond" digital-sheet
-   look; re-themed to match the rest of D&D's parchment/tome styling per
-   feedback, reusing this site's --parchment/--ink/--gold/--crimson
-   palette and Cinzel/Crimson Text fonts instead of a separate dark one.
-   The layout patterns (hexagon ability tiles, shield AC badge, dot-based
-   proficiency list, tabs) stay - only the skin changed. Still scoped
-   entirely under .beyond-page/beyond-* so nothing here leaks into
-   Characters.jsx / CampaignView.jsx, and vice versa. */
+/* CharacterSheet.jsx only. Layout patterns from an earlier "D&D Beyond"
+   digital-sheet look (hexagon ability tiles, shield AC badge, dot-based
+   proficiency list, tabs); colours and fonts come from the semantic
+   tokens in tokens.css. Numbers (modifiers, AC, HP) use PT Mono. Still
+   scoped under .beyond-page/beyond-* so nothing leaks into other pages.
+   The sheet itself gets redesigned in stage 4. */
 
 .beyond-page {
-    --bey-bg-card: var(--parchment);
-    --bey-bg-card-2: var(--parchment-dark);
-    --bey-bg-elevated: rgba(244, 228, 193, 0.94);
-    --bey-border: var(--parchment-darker);
-    --bey-border-light: var(--gold);
-    --bey-text: var(--ink);
-    --bey-text-dim: var(--ink-light);
-    --bey-text-faint: #8a7255;
-    --bey-accent: var(--crimson);
-    --bey-accent-light: var(--crimson-light);
-    --bey-accent-dim: rgba(139, 26, 26, 0.12);
-    --bey-gold: var(--gold);
-    --bey-green: #3a6b35;
-    --bey-red: var(--crimson);
-    /* For text/buttons that sit directly on the page background (which is
-       the site's dark body gradient, not a parchment card) - the --bey-text*
-       ink colors above are meant for on-card text and go near-invisible out
-       here. */
-    --bey-onpage: var(--parchment-dark);
-    --bey-onpage-dim: var(--parchment-darker);
-
     min-height: 100vh;
-    color: var(--bey-text);
-    font-family: 'Crimson Text', Georgia, serif;
+    color: var(--text);
+    font-family: var(--font-body);
     padding: 1.5rem clamp(0.75rem, 3vw, 2.5rem) 4rem;
 }
 
@@ -51,16 +28,6 @@
     margin: 0;
 }
 
-.beyond-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    color: var(--bey-onpage);
-    font-size: 1.1rem;
-    font-family: 'Cinzel', serif;
-}
-
 /* ── Top bar ── */
 .beyond-topbar {
     display: flex;
@@ -73,48 +40,48 @@
 
 .beyond-back {
     background: transparent;
-    border: 1px solid var(--bey-onpage-dim);
-    color: var(--bey-onpage);
+    border: 1px solid var(--text-muted);
+    color: var(--text);
     padding: 0.5rem 1.1rem;
     border-radius: 2px;
     cursor: pointer;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: border-color 0.15s, color 0.15s;
 }
-.beyond-back:hover { border-color: var(--bey-gold); color: var(--bey-gold); }
+.beyond-back:hover { border-color: var(--border-strong); color: var(--border-strong); }
 
 .beyond-save-status {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.75rem;
     letter-spacing: 0.05em;
-    color: var(--bey-onpage-dim);
+    color: var(--text-muted);
     min-width: 5.5rem;
     text-align: right;
 }
-.beyond-save-status.saving { color: var(--bey-gold); }
-.beyond-save-status.saved { color: #6fbf6a; }
-.beyond-save-status.error { color: var(--bey-accent-light); }
+.beyond-save-status.saving { color: var(--border-strong); }
+.beyond-save-status.saved { color: var(--success); }
+.beyond-save-status.error { color: var(--danger); }
 
 /* ── Header ── */
 .beyond-header {
-    background: var(--bey-bg-elevated);
+    background: var(--surface-card);
     background-image:
             url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    border: 2px solid var(--bey-gold);
+    border: 2px solid var(--border-strong);
     border-radius: 4px;
     padding: 1.25rem 1.5rem;
     margin-bottom: 1.25rem;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 4px 16px var(--shadow-color);
     position: relative;
 }
 .beyond-header::before {
     content: '';
     position: absolute;
     inset: 5px;
-    border: 1px solid var(--gold-light);
+    border: 1px solid var(--border-strong);
     border-radius: 2px;
     pointer-events: none;
     opacity: 0.5;
@@ -132,23 +99,23 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    border: 2px solid var(--bey-gold);
+    border: 2px solid var(--border-strong);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.3);
+    background: var(--surface-input);
 }
 .beyond-portrait.editable { cursor: pointer; }
-.beyond-portrait.editable:hover { border-color: var(--bey-accent); }
+.beyond-portrait.editable:hover { border-color: var(--border-strong); }
 .beyond-portrait-img { width: 100%; height: 100%; object-fit: cover; }
 .beyond-portrait-placeholder { font-size: 1.6rem; opacity: 0.5; }
 
 .beyond-name-input {
     background: transparent;
     border: none;
-    color: var(--bey-text);
-    font-family: 'Cinzel', serif;
+    color: var(--text);
+    font-family: var(--font-label);
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 700;
     flex: 1;
@@ -156,10 +123,10 @@
     padding: 0.15rem 0.3rem;
     border-radius: 2px;
 }
-.beyond-name-input:hover:not(:disabled) { background: rgba(255,255,255,0.35); }
-.beyond-name-input:focus { outline: none; background: rgba(255,255,255,0.5); box-shadow: 0 0 0 2px var(--bey-accent-dim); }
-.beyond-name-input:disabled { color: var(--bey-text); }
-.beyond-name-input::placeholder { color: var(--bey-text-faint); }
+.beyond-name-input:hover:not(:disabled) { background: var(--surface-input); }
+.beyond-name-input:focus { outline: none; background: var(--surface-input); box-shadow: 0 0 0 2px var(--accent-soft); }
+.beyond-name-input:disabled { color: var(--text); }
+.beyond-name-input::placeholder { color: var(--text-muted); }
 
 .beyond-header-grid {
     display: grid;
@@ -174,33 +141,33 @@
 }
 
 .beyond-field-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.66rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
 }
 
 .beyond-input, .beyond-select {
-    background: rgba(255,255,255,0.4);
-    border: 1px solid var(--bey-border);
-    border-bottom: 2px solid var(--bey-gold);
-    color: var(--bey-text);
+    background: var(--surface-input);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--border-strong);
+    color: var(--text);
     padding: 0.4rem 0.55rem;
     border-radius: 2px;
-    font-family: 'Crimson Text', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     width: 100%;
 }
 .beyond-input:focus, .beyond-select:focus {
     outline: none;
-    border-bottom-color: var(--bey-accent);
-    background: rgba(255,255,255,0.6);
+    border-bottom-color: var(--border-strong);
+    background: var(--surface-card);
 }
 .beyond-input:disabled, .beyond-select:disabled {
     background: transparent;
     border-color: transparent;
-    color: var(--bey-text);
+    color: var(--text);
     padding-left: 0;
     opacity: 1;
 }
@@ -208,13 +175,13 @@
 .beyond-input.beyond-input-num { text-align: center; }
 
 .beyond-textarea {
-    background: rgba(255,255,255,0.4);
-    border: 1px solid var(--bey-border);
-    border-bottom: 2px solid var(--bey-gold);
-    color: var(--bey-text);
+    background: var(--surface-input);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--border-strong);
+    color: var(--text);
     padding: 0.6rem 0.7rem;
     border-radius: 2px;
-    font-family: 'Crimson Text', serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     width: 100%;
     resize: vertical;
@@ -222,12 +189,12 @@
 }
 .beyond-textarea:focus {
     outline: none;
-    border-bottom-color: var(--bey-accent);
-    background: rgba(255,255,255,0.6);
+    border-bottom-color: var(--border-strong);
+    background: var(--surface-card);
 }
 .beyond-textarea:disabled {
     background: transparent;
-    border-color: var(--bey-border);
+    border-color: var(--border);
     opacity: 0.9;
 }
 
@@ -235,16 +202,17 @@
 .beyond-tabs {
     display: flex;
     gap: 0.25rem;
-    border-bottom: 2px solid var(--bey-gold);
+    border-bottom: 2px solid var(--border-strong);
     margin-bottom: 1.25rem;
     overflow-x: auto;
+    overflow-y: hidden; /* the tabs' -2px overlap otherwise adds a vertical scrollbar */
 }
 .beyond-tab {
     background: transparent;
     border: none;
-    color: var(--bey-onpage);
+    color: var(--text);
     padding: 0.65rem 1.1rem;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -255,40 +223,40 @@
     white-space: nowrap;
     transition: color 0.15s, border-color 0.15s;
 }
-.beyond-tab:hover { color: var(--bey-accent); }
-.beyond-tab.active { color: var(--bey-accent); border-bottom-color: var(--bey-accent); }
+.beyond-tab:hover { color: var(--border-strong); }
+.beyond-tab.active { color: var(--border-strong); border-bottom-color: var(--border-strong); }
 
 /* ── Section card ── */
 .beyond-card {
-    background: var(--bey-bg-elevated);
+    background: var(--surface-card);
     background-image:
             url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    border: 2px solid var(--bey-gold);
+    border: 2px solid var(--border-strong);
     border-radius: 4px;
     padding: 1.1rem 1.25rem;
     margin-bottom: 1.1rem;
-    box-shadow: 0 4px 16px var(--shadow);
+    box-shadow: 0 4px 16px var(--shadow-color);
     position: relative;
 }
 .beyond-card::before {
     content: '';
     position: absolute;
     inset: 4px;
-    border: 1px solid var(--gold-light);
+    border: 1px solid var(--border-strong);
     border-radius: 2px;
     pointer-events: none;
     opacity: 0.35;
 }
 .beyond-card-title {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--bey-accent);
+    color: var(--accent-text);
     font-weight: 700;
     margin: 0 0 0.85rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--bey-border);
+    border-bottom: 1px solid var(--border);
 }
 
 /* ── Main tab layout ── */
@@ -312,7 +280,7 @@
     position: relative;
     aspect-ratio: 0.92;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background: linear-gradient(160deg, var(--bey-bg-card), var(--bey-bg-card-2));
+    background: linear-gradient(160deg, var(--surface-card), var(--surface-sunken));
     border: none;
     display: flex;
     flex-direction: column;
@@ -326,21 +294,21 @@
     position: absolute;
     inset: 2px;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    border: 1.5px solid var(--bey-gold);
+    border: 1.5px solid var(--border-strong);
     pointer-events: none;
 }
 .beyond-ability-abbr {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.64rem;
     letter-spacing: 0.08em;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
     font-weight: 700;
 }
 .beyond-ability-mod {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-mono);
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--bey-text);
+    color: var(--text);
     line-height: 1;
 }
 .beyond-ability-score-row {
@@ -350,17 +318,18 @@
     z-index: 1;
 }
 .beyond-ability-score {
-    background: rgba(255,255,255,0.5);
-    border: 1px solid var(--bey-gold);
-    color: var(--bey-text-dim);
+    background: var(--surface-input);
+    font-variant-numeric: tabular-nums;
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
     width: 2.2rem;
     text-align: center;
     border-radius: 4px;
-    font-family: 'Crimson Text', serif;
+    font-family: var(--font-body);
     font-size: 0.75rem;
     padding: 0.05rem 0;
 }
-.beyond-ability-score:focus { outline: none; border-color: var(--bey-accent); color: var(--bey-text); }
+.beyond-ability-score:focus { outline: none; border-color: var(--border-strong); color: var(--text); }
 .beyond-ability-score:disabled { background: transparent; }
 
 /* ── Saves & Skills ── */
@@ -370,7 +339,7 @@
     justify-content: space-between;
     gap: 0.6rem;
     padding: 0.32rem 0;
-    border-bottom: 1px solid rgba(139, 105, 20, 0.15);
+    border-bottom: 1px solid var(--border);
     font-size: 0.9rem;
 }
 .beyond-prof-row:last-child { border-bottom: none; }
@@ -385,20 +354,20 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    border: 1.5px solid var(--bey-text-faint);
+    border: 1.5px solid var(--text-muted);
     background: transparent;
     cursor: pointer;
     padding: 0;
     transition: border-color 0.15s, background 0.15s;
 }
-.beyond-dot:hover { border-color: var(--bey-accent); }
-.beyond-dot.proficient { background: var(--bey-accent); border-color: var(--bey-accent); }
-.beyond-dot.expertise { background: var(--bey-gold); border-color: var(--bey-gold); box-shadow: 0 0 0 2px var(--bey-accent-dim); }
+.beyond-dot:hover { border-color: var(--border-strong); }
+.beyond-dot.proficient { background: var(--border-strong); border-color: var(--border-strong); }
+.beyond-dot.expertise { background: var(--border-strong); border-color: var(--border-strong); box-shadow: 0 0 0 2px var(--accent-soft); }
 .beyond-dot:disabled { cursor: default; }
 
-.beyond-prof-name { color: var(--bey-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.beyond-prof-ability { color: var(--bey-text-faint); font-size: 0.8rem; }
-.beyond-prof-bonus { font-family: 'Cinzel', serif; font-weight: 700; color: var(--bey-text); flex: none; min-width: 2rem; text-align: right; }
+.beyond-prof-name { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.beyond-prof-ability { color: var(--text-muted); font-size: 0.8rem; }
+.beyond-prof-bonus { font-family: var(--font-mono); font-weight: 700; color: var(--text); flex: none; min-width: 2rem; text-align: right; }
 
 .beyond-passive {
     display: flex;
@@ -406,11 +375,11 @@
     justify-content: space-between;
     margin-top: 0.75rem;
     padding-top: 0.6rem;
-    border-top: 1px solid var(--bey-border);
+    border-top: 1px solid var(--border);
     font-size: 0.88rem;
-    color: var(--bey-text-dim);
+    color: var(--text-muted);
 }
-.beyond-passive strong { font-family: 'Cinzel', serif; color: var(--bey-text); font-size: 1.1rem; }
+.beyond-passive strong { font-family: var(--font-mono); color: var(--text); font-size: 1.1rem; }
 
 /* ── Combat stats ── */
 .beyond-combat-row {
@@ -435,7 +404,7 @@
     width: 78px;
     height: 74px;
     clip-path: polygon(50% 0%, 100% 18%, 100% 62%, 50% 100%, 0% 62%, 0% 18%);
-    background: linear-gradient(160deg, var(--bey-bg-card), var(--bey-bg-card-2));
+    background: linear-gradient(160deg, var(--surface-card), var(--surface-sunken));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,14 +414,14 @@
     position: absolute;
     inset: 2px;
     clip-path: polygon(50% 0%, 100% 18%, 100% 62%, 50% 100%, 0% 62%, 0% 18%);
-    border: 1.5px solid var(--bey-accent);
+    border: 1.5px solid var(--border-strong);
     pointer-events: none;
 }
 .beyond-ac-value {
     background: transparent;
     border: none;
-    color: var(--bey-text);
-    font-family: 'Cinzel', serif;
+    color: var(--text);
+    font-family: var(--font-mono);
     font-size: 1.6rem;
     font-weight: 800;
     width: 2.2rem;
@@ -461,16 +430,16 @@
 }
 .beyond-ac-value:focus { outline: none; }
 .beyond-ac-label {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.6rem;
     letter-spacing: 0.07em;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
     text-align: center;
 }
 
 .beyond-stat-box {
-    background: rgba(255,255,255,0.4);
-    border: 1px solid var(--bey-gold);
+    background: var(--surface-input);
+    border: 1px solid var(--border-strong);
     border-radius: 4px;
     padding: 0.5rem 0.8rem;
     display: flex;
@@ -484,20 +453,20 @@
 .beyond-stat-value {
     background: transparent;
     border: none;
-    color: var(--bey-text);
-    font-family: 'Cinzel', serif;
+    color: var(--text);
+    font-family: var(--font-mono);
     font-size: 1.25rem;
     font-weight: 800;
     width: 3rem;
     text-align: center;
 }
 .beyond-stat-value:focus { outline: none; }
-.beyond-stat-value:disabled { color: var(--bey-text); }
+.beyond-stat-value:disabled { color: var(--text); }
 
 .beyond-hp-box {
     flex: 1 1 220px;
-    background: rgba(255,255,255,0.4);
-    border: 1px solid var(--bey-gold);
+    background: var(--surface-input);
+    border: 1px solid var(--border-strong);
     border-radius: 4px;
     padding: 0.6rem 0.9rem;
 }
@@ -511,15 +480,15 @@
 .beyond-hp-current {
     background: transparent;
     border: none;
-    color: var(--bey-green);
-    font-family: 'Cinzel', serif;
+    color: var(--success);
+    font-family: var(--font-mono);
     font-size: 1.9rem;
     font-weight: 800;
     width: 3.2rem;
     text-align: right;
 }
 .beyond-hp-current:focus { outline: none; }
-.beyond-hp-slash { color: var(--bey-text-faint); font-size: 1.4rem; }
+.beyond-hp-slash { color: var(--text-muted); font-size: 1.4rem; }
 
 .beyond-spell-slots {
     display: grid;
@@ -532,11 +501,11 @@
     gap: 0.35rem;
 }
 .beyond-spell-slot-level {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
     width: 3.4rem;
     flex-shrink: 0;
 }
@@ -544,8 +513,8 @@
 .beyond-hp-max {
     background: transparent;
     border: none;
-    color: var(--bey-text-dim);
-    font-family: 'Cinzel', serif;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
     font-size: 1.35rem;
     font-weight: 700;
     width: 2.6rem;
@@ -557,12 +526,12 @@
     justify-content: center;
     gap: 0.4rem;
     font-size: 0.75rem;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
 }
 .beyond-hp-temp {
-    background: rgba(255,255,255,0.5);
-    border: 1px solid var(--bey-gold);
-    color: var(--bey-text);
+    background: var(--surface-input);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
     width: 2.4rem;
     text-align: center;
     border-radius: 4px;
@@ -584,20 +553,20 @@
     align-items: center;
     gap: 0.35rem;
     font-size: 0.72rem;
-    color: var(--bey-text-faint);
+    color: var(--text-muted);
 }
 .beyond-death-dots { display: flex; gap: 0.25rem; }
 .beyond-death-dot {
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    border: 1.5px solid var(--bey-text-faint);
+    border: 1.5px solid var(--text-muted);
     background: transparent;
     cursor: pointer;
     padding: 0;
 }
-.beyond-death-row.success .beyond-death-dot.filled { background: var(--bey-green); border-color: var(--bey-green); }
-.beyond-death-row.failure .beyond-death-dot.filled { background: var(--bey-red); border-color: var(--bey-red); }
+.beyond-death-row.success .beyond-death-dot.filled { background: var(--success); border-color: var(--success); }
+.beyond-death-row.failure .beyond-death-dot.filled { background: var(--danger); border-color: var(--danger); }
 
 .beyond-inspiration {
     display: flex;
@@ -610,9 +579,9 @@
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 50%;
-    border: 1.5px solid var(--bey-gold);
-    background: rgba(255,255,255,0.4);
-    color: var(--bey-text-faint);
+    border: 1.5px solid var(--border-strong);
+    background: var(--surface-input);
+    color: var(--text-muted);
     font-size: 1.1rem;
     cursor: pointer;
     display: flex;
@@ -620,9 +589,9 @@
     justify-content: center;
 }
 .beyond-inspiration-btn.on {
-    background: var(--bey-accent-dim);
-    border-color: var(--bey-gold);
-    color: var(--bey-gold);
+    background: var(--accent-soft);
+    border-color: var(--border-strong);
+    color: var(--accent-text);
 }
 
 /* ── Attacks list ── */
@@ -641,28 +610,28 @@
 }
 .beyond-remove-btn {
     background: transparent;
-    border: 1px solid var(--bey-border);
-    color: var(--bey-text-faint);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     width: 2rem;
     height: 2rem;
     border-radius: 4px;
     cursor: pointer;
     flex: none;
 }
-.beyond-remove-btn:hover { border-color: var(--bey-red); color: var(--bey-red); }
+.beyond-remove-btn:hover { border-color: var(--danger); color: var(--danger); }
 .beyond-add-btn {
     background: transparent;
-    border: 1px dashed var(--bey-gold);
-    color: var(--bey-text-dim);
+    border: 1px dashed var(--border-strong);
+    color: var(--text-muted);
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-label);
     font-size: 0.8rem;
     letter-spacing: 0.04em;
     margin-top: 0.3rem;
 }
-.beyond-add-btn:hover { border-color: var(--bey-accent); color: var(--bey-accent); border-style: solid; }
+.beyond-add-btn:hover { border-color: var(--border-strong); color: var(--border-strong); border-style: solid; }
 
 /* ── Currency row ── */
 .beyond-currency-row {
@@ -686,7 +655,7 @@
     .beyond-grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
-.beyond-readonly-empty { color: var(--bey-text-faint); font-style: italic; font-size: 0.9rem; }
+.beyond-readonly-empty { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
 
 /* ── Phone-width layout ── */
 @media (max-width: 480px) {
@@ -701,7 +670,7 @@
         gap: 0.35rem;
         padding-bottom: 0.6rem;
         margin-bottom: 0.6rem;
-        border-bottom: 1px dashed var(--bey-border);
+        border-bottom: 1px dashed var(--border);
     }
     .beyond-attack-row:last-of-type { border-bottom: none; }
 

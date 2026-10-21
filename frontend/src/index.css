@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+/* Colours and fonts come from styles/tokens.css (imported first in
+   main.jsx). Everything here uses the semantic layer only. */
 
 * {
   margin: 0;
@@ -7,39 +7,16 @@
   box-sizing: border-box;
 }
 
-:root {
-  --parchment: #f4e4c1;
-  --parchment-dark: #e8d5a3;
-  --parchment-darker: #d4b896;
-  --ink: #2c1810;
-  --ink-light: #5c3d2e;
-  --gold: #8b6914;
-  --gold-light: #c4a035;
-  --crimson: #8b1a1a;
-  --crimson-light: #c0392b;
-  --shadow: rgba(44, 24, 16, 0.3);
-
-  /* ── Shell identity ── used by the site nav and the page background.
-     Leftover from the old hub design system; replaced by the Sunny
-     tokens (docs/zlatopryady/assets/sunny-tokens.css) in stage 2. */
-  --hub-bg: #0a0b0d;
-  --hub-bg-elevated: #16181c;
-  --hub-bg-elevated-2: #1e2126;
-  --hub-border: rgba(255, 255, 255, 0.09);
-  --hub-text: #eef0f2;
-  --hub-text-dim: #9aa1ab;
-  --hub-text-faint: #656c76;
-  --hub-accent: #dba656;
-  --hub-accent-dim: #a9803f;
-  --hub-accent-soft: rgba(219, 166, 86, 0.12);
-  --hub-shadow: rgba(0, 0, 0, 0.45);
+body {
+  background: var(--surface-page);
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--text);
 }
 
-body {
-  background: var(--hub-bg);
-  min-height: 100vh;
-  font-family: 'Crimson Text', Georgia, serif;
-  color: var(--ink);
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 /* ── PAGE WRAPPER ── */
@@ -49,26 +26,29 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #1a0f0a;
-  background-image:
-          radial-gradient(ellipse at 20% 50%, rgba(139, 105, 20, 0.15) 0%, transparent 60%),
-          radial-gradient(ellipse at 80% 20%, rgba(139, 26, 26, 0.1) 0%, transparent 50%);
+  background-color: var(--surface-page);
+  color: var(--text);
+  /* faint ruled-ledger lines, like an office notebook */
+  background-image: repeating-linear-gradient(
+          to bottom,
+          transparent 0 31px,
+          var(--rule-line) 31px 32px);
 }
 
 /* ── TOME PANEL (auth forms) ── */
 .tome-panel {
-  background: var(--parchment);
+  background: var(--surface-card);
   background-image:
           url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  border: 3px solid var(--gold);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 2.5rem 2rem;
   width: 100%;
   max-width: 420px;
   box-shadow:
-          0 0 0 1px var(--parchment-darker),
-          0 8px 32px var(--shadow),
-          inset 0 1px 0 rgba(255,255,255,0.5);
+          0 0 0 1px var(--border),
+          0 8px 32px var(--shadow-color),
+          inset 0 1px 0 var(--surface-input);
   position: relative;
 }
 
@@ -76,7 +56,7 @@ body {
   content: '';
   position: absolute;
   top: 6px; left: 6px; right: 6px; bottom: 6px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   pointer-events: none;
   opacity: 0.5;
@@ -84,29 +64,29 @@ body {
 
 /* ── TYPOGRAPHY ── */
 .tome-title {
-  font-family: 'Cinzel', 'Times New Roman', serif;
+  font-family: var(--font-label);
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--text);
   text-align: center;
   margin-bottom: 0.25rem;
   letter-spacing: 0.05em;
-  text-shadow: 1px 1px 0 var(--parchment-darker);
+  text-transform: uppercase;
 }
 
 .tome-subtitle {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-style: italic;
-  color: var(--ink-light);
+  color: var(--text-muted);
   text-align: center;
   margin-bottom: 1.5rem;
   font-size: 1rem;
 }
 
 .tome-username {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.9rem;
-  color: var(--gold);
+  color: var(--accent-text);
   letter-spacing: 0.05em;
 }
 
@@ -125,10 +105,10 @@ body {
 }
 
 .tome-field label {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--ink-light);
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -136,14 +116,14 @@ body {
 .tome-field input,
 .tome-field select,
 .tome-field textarea {
-  background: rgba(255,255,255,0.4);
-  border: 1px solid var(--parchment-darker);
-  border-bottom: 2px solid var(--gold);
+  background: var(--surface-input);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--border-strong);
   border-radius: 2px;
   padding: 0.6rem 0.75rem;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--text);
   outline: none;
   transition: border-color 0.2s, background 0.2s;
   width: 100%;
@@ -152,8 +132,8 @@ body {
 .tome-field input:focus,
 .tome-field select:focus,
 .tome-field textarea:focus {
-  border-bottom-color: var(--crimson);
-  background: rgba(255,255,255,0.6);
+  border-bottom-color: var(--danger);
+  background: var(--surface-card);
 }
 
 .tome-field textarea {
@@ -168,48 +148,62 @@ body {
 
 /* ── BUTTONS ── */
 .tome-btn {
-  background: var(--ink);
-  color: var(--parchment);
-  border: 1px solid var(--gold);
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
-  padding: 0.7rem 1.5rem;
-  font-family: 'Cinzel', serif;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-label);
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-spacing);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   text-transform: uppercase;
 }
 
 .tome-btn:hover {
-  background: var(--crimson);
-  border-color: var(--crimson-light);
+  background: var(--accent-hover);
+}
+
+.tome-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .tome-btn-ghost {
   background: transparent;
-  color: var(--ink-light);
-  border: 1px solid var(--parchment-darker);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
-  padding: 0.7rem 1.5rem;
-  font-family: 'Cinzel', serif;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-label);
   font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--label-spacing);
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
   text-transform: uppercase;
 }
 
 .tome-btn-ghost:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 .tome-btn-danger {
   background: transparent;
-  color: var(--crimson);
-  border: 1px solid var(--crimson);
+  color: var(--danger);
+  border: 1px solid var(--danger);
   border-radius: 2px;
   padding: 0.3rem 0.6rem;
   font-size: 0.8rem;
@@ -218,8 +212,8 @@ body {
 }
 
 .tome-btn-danger:hover {
-  background: var(--crimson);
-  color: var(--parchment);
+  background: var(--danger);
+  color: var(--surface-card);
 }
 
 .tome-btn-row {
@@ -231,22 +225,24 @@ body {
 
 /* ── ERRORS & LINKS ── */
 .tome-error {
-  background: rgba(139, 26, 26, 0.1);
-  border: 1px solid var(--crimson);
+  background: var(--surface-card);
+  border-left: 4px solid var(--danger);
+  border: 1px solid var(--danger);
   border-radius: 2px;
   padding: 0.5rem 0.75rem;
-  color: var(--crimson);
+  color: var(--danger);
   font-size: 0.9rem;
   margin-bottom: 1rem;
   text-align: center;
 }
 
 .tome-notice {
-  background: rgba(58, 107, 53, 0.12);
-  border: 1px solid var(--gold, #8a7530);
+  background: var(--surface-card);
+  border-left: 4px solid var(--success);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   padding: 0.5rem 0.75rem;
-  color: var(--ink);
+  color: var(--text);
   font-size: 0.9rem;
   margin-bottom: 1rem;
   text-align: center;
@@ -256,17 +252,17 @@ body {
   text-align: center;
   margin-top: 1.25rem;
   font-size: 0.95rem;
-  color: var(--ink-light);
+  color: var(--text-muted);
 }
 
 .tome-link a {
-  color: var(--gold);
+  color: var(--accent-text);
   text-decoration: none;
   font-style: italic;
 }
 
 .tome-link a:hover {
-  color: var(--crimson);
+  color: var(--danger);
   text-decoration: underline;
 }
 
@@ -279,7 +275,7 @@ body {
   max-width: 900px;
   margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--border-strong);
 }
 
 .tome-header-right {
@@ -297,25 +293,25 @@ body {
 }
 
 .character-card {
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.25rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
   position: relative;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .character-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--shadow);
+  box-shadow: 0 8px 24px var(--shadow-color);
 }
 
 .character-card::before {
   content: '';
   position: absolute;
   top: 4px; left: 4px; right: 4px; bottom: 4px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   pointer-events: none;
   opacity: 0.4;
@@ -329,9 +325,9 @@ body {
 }
 
 .character-name {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 1.2rem;
-  color: var(--ink);
+  color: var(--text);
   font-weight: 700;
 }
 
@@ -340,12 +336,12 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--border-strong);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--parchment-dark);
+  background: var(--surface-sunken);
   font-size: 1rem;
 }
 .character-portrait img { width: 100%; height: 100%; object-fit: cover; }
@@ -358,28 +354,29 @@ body {
 }
 
 .meta-tag {
-  background: var(--parchment-dark);
-  border: 1px solid var(--parchment-darker);
+  text-transform: uppercase;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
   border-radius: 2px;
   padding: 0.15rem 0.5rem;
   font-size: 0.8rem;
-  font-family: 'Cinzel', serif;
-  color: var(--ink-light);
+  font-family: var(--font-label);
+  color: var(--text-muted);
   letter-spacing: 0.05em;
 }
 
 .level-tag {
-  background: var(--ink);
-  color: var(--parchment);
-  border-color: var(--gold);
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+  border-color: var(--border-strong);
 }
 
 .craft-compendium-list {
   max-height: 320px;
   overflow-y: auto;
-  border: 1px solid var(--parchment-darker);
+  border: 1px solid var(--border);
   border-radius: 2px;
-  background: rgba(255,255,255,0.3);
+  background: var(--surface-input);
 }
 
 .craft-compendium-row {
@@ -389,8 +386,8 @@ body {
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
   font-size: 0.85rem;
-  color: var(--ink-light);
-  border-bottom: 1px solid var(--parchment-darker);
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
 }
 
 .craft-compendium-row:last-child {
@@ -406,16 +403,16 @@ body {
 }
 
 .craft-compendium-row.ready {
-  background: rgba(58, 107, 53, 0.15);
-  color: var(--ink);
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 .character-backstory {
   font-style: italic;
   font-size: 0.9rem;
-  color: var(--ink-light);
+  color: var(--text-muted);
   line-height: 1.5;
-  border-top: 1px solid var(--parchment-darker);
+  border-top: 1px solid var(--border);
   padding-top: 0.75rem;
   margin-top: 0.25rem;
 }
@@ -439,13 +436,13 @@ body {
 
 .new-card-icon {
   font-size: 2rem;
-  color: var(--gold);
+  color: var(--accent-text);
 }
 
 .new-card-label {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.85rem;
-  color: var(--ink-light);
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -454,7 +451,7 @@ body {
 .tome-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(26, 15, 10, 0.85);
+  background: rgba(18, 32, 58, 0.72); /* --sunny-night scrim */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -463,13 +460,13 @@ body {
 }
 
 .tome-modal {
-  background: var(--parchment);
-  border: 3px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 2rem;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  box-shadow: 0 16px 48px var(--shadow-color);
   position: relative;
   max-height: 90vh;
   overflow-y: auto;
@@ -479,7 +476,7 @@ body {
   content: '';
   position: absolute;
   top: 6px; left: 6px; right: 6px; bottom: 6px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   pointer-events: none;
   opacity: 0.5;
@@ -492,55 +489,6 @@ body {
   .tome-header { flex-direction: column; gap: 1rem; text-align: center; }
   .characters-grid { grid-template-columns: 1fr; }
   .tome-panel { padding: 1.5rem 1rem; }
-}
-
-/* ── LANG TOGGLE ──
-   Two variants: `.lang-toggle` floats fixed in a corner - only used on the
-   Home page, which has no nav bar to sit in. Everywhere else it renders
-   inline inside the shell nav (`.lang-toggle-inline`) so it can never
-   overlap the login/logout controls the way the old fixed-corner version
-   did (it used to sit right on top of "Enter the Realm"). */
-.lang-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: var(--ink);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  border-radius: 2px;
-  padding: 0.4rem 0.8rem;
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  z-index: 999;
-  transition: background 0.2s, color 0.2s;
-}
-
-.lang-toggle:hover {
-  background: var(--gold);
-  color: var(--ink);
-}
-
-.lang-toggle-inline {
-  position: static;
-  background: transparent;
-  color: #9aa3b2;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 2px;
-  padding: 0.3rem 0.6rem;
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.lang-toggle-inline:hover {
-  border-color: #7fe3ff;
-  color: #7fe3ff;
 }
 
 /* ── CAMPAIGNS ── */
@@ -557,15 +505,15 @@ body {
 }
 
 .campaign-card {
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.25rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 .campaign-card-left {
@@ -575,28 +523,28 @@ body {
 }
 
 .campaign-name {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 1.2rem;
-  color: var(--ink);
+  color: var(--text);
   font-weight: 700;
 }
 
 .campaign-desc {
   font-style: italic;
-  color: var(--ink-light);
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
 .campaign-owner {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.75rem;
-  color: var(--gold);
+  color: var(--accent-text);
   letter-spacing: 0.05em;
 }
 
 .tome-empty {
   font-style: italic;
-  color: var(--ink-light);
+  color: var(--text-muted);
   text-align: center;
   padding: 2rem;
 }
@@ -609,11 +557,11 @@ body {
 }
 /* ── CAMPAIGN VIEW ── */
 .campaign-char-card {
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.5rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -629,36 +577,36 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  border-top: 1px solid var(--parchment-darker);
+  border-top: 1px solid var(--border);
   padding-top: 1rem;
 }
 
 .tome-field-label {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--ink-light);
+  color: var(--text-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .materials-input {
-  background: rgba(255,255,255,0.4);
-  border: 1px solid var(--parchment-darker);
-  border-bottom: 2px solid var(--gold);
+  background: var(--surface-input);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--border-strong);
   border-radius: 2px;
   padding: 0.6rem 0.75rem;
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--text);
   outline: none;
   resize: vertical;
   width: 100%;
 }
 
 .materials-input:focus {
-  border-bottom-color: var(--crimson);
-  background: rgba(255,255,255,0.6);
+  border-bottom-color: var(--danger);
+  background: var(--surface-card);
 }
 
 /* ── CHARACTER SHEET ── */
@@ -674,7 +622,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--border-strong);
   padding-bottom: 1rem;
 }
 
@@ -685,11 +633,10 @@ body {
 }
 
 .sheet-name {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--parchment);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  color: var(--text);
 }
 
 .sheet-meta {
@@ -699,17 +646,17 @@ body {
 }
 
 .campaign-tag {
-  background: var(--crimson);
-  color: var(--parchment);
-  border-color: var(--crimson-light);
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+  border-color: var(--border-strong);
 }
 
 .sheet-section {
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 .sheet-section-inner {
@@ -719,7 +666,7 @@ body {
 .sheet-backstory {
   font-style: italic;
   font-size: 1.05rem;
-  color: var(--ink-light);
+  color: var(--text-muted);
   line-height: 1.7;
   text-align: center;
 }
@@ -731,18 +678,18 @@ body {
 }
 
 .sheet-column {
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 .sheet-column::before {
   content: '';
   position: absolute;
   top: 4px; left: 4px; right: 4px; bottom: 4px;
-  border: 1px solid var(--gold-light);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   pointer-events: none;
   opacity: 0.3;
@@ -753,15 +700,15 @@ body {
 }
 
 .sheet-column-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--parchment);
-  background: var(--ink);
+  color: var(--text-inverse);
+  background: var(--surface-inverse);
   padding: 0.6rem 1rem;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--border-strong);
 }
 
 .sheet-column-body {
@@ -774,7 +721,7 @@ body {
 
 .sheet-empty {
   font-style: italic;
-  color: var(--ink-light);
+  color: var(--text-muted);
   font-size: 0.9rem;
   text-align: center;
   padding: 1rem 0;
@@ -785,19 +732,19 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0;
-  border-bottom: 1px solid var(--parchment-darker);
+  border-bottom: 1px solid var(--border);
 }
 
 .spell-name {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .spell-accuracy {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.8rem;
-  color: var(--gold);
+  color: var(--accent-text);
   font-weight: 600;
 }
 
@@ -806,32 +753,32 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0;
-  border-bottom: 1px solid var(--parchment-darker);
+  border-bottom: 1px solid var(--border);
 }
 
 .skill-name {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--text);
 }
 
 .skill-badge {
-  background: var(--ink);
-  color: var(--parchment);
-  border: 1px solid var(--gold);
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+  border: 1px solid var(--border-strong);
   border-radius: 2px;
   padding: 0.1rem 0.4rem;
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-label);
   font-size: 0.7rem;
   letter-spacing: 0.05em;
 }
 
 .material-entry {
-  font-family: 'Crimson Text', serif;
+  font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--text);
   padding: 0.3rem 0;
-  border-bottom: 1px solid var(--parchment-darker);
+  border-bottom: 1px solid var(--border);
 }
 
 @media (max-width: 700px) {
@@ -841,12 +788,13 @@ body {
 
 /* ── SPELL RESEARCH ASPECT GRID ── */
 .research-container {
-  background-color: var(--parchment);
-  font-family: 'Cinzel', serif;
-  border: 3px solid var(--gold);
+  background-color: var(--surface-card);
+  color: var(--text);
+  font-family: var(--font-body);
+  border: 2px solid var(--border-strong);
   padding: 2rem;
   border-radius: 4px;
-  box-shadow: 0 8px 32px var(--shadow);
+  box-shadow: 0 8px 32px var(--shadow-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -855,26 +803,35 @@ body {
 }
 
 .hex-polygon {
-  fill: #e8dfc8;
-  stroke: #8b7355;
+  fill: var(--surface-sunken);
+  stroke: var(--border-strong);
   stroke-width: 1px;
   transition: fill 0.2s, stroke 0.2s;
   cursor: pointer;
 }
 
 .hex-polygon:hover {
-  fill: #d1c1a3;
+  fill: var(--accent-soft);
 }
 
 .hex-polygon.anchor {
-  stroke: var(--gold);
+  stroke: var(--border-strong);
   stroke-width: 2px;
-  fill: #5c4a32;
+  fill: var(--text-muted);
   cursor: not-allowed;
 }
 
 .hex-polygon.placed {
-  fill: #8b7355;
+  fill: var(--border-strong);
+}
+
+/* Aspect labels drawn inside the hex SVG (Research.jsx) */
+.hex-label {
+  fill: var(--surface-page);
+  font-family: var(--font-label);
+  font-size: 10px;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .aspect-palette {
@@ -886,10 +843,10 @@ body {
 }
 
 .aspect-btn {
-  background: var(--parchment-dark);
-  border: 2px solid var(--ink-light);
-  color: var(--ink);
-  font-family: 'Cinzel', serif;
+  background: var(--surface-sunken);
+  border: 2px solid var(--text-muted);
+  color: var(--text);
+  font-family: var(--font-label);
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.2s;
@@ -897,14 +854,14 @@ body {
 }
 
 .aspect-btn:hover {
-  background: var(--parchment-darker);
+  background: var(--border);
 }
 
 .aspect-btn.active {
-  border-color: var(--gold);
-  background: var(--ink-light);
-  color: var(--parchment);
-  box-shadow: 0 0 8px var(--gold);
+  border-color: var(--border-strong);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .aspect-btn:disabled {
@@ -915,8 +872,8 @@ body {
 /* Mode 2 (hinted) guide cell - shows where/what to place without
    pre-filling it for the player, unlike the old .anchor treatment. */
 .hex-polygon.guide {
-  fill: rgba(139, 105, 20, 0.18);
-  stroke: var(--gold);
+  fill: var(--accent-soft);
+  stroke: var(--border-strong);
   stroke-width: 2px;
   stroke-dasharray: 3 2;
 }
@@ -937,10 +894,10 @@ body {
 }
 
 .research-spell-select {
-  background: var(--parchment-dark);
-  border: 2px solid var(--ink-light);
-  color: var(--ink);
-  font-family: 'Cinzel', serif;
+  background: var(--surface-sunken);
+  border: 2px solid var(--text-muted);
+  color: var(--text);
+  font-family: var(--font-label);
   padding: 0.5rem 1rem;
   margin-bottom: 1.5rem;
 }
@@ -977,19 +934,20 @@ body {
 }
 
 /* ── SITE SHELL NAV ──
-   The one piece of chrome shared by every page - Space Grotesk brand
-   mark, Inter links, amber accent. Gets the Sunny look in stage 2. */
+   Sunny office header: night band with a brass rule underneath, logo on
+   the left, Oswald nameplate links. NavBar.jsx sets data-theme="night" on
+   it, so the semantic tokens below resolve to the night palette whatever
+   theme the page underneath uses. */
 .hall-nav {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 0.85rem 1.75rem;
-  background: rgba(10, 11, 13, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--hub-border);
+  padding: 0.5rem 1.75rem;
+  background: var(--surface-page);
+  color: var(--text);
+  border-bottom: 3px solid var(--border-strong);
   flex-wrap: wrap;
   position: sticky;
   top: 0;
@@ -997,76 +955,82 @@ body {
 }
 
 .hall-nav-brand {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: var(--hub-text);
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
   text-decoration: none;
-  font-size: 1.02rem;
-  white-space: nowrap;
-  transition: color 0.15s;
+  min-height: 44px;
 }
-.hall-nav-brand:hover { color: var(--hub-accent); }
 
 .hall-nav-links {
   display: flex;
-  gap: 1.6rem;
+  gap: 1.75rem;
   flex-wrap: wrap;
 }
 
 .hall-nav-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--hub-text-dim);
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--text);
   text-decoration: none;
-  padding-bottom: 0.3rem;
-  border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.15s, color 0.15s;
 }
 
-.hall-nav-link:hover,
+.hall-nav-link:hover {
+  color: var(--accent);
+}
+
 .hall-nav-link.active {
-  color: var(--hub-text);
-  border-color: var(--hub-accent);
+  border-color: var(--accent);
 }
 
 .hall-nav-right {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
-/* Neutral overrides so the login/logout controls match the shell nav
-   instead of the tome theme, wherever they're shown on the page. */
-.hall-nav-right .tome-username {
-  font-family: 'Inter', sans-serif;
-  color: var(--hub-text-dim);
-  font-size: 0.82rem;
-  letter-spacing: 0;
-  transition: color 0.15s;
-}
-.hall-nav-right .tome-username:hover { color: var(--hub-accent); }
-
-.hall-nav-right .tome-btn-ghost,
-.hall-nav-right a.tome-btn-ghost {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  border: 1px solid var(--hub-border);
-  background: transparent;
-  color: var(--hub-text-dim);
-  padding: 0.4rem 0.95rem;
-  font-size: 0.75rem;
-  border-radius: 5px;
+.hall-nav-user {
+  font-family: var(--font-label);
+  letter-spacing: 0.04em;
+  color: var(--text);
   text-decoration: none;
-  display: inline-block;
-  transition: border-color 0.15s, color 0.15s;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
-.hall-nav-right .tome-btn-ghost:hover,
-.hall-nav-right a.tome-btn-ghost:hover {
-  border-color: var(--hub-accent);
-  color: var(--hub-accent);
+.hall-nav-user:hover { color: var(--accent); }
+
+.hall-nav-btn {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text);
+  padding: 0 1rem;
+  min-height: 44px;
+  border-radius: 2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.hall-nav-btn:hover {
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Only relevant once the mobile breakpoint below turns it into the
@@ -1079,36 +1043,33 @@ body {
 .hall-nav-toggle {
   display: none;
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
   flex-direction: column;
   background: transparent;
-  border: 1px solid var(--hub-border);
-  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
   cursor: pointer;
 }
 .hall-nav-toggle span {
   display: block;
-  width: 16px;
+  width: 18px;
   height: 2px;
-  background: var(--hub-text-dim);
+  background: var(--text);
   transition: background 0.15s;
 }
-.hall-nav-toggle:hover span { background: var(--hub-accent); }
+.hall-nav-toggle:hover span { background: var(--accent); }
 
 @media (max-width: 800px) {
   .hall-nav {
     justify-content: flex-start;
     text-align: left;
-    /* The base 1.5rem gap is meant to space out the 3 desktop flex items
-       (brand, links, right) - at this width they stack into rows, and the
-       gap would still apply between all 3 even while links/right are
-       collapsed to 0 height. Each collapsible section supplies its own
-       margin-top only when .open, so the collapsed nav doesn't carry two
-       gap-widths' worth of dead space above nothing. */
+    /* At this width the 3 desktop flex items stack into rows; each
+       collapsible section supplies its own margin only when .open, so the
+       collapsed nav doesn't carry dead space above nothing. */
     gap: 0;
   }
   .hall-nav-top {
@@ -1119,10 +1080,9 @@ body {
   }
   .hall-nav-toggle { display: flex; }
 
-  /* Collapsed by default; JS toggles .open by adding the class (see
-     NavBar.jsx) rather than a CSS-only checkbox hack, since the menu
-     also needs to auto-close on navigation. max-height (not display)
-     so the collapse/expand can transition instead of snapping. */
+  /* Collapsed by default; JS toggles .open (see NavBar.jsx) since the menu
+     also needs to auto-close on navigation. max-height (not display) so
+     the collapse/expand can transition instead of snapping. */
   .hall-nav-links,
   .hall-nav-right {
     flex-basis: 100%;
@@ -1135,33 +1095,36 @@ body {
   }
   .hall-nav-links.open {
     max-height: 320px;
-    gap: 0.9rem;
-    margin-top: 0.9rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 1px solid var(--hub-border);
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
   }
   .hall-nav-right.open {
-    max-height: 160px;
-    gap: 0.7rem;
-    margin-top: 0.9rem;
+    max-height: 200px;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    padding-bottom: 0.5rem;
     align-items: stretch;
   }
-  .hall-nav-right.open .tome-btn-ghost,
-  .hall-nav-right.open a.tome-btn-ghost {
-    text-align: center;
-  }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .hall-nav-links,
+  .hall-nav-right { transition: none; }
+}
+
 
 /* ── CODEX FORM (admin panels) ── */
 .codex-form {
   width: 100%;
   max-width: 900px;
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 /* ── HERALD'S BOARD (announcements) ── */
@@ -1175,11 +1138,11 @@ body {
 
 .herald-entry {
   position: relative;
-  background: var(--parchment);
-  border: 2px solid var(--gold);
+  background: var(--surface-card);
+  border: 2px solid var(--border-strong);
   border-radius: 4px;
   padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 16px var(--shadow);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 .herald-entry-top {

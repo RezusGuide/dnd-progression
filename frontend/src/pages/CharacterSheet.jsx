@@ -6,6 +6,9 @@ import { spellName } from '../constants/spellText'
 import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
+import { classifyApiError } from '../api/apiErrors'
+import ErrorScreen from '../components/errors/ErrorScreen'
+import { Loader } from '../components/ui'
 import '../styles/beyond.css'
 
 // 5e reference data - governing ability per skill, per the PHB. Kept as a
@@ -164,7 +167,7 @@ export default function CharacterSheet() {
     const { id } = useParams()
     const navigate = useNavigate()
     const { user, hasSection } = useAuth()
-    const { t, lang } = useLang()
+    const { t } = useLang()
 
     const [character, setCharacter] = useState(null)
     // D&D is public to view; only the character's own creator, or an
@@ -188,6 +191,7 @@ export default function CharacterSheet() {
 
     const saveTimer = useRef(null)
     const skipNextSave = useRef(true)
+    const [loadError, setLoadError] = useState(null)
 
     useEffect(() => {
         let cancelled = false
@@ -198,7 +202,14 @@ export default function CharacterSheet() {
                 skipNextSave.current = true
                 setForm(hydrate(res.data))
             })
-            .catch(() => navigate('/characters'))
+            .catch((err) => {
+                if (cancelled) return
+                // Unknown id -> "no such document"; server down / offline ->
+                // the matching error screen; anything else -> back to the list.
+                const kind = err.response?.status === 404 ? 404 : classifyApiError(err)
+                if (kind) setLoadError(kind)
+                else navigate('/characters')
+            })
         return () => { cancelled = true }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
@@ -250,8 +261,12 @@ export default function CharacterSheet() {
         }
     }
 
+    if (loadError) {
+        return <ErrorScreen code={loadError} />
+    }
+
     if (!character || !form) {
-        return <div className="beyond-page"><div className="beyond-loading">{t('sheetLoading')}</div></div>
+        return <div className="beyond-page"><Loader text={t('sheetLoading')} /></div>
     }
 
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
@@ -610,7 +625,7 @@ export default function CharacterSheet() {
                                             ))}
                                         </div>
                                     </div>
-                                    <span style={{ fontSize: '0.68rem', color: 'var(--bey-text-faint)' }}>{t('sheetDeathSaves')}</span>
+                                    <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>{t('sheetDeathSaves')}</span>
                                 </div>
                             </div>
                         </div>
@@ -676,7 +691,7 @@ export default function CharacterSheet() {
                                     )
                                 })}
                             </div>
-                            <div className="beyond-spell-slot-row" style={{ marginTop: '0.75rem', borderTop: '1px solid var(--bey-border)', paddingTop: '0.6rem' }}>
+                            <div className="beyond-spell-slot-row" style={{ marginTop: '0.75rem', borderTop: '1px solid var(--border)', paddingTop: '0.6rem' }}>
                                 <span className="beyond-spell-slot-level">{t('sheetSpellPoints')}</span>
                                 <input
                                     className="beyond-input beyond-input-sm beyond-input-num"
@@ -718,7 +733,7 @@ export default function CharacterSheet() {
                                     {knownSpells.map((s) => (
                                         <div key={s.spellId} className="beyond-prof-row">
                                             <div className="beyond-prof-left">
-                                                <span className="beyond-prof-name">{spellName(s, lang)}</span>
+                                                <span className="beyond-prof-name">{spellName(s)}</span>
                                                 <span className="beyond-prof-ability">(Lv {s.level})</span>
                                             </div>
                                             <span className="beyond-prof-bonus">{s.accuracyPercentage}%</span>
@@ -731,7 +746,7 @@ export default function CharacterSheet() {
                                                 {cantripCatalog
                                                     .filter((s) => !knownSpells.some((k) => k.spellId === s.id))
                                                     .filter((s) => isSpellEligible(character.characterClass, s))
-                                                    .map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)}</option>)}
+                                                    .map((s) => <option key={s.id} value={s.id}>{spellName(s)}</option>)}
                                             </select>
                                             <button type="button" className="beyond-add-btn" style={{ marginTop: 0 }} onClick={handleAddCantrip}>{t('sheetAddCantrip')}</button>
                                         </div>

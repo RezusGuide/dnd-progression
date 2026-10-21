@@ -5,6 +5,7 @@ import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import { spellName } from '../constants/spellText'
 import api from '../api/axios'
+import { Loader, Stamp } from '../components/ui'
 
 const HEX_SIZE = 35
 const GRID_RADIUS = 4
@@ -75,7 +76,7 @@ export default function Research() {
     const { characterId } = useParams()
     const navigate = useNavigate()
     const { user } = useAuth()
-    const { t, lang } = useLang()
+    const { t } = useLang()
     const canResearch = !!user
 
     const [character, setCharacter] = useState(null)
@@ -124,7 +125,7 @@ export default function Research() {
     }, [mode, selectedSpellId])
 
     if (!character) {
-        return <div className="parchment-page"><p className="tome-empty">Loading...</p></div>
+        return <div className="parchment-page" data-theme="night"><Loader /></div>
     }
 
     const pouch = character.aspects || {}
@@ -215,7 +216,7 @@ export default function Research() {
     }
 
     return (
-        <div className="parchment-page">
+        <div className="parchment-page" data-theme="night">
             <div className="research-container">
                 <Link to={`/characters/${characterId}`} className="tome-btn-ghost" style={{ alignSelf: 'flex-start', marginBottom: '1rem' }}>
                     {t('researchBackToSheet')}
@@ -263,7 +264,7 @@ export default function Research() {
                         onChange={(e) => setSelectedSpellId(e.target.value)}
                     >
                         <option value="">{t('researchChooseSpell')}</option>
-                        {hintedSpells.map((s) => <option key={s.id} value={s.id}>{spellName(s, lang)} (Lv {s.level})</option>)}
+                        {hintedSpells.map((s) => <option key={s.id} value={s.id}>{spellName(s)} (Lv {s.level})</option>)}
                     </select>
                 )}
                 {mode === 'hinted' && hintedSpells.length === 0 && (
@@ -302,7 +303,7 @@ export default function Research() {
                                     <g key={key} transform={`translate(${x}, ${y})`} onClick={() => handleHexClick(q, r)}>
                                         <polygon points={hexPoints()} className={hexClass} />
                                         {(placedAspect || guideAspect) && (
-                                            <text textAnchor="middle" alignmentBaseline="middle" fontSize="10" fill="#f4ecd8" fontFamily="Cinzel" pointerEvents="none">
+                                            <text textAnchor="middle" alignmentBaseline="middle" className="hex-label">
                                                 {aspectLabel(placedAspect || guideAspect).slice(0, 4)}
                                             </text>
                                         )}
@@ -322,22 +323,22 @@ export default function Research() {
                                 </div>
                             </div>
                             {range && (
-                                <p style={{ textAlign: 'center', margin: 0, color: countInRange ? 'var(--ink)' : 'var(--crimson)' }}>
+                                <p style={{ textAlign: 'center', margin: 0, color: countInRange ? 'var(--text)' : 'var(--danger)' }}>
                                     {t('researchAspectsPlaced')}: {placedKeys.length} / {range[0]}-{range[1]}
                                 </p>
                             )}
                             {activeLevel && (
-                                <p style={{ textAlign: 'center', margin: 0, color: varietyMet ? 'var(--ink)' : 'var(--crimson)' }}>
+                                <p style={{ textAlign: 'center', margin: 0, color: varietyMet ? 'var(--text)' : 'var(--danger)' }}>
                                     {t('researchDistinctPlaced')}: {distinctCount} / {minDistinct}+
                                 </p>
                             )}
                             {activeLevel && minExotic > 0 && (
-                                <p style={{ textAlign: 'center', margin: 0, color: exoticMet ? 'var(--ink)' : 'var(--crimson)' }}>
+                                <p style={{ textAlign: 'center', margin: 0, color: exoticMet ? 'var(--text)' : 'var(--danger)' }}>
                                     {t('researchExoticPlaced')}: {exoticCount} / {minExotic}+
                                 </p>
                             )}
                             {placedKeys.length > 0 && !connected && (
-                                <p style={{ textAlign: 'center', margin: 0, color: 'var(--crimson)' }}>{t('researchNotConnected')}</p>
+                                <p style={{ textAlign: 'center', margin: 0, color: 'var(--danger)' }}>{t('researchNotConnected')}</p>
                             )}
                         </div>
 
@@ -360,7 +361,8 @@ export default function Research() {
 
                 {result && (
                     <div className="tome-notice research-result">
-                        <h2 className="tome-title" style={{ fontSize: '1.2rem' }}>{t('researchResultTitle')}</h2>
+                        <Stamp kind="approved" />
+                        <h2 className="tome-title" style={{ fontSize: '1.2rem', marginTop: '0.75rem' }}>{t('researchResultTitle')}</h2>
                         <p><strong>{result.spellName}</strong> — {result.accuracyPercentage}%</p>
                         <p className="tome-subtitle">{t('researchRecordedAt')}: {result.recordedAccuracyPercentage}%</p>
                     </div>

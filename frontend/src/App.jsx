@@ -4,7 +4,9 @@ import { LangProvider } from './context/LangContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import NavBar from './components/NavBar'
 import Home from './pages/Home'
-import NotFound from './pages/NotFound'
+import ErrorScreen from './components/errors/ErrorScreen'
+import ErrorBanner from './components/errors/ErrorBanner'
+import ErrorGallery from './pages/ErrorGallery'
 import Announcements from './pages/Announcements'
 import Admin from './pages/Admin'
 import Account from './pages/Account'
@@ -45,7 +47,9 @@ function AppRoutes() {
                 there's no public sign-up page to route to. */}
             <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
 
-            <Route path="*" element={<NotFound />} />
+            {import.meta.env.DEV && <Route path="/__errors" element={<ErrorGallery />} />}
+
+            <Route path="*" element={<ErrorScreen code={404} />} />
         </Routes>
     )
 }
@@ -58,6 +62,7 @@ function AppShell() {
     return (
         <>
             <NavBar />
+            <ErrorBanner />
             <ErrorBoundary key={location.pathname}>
                 <AppRoutes />
             </ErrorBoundary>
