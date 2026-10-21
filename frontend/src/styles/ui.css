@@ -251,3 +251,64 @@ textarea.ui-field-control { min-height: 90px; resize: vertical; }
   /* a still frame of steam rather than nothing at all */
   .ui-steam-puff { opacity: 0.5; bottom: 10%; }
 }
+
+/* ── PageHeader ── */
+.ui-page-header {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 1.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-strong);
+}
+.ui-page-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--accent-text);
+  text-decoration: none;
+}
+.ui-page-back:hover { text-decoration: underline; }
+.ui-page-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ui-page-title {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.ui-page-subtitle { margin-top: 0.25rem; color: var(--text-muted); font-style: italic; }
+.ui-page-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+/* ── Small modal (confirmations, pickers) ── */
+.ui-modal-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 32, 58, 0.72); /* --sunny-night scrim */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+.ui-modal { width: 100%; max-width: 440px; }
+.ui-modal-title {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.ui-modal-actions { display: flex; gap: 0.6rem; justify-content: flex-end; flex-wrap: wrap; margin-top: 1.25rem; }

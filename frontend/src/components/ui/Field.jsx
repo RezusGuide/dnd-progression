@@ -18,7 +18,7 @@ export default function Field({ label, error, hint, as: Control = 'input', id, c
             </Control>
             {hint && <p id={hintId} className="ui-field-hint">{hint}</p>}
             {error && (
-                <p id={errorId} className="ui-field-error">
+                <p id={errorId} className="ui-field-error" role="alert">
                     <span aria-hidden="true">✕</span> {error}
                 </p>
             )}

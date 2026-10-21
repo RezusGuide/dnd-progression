@@ -18,9 +18,11 @@ import CharacterSheet from './pages/CharacterSheet'
 import Research from './pages/Research'
 import AspectCraft from './pages/AspectCraft'
 
+// Guests go to the Проходная, which sends them back here after signing in.
 function ProtectedRoute({ children }) {
     const { user } = useAuth()
-    return user ? children : <Navigate to="/login" />
+    const location = useLocation()
+    return user ? children : <Navigate to="/login" state={{ from: location }} replace />
 }
 
 function AppRoutes() {

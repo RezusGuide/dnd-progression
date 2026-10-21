@@ -1,0 +1,152 @@
+/* Page-level layouts built from the UI kit: Проходная, Приёмная,
+   Объявления, Мой пропуск. Semantic tokens only. */
+
+/* ── Проходная (/login) ── */
+.gate-page {
+  position: relative;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem 3rem;
+  background: var(--surface-page);
+  overflow: hidden;
+}
+.gate-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.gate-logo { color: var(--text); }
+.gate-card { width: 100%; }
+.gate-title {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.gate-subtitle { margin: 0.35rem 0 1.25rem; color: var(--text-muted); }
+.gate-form { display: flex; flex-direction: column; gap: 1rem; }
+.gate-form .ui-btn { margin-top: 0.25rem; }
+.gate-code .ui-field-control { font-family: var(--font-mono); letter-spacing: 0.06em; }
+.gate-note { margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+.gate-success { margin-bottom: 1rem; color: var(--success); }
+.gate-link,
+.gate-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-text);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── Приёмная (/) ── */
+.reception-guest {
+  position: relative;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background: var(--surface-page);
+  overflow: hidden;
+  text-align: center;
+}
+.reception-guest-content {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.reception-kicker {
+  font-family: var(--font-label);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.reception-lore { font-size: 1.15rem; line-height: 1.6; }
+
+.reception { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 2rem; }
+.reception-section-title {
+  font-family: var(--font-label);
+  font-weight: 600;
+  letter-spacing: var(--label-spacing);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+.reception-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.reception-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+.reception-card { text-decoration: none; color: inherit; display: block; transition: transform 0.15s; }
+.reception-card:hover { transform: translateY(-2px); }
+.reception-card-name { font-family: var(--font-label); font-weight: 600; font-size: 1.2rem; letter-spacing: 0.03em; }
+.reception-card-meta { color: var(--text-muted); margin-top: 0.25rem; }
+.reception-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.reception-news { display: flex; flex-direction: column; gap: 0.75rem; }
+.reception-news-item { border-left: 3px solid var(--border-strong); padding: 0.25rem 0 0.25rem 0.9rem; }
+.reception-news-title { font-weight: 700; }
+.reception-news-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); }
+.reception-link { color: var(--accent-text); font-family: var(--font-label); letter-spacing: 0.04em; text-decoration: none; }
+.reception-link:hover { text-decoration: underline; }
+.ui-pick-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* ── Доска объявлений ── */
+.board { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 1.75rem; }
+.board-note { transform: rotate(var(--tilt, 0deg)); }
+.board-note:nth-child(odd) { --tilt: -1deg; }
+.board-note:nth-child(even) { --tilt: 0.8deg; }
+.board-pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--accent) 0%, var(--border-strong) 70%);
+  box-shadow: 0 2px 3px var(--shadow-color);
+}
+.board-note-head { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+.board-note-title { font-family: var(--font-label); font-weight: 600; font-size: 1.15rem; letter-spacing: 0.03em; }
+.board-note-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem; }
+.board-note-body { margin-top: 0.75rem; line-height: 1.6; white-space: pre-wrap; }
+.board-form { display: flex; flex-direction: column; gap: 1rem; }
+
+/* ── Мой пропуск ── */
+.pass { width: 100%; max-width: 560px; }
+.pass-text { color: var(--text-muted); margin-bottom: 1rem; }
+.pass-code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  background: var(--surface-sunken);
+  border: 1px dashed var(--border-strong);
+  word-break: break-all;
+}
+.pass-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.pass-check { display: flex; gap: 0.5rem; align-items: center; min-height: 44px; margin-top: 0.5rem; }
+.pass-check input { width: 20px; height: 20px; accent-color: var(--accent-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reception-card { transition: none; }
+}
