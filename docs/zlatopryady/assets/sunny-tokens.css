@@ -1,0 +1,35 @@
+/* Дизайн-токены Санни инкорпорейтед. Подключить в начале стилей сайта. */
+:root {
+  /* Основная палитра */
+  --sunny-night: #12203A;     /* Ночь: чернила, тёмный фон */
+  --sunny-dawn: #F4B63D;      /* Рассвет: акцент, кнопки, метки */
+  --sunny-brass: #B8862F;     /* Латунь: рамки, шестерёнки, иконки */
+  --sunny-brass-dark: #8A5F12;/* Тёмная латунь: подписи на светлом */
+  --sunny-ember: #E8743B;     /* Уголёк: предупреждения, нос кота, язык мимика */
+  --sunny-steam: #F6EEDC;     /* Пар: пергамент, светлый фон */
+
+  /* Маскоты */
+  --cat-fur: #3C6FB8;
+  --cat-fur-shadow: #2F5FA8;
+  --cat-fur-light: #CFE0F5;
+  --mimic-wood: #8A5A2B;
+  --mimic-lid: #A8702F;
+
+  /* Служебные */
+  --sunny-paper-card: #FFFDF7;
+  --sunny-paper-line: #E3D6B8;
+  --sunny-text-muted: #4A5568;
+  --sunny-danger: #8B1E1E;    /* красная подчёркивающая линия «неверно» (как в текущей форме) */
+}
+
+/* Пример применения: тёмный режим «ночного архива» */
+:root[data-theme="night"] {
+  --bg: var(--sunny-night);
+  --fg: var(--sunny-steam);
+  --accent: var(--sunny-dawn);
+}
+:root:not([data-theme="night"]) {
+  --bg: var(--sunny-steam);
+  --fg: var(--sunny-night);
+  --accent: var(--sunny-brass);
+}
