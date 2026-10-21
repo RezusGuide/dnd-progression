@@ -32,7 +32,7 @@ public class CharacterService {
 
     public Character createCharacter(CharacterRequest request, Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
 
         Character character = Character.builder()
                 .name(request.getName())
@@ -45,7 +45,7 @@ public class CharacterService {
 
         if (request.getCampaignId() != null) {
             com.backend.entity.Campaign campaign = campaignRepository.findById(request.getCampaignId())
-                    .orElseThrow(() -> new RuntimeException("Campaign not found"));
+                    .orElseThrow(() -> new RuntimeException("Кампания не найдена."));
             character.setCampaign(campaign);
         }
 
@@ -73,12 +73,12 @@ public class CharacterService {
 
     public Character getCharacter(Long characterId) {
         return characterRepository.findById(characterId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
+                .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
     }
 
     public void deleteCharacter(Long characterId, Long userId) {
         Character character = characterRepository.findByIdAndUserId(characterId, userId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
+                .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         characterRepository.delete(character);
     }
 
@@ -91,9 +91,9 @@ public class CharacterService {
     // characters, not everyone else's).
     public Character updateSheet(Long characterId, CharacterSheetRequest req, Long actingUserId, boolean actingUserIsOwner) {
         Character character = characterRepository.findById(characterId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
+                .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         if (!actingUserIsOwner && !character.getUser().getId().equals(actingUserId)) {
-            throw new RuntimeException("Character not found");
+            throw new RuntimeException("Личное дело не найдено.");
         }
 
         character.setName(req.getName());
@@ -172,7 +172,7 @@ public class CharacterService {
     // gear the player already has listed.
     public Character grantItem(Long characterId, String item) {
         Character character = characterRepository.findById(characterId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
+                .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         character.setEquipment(appendLine(character.getEquipment(), item));
         return characterRepository.save(character);
     }
@@ -186,7 +186,7 @@ public class CharacterService {
     // it going forward.
     public Character grantMaterial(Long characterId, String material) {
         Character character = characterRepository.findById(characterId)
-                .orElseThrow(() -> new RuntimeException("Character not found"));
+                .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         character.setMaterials(appendLine(character.getMaterials(), material));
         return characterRepository.save(character);
     }

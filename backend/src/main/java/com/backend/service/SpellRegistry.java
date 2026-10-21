@@ -39,7 +39,7 @@ public class SpellRegistry {
     public Spell getSpell(String spellId) {
         Spell spell = spellCache.get(spellId);
         if (spell == null) {
-            throw new ResearchException("Spell ID '" + spellId + "' does not exist in the arcane registry.");
+            throw new ResearchException("Заклинания «" + spellId + "» нет в картотеке.");
         }
         return spell;
     }

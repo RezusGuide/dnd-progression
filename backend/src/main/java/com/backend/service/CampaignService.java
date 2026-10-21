@@ -19,7 +19,7 @@ public class CampaignService {
 
     public Campaign createCampaign(String name, String description, Long userId) {
         User owner = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
 
         Campaign campaign = Campaign.builder()
                 .name(name)
@@ -36,7 +36,7 @@ public class CampaignService {
 
     public Campaign getCampaign(Long id) {
         return campaignRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Campaign not found"));
+                .orElseThrow(() -> new RuntimeException("Кампания не найдена."));
     }
 
     public List<Character> getCampaignCharacters(Long campaignId) {

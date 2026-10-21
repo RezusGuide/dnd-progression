@@ -5,6 +5,7 @@ import com.backend.dto.LoginRequest;
 import com.backend.dto.ResetPasswordRequest;
 import com.backend.entity.User;
 import com.backend.service.AuthService;
+import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +23,14 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final RoleService roleService;
+
+    // Public: tells the frontend whether first-time GM setup is still open
+    // (/admin?setup=1). Exposes nothing but this one flag.
+    @GetMapping("/setup-status")
+    public ResponseEntity<Map<String, Boolean>> setupStatus() {
+        return ResponseEntity.ok(Map.of("ownerExists", roleService.ownerExists()));
+    }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {

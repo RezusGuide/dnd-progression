@@ -24,10 +24,10 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не опознан. Проверьте почту и пароль."));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
+            throw new RuntimeException("Пропуск не опознан. Проверьте почту и пароль.");
         }
 
         return buildResponse(user);
@@ -36,7 +36,7 @@ public class AuthService {
     /** Re-reads the current user (fresh roles) for session rehydration. */
     public AuthResponse me(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         String token = jwtService.generateToken(user.getEmail(), user.getId());
         return buildResponse(user, token);
     }
@@ -55,7 +55,7 @@ public class AuthService {
     /** Generates and stores (hashed) a new recovery code, returning the plaintext once. */
     public String generateRecoveryCode(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         String code = randomRecoveryCode();
         user.setRecoveryCodeHash(passwordEncoder.encode(code));
         userRepository.save(user);
@@ -65,10 +65,10 @@ public class AuthService {
     /** Resets a password using a previously generated recovery code; the code is consumed either way. */
     public void resetPasswordWithRecoveryCode(String email, String recoveryCode, String newPassword) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Invalid email or recovery code"));
+                .orElseThrow(() -> new RuntimeException("Почта или код не подходят."));
         if (user.getRecoveryCodeHash() == null || recoveryCode == null
                 || !passwordEncoder.matches(recoveryCode, user.getRecoveryCodeHash())) {
-            throw new RuntimeException("Invalid email or recovery code");
+            throw new RuntimeException("Почта или код не подходят.");
         }
         user.setPassword(passwordEncoder.encode(newPassword));
         user.setRecoveryCodeHash(null); // single-use

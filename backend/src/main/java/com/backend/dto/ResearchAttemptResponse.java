@@ -14,6 +14,8 @@ import java.util.Map;
 public class ResearchAttemptResponse {
     private String spellId;
     private String spellName;
+    // Russian name for display (falls back to spellName when untranslated).
+    private String spellNameRu;
     private int accuracyPercentage;
     // The recorded KnownSpell accuracy after this attempt - if the
     // character already knew the spell at a higher accuracy, this attempt

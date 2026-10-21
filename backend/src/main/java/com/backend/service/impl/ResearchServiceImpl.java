@@ -124,10 +124,10 @@ public class ResearchServiceImpl implements ResearchService {
     public void unlockCantrip(Long characterId, String spellId, Long actingUserId, boolean actingUserIsOwner) {
         Spell spell = spellRegistry.getSpell(spellId);
         if (spell.getLevel() != 0) {
-            throw new ResearchException("Only cantrips can be unlocked without research.");
+            throw new ResearchException("Без исследования открываются только заговоры.");
         }
         if (knownSpellRepository.existsByCharacterIdAndSpellId(characterId, spellId)) {
-            throw new ResearchException("This character already knows that cantrip.");
+            throw new ResearchException("Этот заговор уже есть в личном деле.");
         }
         Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
         requireCasterClass(character);
@@ -154,14 +154,14 @@ public class ResearchServiceImpl implements ResearchService {
             requireHintAccess(characterId, request.getSpellId());
             hintedSpell = spellRegistry.getSpell(request.getSpellId());
             if (hintedSpell.getLevel() < SpellRegistry.MIN_RESEARCHABLE_LEVEL || hintedSpell.getLevel() > SpellRegistry.MAX_RESEARCHABLE_LEVEL) {
-                throw new ResearchException("Only level " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
-                        + "-" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " spells can be researched.");
+                throw new ResearchException("Исследовать можно только заклинания " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
+                        + "–" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " уровня.");
             }
             requireSpellClassMatch(character, hintedSpell);
             targetLevel = hintedSpell.getLevel();
         } else {
             if (request.getTargetLevel() == null) {
-                throw new ResearchException("Pick a target level before researching from scratch.");
+                throw new ResearchException("Сначала выберите уровень исследования.");
             }
             targetLevel = request.getTargetLevel();
         }
@@ -183,7 +183,7 @@ public class ResearchServiceImpl implements ResearchService {
             int have = pouch.getOrDefault(entry.getKey(), 0);
             if (have < entry.getValue()) {
                 throw new ResearchException(
-                        "Not enough " + entry.getKey() + " in the material pouch (have " + have + ", need " + entry.getValue() + ").");
+                        "Не хватает аспекта " + entry.getKey() + " в сумке: есть " + have + ", нужно " + entry.getValue() + ".");
             }
         }
         usage.forEach((aspect, used) -> pouch.merge(aspect, -used, Integer::sum));
@@ -213,7 +213,7 @@ public class ResearchServiceImpl implements ResearchService {
                 }
             }
             if (best == null) {
-                throw new ResearchException("No level " + targetLevel + " spells on this character's class list exist in the catalog yet.");
+                throw new ResearchException("В картотеке пока нет заклинаний " + targetLevel + " уровня для этого класса.");
             }
             targetSpell = best;
             accuracy = Math.min(bestScore, 80);
@@ -242,6 +242,7 @@ public class ResearchServiceImpl implements ResearchService {
         return ResearchAttemptResponse.builder()
                 .spellId(targetSpell.getId())
                 .spellName(targetSpell.getName())
+                .spellNameRu(ruName(targetSpell))
                 .accuracyPercentage(accuracy)
                 .recordedAccuracyPercentage(recorded)
                 .mode2Hinted(hinted)
@@ -255,7 +256,7 @@ public class ResearchServiceImpl implements ResearchService {
         String a = request.getAspectA();
         String b = request.getAspectB();
         if (a == null || a.isBlank() || b == null || b.isBlank()) {
-            throw new ResearchException("Pick two aspects to combine.");
+            throw new ResearchException("Выберите два аспекта для соединения.");
         }
 
         Character character = requireOwnedCharacter(characterId, actingUserId, actingUserIsOwner);
@@ -267,7 +268,7 @@ public class ResearchServiceImpl implements ResearchService {
         for (Map.Entry<String, Integer> entry : required.entrySet()) {
             int have = pouch.getOrDefault(entry.getKey(), 0);
             if (have < entry.getValue()) {
-                throw new ResearchException("You don't hold enough " + entry.getKey() + " to attempt that combination.");
+                throw new ResearchException("Не хватает аспекта " + entry.getKey() + " для этого соединения.");
             }
         }
 
@@ -315,7 +316,7 @@ public class ResearchServiceImpl implements ResearchService {
     @Transactional
     public void grantAspect(AspectGrantRequest request) {
         if (request.getAmount() <= 0) {
-            throw new ResearchException("Amount must be positive.");
+            throw new ResearchException("Количество должно быть больше нуля.");
         }
         Character character = requireCharacter(request.getCharacterId());
         character.getAspects().merge(request.getAspect(), request.getAmount(), Integer::sum);
@@ -327,8 +328,8 @@ public class ResearchServiceImpl implements ResearchService {
     public void grantHint(HintGrantRequest request) {
         Spell spell = spellRegistry.getSpell(request.getSpellId());
         if (spell.getLevel() < SpellRegistry.MIN_RESEARCHABLE_LEVEL || spell.getLevel() > SpellRegistry.MAX_RESEARCHABLE_LEVEL) {
-            throw new ResearchException("Hint access only applies to level " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
-                    + "-" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " spells.");
+            throw new ResearchException("Наводки выдаются только на заклинания " + SpellRegistry.MIN_RESEARCHABLE_LEVEL
+                    + "–" + SpellRegistry.MAX_RESEARCHABLE_LEVEL + " уровня.");
         }
         if (hintGrantRepository.existsByCharacterIdAndSpellId(request.getCharacterId(), request.getSpellId())) {
             return; // already granted - idempotent
@@ -345,9 +346,8 @@ public class ResearchServiceImpl implements ResearchService {
     private void requireCasterClass(Character character) {
         String cls = CasterClasses.normalize(character.getCharacterClass());
         if (CasterClasses.NON_CASTER_CLASSES.contains(cls)) {
-            throw new ResearchException(character.getCharacterClass()
-                    + "s don't have spellcasting in the base rules, so there's nothing here to research. "
-                    + "A skills/fighting-style minigame for martial classes is planned separately.");
+            throw new ResearchException("У этого класса нет заклинаний по базовым правилам, исследовать нечего. "
+                    + "Для воинских классов будет отдельное испытание.");
         }
     }
 
@@ -357,8 +357,7 @@ public class ResearchServiceImpl implements ResearchService {
     // classes tagged yet (older cantrip rows predate this field).
     private void requireSpellClassMatch(Character character, Spell spell) {
         if (!isClassEligible(character, spell)) {
-            throw new ResearchException(character.getCharacterClass() + "s can't learn " + spell.getName()
-                    + " - it isn't on their spell list.");
+            throw new ResearchException("Заклинание «" + ruName(spell) + "» не входит в список этого класса.");
         }
     }
 
@@ -373,13 +372,13 @@ public class ResearchServiceImpl implements ResearchService {
 
     private void requireHintAccess(Long characterId, String spellId) {
         if (!hintGrantRepository.existsByCharacterIdAndSpellId(characterId, spellId)) {
-            throw new ResearchException("This character doesn't have hint access for that spell.");
+            throw new ResearchException("На это заклинание наводки не выдано.");
         }
     }
 
     private Character requireCharacter(Long characterId) {
         return characterRepository.findById(characterId)
-                .orElseThrow(() -> new ResearchException("Character not found."));
+                .orElseThrow(() -> new ResearchException("Личное дело не найдено."));
     }
 
     // Used only by the player-facing mutating actions (cantrips, research
@@ -391,7 +390,7 @@ public class ResearchServiceImpl implements ResearchService {
     private Character requireOwnedCharacter(Long characterId, Long actingUserId, boolean actingUserIsOwner) {
         Character character = requireCharacter(characterId);
         if (!actingUserIsOwner && !character.getUser().getId().equals(actingUserId)) {
-            throw new ResearchException("Character not found.");
+            throw new ResearchException("Личное дело не найдено.");
         }
         return character;
     }
@@ -408,15 +407,15 @@ public class ResearchServiceImpl implements ResearchService {
     private void requireValidAspectCount(int level, int count) {
         int[] range = LEVEL_ASPECT_RANGE.get(level);
         if (range == null) {
-            throw new ResearchException("Level " + level + " isn't researchable.");
+            throw new ResearchException("Заклинания " + level + " уровня не исследуются.");
         }
         if (count < range[0]) {
-            throw new ResearchException("That's not enough aspects for a level " + level
-                    + " attempt (need " + range[0] + "-" + range[1] + ", placed " + count + ").");
+            throw new ResearchException("Мало аспектов для " + level
+                    + " уровня: нужно " + range[0] + "–" + range[1] + ", размещено " + count + ".");
         }
         if (count > range[1]) {
-            throw new ResearchException("That's too many aspects for a level " + level
-                    + " attempt (need " + range[0] + "-" + range[1] + ", placed " + count + ").");
+            throw new ResearchException("Слишком много аспектов для " + level
+                    + " уровня: нужно " + range[0] + "–" + range[1] + ", размещено " + count + ".");
         }
     }
 
@@ -437,13 +436,12 @@ public class ResearchServiceImpl implements ResearchService {
         }
 
         if (distinct.size() < minDistinct) {
-            throw new ResearchException("A level " + level + " attempt needs at least " + minDistinct
-                    + " different kinds of aspect, not just a pile of one or two (placed " + distinct.size() + ").");
+            throw new ResearchException("Для " + level + " уровня нужно не меньше " + minDistinct
+                    + " разных аспектов, размещено " + distinct.size() + ".");
         }
         if (exotic < minExotic) {
-            throw new ResearchException("A level " + level + " attempt needs at least " + minExotic
-                    + " compound (non-primal) aspects worked in - the six primal aspects alone aren't enough "
-                    + "past the earliest levels (placed " + exotic + ").");
+            throw new ResearchException("Для " + level + " уровня нужно не меньше " + minExotic
+                    + " составных аспектов, одних базовых мало (размещено " + exotic + ").");
         }
     }
 
@@ -483,8 +481,8 @@ public class ResearchServiceImpl implements ResearchService {
 
         if (visited.size() != cells.size()) {
             throw new ResearchException(guide != null
-                    ? "Your placed aspects must connect to each other and to the guide pattern."
-                    : "Your placed aspects must all connect to form one shape.");
+                    ? "Аспекты должны соединяться друг с другом и с образцом."
+                    : "Все аспекты должны образовать одну связную фигуру.");
         }
     }
 
@@ -504,5 +502,11 @@ public class ResearchServiceImpl implements ResearchService {
 
     private String anchorKey(GridAnchor a) {
         return a.getAspect() + ":" + a.getQ() + "," + a.getR();
+    }
+
+    // Russian display name, falling back to the English one while spells.json
+    // translations are still being filled in.
+    private static String ruName(Spell spell) {
+        return spell.getNameRu() != null && !spell.getNameRu().isBlank() ? spell.getNameRu() : spell.getName();
     }
 }

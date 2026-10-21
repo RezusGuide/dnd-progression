@@ -33,7 +33,7 @@ public class RoleService {
     public Role createRole(String key, String label, String description, List<String> sections) {
         String normalizedKey = key.trim().toUpperCase().replace(' ', '_');
         if (roleRepository.existsByKey(normalizedKey)) {
-            throw new RuntimeException("A role with that key already exists");
+            throw new RuntimeException("Роль с таким ключом уже есть.");
         }
         Role role = Role.builder()
                 .key(normalizedKey)
@@ -47,9 +47,9 @@ public class RoleService {
     @Transactional
     public User assignRole(Long userId, String roleKey) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         Role role = roleRepository.findByKey(roleKey)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new RuntimeException("Роль не найдена."));
         user.getRoles().add(role);
         return userRepository.save(user);
     }
@@ -57,9 +57,9 @@ public class RoleService {
     @Transactional
     public User revokeRole(Long userId, String roleKey) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         Role role = roleRepository.findByKey(roleKey)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new RuntimeException("Роль не найдена."));
         user.getRoles().remove(role);
         return userRepository.save(user);
     }
@@ -90,10 +90,10 @@ public class RoleService {
     @Transactional
     public User createAccount(String username, String email, String password) {
         if (userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Email already in use");
+            throw new RuntimeException("Эта почта уже занята.");
         }
         if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username already taken");
+            throw new RuntimeException("Это имя уже занято.");
         }
         User user = User.builder()
                 .username(username)
@@ -107,7 +107,7 @@ public class RoleService {
     @Transactional
     public User resetPassword(Long userId, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         user.setPassword(passwordEncoder.encode(newPassword));
         return userRepository.save(user);
     }
@@ -118,13 +118,17 @@ public class RoleService {
      * that, role assignment goes through the normal admin endpoints (which
      * require being an owner already).
      */
-    @Transactional
-    public User bootstrapOwner(Long userId) {
-        boolean ownerExists = roleRepository.findByKey(OWNER_KEY)
+    @Transactional(readOnly = true)
+    public boolean ownerExists() {
+        return roleRepository.findByKey(OWNER_KEY)
                 .map(r -> !r.getUsers().isEmpty())
                 .orElse(false);
-        if (ownerExists) {
-            throw new RuntimeException("An owner is already set for this site");
+    }
+
+    @Transactional
+    public User bootstrapOwner(Long userId) {
+        if (ownerExists()) {
+            throw new RuntimeException("ГМ уже назначен.");
         }
         Role owner = roleRepository.findByKey(OWNER_KEY)
                 .orElseGet(() -> roleRepository.save(
@@ -136,7 +140,7 @@ public class RoleService {
                                 .build()
                 ));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         user.getRoles().add(owner);
         return userRepository.save(user);
     }
