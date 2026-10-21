@@ -183,7 +183,7 @@ export default function CharacterSheet() {
             await navigator.clipboard.writeText(window.location.href)
             setLinkCopied(true)
             setTimeout(() => setLinkCopied(false), 1500)
-        } catch { /* clipboard not available - ignore, same as Minecraft.jsx's copy button */ }
+        } catch { /* clipboard not available - ignore */ }
     }
 
     const saveTimer = useRef(null)

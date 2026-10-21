@@ -25,7 +25,7 @@ public class CharacterService {
     private final UserRepository userRepository;
     private final com.backend.repository.CampaignRepository campaignRepository;
     // Instantiated directly rather than injected - same reasoning as
-    // SpellRegistry/CombatService/MinecraftPingService: this project's
+    // SpellRegistry/CombatService: this project's
     // auto-configured Jackson bean is Jackson 3
     // (tools.jackson.databind.ObjectMapper), not this classic Jackson 2 one.
     private final ObjectMapper objectMapper = new ObjectMapper();

@@ -72,36 +72,18 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
 
                         // Public read-only content - anyone, logged in or not, can view
-                        // Portfolio, Media, Announcements, Downloads, D&D and Minecraft.
-                        .requestMatchers(HttpMethod.GET, "/api/portfolio/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/media/**").permitAll()
+                        // Announcements and the D&D area.
                         .requestMatchers(HttpMethod.GET, "/api/announcements/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/downloads/public").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/characters/**", "/api/campaigns/**", "/api/spells/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/minecraft/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/polls/**").permitAll()
 
                         // Any logged-in account (there's no per-friend section picking
                         // anymore - everyone with a login gets the same access) can CRUD
-                        // the D&D area and Minecraft info/polls.
+                        // the D&D area.
                         .requestMatchers("/api/characters/**", "/api/campaigns/**", "/api/spells/**").authenticated()
-                        .requestMatchers("/api/minecraft/**", "/api/polls/**").authenticated()
-
-                        // Useful Functions (people/relationships) - owner only, full stop,
-                        // no public viewing at all.
-                        .requestMatchers("/api/people/**").hasAuthority("SECTION_ALL")
 
                         // Owner-only writes on otherwise-public content.
-                        .requestMatchers(HttpMethod.POST, "/api/portfolio/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.PUT, "/api/portfolio/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.DELETE, "/api/portfolio/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.POST, "/api/media/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.PUT, "/api/media/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.DELETE, "/api/media/**").hasAuthority("SECTION_ALL")
                         .requestMatchers(HttpMethod.POST, "/api/announcements/**").hasAuthority("SECTION_ALL")
                         .requestMatchers(HttpMethod.DELETE, "/api/announcements/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.POST, "/api/downloads").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.DELETE, "/api/downloads/**").hasAuthority("SECTION_ALL")
 
                         // Admin: bootstrap only needs auth (guarded in the service instead -
                         // it refuses once an owner exists); everything else needs OWNER.

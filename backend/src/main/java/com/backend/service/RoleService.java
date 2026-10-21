@@ -66,7 +66,7 @@ public class RoleService {
 
     /**
      * Every account - self-registered or admin-created - gets MEMBER
-     * (dnd + minecraft) automatically. There's no per-friend section
+     * (dnd) automatically. There's no per-friend section
      * picking: you either have an account or you don't.
      */
     @Transactional
@@ -76,8 +76,8 @@ public class RoleService {
                         Role.builder()
                                 .key(MEMBER_KEY)
                                 .label("Member")
-                                .description("Standard account access: D&D and Minecraft.")
-                                .sections(List.of("dnd", "minecraft"))
+                                .description("Standard account access: D&D.")
+                                .sections(List.of("dnd"))
                                 .build()
                 ));
         user.getRoles().add(member);

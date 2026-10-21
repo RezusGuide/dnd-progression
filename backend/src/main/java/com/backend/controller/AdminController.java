@@ -73,7 +73,7 @@ public class AdminController {
 
     /**
      * Owner hands a friend a login directly instead of them registering
-     * themselves. Gets the standard MEMBER access (dnd + minecraft) like
+     * themselves. Gets the standard MEMBER access (dnd) like
      * any other account.
      */
     @PostMapping("/users")

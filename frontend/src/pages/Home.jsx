@@ -1,49 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useLang } from '../context/LangContext'
-import api from '../api/axios'
+import { Link } from 'react-router-dom'
 
-// Landing page - hero (name/tagline) plus a card grid to every section.
-// Shares the "hub" design system (see index.css) with Portfolio and Media;
-// Minecraft/D&D/Useful Functions are reached from here but keep their own
-// look once you're inside them.
-const SECTIONS = [
-    { key: 'portfolio', route: '/portfolio', icon: '◆', labelKey: 'navPortfolio', descKey: 'homeSectionPortfolio' },
-    { key: 'media', route: '/media', icon: '▶', labelKey: 'navMedia', descKey: 'homeSectionMedia' },
-    { key: 'gallery', route: '/gallery', icon: '◈', labelKey: 'navGallery', descKey: 'homeSectionGallery' },
-    { key: 'dnd', route: '/characters', icon: '⚔', labelKey: 'navDnd', descKey: 'homeSectionDnd' },
-    { key: 'minecraft', route: '/minecraft', icon: '⛏', labelKey: 'navMinecraft', descKey: 'homeSectionMinecraft' },
-]
-
+// Temporary landing page while the site turns into the Zlatopryady portal
+// (see docs/zlatopryady/ROADMAP.md). The real "Reception" home page arrives
+// in stage 3; until then this just points at the D&D sections. Russian-only
+// on purpose - the EN toggle goes away in stage 2.
 export default function Home() {
-    const { t, lang } = useLang()
-    const navigate = useNavigate()
-    const [profile, setProfile] = useState(null)
-
-    useEffect(() => {
-        api.get('/api/portfolio/profile').then((res) => setProfile(res.data)).catch(() => {})
-    }, [])
-
-    // Same EN-with-RU-fallback rule as the Portfolio page - see the `pick`
-    // helper there for why.
-    const tagline = lang === 'ru' && profile?.taglineRu ? profile.taglineRu : profile?.tagline
-
     return (
-        <div className="hub-page">
-            <div className="hub-hero">
-                <p className="hub-kicker">{t('homeKicker')}</p>
-                <h1 className="hub-name">{profile?.name || t('homeTitle')}</h1>
-                <p className="hub-tagline">{tagline || t('homeSubtitle')}</p>
+        <div className="parchment-page">
+            <div className="tome-header">
+                <h1 className="tome-title">Санни инкорпорейтед</h1>
             </div>
 
-            <div className="hub-sections">
-                {SECTIONS.map((s) => (
-                    <button key={s.key} className="hub-section-card" onClick={() => navigate(s.route)}>
-                        <span className="hub-section-icon">{s.icon}</span>
-                        <span className="hub-section-title">{t(s.labelKey)}</span>
-                        <span className="hub-section-desc">{t(s.descKey)}</span>
-                    </button>
-                ))}
+            <div className="tome-panel" style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+                <p>Портал кампании «Златопряды». Архив переезжает, приёмная скоро откроется.</p>
+                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.5rem' }}>
+                    <Link to="/characters" className="tome-btn">Персонажи</Link>
+                    <Link to="/campaigns" className="tome-btn">Кампании</Link>
+                    <Link to="/announcements" className="tome-btn">Объявления</Link>
+                </div>
             </div>
         </div>
     )
