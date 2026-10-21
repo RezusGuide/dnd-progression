@@ -1,0 +1,109 @@
+/* Дизайн-токены Санни инкорпорейтед.
+   Основа: docs/zlatopryady/assets/sunny-tokens.css (базовая палитра).
+   Поверх неё семантический слой: компоненты ссылаются только на него
+   (--surface-*, --text*, --accent*, --border*, --danger, --focus-ring),
+   а не на «сырые» --sunny-* цвета. Подключается первым в main.jsx. */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Mono&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Roboto+Slab:wght@800&display=swap');
+
+:root {
+  /* ── Базовая палитра ── */
+  --sunny-night: #12203A;      /* Ночь: чернила, тёмный фон */
+  --sunny-dawn: #F4B63D;       /* Рассвет: фон кнопок, метки (как ТЕКСТ на светлом не годится) */
+  --sunny-brass: #B8862F;      /* Латунь: рамки, шестерёнки, иконки */
+  --sunny-brass-dark: #8A5F12; /* Тёмная латунь: акцентный текст на светлом */
+  --sunny-ember: #E8743B;      /* Уголёк: штампы, нос кота, язык мимика */
+  --sunny-steam: #F6EEDC;      /* Пар: пергамент, светлый фон */
+
+  /* ── Маскоты ── */
+  --cat-fur: #3C6FB8;
+  --cat-fur-shadow: #2F5FA8;
+  --cat-fur-light: #CFE0F5;
+  --cat-ear-inner: #F7D58A;    /* светлые уши */
+  --cat-cheek: #F7A8A0;        /* розовые щёчки */
+  --mimic-wood: #8A5A2B;
+  --mimic-lid: #A8702F;
+  --mimic-feet: #6B4520;       /* тёмные ножки */
+  --mascot-white: #FFFFFF;     /* белки глаз, блики */
+
+  /* ── Служебные ── */
+  --sunny-paper-card: #FFFDF7;
+  --sunny-paper-line: #E3D6B8;
+  --sunny-text-muted: #4A5568;
+  --sunny-danger: #8B1E1E;     /* красная подчёркивающая линия «неверно» */
+
+  /* ── Производные (не из исходной палитры) ── */
+  --sunny-dawn-deep: #E0A22A;  /* hover для кнопок на dawn: тот же тон, чуть темнее */
+  --sunny-ember-deep: #B4471A; /* уголёк для ТЕКСТА штампа на светлом: --sunny-ember даёт только 2.8:1 */
+  --sunny-paper-sunken: #EFE5CC; /* «вдавленная» бумага: метки, неактивные плитки */
+  --sunny-success: #2E6B3A;    /* успех: хиты, «сохранено» (4.5:1+ на бумаге) */
+  --sunny-night-card: #1C2E4F; /* карточка в ночной теме */
+  --sunny-night-sunken: #0C1629;
+  --sunny-night-line: #34476A;
+  --sunny-night-muted: #B9C3D6;
+  --sunny-night-danger: #F2958A;
+  --sunny-night-success: #8FD19A;
+
+  /* ── Шрифты ── */
+  --font-body: 'PT Serif', Georgia, serif;
+  --font-label: 'Oswald', 'Arial Narrow', sans-serif;  /* подписи, кнопки, шильдики: uppercase + .08em */
+  --font-logo: 'Roboto Slab', Georgia, serif;          /* только слово SUNNY */
+  --font-mono: 'PT Mono', 'Courier New', monospace;    /* номера дел, штампы, числа в листе */
+  --label-spacing: 0.08em;
+}
+
+/* ── Семантический слой: день, то есть контора (по умолчанию) ── */
+:root,
+[data-theme="day"] {
+  --surface-page: var(--sunny-steam);
+  --surface-card: var(--sunny-paper-card);
+  --surface-sunken: var(--sunny-paper-sunken);
+  --surface-input: rgba(255, 255, 255, 0.55);
+  --surface-inverse: var(--sunny-night);  /* шапки колонок, навбар */
+  --text: var(--sunny-night);
+  --text-muted: var(--sunny-text-muted);
+  --text-inverse: var(--sunny-steam);
+  --accent: var(--sunny-dawn);            /* ФОН акцентных кнопок */
+  --accent-hover: var(--sunny-dawn-deep);
+  --on-accent: var(--sunny-night);        /* текст на --accent */
+  --accent-text: var(--sunny-brass-dark); /* акцентный текст на бумаге */
+  --accent-soft: rgba(244, 182, 61, 0.22);
+  --rule-line: rgba(184, 134, 47, 0.13);  /* линовка «конторской книги» на фоне */
+  --border: var(--sunny-paper-line);
+  --border-strong: var(--sunny-brass);
+  --danger: var(--sunny-danger);
+  --success: var(--sunny-success);
+  --stamp: var(--sunny-ember-deep);
+  --focus-ring: var(--cat-fur-shadow);
+  --shadow-color: rgba(18, 32, 58, 0.14);
+
+  color-scheme: light;
+}
+
+/* ── Ночь: «Сны» и «Исследования». Ставится атрибутом на любой контейнер. ── */
+[data-theme="night"] {
+  --surface-page: var(--sunny-night);
+  --surface-card: var(--sunny-night-card);
+  --surface-sunken: var(--sunny-night-sunken);
+  --surface-input: rgba(246, 238, 220, 0.06);
+  --surface-inverse: var(--sunny-night-sunken);
+  --text: var(--sunny-steam);
+  --text-muted: var(--sunny-night-muted);
+  --text-inverse: var(--sunny-steam);
+  --accent: var(--sunny-dawn);
+  --accent-hover: var(--sunny-dawn-deep);
+  --on-accent: var(--sunny-night);
+  --accent-text: var(--sunny-dawn);
+  --accent-soft: rgba(244, 182, 61, 0.16);
+  --rule-line: rgba(246, 238, 220, 0.04);
+  --border: var(--sunny-night-line);
+  --border-strong: var(--sunny-brass);
+  --danger: var(--sunny-night-danger);
+  --success: var(--sunny-night-success);
+  --stamp: var(--sunny-ember);
+  --focus-ring: var(--sunny-dawn);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+
+  color-scheme: dark;
+  color: var(--text);
+}

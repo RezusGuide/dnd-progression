@@ -1,0 +1,75 @@
+/* Logo and mascots (components/brand). Colours are CSS classes on top of
+   tokens.css instead of hex in the SVG, so a palette change never needs a
+   JSX edit. Fill classes set only `fill`, stroke classes only `stroke`. */
+
+/* ── Logo ── */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  color: inherit;
+}
+
+.logo-words {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.12em;
+}
+
+.logo-sunny {
+  font-family: var(--font-logo);
+  font-weight: 800;
+  font-size: 1em;
+  letter-spacing: 0.04em;
+}
+
+.logo-inc {
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 0.36em;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.emblem-ground { fill: var(--sunny-night); }
+.emblem-ring { stroke: var(--sunny-dawn); }
+.emblem-rays { stroke: var(--sunny-dawn); }
+.emblem-sun { fill: var(--sunny-dawn); }
+.emblem-gear { fill: var(--sunny-brass); transform-box: view-box; transform-origin: 100px 160px; }
+.emblem-hub { fill: var(--sunny-night); }
+.emblem-rune { stroke: var(--sunny-dawn); }
+
+.emblem-mono .emblem-rays,
+.emblem-mono .emblem-rune { stroke: currentColor; }
+.emblem-mono .emblem-sun,
+.emblem-mono .emblem-gear { fill: currentColor; }
+
+/* ── Mascot paint ── */
+.m-fur { fill: var(--cat-fur); }
+.m-fur-light { fill: var(--cat-fur-light); }
+.m-fur-shadow-stroke { stroke: var(--cat-fur-shadow); }
+.m-ear-inner { fill: var(--cat-ear-inner); }
+.m-cheek { fill: var(--cat-cheek); }
+.m-white { fill: var(--mascot-white); }
+.m-dawn { fill: var(--sunny-dawn); }
+.m-dawn-stroke { stroke: var(--sunny-dawn); }
+.m-ember { fill: var(--sunny-ember); }
+.m-ink { fill: var(--sunny-night); }
+.m-ink-stroke { stroke: var(--sunny-night); }
+.m-brass { fill: var(--sunny-brass); }
+.m-steam { fill: var(--sunny-steam); }
+.m-paper { fill: var(--sunny-paper-card); }
+.m-paper-stroke { stroke: var(--sunny-paper-card); }
+.m-paper-line { fill: var(--sunny-paper-line); }
+.m-mimic-wood { fill: var(--mimic-wood); }
+.m-mimic-lid { fill: var(--mimic-lid); }
+.m-mimic-feet { fill: var(--mimic-feet); }
+
+.mascot { display: block; overflow: visible; }
+
+/* Every animatable group rotates/moves around its own box by default. */
+.mascot g { transform-box: fill-box; transform-origin: center; }
+/* The lid swings on its hinge, not around its middle. */
+.mascot .mimic-lid { transform-box: view-box; transform-origin: 30px 94px; }
+.mascot .cat-tail { transform-origin: 0% 100%; }
+.mascot .cat-head { transform-origin: 50% 90%; }
