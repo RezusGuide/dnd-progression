@@ -192,6 +192,8 @@
 .chest-archive-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
 
 /* ── Панель ГМ → «Сундучок» ── */
+.chest-wrong-list { list-style: none; margin: 0.25rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.9rem; }
+.chest-wrong-list .chest-origin { font-family: var(--font-mono); margin-right: 0.5rem; }
 .chest-gm-layout { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr); gap: 1.25rem; align-items: start; }
 .chest-gm-form { min-width: 0; }
 .chest-fieldset { border: 0; padding: 0; margin: 0 0 1rem; min-width: 0; }

@@ -52,19 +52,6 @@ export default function GearTab({ character, form, update, canEdit, editing }) {
                 <p className="coin-total">Всего ≈ {coinsInGold(form).toLocaleString('ru-RU')} зм</p>
             </SheetSection>
 
-            <SheetSection title="Снаряжение">
-                <TextBlock hideLabel label="Снаряжение" editing={editing} value={form.equipment} rows={6} onChange={(v) => update({ equipment: v })} />
-            </SheetSection>
-
-            <div className="sheet-two-col">
-                <SheetSection title="Прочие владения и языки">
-                    <TextBlock hideLabel label="Прочие владения и языки" editing={editing} value={form.otherProficiencies} onChange={(v) => update({ otherProficiencies: v })} />
-                </SheetSection>
-                <SheetSection title="Сокровища">
-                    <TextBlock hideLabel label="Сокровища" editing={editing} value={form.treasure} onChange={(v) => update({ treasure: v })} />
-                </SheetSection>
-            </div>
-
             {items && (
                 <SheetSection title="Предметы из Сундучка" actions={<Link className="gate-link" to={`/characters/${character.id}/chest`}>Открыть Сундучок →</Link>}>
                     {items.length === 0 ? (
@@ -82,6 +69,20 @@ export default function GearTab({ character, form, update, canEdit, editing }) {
                     )}
                 </SheetSection>
             )}
+
+            <SheetSection title="Обычное снаряжение и заметки">
+                <p className="sheet-hint">Верёвка, факелы, паёк — всё, что не числится в описи.</p>
+                <TextBlock hideLabel label="Обычное снаряжение и заметки" editing={editing} value={form.equipment} rows={6} onChange={(v) => update({ equipment: v })} />
+            </SheetSection>
+
+            <div className="sheet-two-col">
+                <SheetSection title="Прочие владения и языки">
+                    <TextBlock hideLabel label="Прочие владения и языки" editing={editing} value={form.otherProficiencies} onChange={(v) => update({ otherProficiencies: v })} />
+                </SheetSection>
+                <SheetSection title="Сокровища">
+                    <TextBlock hideLabel label="Сокровища" editing={editing} value={form.treasure} onChange={(v) => update({ treasure: v })} />
+                </SheetSection>
+            </div>
 
             <SheetSection
                 title="Сумка"

@@ -42,6 +42,8 @@ public class ChestService {
 
     public static final Set<String> COINS = Set.of("cp", "sp", "ep", "gp", "pp");
     public static final int LOCK_MINUTES = 10;
+    public static final int KEEP_WRONG_ANSWERS = 10;
+    public static final int WRONG_ANSWER_LENGTH = 100;
 
     private final ChestRewardRepository rewardRepository;
     private final InventoryItemRepository itemRepository;
@@ -70,7 +72,9 @@ public class ChestService {
     // ── Opening ──
 
     /** What happened on POST .../open: opened, bitten (409) or still locked (423). */
-    public record OpenOutcome(Kind kind, ChestRewardResponse reward, String penalty, LocalDateTime lockedUntil, Integer hpCurrent) {
+    // spared: the chest bit with HP_1 but there were no hit points left to take.
+    public record OpenOutcome(Kind kind, ChestRewardResponse reward, String penalty, LocalDateTime lockedUntil, Integer hpCurrent,
+                              boolean spared) {
         public enum Kind { OPENED, BITTEN, LOCKED }
 
         public long lockSeconds() {
@@ -118,20 +122,24 @@ public class ChestService {
         if (r.getStatus() == ChestReward.Status.OPENED) throw ApiException.conflict("Сундучок уже открыт.");
         LocalDateTime now = LocalDateTime.now();
         if (r.getLockedUntil() != null && r.getLockedUntil().isAfter(now)) {
-            return new OpenOutcome(OpenOutcome.Kind.LOCKED, null, r.getPenalty().name(), r.getLockedUntil(), c.getHpCurrent());
+            return new OpenOutcome(OpenOutcome.Kind.LOCKED, null, r.getPenalty().name(), r.getLockedUntil(), c.getHpCurrent(), false);
         }
         if (r.getRiddleAnswerHash() != null && !r.getRiddleAnswerHash().equals(hashAnswer(answer))) {
             r.setWrongAttempts(r.getWrongAttempts() + 1);
+            r.setWrongAnswers(write(appendWrong(readWrong(r.getWrongAnswers()), answer, now)));
+            boolean spared = false;
             switch (r.getPenalty()) {
                 case HP_1 -> {
-                    c.setHpCurrent(Math.max(0, (c.getHpCurrent() == null ? 0 : c.getHpCurrent()) - 1));
+                    int hp = c.getHpCurrent() == null ? 0 : c.getHpCurrent();
+                    spared = hp <= 0;
+                    c.setHpCurrent(Math.max(0, hp - 1));
                     characterRepository.save(c);
                 }
                 case LOCK_10_MIN -> r.setLockedUntil(now.plusMinutes(LOCK_MINUTES));
                 case NONE -> { }
             }
             rewardRepository.save(r);
-            return new OpenOutcome(OpenOutcome.Kind.BITTEN, null, r.getPenalty().name(), r.getLockedUntil(), c.getHpCurrent());
+            return new OpenOutcome(OpenOutcome.Kind.BITTEN, null, r.getPenalty().name(), r.getLockedUntil(), c.getHpCurrent(), spared);
         }
 
         // Everything moves at once, inside this transaction.
@@ -153,7 +161,7 @@ public class ChestService {
         r.setOpenedAt(now);
         r.setLockedUntil(null);
         rewardRepository.save(r);
-        return new OpenOutcome(OpenOutcome.Kind.OPENED, toResponse(r, false), null, null, c.getHpCurrent());
+        return new OpenOutcome(OpenOutcome.Kind.OPENED, toResponse(r, false), null, null, c.getHpCurrent(), false);
     }
 
     private static void addCoins(Character c, String coin, int n) {
@@ -372,10 +380,34 @@ public class ChestService {
                 .hasRiddle(r.getRiddleAnswerHash() != null).riddleQuestion(r.getRiddleQuestion())
                 .penalty(r.getPenalty().name()).lockedUntil(r.getLockedUntil()).lockSeconds(secondsLeft(r.getLockedUntil()))
                 .wrongAttempts(r.getWrongAttempts())
+                .wrongAnswers(forGm ? readWrong(r.getWrongAnswers()) : null)
                 .gmNote(open ? r.getGmNote() : null)
                 .contents(open ? read(r.getContents()) : null)
                 .createdAt(r.getCreatedAt()).openedAt(r.getOpenedAt()).createdBy(forGm ? r.getCreatedBy() : null)
                 .build();
+    }
+
+    // ── Wrong answers (GM only) ──
+
+    static List<Map<String, String>> appendWrong(List<Map<String, String>> list, String answer, LocalDateTime at) {
+        List<Map<String, String>> out = new ArrayList<>(list);
+        String text = answer == null ? "" : answer.strip();
+        if (text.length() > WRONG_ANSWER_LENGTH) text = text.substring(0, WRONG_ANSWER_LENGTH);
+        Map<String, String> row = new LinkedHashMap<>();
+        row.put("answer", text);
+        row.put("at", at.withNano(0).toString());
+        out.add(row);
+        return out.size() > KEEP_WRONG_ANSWERS ? new ArrayList<>(out.subList(out.size() - KEEP_WRONG_ANSWERS, out.size())) : out;
+    }
+
+    private List<Map<String, String>> readWrong(String json) {
+        if (json == null || json.isBlank()) return List.of();
+        try {
+            return objectMapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<List<Map<String, String>>>() {
+            });
+        } catch (Exception e) {
+            return List.of();
+        }
     }
 
     private static InventoryItem.Rarity rarity(String raw) {
@@ -391,7 +423,7 @@ public class ChestService {
         return s == null || s.isBlank() ? null : s.strip();
     }
 
-    private String write(ChestContents contents) {
+    private String write(Object contents) {
         try {
             return objectMapper.writeValueAsString(contents);
         } catch (Exception e) {

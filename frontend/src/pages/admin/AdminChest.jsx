@@ -222,6 +222,7 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
 
 function SentList({ sent, characters, onChanged }) {
     const [status, setStatus] = useState('')
+    const [openId, setOpenId] = useState(null) // reward whose wrong answers are shown
     const [who, setWho] = useState('')
     const [error, setError] = useState('')
     if (!sent) return null
@@ -256,19 +257,36 @@ function SentList({ sent, characters, onChanged }) {
                         <thead>
                             <tr><th scope="col">Посылка</th><th scope="col">Получатель</th><th scope="col">Статус</th><th scope="col">Загадка</th><th scope="col">Неверных</th><th scope="col">Дата</th><th scope="col"><span className="visually-hidden">Действия</span></th></tr>
                         </thead>
-                        <tbody>
-                            {shown.map((r) => (
-                                <tr key={r.id}>
+                        {shown.map((r) => (
+                            <tbody key={r.id}>
+                                <tr>
                                     <th scope="row">{r.title}</th>
                                     <td>{r.characterName}</td>
                                     <td><span className={`chest-status chest-status-${r.status.toLowerCase()}`}>{r.status === 'SEALED' ? 'Запечатана' : 'Открыта'}</span></td>
                                     <td>{r.hasRiddle ? PENALTIES[r.penalty] : '—'}</td>
-                                    <td className="chest-num">{r.wrongAttempts}</td>
+                                    <td className="chest-num">
+                                        {r.wrongAnswers?.length > 0 ? (
+                                            <button type="button" className="chest-item-name" aria-expanded={openId === r.id}
+                                                onClick={() => setOpenId(openId === r.id ? null : r.id)}>{r.wrongAttempts}</button>
+                                        ) : r.wrongAttempts}
+                                    </td>
                                     <td className="chest-origin">{formatDateTime(r.openedAt || r.createdAt)}</td>
                                     <td className="chest-actions">{r.status === 'SEALED' && <Button variant="ghost" onClick={() => remove(r.id)}>Отозвать</Button>}</td>
                                 </tr>
-                            ))}
-                        </tbody>
+                                {openId === r.id && (
+                                    <tr className="chest-item-details">
+                                        <td colSpan={7}>
+                                            <p className="sheet-label">Неверные ответы (последние {r.wrongAnswers.length}, видны только вам)</p>
+                                            <ul className="chest-wrong-list">
+                                                {r.wrongAnswers.map((w, i) => (
+                                                    <li key={i}><span className="chest-origin">{formatDateTime(w.at)}</span> «{w.answer}»</li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        ))}
                     </table>
                 </div>
             )}

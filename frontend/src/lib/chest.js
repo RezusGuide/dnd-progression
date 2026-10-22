@@ -23,6 +23,9 @@ export const PENALTIES = {
     LOCK_10_MIN: 'Обидеться на 10 минут',
 }
 
+// The HP_1 bite when there are no hit points left to take.
+export const SPARED_TEXT = 'Сундучок принюхался и пожалел вас.'
+
 // What the player reads after a wrong answer.
 export const BITE_TEXT = {
     NONE: 'Сундучок клацнул крышкой. Ответ неверный.',

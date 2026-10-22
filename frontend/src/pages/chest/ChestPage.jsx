@@ -7,7 +7,7 @@ import ErrorScreen from '../../components/errors/ErrorScreen'
 import MimicMascot from '../../components/brand/MimicMascot'
 import AspectIcon from '../../components/aspects/AspectIcon'
 import ChestContentsList, { RarityTag } from '../../components/chest/ChestContentsList'
-import { BITE_TEXT, coinsText, countdown, deadlineFrom, prefersReducedMotion, useTick } from '../../lib/chest'
+import { BITE_TEXT, SPARED_TEXT, coinsText, countdown, deadlineFrom, prefersReducedMotion, useTick } from '../../lib/chest'
 import { useMagicData } from '../../lib/magic'
 import { formatDateTime } from '../../constants/dnd-ru'
 import '../../styles/sheet.css'
@@ -115,7 +115,7 @@ function Chest({ characterId }) {
         } catch (err) {
             const data = err.response?.data
             if (err.response?.status === 409 && data?.bitten) {
-                setBite({ penalty: data.penalty, deadline: deadlineFrom(data.lockSeconds) })
+                setBite({ penalty: data.penalty, deadline: deadlineFrom(data.lockSeconds), spared: !!data.spared })
                 if (!prefersReducedMotion()) {
                     setMood('biting')
                     setTimeout(() => setMood('idle'), BITE_MS)
@@ -217,7 +217,7 @@ function Chest({ characterId }) {
                         onKeyDown={(e) => { if (e.key === 'Enter' && answer.trim() && !lockLeft) open(riddle, answer) }} />
                     {bite && (
                         <p className={`chest-bite ${prefersReducedMotion() ? '' : 'is-shaking'}`} role="alert">
-                            {bite.locked ? 'Сундучок обиделся и молчит.' : BITE_TEXT[bite.penalty] || BITE_TEXT.NONE}
+                            {bite.locked ? 'Сундучок обиделся и молчит.' : bite.spared ? SPARED_TEXT : BITE_TEXT[bite.penalty] || BITE_TEXT.NONE}
                             {lockLeft && <span className="chest-timer"> До примирения {lockLeft}.</span>}
                         </p>
                     )}

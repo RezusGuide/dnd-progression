@@ -55,6 +55,7 @@ public class ChestController {
                 out.put("lockedUntil", outcome.lockedUntil());
                 out.put("lockSeconds", outcome.lockSeconds());
                 out.put("hpCurrent", outcome.hpCurrent());
+                out.put("spared", outcome.spared());
                 yield ResponseEntity.status(HttpStatus.CONFLICT).body(out);
             }
             case LOCKED -> {

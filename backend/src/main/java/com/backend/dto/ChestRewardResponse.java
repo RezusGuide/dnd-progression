@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A reward as the client sees it. There is no field for the riddle answer
@@ -26,6 +28,8 @@ public class ChestRewardResponse {
     // down from this, so server and browser clocks or time zones never matter.
     private long lockSeconds;
     private int wrongAttempts;
+    // GM only: [{"answer": "...", "at": "..."}], newest last; null for players.
+    private List<Map<String, String>> wrongAnswers;
     private String gmNote;
     private ChestContents contents;
     private LocalDateTime createdAt;

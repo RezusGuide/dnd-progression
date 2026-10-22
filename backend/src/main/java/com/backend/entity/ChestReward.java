@@ -73,6 +73,13 @@ public class ChestReward {
     @Builder.Default
     private int wrongAttempts = 0;
 
+    // The last 10 wrong answers, [{"answer": "...", "at": "..."}], each cut
+    // to 100 characters. For the GM's eyes only (never in player responses).
+    @JsonIgnore
+    @ToString.Exclude
+    @Column(name = "wrong_answers", columnDefinition = "TEXT")
+    private String wrongAnswers;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

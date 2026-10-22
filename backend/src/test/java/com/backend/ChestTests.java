@@ -138,8 +138,26 @@ class ChestTests {
         c.setHpCurrent(0);
         characterRepository.save(c);
         Long id = chest.send(reward(c.getId(), "?", "да", "HP_1"), null).get(0).getId();
-        chest.open(c.getId(), id, "нет", player);
+        OpenOutcome out = chest.open(c.getId(), id, "нет", player);
+        assertTrue(out.spared());
         assertEquals(0, reload(c).getHpCurrent());
+    }
+
+    @Test
+    void wrongAnswersAreKeptForTheGmOnly() {
+        User player = newPlayer();
+        Character c = hero(player, ApprovalStatus.APPROVED, null);
+        Long id = chest.send(reward(c.getId(), "?", "да", "NONE"), null).get(0).getId();
+        for (int i = 1; i <= 12; i++) chest.open(c.getId(), id, "попытка " + i, player);
+        chest.open(c.getId(), id, "x".repeat(150), player);
+
+        ChestRewardResponse gm = chest.sent(null).stream().filter(r -> r.getId().equals(id)).findFirst().orElseThrow();
+        assertEquals(10, gm.getWrongAnswers().size());
+        assertEquals("попытка 4", gm.getWrongAnswers().get(0).get("answer"));
+        assertEquals(100, gm.getWrongAnswers().get(9).get("answer").length());
+        assertNotNull(gm.getWrongAnswers().get(9).get("at"));
+
+        assertNull(chest.chest(c.getId(), player).get(0).getWrongAnswers());
     }
 
     @Test
