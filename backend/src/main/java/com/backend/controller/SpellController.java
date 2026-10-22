@@ -34,6 +34,8 @@ public class SpellController {
                 .id(s.getId()).name(s.getName()).level(s.getLevel()).description(s.getDescription())
                 .castingTime(s.getCastingTime()).range(s.getRange()).components(s.getComponents()).duration(s.getDuration())
                 .nameRu(s.getNameRu()).descriptionRu(s.getDescriptionRu())
+                .castingTimeRu(s.getCastingTimeRu()).rangeRu(s.getRangeRu())
+                .durationRu(s.getDurationRu()).componentsRu(s.getComponentsRu())
                 .classes(s.getClasses())
                 .build();
     }

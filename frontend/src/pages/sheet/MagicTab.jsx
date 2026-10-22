@@ -12,32 +12,9 @@ import { TIPS } from './tips'
 
 const LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-// spells.json keeps casting time / range / duration in English; the common
-// phrasings are shown in Russian, anything else as written.
-const PHRASES = [
-    [/^(\d+) bonus action$/i, '$1 бонусное действие'],
-    [/^(\d+) action$/i, '$1 действие'],
-    [/^(\d+) reaction.*$/i, '$1 реакция'],
-    [/^1 minute$/i, '1 минута'],
-    [/^(\d+) minutes$/i, '$1 минут'],
-    [/^1 hour$/i, '1 час'],
-    [/^(\d+) hours$/i, '$1 ч'],
-    [/^(\d+) feet$/i, '$1 фт'],
-    [/^(\d+) miles?$/i, '$1 миль'],
-    [/^self.*$/i, 'на себя'],
-    [/^touch$/i, 'касание'],
-    [/^sight$/i, 'в пределах видимости'],
-    [/^unlimited$/i, 'без ограничений'],
-    [/^instantaneous$/i, 'мгновенная'],
-    [/^concentration, up to (.*)$/i, 'концентрация, до $1'],
-    [/^until dispelled$/i, 'пока не рассеется'],
-]
-function ru(text) {
-    if (!text) return ''
-    for (const [re, out] of PHRASES) if (re.test(text)) return text.replace(re, out)
-    return text
-}
-const components = (c) => (c || '').replace(/\bV\b/g, 'В').replace(/\bS\b/g, 'С').replace(/\bM\b/g, 'М')
+// Russian casting time / range / duration / components come from
+// spells.json (*Ru fields); the English field is the fallback.
+const ru = (info, key) => info[`${key}Ru`] || info[key] || ''
 
 function SpellRow({ spell, meta }) {
     const [open, setOpen] = useState(false)
@@ -46,13 +23,13 @@ function SpellRow({ spell, meta }) {
         <li className="spell-row">
             <button type="button" className="spell-row-head" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
                 <span className="spell-name">{spellName(info)}</span>
-                <span className="spell-meta">{[ru(info.castingTime), ru(info.range)].filter(Boolean).join(' · ')}</span>
+                <span className="spell-meta">{[ru(info, 'castingTime'), ru(info, 'range')].filter(Boolean).join(' · ')}</span>
             </button>
             {open && (
                 <div className="spell-body">
                     <p className="spell-facts">
-                        {info.components && <span>Компоненты: {components(info.components)}</span>}
-                        {info.duration && <span>Длительность: {ru(info.duration)}</span>}
+                        {info.components && <span>Компоненты: {ru(info, 'components')}</span>}
+                        {info.duration && <span>Длительность: {ru(info, 'duration')}</span>}
                         {spell.accuracyPercentage != null && spell.level > 0 && <span>Сила: {spell.accuracyPercentage}%</span>}
                     </p>
                     <p className="sheet-prose">{spellDescription(info) || '—'}</p>

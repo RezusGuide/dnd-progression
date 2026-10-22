@@ -5,9 +5,13 @@
     "level": 0,
     "description": "Hurl a mote of fire at a creature or object within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Огненный снаряд",
     "descriptionRu": "Метните искру пламени в существо или предмет в пределах дистанции.",
@@ -22,9 +26,13 @@
     "level": 0,
     "description": "A frigid beam of blue-white light streaks toward a creature.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Луч холода",
     "descriptionRu": "Морозный бело-голубой луч устремляется к существу.",
@@ -39,9 +47,13 @@
     "level": 0,
     "description": "A spectral, floating hand appears and can manipulate objects at a distance.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [],
     "nameRu": "Волшебная рука",
     "descriptionRu": "Призрачная парящая рука появляется и может манипулировать предметами на расстоянии.",
@@ -58,9 +70,13 @@
     "level": 0,
     "description": "Create a sound or an image of an object within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "S, M",
+    "componentsRu": "С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [],
     "nameRu": "Малая иллюзия",
     "descriptionRu": "Создайте звук или образ предмета в пределах дистанции.",
@@ -77,9 +93,13 @@
     "level": 0,
     "description": "Hurl a bubble of acid at one or two creatures within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Кислотный всплеск",
     "descriptionRu": "Метните пузырь кислоты в одну или две цели в пределах дистанции.",
@@ -94,9 +114,13 @@
     "level": 0,
     "description": "Ward yourself against physical harm, gaining resistance to bludgeoning, piercing, and slashing damage until your next turn.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [],
     "nameRu": "Заговор клинков",
     "descriptionRu": "Защититесь от физического урона, получая сопротивление дробящему, колющему и рубящему урону до начала следующего хода.",
@@ -113,9 +137,13 @@
     "level": 0,
     "description": "A ghostly, skeletal hand reaches out to assail a creature with the chill of the grave.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [],
     "nameRu": "Замогильный холод",
     "descriptionRu": "Призрачная костлявая рука тянется к существу, поражая его могильным холодом.",
@@ -130,9 +158,13 @@
     "level": 0,
     "description": "Create up to four torch-sized lights that hover and move as you direct.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [],
     "nameRu": "Пляшущие огоньки",
     "descriptionRu": "Создайте до четырёх огоньков размером с факел, которые парят и двигаются по вашей воле.",
@@ -148,9 +180,13 @@
     "level": 0,
     "description": "Call up a minor nature effect, such as predicting the weather or making a flower bloom.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Друидизм",
     "descriptionRu": "Вызовите небольшой природный эффект: предскажите погоду или заставьте цветок распуститься.",
@@ -164,9 +200,13 @@
     "level": 0,
     "description": "Gain advantage on Charisma checks toward one creature, who becomes hostile once the spell ends.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "S, M",
+    "componentsRu": "С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [],
     "nameRu": "Дружба",
     "descriptionRu": "Получите преимущество на проверки Харизмы против одного существа, которое станет враждебным, когда заклинание закончится.",
@@ -183,9 +223,13 @@
     "level": 0,
     "description": "Touch a willing creature and give it an extra d4 to add to one ability check of its choice.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [],
     "nameRu": "Наставление",
     "descriptionRu": "Коснитесь согласного существа и дайте ему d4, который можно добавить к одной проверке характеристики.",
@@ -200,9 +244,13 @@
     "level": 0,
     "description": "Make an object shed bright light in a 20-foot radius.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [],
     "nameRu": "Свет",
     "descriptionRu": "Заставьте предмет излучать яркий свет в радиусе 20 футов.",
@@ -219,9 +267,13 @@
     "level": 0,
     "description": "Mend a single break or tear in an object you touch.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Починка",
     "descriptionRu": "Почините один разлом или разрыв на предмете, которого касаетесь.",
@@ -239,9 +291,13 @@
     "level": 0,
     "description": "Whisper a message to a creature of your choice within range, heard only by that creature.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [],
     "nameRu": "Послание",
     "descriptionRu": "Прошепчите сообщение существу по вашему выбору в пределах дистанции, которое услышит только оно.",
@@ -257,9 +313,13 @@
     "level": 0,
     "description": "Extend your hand toward a creature and project a puff of noxious gas.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Ядовитые брызги",
     "descriptionRu": "Протяните руку к существу и выпустите облако едкого газа.",
@@ -276,9 +336,13 @@
     "level": 0,
     "description": "Perform a minor magical trick - a spark, a smell, a small sensory flourish.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Up to 1 hour",
+    "durationRu": "до 1 часа",
     "pattern": [],
     "nameRu": "Фокусы",
     "descriptionRu": "Исполните мелкий волшебный трюк: искру, запах или другой небольшой эффект.",
@@ -295,9 +359,13 @@
     "level": 0,
     "description": "A flickering flame appears in your hand, usable to light the way or thrown as an attack.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [],
     "nameRu": "Создание пламени",
     "descriptionRu": "Мерцающее пламя появляется в вашей руке - им можно осветить путь или метнуть как снаряд.",
@@ -311,9 +379,13 @@
     "level": 0,
     "description": "Touch a willing creature and give it an extra d4 to add to one saving throw of its choice.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [],
     "nameRu": "Сопротивление",
     "descriptionRu": "Коснитесь согласного существа и дайте ему d4, который можно добавить к одному спасброску.",
@@ -328,9 +400,13 @@
     "level": 0,
     "description": "Flame-like radiance descends on a creature you can see, searing it with holy fire.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Священное пламя",
     "descriptionRu": "Пламеподобное сияние нисходит на существо, которое вы видите, обжигая его святым огнём.",
@@ -344,9 +420,13 @@
     "level": 0,
     "description": "Imbue a club or quarterstaff with nature's power, letting it strike with magical force.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [],
     "nameRu": "Дубинка",
     "descriptionRu": "Наполните дубинку или посох силой природы, позволяя ей бить с волшебной силой.",
@@ -360,9 +440,13 @@
     "level": 0,
     "description": "Lightning springs from your hand into a creature you're touching, and it can't take reactions until your next turn.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Удар молнии",
     "descriptionRu": "Молния срывается с вашей руки в существо, которого вы касаетесь, и оно не может совершать реакции до начала вашего следующего хода.",
@@ -377,9 +461,13 @@
     "level": 0,
     "description": "Touch a living creature with 0 hit points to stabilize it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Пощада умирающего",
     "descriptionRu": "Коснитесь живого существа с 0 хитов, чтобы стабилизировать его.",
@@ -393,9 +481,13 @@
     "level": 0,
     "description": "Manifest a minor wonder - a tremor, a flickering flame, a booming voice.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Up to 1 minute",
+    "durationRu": "до 1 минуты",
     "pattern": [],
     "nameRu": "Чудотворство",
     "descriptionRu": "Проявите малое чудо: дрожь земли, мерцание пламени, громовой голос.",
@@ -409,9 +501,13 @@
     "level": 0,
     "description": "A vine-like whip lashes out at a creature, dealing damage and pulling it closer.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Шипастая плеть",
     "descriptionRu": "Похожий на лозу хлыст обрушивается на существо, нанося урон и притягивая его к вам.",
@@ -425,9 +521,13 @@
     "level": 0,
     "description": "Focus your mind on one creature to gain insight into your next attack against it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "S",
+    "componentsRu": "С",
     "duration": "Concentration, up to 1 round",
+    "durationRu": "концентрация, до 1 раунда",
     "pattern": [],
     "nameRu": "Верный удар",
     "descriptionRu": "Сосредоточьтесь на существе, чтобы получить преимущество на следующую атаку против него.",
@@ -444,9 +544,13 @@
     "level": 0,
     "description": "Unleash an insult laced with subtle enchantments at a creature you can see.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Жестокая насмешка",
     "descriptionRu": "Обрушьте на существо, которое видите, оскорбление, наполненное тонкими чарами.",
@@ -460,9 +564,13 @@
     "level": 1,
     "description": "A thin sheet of flame shoots forth from your outstretched fingertips.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (15-foot cone)",
+    "rangeRu": "на себя (конус 15 фт)",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -493,9 +601,13 @@
     "level": 1,
     "description": "A creature you touch regains a number of hit points.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -534,9 +646,13 @@
     "level": 1,
     "description": "An invisible barrier of magical force appears and protects you.",
     "castingTime": "1 reaction",
+    "castingTimeRu": "1 реакция",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "ORDO",
@@ -572,9 +688,13 @@
     "level": 2,
     "description": "Create three rays of fire and hurl them at targets within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -615,9 +735,13 @@
     "level": 2,
     "description": "Thick, sticky webs fill a 20-foot cube, restraining creatures caught in them.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TERRA",
@@ -653,9 +777,13 @@
     "level": 3,
     "description": "A bright streak flashes to a point you choose and blossoms with a low roar into an explosion of flame.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -701,9 +829,13 @@
     "level": 4,
     "description": "A hail of rock-hard ice pounds to the ground in a cylindrical area.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -754,9 +886,13 @@
     "level": 5,
     "description": "A blast of cold air erupts from your hands in a 60-foot cone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (60-foot cone)",
+    "rangeRu": "на себя (конус 60 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -812,9 +948,13 @@
     "level": 6,
     "description": "A bolt of lightning arcs toward a target, then leaps to other nearby targets.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AER",
@@ -875,9 +1015,13 @@
     "level": 7,
     "description": "A beam of yellow light streaks toward a point, exploding into a fireball that grows more destructive the longer it's left ticking.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -943,9 +1087,13 @@
     "level": 8,
     "description": "Brilliant sunlight flashes in a 60-foot radius, blinding creatures and dealing heavy radiant damage.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -1017,9 +1165,13 @@
     "level": 1,
     "description": "Sets an alarm against unwanted intrusion, alerting you audibly or mentally when a creature enters the warded area.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -1050,9 +1202,13 @@
     "level": 1,
     "description": "Convince a beast that you mean it no harm, calming it toward you for a day.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -1083,9 +1239,13 @@
     "level": 1,
     "description": "Up to three creatures you choose must subtract a d4 from every attack roll and saving throw.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "PERDITIO",
@@ -1116,9 +1276,13 @@
     "level": 1,
     "description": "Up to three creatures you choose add a d4 to every attack roll and saving throw.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -1149,9 +1313,13 @@
     "level": 1,
     "description": "One humanoid you can see must succeed a Wisdom save or regard you as a friendly acquaintance.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -1185,9 +1353,13 @@
     "level": 1,
     "description": "Hurl a sphere of energy whose damage type you choose on the spot.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "POTENTIA",
@@ -1218,9 +1390,13 @@
     "level": 1,
     "description": "A dazzling array of flashing, colored light blinds creatures in the area.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (15-foot cone)",
+    "rangeRu": "на себя (конус 15 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "LUX",
@@ -1251,9 +1427,13 @@
     "level": 1,
     "description": "Speak a single word of command that a creature must obey.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -1284,9 +1464,13 @@
     "level": 1,
     "description": "Understand the literal meaning of any language you hear or see written.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -1319,9 +1503,13 @@
     "level": 1,
     "description": "Bind a creature's attention to you, giving it disadvantage on attacking anyone but you.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -1351,9 +1539,13 @@
     "level": 1,
     "description": "Conjure up to 10 gallons of clean water, or destroy water in an open container.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -1384,9 +1576,13 @@
     "level": 1,
     "description": "Sense the presence and location of celestials, fiends, undead, and consecrated ground within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -1417,9 +1613,13 @@
     "level": 1,
     "description": "Sense the presence of magic within 30 feet and see a faint aura around its source.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -1456,9 +1656,13 @@
     "level": 1,
     "description": "Sense the presence and location of poisons, poisonous creatures, and diseases within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -1491,9 +1695,13 @@
     "level": 1,
     "description": "Change your appearance, including clothing and gear, into another humanoid form.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -1526,9 +1734,13 @@
     "level": 1,
     "description": "Whisper a discordant melody only one creature can hear, wracking its mind with terrible pain.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -1558,9 +1770,13 @@
     "level": 1,
     "description": "Your weapon flares with holy energy, adding radiant damage to its next hits.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -1590,9 +1806,13 @@
     "level": 1,
     "description": "Grasping weeds and vines sprout from the ground, turning it into difficult terrain.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -1623,9 +1843,13 @@
     "level": 1,
     "description": "The next weapon hit you land causes thorny vines to restrain the target.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -1655,9 +1879,13 @@
     "level": 1,
     "description": "Your speed increases, letting you Dash as a bonus action each turn.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -1689,9 +1917,13 @@
     "level": 1,
     "description": "Objects and creatures in the area are outlined in colored light, unable to benefit from being invisible.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -1721,9 +1953,13 @@
     "level": 1,
     "description": "Bolster yourself with a necromantic simulacrum of health, gaining temporary hit points.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -1754,9 +1990,13 @@
     "level": 1,
     "description": "Choose up to five falling creatures, slowing their descent to a gentle drift.",
     "castingTime": "1 reaction",
+    "castingTimeRu": "1 реакция",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "AER",
@@ -1787,9 +2027,13 @@
     "level": 1,
     "description": "Summon a spirit that takes an animal form of your choosing to serve as a familiar.",
     "castingTime": "1 hour (ritual)",
+    "castingTimeRu": "1 час (ритуал)",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -1819,9 +2063,13 @@
     "level": 1,
     "description": "Summon a spirit that takes the form of a loyal, intelligent steed.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -1851,9 +2099,13 @@
     "level": 1,
     "description": "A sphere of fog fills the area, heavily obscuring it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -1886,9 +2138,13 @@
     "level": 1,
     "description": "Up to ten berries grow, each a meal in miniature and each healing 1 hit point when eaten.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -1919,9 +2175,13 @@
     "level": 1,
     "description": "Slick grease covers the ground, making it difficult terrain that can knock creatures prone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -1951,9 +2211,13 @@
     "level": 1,
     "description": "A flash of light streaks toward a creature, and the next attack against it gains advantage.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "LUX",
@@ -1983,9 +2247,13 @@
     "level": 1,
     "description": "Your next ranged weapon hit bursts into thorny vines, raining damage on nearby creatures.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -2015,9 +2283,13 @@
     "level": 1,
     "description": "A creature of your choice regains hit points at range, no touch required.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -2049,9 +2321,13 @@
     "level": 1,
     "description": "You point at the creature that just hurt you, and the ground erupts in hellish flame around it.",
     "castingTime": "1 reaction",
+    "castingTimeRu": "1 реакция",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -2081,9 +2357,13 @@
     "level": 1,
     "description": "A willing creature is imbued with bravery, gaining temporary hit points and immunity to being frightened.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -2114,9 +2394,13 @@
     "level": 1,
     "description": "Curse a creature so your attacks against it deal extra necrotic damage.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -2146,9 +2430,13 @@
     "level": 1,
     "description": "Mark a creature as your quarry, dealing extra damage to it whenever you hit.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -2178,9 +2466,13 @@
     "level": 1,
     "description": "Learn the properties, method of activation, and any curse on a magic item or ongoing effect.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -2211,9 +2503,13 @@
     "level": 1,
     "description": "Write a message that appears as gibberish unless read by someone you designate.",
     "castingTime": "1 hour (ritual)",
+    "castingTimeRu": "1 час (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "S, M",
+    "componentsRu": "С, М",
     "duration": "10 days",
+    "durationRu": "10 дней",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -2245,9 +2541,13 @@
     "level": 1,
     "description": "Your touch channels negative energy that sears necrotic wounds into a creature.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -2277,9 +2577,13 @@
     "level": 1,
     "description": "A creature's jump distance triples for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -2312,9 +2616,13 @@
     "level": 1,
     "description": "A creature's speed increases by 10 feet.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -2348,9 +2656,13 @@
     "level": 1,
     "description": "A protective magical force surrounds an unarmored creature, setting its base AC.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "ORDO",
@@ -2381,9 +2693,13 @@
     "level": 1,
     "description": "Three glowing darts of magical force strike unerringly, no attack roll needed.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "POTENTIA",
@@ -2414,9 +2730,13 @@
     "level": 1,
     "description": "Ward a creature against aberrations, celestials, elementals, fey, fiends, and undead.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -2449,9 +2769,13 @@
     "level": 1,
     "description": "All non-magical food and drink in the area is purified and rendered free of poison and disease.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -2483,9 +2807,13 @@
     "level": 1,
     "description": "A ray of sickening greenish energy lashes out, poisoning the creature it strikes.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -2516,9 +2844,13 @@
     "level": 1,
     "description": "Ward a creature so that any attacker must first succeed a Wisdom save to target it.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -2548,9 +2880,13 @@
     "level": 1,
     "description": "Your next weapon hit flares with fire, dealing extra damage and igniting the target.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -2580,9 +2916,13 @@
     "level": 1,
     "description": "A shimmering field surrounds a creature, granting it a bonus to AC.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "LUX",
@@ -2613,9 +2953,13 @@
     "level": 1,
     "description": "Create a purely visual illusion of an object, creature, or effect.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -2647,9 +2991,13 @@
     "level": 1,
     "description": "Creatures in the area fall into a magical slumber, weakest affected first.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -2681,9 +3029,13 @@
     "level": 1,
     "description": "Gain the ability to understand and verbally communicate with beasts.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -2715,9 +3067,13 @@
     "level": 1,
     "description": "A creature is overcome with mirth, falling prone and helpless with laughter.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -2748,9 +3104,13 @@
     "level": 1,
     "description": "Create a horizontal disk of force that floats after you, carrying cargo.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -2780,9 +3140,13 @@
     "level": 1,
     "description": "Your next weapon hit rings out with thunder, dealing extra damage and knocking the target back.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -2812,9 +3176,13 @@
     "level": 1,
     "description": "A wave of thunderous force sweeps out from you, pushing creatures away.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (15-foot cube)",
+    "rangeRu": "на себя (куб 15 фт)",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "AER",
@@ -2847,9 +3215,13 @@
     "level": 1,
     "description": "Create an invisible, mindless force that can perform simple labor at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -2881,9 +3253,13 @@
     "level": 1,
     "description": "A beam of crackling energy lances out and arcs back to you each turn, dealing damage anew.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -2915,9 +3291,13 @@
     "level": 1,
     "description": "Your next weapon hit is charged with psychic wrath, dealing extra damage and frightening the target.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -2947,9 +3327,13 @@
     "level": 2,
     "description": "A shimmering green arrow streaks to its target, bursting into acid that also splashes a moment later.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -2984,9 +3368,13 @@
     "level": 2,
     "description": "Bolster up to three creatures' fortitude, increasing their maximum and current hit points.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -3022,9 +3410,13 @@
     "level": 2,
     "description": "Reshape your own body - grow gills, sprout claws, or take on another's appearance.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -3060,9 +3452,13 @@
     "level": 2,
     "description": "A tiny beast carries a short message to a location or creature you describe.",
     "castingTime": "1 action (ritual)",
+    "castingTimeRu": "1 действие (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -3099,9 +3495,13 @@
     "level": 2,
     "description": "Ward a door, chest, or portal so only you and those you name may open it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -3136,9 +3536,13 @@
     "level": 2,
     "description": "Ask the powers of fate to render a simple omen - weal, woe, or something in between - about a course of action.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "PRAECANTATIO",
@@ -3173,9 +3577,13 @@
     "level": 2,
     "description": "A creature's skin toughens like bark, setting a minimum Armor Class.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -3211,9 +3619,13 @@
     "level": 2,
     "description": "Perceive the world through the senses of a beast you touch.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -3249,9 +3661,13 @@
     "level": 2,
     "description": "Rob a creature of sight or hearing unless it resists.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -3289,9 +3705,13 @@
     "level": 2,
     "description": "Your outline blurs, shifting and wavering, making you harder to hit.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -3327,9 +3747,13 @@
     "level": 2,
     "description": "Your next weapon hit brands the target with searing light visible through any obstruction.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -3364,9 +3788,13 @@
     "level": 2,
     "description": "Suppress violent emotion in a group, quieting a fight or a mob.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -3402,9 +3830,13 @@
     "level": 2,
     "description": "Fill a cube of air with spinning daggers that slash anything passing through.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -3441,9 +3873,13 @@
     "level": 2,
     "description": "A flame springs into being on an object, giving off heatless light forever.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -3479,9 +3915,13 @@
     "level": 2,
     "description": "Plant four ordinary arrows in the ground that fire themselves at intruders.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "5 feet",
+    "rangeRu": "5 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -3516,9 +3956,13 @@
     "level": 2,
     "description": "A crown of jagged iron takes shape on a humanoid's head, compelling it to attack whoever you choose.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -3556,9 +4000,13 @@
     "level": 2,
     "description": "Magical darkness spreads from a point you choose, snuffing out most other light.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -3595,9 +4043,13 @@
     "level": 2,
     "description": "A creature gains the ability to see in the dark as if it were dim light.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -3635,9 +4087,13 @@
     "level": 2,
     "description": "Read the surface thoughts of one creature you can see within 30 feet.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -3674,9 +4130,13 @@
     "level": 2,
     "description": "Touch a creature and bolster one of its abilities, granting advantage on checks that use it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "POTENTIA",
@@ -3714,9 +4174,13 @@
     "level": 2,
     "description": "A creature or object grows to twice its size, or shrinks to half.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -3752,9 +4216,13 @@
     "level": 2,
     "description": "Weave a captivating performance that distracts everyone nearby, dropping their guard against you.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -3790,9 +4258,13 @@
     "level": 2,
     "description": "Sense the presence of any trap within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -3829,9 +4301,13 @@
     "level": 2,
     "description": "Summon a fiery blade of scorching flame in your hand.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -3866,9 +4342,13 @@
     "level": 2,
     "description": "A 5-foot ball of fire rolls at your command, scorching anything it touches.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -3904,9 +4384,13 @@
     "level": 2,
     "description": "Protect a corpse from decay and from becoming undead.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "10 days",
+    "durationRu": "10 дней",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -3942,9 +4426,13 @@
     "level": 2,
     "description": "A powerful wind blasts out from you, pushing creatures and extinguishing flames.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (60-foot line)",
+    "rangeRu": "на себя (линия 60 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "AER",
@@ -3981,9 +4469,13 @@
     "level": 2,
     "description": "A metal object glows red-hot, searing anyone in contact with it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "METALLUM",
@@ -4018,9 +4510,13 @@
     "level": 2,
     "description": "A humanoid target is paralyzed, frozen in place unless it resists.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "HUMANUS",
@@ -4060,9 +4556,13 @@
     "level": 2,
     "description": "A creature you touch becomes invisible until it attacks or casts a spell.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -4100,9 +4600,13 @@
     "level": 2,
     "description": "A loud knock sounds and a lock, bar, or arcane ward on an object opens.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -4137,9 +4641,13 @@
     "level": 2,
     "description": "Touch a creature and end one disease or condition afflicting it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SANO",
@@ -4178,9 +4686,13 @@
     "level": 2,
     "description": "A creature or object rises into the air and hovers, floating wherever you direct.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "AER",
@@ -4216,9 +4728,13 @@
     "level": 2,
     "description": "Learn the direction and distance to the nearest creature or plant of a specific kind.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -4255,9 +4771,13 @@
     "level": 2,
     "description": "Sense the direction to a well-known or specific object within 1,000 feet.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -4297,9 +4817,13 @@
     "level": 2,
     "description": "Implant a message in an object that it speaks aloud when a trigger you set occurs.",
     "castingTime": "1 hour (ritual)",
+    "castingTimeRu": "1 час (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -4335,9 +4859,13 @@
     "level": 2,
     "description": "A nonmagical weapon becomes magical, granting a bonus to attack and damage rolls.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -4373,9 +4901,13 @@
     "level": 2,
     "description": "Three illusory duplicates of yourself spring into being, confusing attackers about which is real.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -4412,9 +4944,13 @@
     "level": 2,
     "description": "Surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space you can see.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -4451,9 +4987,13 @@
     "level": 2,
     "description": "A silvery beam of pale light shines down in a cylinder, searing creatures within.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -4488,9 +5028,13 @@
     "level": 2,
     "description": "A veil of shadow and silence radiates from you, masking you and your companions from detection.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -4526,9 +5070,13 @@
     "level": 2,
     "description": "Craft an illusion that plays directly on a target's mind, seeming completely real to it alone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -4566,9 +5114,13 @@
     "level": 2,
     "description": "Up to six creatures regain hit points after a period of respite and prayer.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -4603,9 +5155,13 @@
     "level": 2,
     "description": "Neutralize one poison afflicting a creature and grant it resistance against further poison.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -4643,9 +5199,13 @@
     "level": 2,
     "description": "A black beam of enervating energy weakens a creature's physical might.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "PERDITIO",
@@ -4681,9 +5241,13 @@
     "level": 2,
     "description": "A rope rises and disappears into an extradimensional space at its top, accessible only by climbing it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -4718,9 +5282,13 @@
     "level": 2,
     "description": "See invisible creatures and objects as if they were visible, and see into the Ethereal Plane.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -4757,9 +5325,13 @@
     "level": 2,
     "description": "A sudden loud, ringing noise painfully assaults creatures in the area and can crack fragile objects.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -4797,9 +5369,13 @@
     "level": 2,
     "description": "For the duration, no sound can be created within or pass through a sphere centered on a point you choose.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -4835,9 +5411,13 @@
     "level": 2,
     "description": "A creature gains the ability to move up, down, and across vertical surfaces and ceilings while leaving its hands free.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -4874,9 +5454,13 @@
     "level": 2,
     "description": "The ground twists with hidden spikes, turning the area into difficult, wounding terrain.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -4912,9 +5496,13 @@
     "level": 2,
     "description": "A spectral weapon of your deity's favored form springs into being, striking on your command.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "SPIRITUS",
@@ -4949,9 +5537,13 @@
     "level": 2,
     "description": "Suggest a reasonable-sounding course of action to a creature, compelling it to follow through.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "Concentration, up to 8 hours",
+    "durationRu": "концентрация, до 8 часов",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -4989,9 +5581,13 @@
     "level": 2,
     "description": "Link your fate to another's, sharing your protection and any harm that befalls them.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VINCULUM",
@@ -5026,9 +5622,13 @@
     "level": 2,
     "description": "Creatures within a 15-foot-radius zone cannot speak a deliberate lie while inside it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -5065,9 +5665,13 @@
     "level": 3,
     "description": "Raise a corpse or bones as an undead servant obedient to your will.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -5108,9 +5712,13 @@
     "level": 3,
     "description": "A healing aura surrounds you, letting you channel vitality into wounded allies as a bonus action.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -5150,9 +5758,13 @@
     "level": 3,
     "description": "Bolster the resolve of those around you, granting advantage on saves against despair and on death saves.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -5192,9 +5804,13 @@
     "level": 3,
     "description": "Touch a creature and lay a curse on it, hindering its every effort.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -5236,9 +5852,13 @@
     "level": 3,
     "description": "Your next weapon hit flares with radiance, dealing extra damage and blinding the target.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -5278,9 +5898,13 @@
     "level": 3,
     "description": "Summon a storm cloud that lets you call down bolts of lightning at will.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -5320,9 +5944,13 @@
     "level": 3,
     "description": "Create an invisible sensor at a distant location, letting you see or hear through it.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "1 mile",
+    "rangeRu": "1 миля",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -5365,9 +5993,13 @@
     "level": 3,
     "description": "Summon a fey spirit that takes the form of beasts to fight at your side.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -5408,9 +6040,13 @@
     "level": 3,
     "description": "Hurl a spectral duplicate of a weapon that explodes outward, striking everything in a cone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (60-foot cone)",
+    "rangeRu": "на себя (конус 60 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -5450,9 +6086,13 @@
     "level": 3,
     "description": "Interrupt a creature in the process of casting a spell, unraveling it before it takes effect.",
     "castingTime": "1 reaction",
+    "castingTimeRu": "1 реакция",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "S",
+    "componentsRu": "С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -5494,9 +6134,13 @@
     "level": 3,
     "description": "Conjure a feast of simple food and clean water, enough to sustain a small group.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -5537,9 +6181,13 @@
     "level": 3,
     "description": "A field of radiant power surrounds you, adding holy force to the weapon strikes of nearby allies.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -5579,9 +6227,13 @@
     "level": 3,
     "description": "A 60-foot radius of true sunlight springs from a point you choose, banishing darkness.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "LUX",
@@ -5625,9 +6277,13 @@
     "level": 3,
     "description": "Choose a creature, object, or effect within range and end the magical effects on it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -5673,9 +6329,13 @@
     "level": 3,
     "description": "A weapon is imbued with one of the elements, gaining a bonus and extra elemental damage on hit.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -5715,9 +6375,13 @@
     "level": 3,
     "description": "Project a phantasmal image of your most terrible aspect, sending creatures in a cone fleeing in terror.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (30-foot cone)",
+    "rangeRu": "на себя (конус 30 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -5760,9 +6424,13 @@
     "level": 3,
     "description": "A willing creature falls into a deathlike trance, appearing dead to all inspection.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -5804,9 +6472,13 @@
     "level": 3,
     "description": "A creature you touch gains a flying speed for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "AER",
@@ -5848,9 +6520,13 @@
     "level": 3,
     "description": "A willing creature transforms into a misty cloud, able to seep through cracks and float on the air.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "AER",
@@ -5892,9 +6568,13 @@
     "level": 3,
     "description": "Inscribe a glyph that unleashes a stored spell or explosion when its trigger condition is met.",
     "castingTime": "1 hour (ritual)",
+    "castingTimeRu": "1 час (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -5936,9 +6616,13 @@
     "level": 3,
     "description": "A willing creature's speed doubles and its reactions sharpen for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -5979,9 +6663,13 @@
     "level": 3,
     "description": "A rift to a starless void opens, filling an area with grasping cold and gnawing hunger.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -6021,9 +6709,13 @@
     "level": 3,
     "description": "A twisting pattern of colors weaves through the air, leaving those who see it dazed and captivated.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -6066,9 +6758,13 @@
     "level": 3,
     "description": "A shimmering dome of force springs up around you, sheltering you and your companions from the world.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Self (10-foot radius)",
+    "rangeRu": "на себя (радиус 10 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -6108,9 +6804,13 @@
     "level": 3,
     "description": "Your next ranged weapon hit crackles with lightning, striking the target and arcing to those nearby.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -6150,9 +6850,13 @@
     "level": 3,
     "description": "A stroke of lightning blasts out from you in a line, striking everything in its path.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (100-foot line)",
+    "rangeRu": "на себя (линия 100 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -6193,9 +6897,13 @@
     "level": 3,
     "description": "Draw a 10-foot cylinder of protection that wards against a chosen kind of extraplanar creature.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -6238,9 +6946,13 @@
     "level": 3,
     "description": "A convincing illusion of an object, creature, or effect, complete with sound and smell.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -6283,9 +6995,13 @@
     "level": 3,
     "description": "Speak a word of restoration and up to six creatures within range regain hit points.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -6325,9 +7041,13 @@
     "level": 3,
     "description": "Step into a stone surface and merge your body with it, hiding within the rock itself.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "TERRA",
@@ -6368,9 +7088,13 @@
     "level": 3,
     "description": "Hide a creature, object, or place from divination magic and scrying for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -6412,9 +7136,13 @@
     "level": 3,
     "description": "A quasi-real, horselike creature takes shape to carry a rider swiftly over long distances.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -6454,9 +7182,13 @@
     "level": 3,
     "description": "Overgrow an area with lush vegetation, or enrich the land so its plants flourish for a season.",
     "castingTime": "1 action or 8 hours",
+    "castingTimeRu": "1 действие или 8 часов",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -6497,9 +7229,13 @@
     "level": 3,
     "description": "A creature gains resistance to one damage type of your choosing for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -6543,9 +7279,13 @@
     "level": 3,
     "description": "End all curses afflicting a creature, or break the binding holding a creature planebound.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -6587,9 +7327,13 @@
     "level": 3,
     "description": "Return a creature slain within the last minute to life, so long as its body remains whole.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -6630,9 +7374,13 @@
     "level": 3,
     "description": "Send a short telepathic message to a creature you know anywhere, with a reply if it chooses.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Unlimited",
+    "rangeRu": "без ограничений",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -6674,9 +7422,13 @@
     "level": 3,
     "description": "Freezing rain and sleet fall in the area, coating the ground in slick ice and obscuring vision.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -6718,9 +7470,13 @@
     "level": 3,
     "description": "A corpse's spirit is compelled to answer up to five questions truthfully, as best it can.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -6760,9 +7516,13 @@
     "level": 3,
     "description": "Plants in the area gain limited sentience and mobility, able to converse and act on your request.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (30-foot radius)",
+    "rangeRu": "на себя (радиус 30 фт)",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -6804,9 +7564,13 @@
     "level": 3,
     "description": "Spectral guardians flock around you, wounding hostile creatures who come near.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (15-foot radius)",
+    "rangeRu": "на себя (радиус 15 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SPIRITUS",
@@ -6846,9 +7610,13 @@
     "level": 3,
     "description": "A nauseating gas billows out, causing creatures inside to retch and gag.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -6889,9 +7657,13 @@
     "level": 3,
     "description": "A creature you touch understands and can speak any language for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -6935,9 +7707,13 @@
     "level": 3,
     "description": "Your touch withers life and channels the stolen vitality into your own wounds.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -6978,9 +7754,13 @@
     "level": 3,
     "description": "Up to ten willing creatures gain the ability to breathe underwater for the duration.",
     "castingTime": "1 action (ritual)",
+    "castingTimeRu": "1 действие (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -7023,9 +7803,13 @@
     "level": 3,
     "description": "Up to ten willing creatures gain the ability to move across any liquid surface as if it were solid ground.",
     "castingTime": "1 action (ritual)",
+    "castingTimeRu": "1 действие (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -7068,9 +7852,13 @@
     "level": 3,
     "description": "A wall of strong wind rises, deflecting arrows, gasses, and small creatures away from it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "AER",
@@ -7111,9 +7899,13 @@
     "level": 4,
     "description": "Create an invisible, magical eye that flies wherever you direct it and relays what it sees.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -7158,9 +7950,13 @@
     "level": 4,
     "description": "A 30-foot aura of positive energy grants resistance to necrotic damage and revives dying allies.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -7205,9 +8001,13 @@
     "level": 4,
     "description": "A 30-foot aura wards allies against disease and grants resistance to poison and worsening conditions.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SANO",
@@ -7252,9 +8052,13 @@
     "level": 4,
     "description": "A creature you can see is banished to a harmless demiplane, or sent home if it's not native here.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -7303,9 +8107,13 @@
     "level": 4,
     "description": "Necromantic energy sears the moisture and life from a creature or withers a plant outright.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -7353,9 +8161,13 @@
     "level": 4,
     "description": "Creatures affected must move away from you in a direction you choose.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -7400,9 +8212,13 @@
     "level": 4,
     "description": "Creatures in the area lose their footing on reality itself, acting randomly and erratically.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -7450,9 +8266,13 @@
     "level": 4,
     "description": "Summon lesser elemental spirits to fight at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -7498,9 +8318,13 @@
     "level": 4,
     "description": "Summon fey creatures of the forest to your side.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -7545,9 +8369,13 @@
     "level": 4,
     "description": "Command a great mass of water, parting, redirecting, or raising it as you will.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -7594,9 +8422,13 @@
     "level": 4,
     "description": "A creature warded by this spell survives falling to 0 hit points once, retaining 1 hit point instead.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -7642,9 +8474,13 @@
     "level": 4,
     "description": "Slam the ground, sending a wave of thunderous, radiant force out from you in all directions.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self (30-foot radius)",
+    "rangeRu": "на себя (радиус 30 фт)",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -7689,9 +8525,13 @@
     "level": 4,
     "description": "Teleport yourself and up to one willing creature to any spot you can visualize within range.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "500 feet",
+    "rangeRu": "500 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -7739,9 +8579,13 @@
     "level": 4,
     "description": "Contact a deity or a divine proxy to ask a single question about events up to a week hence.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -7786,9 +8630,13 @@
     "level": 4,
     "description": "Seize control of a beast's mind, issuing it telepathic commands it must obey.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -7835,9 +8683,13 @@
     "level": 4,
     "description": "Rubbery black tentacles erupt from the ground across the area, grasping and crushing anything they catch.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -7882,9 +8734,13 @@
     "level": 4,
     "description": "Convert raw materials into a finished product of the same material, shaped however you like.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -7929,9 +8785,13 @@
     "level": 4,
     "description": "Wreathe yourself in flickering flame or shimmering cold, resisting the opposite damage and searing attackers.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "10 minutes",
+    "durationRu": "10 минут",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -7976,9 +8836,13 @@
     "level": 4,
     "description": "A creature you touch moves and acts unhindered by magical restraint, difficult terrain, or paralysis.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -8027,9 +8891,13 @@
     "level": 4,
     "description": "Arthropods you can see swell to Large size or larger, obeying your commands in battle.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -8074,9 +8942,13 @@
     "level": 4,
     "description": "A vine sprouts and snakes toward a creature you choose, grabbing and pulling it toward you.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "HERBA",
@@ -8121,9 +8993,13 @@
     "level": 4,
     "description": "A Large spectral guardian appears and hovers over the area, attacking any hostile creature that draws near.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "SPIRITUS",
@@ -8168,9 +9044,13 @@
     "level": 4,
     "description": "Make a large natural area look, sound, and smell like some other sort of terrain entirely.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -8218,9 +9098,13 @@
     "level": 4,
     "description": "Sense the direction to a specific creature or kind of creature you're familiar with, up to 1,000 feet away.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -8270,9 +9154,13 @@
     "level": 4,
     "description": "Summon a phantom watchdog that barks at intruders and can bite anything it doesn't recognize.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -8317,9 +9205,13 @@
     "level": 4,
     "description": "A sphere of shimmering force encloses a creature or object, sealing it away from the world.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -8364,9 +9256,13 @@
     "level": 4,
     "description": "Conjure an illusory manifestation of a creature's deepest fear, visible only to it, tormenting it relentlessly.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -8411,9 +9307,13 @@
     "level": 4,
     "description": "A creature you can see is transformed into a new form, its statistics replaced by the new shape's.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -8461,9 +9361,13 @@
     "level": 4,
     "description": "Your next weapon hit pierces a creature's mind with psychic force, staggering it and stealing its focus.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -8508,9 +9412,13 @@
     "level": 4,
     "description": "Reshape a section of stone into any form that suits your purpose, within reason.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SAXUM",
@@ -8557,9 +9465,13 @@
     "level": 4,
     "description": "A creature's flesh hardens like stone, resisting nonmagical bludgeoning, piercing, and slashing damage.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -8607,9 +9519,13 @@
     "level": 4,
     "description": "A wall of roaring fire springs up, scorching anything that touches it or stands too close.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -8656,9 +9572,13 @@
     "level": 5,
     "description": "Up to ten nonmagical objects spring to life, animated to fight and move at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -8710,9 +9630,13 @@
     "level": 5,
     "description": "A shimmering barrier surrounds you, keeping living creatures from passing through or attacking within.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (10-foot radius)",
+    "rangeRu": "на себя (радиус 10 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -8762,9 +9686,13 @@
     "level": 5,
     "description": "Bestow the spark of true sentience on a beast or plant, granting it intelligence and loyalty.",
     "castingTime": "8 hours",
+    "castingTimeRu": "8 часов",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -8815,9 +9743,13 @@
     "level": 5,
     "description": "Your next weapon hit surrounds the target with force, and enough damage sends it to another plane entirely.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -8867,9 +9799,13 @@
     "level": 5,
     "description": "A 30-foot aura shields your allies from magic, granting advantage on saves against spells.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "PRAECANTATIO",
@@ -8919,9 +9855,13 @@
     "level": 5,
     "description": "A billowing, poisonous cloud spreads out from a point you choose, moving with the wind and choking anything inside.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -8972,9 +9912,13 @@
     "level": 5,
     "description": "Ask your deity three yes-or-no questions and receive an answer, if one can be given.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "PRAECANTATIO",
@@ -9024,9 +9968,13 @@
     "level": 5,
     "description": "Become one with the land, gaining knowledge of the terrain and creatures for miles around.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -9077,9 +10025,13 @@
     "level": 5,
     "description": "Summon a greater elemental spirit to fight at your command for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -9130,9 +10082,13 @@
     "level": 5,
     "description": "Send your mind out to a knowing entity beyond the mortal plane, risking your sanity for answers.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "1 minute",
+    "durationRu": "1 минута",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -9183,9 +10139,13 @@
     "level": 5,
     "description": "Touch a creature and afflict it with a virulent, magical disease that worsens over days.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "7 days",
+    "durationRu": "7 дней",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -9236,9 +10196,13 @@
     "level": 5,
     "description": "Shape shadowstuff and raw magic into a nonliving object, real enough for the duration to matter.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Special",
+    "durationRu": "особая",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -9290,9 +10254,13 @@
     "level": 5,
     "description": "Call on celestial or fiendish power to protect you and repel or banish otherworldly creatures.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -9343,9 +10311,13 @@
     "level": 5,
     "description": "Seize control of a humanoid's mind, issuing it telepathic commands it must obey.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -9397,9 +10369,13 @@
     "level": 5,
     "description": "Shape a creature's dreams, sending it a message or a nightmare from anywhere on the same plane.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Special",
+    "rangeRu": "особая",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -9451,9 +10427,13 @@
     "level": 5,
     "description": "A column of divine fire roars down from above, searing everything caught within it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -9503,9 +10483,13 @@
     "level": 5,
     "description": "Lay a magical command on a creature, punishing it with pain each time it strays from your order.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "30 days",
+    "durationRu": "30 дней",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -9558,9 +10542,13 @@
     "level": 5,
     "description": "Undo one of the more debilitating effects afflicting a creature - a curse, exhaustion, even lost ability score.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SANO",
@@ -9612,9 +10600,13 @@
     "level": 5,
     "description": "Consecrate a site so divine and fell creatures alike find it impossible to enter.",
     "castingTime": "24 hours (ritual)",
+    "castingTimeRu": "24 часа (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -9664,9 +10656,13 @@
     "level": 5,
     "description": "A creature is paralyzed, frozen in place unless it can shake off the magic gripping its mind.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VINCULUM",
@@ -9719,9 +10715,13 @@
     "level": 5,
     "description": "A roiling cloud of biting, stinging locusts fills the area, tearing at anything caught inside.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -9773,9 +10773,13 @@
     "level": 5,
     "description": "Speak the name of a person, place, or object and learn what significant lore you know of it.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -9827,9 +10831,13 @@
     "level": 5,
     "description": "A wave of healing energy washes over a group of creatures, restoring hit points to each.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -9881,9 +10889,13 @@
     "level": 5,
     "description": "You turn invisible while a perfect illusory double of yourself appears and acts as you direct.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "S",
+    "componentsRu": "С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -9934,9 +10946,13 @@
     "level": 5,
     "description": "Reach into a creature's mind and reshape a portion of its memories to your liking.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -9987,9 +11003,13 @@
     "level": 5,
     "description": "Create a passage through wood, plaster, or stone, open for as long as you maintain the spell.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -10039,9 +11059,13 @@
     "level": 5,
     "description": "Bind a celestial, elemental, fey, or fiend into your service for the duration.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "VINCULUM",
@@ -10094,9 +11118,13 @@
     "level": 5,
     "description": "Return a creature dead no longer than ten days to life, mending its body and calling its soul back.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -10148,9 +11176,13 @@
     "level": 5,
     "description": "Forge a telepathic link between willing creatures, letting them communicate mind to mind regardless of language.",
     "castingTime": "1 action (ritual)",
+    "castingTimeRu": "1 действие (ритуал)",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -10200,9 +11232,13 @@
     "level": 5,
     "description": "A dead humanoid's soul is called back and given an entirely new body, of a race not necessarily its own.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -10252,9 +11288,13 @@
     "level": 5,
     "description": "See and hear a particular creature anywhere on the same plane, so long as you resist its will.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -10308,9 +11348,13 @@
     "level": 5,
     "description": "Every creature you choose takes on a new illusory appearance, disguised down to the voice.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -10362,9 +11406,13 @@
     "level": 5,
     "description": "Your quiver refills itself with unerring, self-replenishing ammunition, letting you attack twice as fast.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -10414,9 +11462,13 @@
     "level": 5,
     "description": "Move a creature or object with the power of your mind alone, lifting, dragging, or hurling it about.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "MOTUS",
@@ -10467,9 +11519,13 @@
     "level": 5,
     "description": "Draw a circle that opens a temporary portal to a permanent teleportation circle you know elsewhere.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -10521,9 +11577,13 @@
     "level": 5,
     "description": "Step into a tree and pass instantly through the earth to emerge from another tree of the same kind.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "ARBOR",
@@ -10574,9 +11634,13 @@
     "level": 5,
     "description": "An invisible wall of pure magical force springs into existence, impassable by anything physical or ethereal.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -10626,9 +11690,13 @@
     "level": 5,
     "description": "Nonmagical stone rises from the ground or air, forming a solid wall you can shape as you like.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "SAXUM",
@@ -10680,9 +11748,13 @@
     "level": 6,
     "description": "Two linked circular portals open, letting anything step from one straight through to the other.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -10739,9 +11811,13 @@
     "level": 6,
     "description": "A vertical, twisting wall of whirling blades erupts from the ground, shredding anything that tries to pass.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -10796,9 +11872,13 @@
     "level": 6,
     "description": "A sphere of negative energy bursts outward, draining the life from every creature it touches.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -10855,9 +11935,13 @@
     "level": 6,
     "description": "Summon a fey creature or beast tied to the fey to fight at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -10913,9 +11997,13 @@
     "level": 6,
     "description": "Store a spell within yourself, primed to trigger the instant a condition you set comes to pass.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "10 days",
+    "durationRu": "10 дней",
     "pattern": [
       {
         "aspect": "PRAECANTATIO",
@@ -10970,9 +12058,13 @@
     "level": 6,
     "description": "Raise up to three corpses as ghouls, bound to obey your commands until they're destroyed.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -11029,9 +12121,13 @@
     "level": 6,
     "description": "A thin, green ray lances out and, if it connects hard enough, reduces its target to fine dust.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "PERDITIO",
@@ -11087,9 +12183,13 @@
     "level": 6,
     "description": "Enchant an item so that, once prepared, a single word teleports it straight into your hand.",
     "castingTime": "1 minute (ritual)",
+    "castingTimeRu": "1 минута (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -11144,9 +12244,13 @@
     "level": 6,
     "description": "Your eyes turn black, and a creature you look at is stricken with sleep, fear, or sickness.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -11204,9 +12308,13 @@
     "level": 6,
     "description": "Discern the shortest, most direct route to a location you name, however far away it may be.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 day",
+    "durationRu": "концентрация, до 1 дня",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -11263,9 +12371,13 @@
     "level": 6,
     "description": "A creature you can see begins to petrify, its flesh slowly hardening to unmoving stone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "SAXUM",
@@ -11321,9 +12433,13 @@
     "level": 6,
     "description": "Ward a great tract of land against planar travel and certain kinds of creatures crossing in.",
     "castingTime": "10 minutes (ritual)",
+    "castingTimeRu": "10 минут (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 day",
+    "durationRu": "1 день",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -11378,9 +12494,13 @@
     "level": 6,
     "description": "An immobile, faintly shimmering barrier surrounds you, blocking spells of 5th level and lower.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (10-foot radius)",
+    "rangeRu": "на себя (радиус 10 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -11437,9 +12557,13 @@
     "level": 6,
     "description": "A whole area is laced with a web of minor magical effects, hindering intruders at every turn.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -11495,9 +12619,13 @@
     "level": 6,
     "description": "A violent, virulent affliction of negative energy tears into a creature's body and mind.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -11552,9 +12680,13 @@
     "level": 6,
     "description": "A great surge of positive energy washes through a creature, closing wounds and lifting a blindness or disease.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -11610,9 +12742,13 @@
     "level": 6,
     "description": "A sumptuous feast appears, and everyone who partakes gains resolve, health, and protection for a day.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -11668,9 +12804,13 @@
     "level": 6,
     "description": "Suggest a reasonable-sounding course of action to up to twelve creatures at once, compelling each to follow through.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, M",
+    "componentsRu": "В, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -11728,9 +12868,13 @@
     "level": 6,
     "description": "Excavate, reshape, and relocate great sections of dirt and stone over the course of the spell.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 4 hours",
+    "durationRu": "концентрация, до 4 часов",
     "pattern": [
       {
         "aspect": "TERRA",
@@ -11787,9 +12931,13 @@
     "level": 6,
     "description": "A frigid globe of ice streaks to a point and bursts, blasting the area with freezing shards.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "GELUM",
@@ -11844,9 +12992,13 @@
     "level": 6,
     "description": "A creature is compelled to burst into an erratic dance, unable to focus on anything else.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -11904,9 +13056,13 @@
     "level": 6,
     "description": "Call out to an otherworldly entity for aid, offering payment for a service in return.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -11961,9 +13117,13 @@
     "level": 6,
     "description": "An illusion springs to life and performs a scripted routine each time its trigger condition is met.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -12018,9 +13178,13 @@
     "level": 6,
     "description": "A beam of brilliant sunlight flashes out, searing and blinding everything it touches.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (60-foot line)",
+    "rangeRu": "на себя (линия 60 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -12077,9 +13241,13 @@
     "level": 6,
     "description": "Step into one healthy, Large plant and emerge from another of the same kind, anywhere it may be rooted.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "1 round",
+    "durationRu": "1 раунд",
     "pattern": [
       {
         "aspect": "ARBOR",
@@ -12134,9 +13302,13 @@
     "level": 6,
     "description": "A creature you touch sees truly - through illusions, invisibility, disguise, and the veil into the Ethereal Plane.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "SENSUS",
@@ -12195,9 +13367,13 @@
     "level": 6,
     "description": "A wall of solid ice rises from the ground, cold enough to numb anything that touches it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "120 feet",
+    "rangeRu": "120 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "GELUM",
@@ -12252,9 +13428,13 @@
     "level": 6,
     "description": "You and your companions turn to gaseous, wind-borne mist, flying swiftly and far across the land.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "8 hours",
+    "durationRu": "8 часов",
     "pattern": [
       {
         "aspect": "AER",
@@ -12310,9 +13490,13 @@
     "level": 6,
     "description": "Speak a word of teleportation and you and your companions are drawn instantly to a sanctuary you've bound the spell to.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "5 feet",
+    "rangeRu": "5 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -12367,9 +13551,13 @@
     "level": 7,
     "description": "Summon a celestial spirit to fight at your command for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -12434,9 +13622,13 @@
     "level": 7,
     "description": "Utter a divine word that afflicts creatures with escalating effects depending on how badly hurt they are.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "LUX",
@@ -12501,9 +13693,13 @@
     "level": 7,
     "description": "Step into the Border Ethereal, able to see and move through the material world without being seen.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Up to 8 hours",
+    "durationRu": "до 8 часов",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -12570,9 +13766,13 @@
     "level": 7,
     "description": "Point a finger crackling with negative energy at a creature, dealing brutal necrotic damage.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -12639,9 +13839,13 @@
     "level": 7,
     "description": "A storm of roaring flame erupts in the area, scorching the ground and everything on it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -12708,9 +13912,13 @@
     "level": 7,
     "description": "An invisible cage or barred prison of pure force springs up, trapping everything inside.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "100 feet",
+    "rangeRu": "100 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "TUTAMEN",
@@ -12776,9 +13984,13 @@
     "level": 7,
     "description": "Conjure an extradimensional dwelling, fully furnished and staffed, accessible through a single door.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "300 feet",
+    "rangeRu": "300 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -12844,9 +14056,13 @@
     "level": 7,
     "description": "A square mile of terrain transforms in appearance, sound, and smell into a landscape of your design.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "Sight",
+    "rangeRu": "в пределах видимости",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "10 days",
+    "durationRu": "10 дней",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -12913,9 +14129,13 @@
     "level": 7,
     "description": "Create a sword-shaped blade of shimmering, magical energy that strikes wherever you direct it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TELUM",
@@ -12980,9 +14200,13 @@
     "level": 7,
     "description": "Transport yourself and up to eight willing creatures to a different plane of existence entirely.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -13051,9 +14275,13 @@
     "level": 7,
     "description": "Eight rays of blazing, multicolored light flash out in a cone, each ray a different, unpredictable effect.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (60-foot cone)",
+    "rangeRu": "на себя (конус 60 фт)",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "LUX",
@@ -13119,9 +14347,13 @@
     "level": 7,
     "description": "An illusory double of yourself appears anywhere you can visualize, and acts fully at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "500 miles",
+    "rangeRu": "500 миль",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 day",
+    "durationRu": "концентрация, до 1 дня",
     "pattern": [
       {
         "aspect": "VITIUM",
@@ -13187,9 +14419,13 @@
     "level": 7,
     "description": "A creature's wounds close, lost limbs regrow, and it regains hit points steadily for the duration.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -13256,9 +14492,13 @@
     "level": 7,
     "description": "Return a creature dead no more than a century to life, restoring it whole and free of old afflictions.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -13324,9 +14564,13 @@
     "level": 7,
     "description": "Gravity reverses in a cylindrical area, sending everything not anchored down hurtling upward instead.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "100 feet",
+    "rangeRu": "100 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TERRA",
@@ -13393,9 +14637,13 @@
     "level": 7,
     "description": "A willing creature or object is hidden from sight, magic, and time itself, sealed away until a trigger you set.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -13460,9 +14708,13 @@
     "level": 7,
     "description": "Shape snow and ice into a duplicate of a creature, obedient to you but only ever half as strong as the original.",
     "castingTime": "12 hours",
+    "castingTimeRu": "12 часов",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until destroyed",
+    "durationRu": "пока не уничтожено",
     "pattern": [
       {
         "aspect": "PERMUTATIO",
@@ -13527,9 +14779,13 @@
     "level": 7,
     "description": "Inscribe a harmful glyph that triggers a powerful effect on whoever sets it off within range.",
     "castingTime": "1 minute",
+    "castingTimeRu": "1 минута",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Until dispelled",
+    "durationRu": "пока не рассеется",
     "pattern": [
       {
         "aspect": "PRAECANTATIO",
@@ -13596,9 +14852,13 @@
     "level": 7,
     "description": "Instantly transport yourself and up to eight willing creatures to a destination you know well.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "10 feet",
+    "rangeRu": "10 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -13665,9 +14925,13 @@
     "level": 8,
     "description": "Willing creatures transform into beasts of the same general size, their new forms lasting until the spell ends.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "30 feet",
+    "rangeRu": "30 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 24 hours",
+    "durationRu": "концентрация, до 24 часов",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -13737,9 +15001,13 @@
     "level": 8,
     "description": "A 10-foot sphere of invisible force surrounds you, suppressing magic and preventing spells from functioning within it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (10-foot radius)",
+    "rangeRu": "на себя (радиус 10 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -13810,9 +15078,13 @@
     "level": 8,
     "description": "Enchant an object or location to either draw a kind of creature irresistibly toward it, or drive that same kind away in dread.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "10 days",
+    "durationRu": "10 дней",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -13883,9 +15155,13 @@
     "level": 8,
     "description": "Grow a duplicate body for a living creature in a vessel, ready to receive its soul the instant the original dies.",
     "castingTime": "1 hour",
+    "castingTimeRu": "1 час",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VICTUS",
@@ -13955,9 +15231,13 @@
     "level": 8,
     "description": "Change the weather in the vicinity, shifting between clear skies, rain, storms, snow, or fog over the course of the spell.",
     "castingTime": "10 minutes",
+    "castingTimeRu": "10 минут",
     "range": "Self (5-mile radius)",
+    "rangeRu": "на себя (радиус 5 миль)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 8 hours",
+    "durationRu": "концентрация, до 8 часов",
     "pattern": [
       {
         "aspect": "TEMPESTAS",
@@ -14029,9 +15309,13 @@
     "level": 8,
     "description": "A shadowy door appears in an unoccupied space, opening into a plain, featureless room in a demiplane you create.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "S",
+    "componentsRu": "С",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -14102,9 +15386,13 @@
     "level": 8,
     "description": "Seize control of any creature's mind, no matter how monstrous, issuing it telepathic commands it must obey.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14176,9 +15464,13 @@
     "level": 8,
     "description": "The ground shakes violently in the area, opening fissures, toppling structures, and knocking creatures prone.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "500 feet",
+    "rangeRu": "500 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "TERRA",
@@ -14250,9 +15542,13 @@
     "level": 8,
     "description": "Blast a creature's mind with psychic energy powerful enough to shatter its intellect and personality permanently.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14325,9 +15621,13 @@
     "level": 8,
     "description": "Your words become effortlessly convincing, letting you replace any Charisma check roll with a flat, high result and even fool truth-detecting magic.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "1 hour",
+    "durationRu": "1 час",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14398,9 +15698,13 @@
     "level": 8,
     "description": "Divine light flares from you, granting allies advantage on saving throws and making them shine in the dark.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "LUX",
@@ -14470,9 +15774,13 @@
     "level": 8,
     "description": "A cloud of roiling smoke shot through with sparks fills the area, igniting each round and scorching everything inside.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "150 feet",
+    "rangeRu": "150 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "IGNIS",
@@ -14543,9 +15851,13 @@
     "level": 8,
     "description": "Banish a creature into a labyrinthine demiplane, from which it must find its own way out or remain trapped.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 10 minutes",
+    "durationRu": "концентрация, до 10 минут",
     "pattern": [
       {
         "aspect": "VACUOS",
@@ -14615,9 +15927,13 @@
     "level": 8,
     "description": "A creature becomes permanently immune to psychic damage, mind control, and all forms of divination magic.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14688,9 +16004,13 @@
     "level": 8,
     "description": "Speak a word of power that instantly stuns a creature outright, no roll required if it's hurt badly enough.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14763,9 +16083,13 @@
     "level": 8,
     "description": "Form a telepathic link with a familiar creature anywhere on the same plane, letting you converse silently for a day.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Unlimited",
+    "rangeRu": "без ограничений",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "24 hours",
+    "durationRu": "24 часа",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -14835,9 +16159,13 @@
     "level": 8,
     "description": "A massive wall of water rises and crashes down across the battlefield, sweeping away everything in its path.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "1 mile",
+    "rangeRu": "1 миля",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 6 rounds",
+    "durationRu": "концентрация, до 6 раундов",
     "pattern": [
       {
         "aspect": "AQUA",
@@ -14907,9 +16235,13 @@
     "level": 0,
     "description": "Ghostly blades sweep out from you, biting at every creature in a 5-foot radius that fails a Dexterity save.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (5-foot radius)",
+    "rangeRu": "на себя (радиус 5 фт)",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Вспышка мечей",
     "descriptionRu": "Призрачные клинки веером проносятся от вас, разя каждое существо в радиусе 5 футов, не прошедшее испытание Ловкости.",
@@ -14925,9 +16257,13 @@
     "level": 0,
     "description": "Your melee weapon strike is charged with thunderous energy that echoes even louder if the target dares to move.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (5-foot radius)",
+    "rangeRu": "на себя (радиус 5 фт)",
     "components": "S, M",
+    "componentsRu": "С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Громовой клинок",
     "descriptionRu": "Ваш удар оружием ближнего боя заряжается громовой энергией, которая гремит ещё громче, если цель осмелится сдвинуться с места.",
@@ -14943,9 +16279,13 @@
     "level": 0,
     "description": "Your melee weapon strike ignites with green fire that leaps to sear a second creature standing near your target.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (5-foot radius)",
+    "rangeRu": "на себя (радиус 5 фт)",
     "components": "S, M",
+    "componentsRu": "С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Клинок зелёного пламени",
     "descriptionRu": "Ваш удар оружием ближнего боя вспыхивает зелёным пламенем, которое перекидывается и обжигает второе существо рядом с целью.",
@@ -14961,9 +16301,13 @@
     "level": 0,
     "description": "A whip of crackling lightning lashes out at a creature, dealing damage and yanking it toward you.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (15 feet)",
+    "rangeRu": "на себя (15 фт)",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Лассо молнии",
     "descriptionRu": "Хлыст из потрескивающей молнии обрушивается на существо, нанося урон и притягивая его к вам.",
@@ -14979,9 +16323,13 @@
     "level": 0,
     "description": "A disorienting sliver of psychic energy stabs into a creature's mind, and if it hurts badly enough, saps its resistance to your next spell.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "60 feet",
+    "rangeRu": "60 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [],
     "nameRu": "Расщепление разума",
     "descriptionRu": "Дезориентирующий осколок психической энергии вонзается в разум существа, и, если урон достаточно велик, ослабляет его сопротивление вашему следующему заклинанию.",
@@ -14997,9 +16345,13 @@
     "level": 1,
     "description": "A stream of acid sprays out in a line, corroding armor and flesh alike each round a creature remains within it.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self (30-foot line)",
+    "rangeRu": "на себя (линия 30 фт)",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "VENENUM",
@@ -15035,9 +16387,13 @@
     "level": 2,
     "description": "Call forth a fey spirit that takes the shape of a ferocious beast, fighting at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "BESTIA",
@@ -15080,9 +16436,13 @@
     "level": 2,
     "description": "Lash a creature's mind with psychic force, dealing damage and, if it's hurt badly enough, stealing its action or movement for the round.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -15120,9 +16480,13 @@
     "level": 3,
     "description": "Your mind and the minds of allies nearby become fortified, granting resistance to psychic damage and advantage on Intelligence, Wisdom, and Charisma saves.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "Self",
+    "rangeRu": "на себя",
     "components": "V",
+    "componentsRu": "В",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "COGNITIO",
@@ -15165,9 +16529,13 @@
     "level": 3,
     "description": "Ghostly spirits swirl around you, weakening and harming any creature that strays too close.",
     "castingTime": "1 bonus action",
+    "castingTimeRu": "1 бонусное действие",
     "range": "Self (10-foot radius)",
+    "rangeRu": "на себя (радиус 10 фт)",
     "components": "V, S",
+    "componentsRu": "В, С",
     "duration": "Concentration, up to 1 minute",
+    "durationRu": "концентрация, до 1 минуты",
     "pattern": [
       {
         "aspect": "SPIRITUS",
@@ -15215,9 +16583,13 @@
     "level": 3,
     "description": "Call forth a spectral undead spirit that takes physical form, obeying your commands until the spell ends.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "MORTUUS",
@@ -15263,9 +16635,13 @@
     "level": 3,
     "description": "Call forth a spirit of shadow, taking a physical form woven from darkness itself, to fight at your side.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "TENEBRAE",
@@ -15311,9 +16687,13 @@
     "level": 3,
     "description": "Call forth a fey spirit, bound to serve you in battle until the spell ends.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -15361,9 +16741,13 @@
     "level": 4,
     "description": "Call forth an alien spirit of the Far Realm, taking monstrous physical form, obeying your commands.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -15414,9 +16798,13 @@
     "level": 4,
     "description": "Call forth a spirit that animates into a mechanical construct of stone, metal, or clay to serve you.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "INSTRUMENTUM",
@@ -15466,9 +16854,13 @@
     "level": 4,
     "description": "Call forth an elemental spirit, taking form from air, earth, fire, or water, to fight by your side.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "AER",
@@ -15522,9 +16914,13 @@
     "level": 5,
     "description": "Call forth a celestial spirit, taking angelic form, whose radiant presence heals allies and burns your foes.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "LUX",
@@ -15577,9 +16973,13 @@
     "level": 6,
     "description": "Call forth a fiendish spirit, taking demonic or devilish form, to terrorize your enemies at your command.",
     "castingTime": "1 action",
+    "castingTimeRu": "1 действие",
     "range": "90 feet",
+    "rangeRu": "90 фт",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Concentration, up to 1 hour",
+    "durationRu": "концентрация, до 1 часа",
     "pattern": [
       {
         "aspect": "ALIENIS",
@@ -15635,9 +17035,13 @@
     "level": 7,
     "description": "You and up to eight companions cross briefly into the Ethereal Plane's shimmering veil, emerging at a distant place you've been before.",
     "castingTime": "1 hour (ritual)",
+    "castingTimeRu": "1 час (ритуал)",
     "range": "Touch",
+    "rangeRu": "касание",
     "components": "V, S, M",
+    "componentsRu": "В, С, М",
     "duration": "Instantaneous",
+    "durationRu": "мгновенная",
     "pattern": [
       {
         "aspect": "VACUOS",
