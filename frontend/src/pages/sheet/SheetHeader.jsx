@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { Button, HelpTip, Modal, Stamp } from '../../components/ui'
 import RuneBadge from '../../components/brand/RuneBadge'
+import MimicChip from '../../components/chest/MimicChip'
+import { useSealedCounts } from '../../lib/chest'
 import { useRefData } from '../../lib/refData'
 import { ALIGNMENTS, CLASSES, RACES, className, raceName } from '../../constants/dnd-ru'
 import { abilityMod, averageHitDie, canLevelUp, formatMod, levelUpHp, nextLevelXp } from '../../lib/dnd-rules'
@@ -66,6 +68,7 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
     const rune = runes?.find((r) => r.key === tier)
     const levelCap = character.levelCap ?? rune?.levelCap ?? 10
     const status = character.approvalStatus || 'APPROVED'
+    const sealed = useSealedCounts(canEdit)[character.id] || 0
     const creation = requests.find((r) => r.type === 'CREATION')
     const openLevelUp = requests.find((r) => r.type === 'LEVEL_UP' && r.status === 'PENDING')
     const nextAboveCap = form.level + 1 > levelCap
@@ -119,7 +122,14 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                         {editing ? (
                             <input className="sheet-input sheet-name-input" value={form.name} aria-label="Имя" onChange={(e) => update({ name: e.target.value })} />
                         ) : (
-                            <h1 className="sheet-name">{form.name || 'Без имени'}</h1>
+                            <h1 className="sheet-name">
+                                {form.name || 'Без имени'}
+                                {sealed > 0 && (
+                                    <Link to={`/characters/${character.id}/chest`} className="sheet-chest-chip" title="Сундучок: есть посылки">
+                                        <MimicChip count={sealed} size={30} />
+                                    </Link>
+                                )}
+                            </h1>
                         )}
 
                         {editing ? (

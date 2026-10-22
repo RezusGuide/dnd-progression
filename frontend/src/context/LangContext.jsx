@@ -64,6 +64,7 @@ const translations = {
         // Nav
         navHome: 'Приёмная',
         navCharacters: 'Личные дела',
+        navChest: 'Сундучок',
         navCampaigns: 'Кампании',
         navAnnouncements: 'Объявления',
         navAdmin: 'Панель ГМ',

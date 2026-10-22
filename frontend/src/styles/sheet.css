@@ -501,3 +501,19 @@ span.slot-pip { display: inline-block; }
 .note-approved { color: var(--success); }
 .note-rejected { color: var(--danger); }
 .note-comment { flex-basis: 100%; font-size: 0.88rem; font-style: italic; }
+
+/* Prepared spells (Магия) */
+.spell-row-line { display: flex; align-items: center; gap: 0.75rem; }
+.spell-row-line .spell-row-head { flex: 1; min-width: 0; }
+.spell-prepared { display: inline-flex; align-items: center; gap: 0.35rem; flex: none; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); cursor: pointer; }
+.spell-prepared input { width: 18px; height: 18px; accent-color: var(--accent); }
+.spell-row.is-prepared .spell-prepared { color: var(--accent-text); }
+.spell-row.is-prepared .spell-name::before { content: '◆ '; color: var(--accent-text); }
+.spell-prepared-count { margin: 0 0 0.75rem; font-family: var(--font-label); letter-spacing: 0.04em; }
+.spell-prepared-count.is-over { color: var(--danger); font-weight: 700; }
+
+/* Сундучок on the sheet */
+.sheet-chest-chip { display: inline-flex; margin-left: 0.6rem; vertical-align: middle; text-decoration: none; }
+.sheet-chest-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+.sheet-chest-items li { display: flex; align-items: center; gap: 0.6rem; padding: 0.3rem 0; border-bottom: 1px solid var(--rule-line, var(--border)); }
+.sheet-chest-item-name { font-weight: 700; }

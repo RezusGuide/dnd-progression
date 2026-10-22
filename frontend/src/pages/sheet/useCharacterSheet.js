@@ -204,5 +204,16 @@ export default function useCharacterSheet(id) {
         }
     }, [id, refreshKnownSpells])
 
-    return { character, form, update, canEdit, saveState, loadError, knownSpells, notes, catalog, addCantrip, requests, requestLevelUp }
+    // «Подготовлено»: changed on screen at once, then saved; a failed save reloads.
+    const setPrepared = useCallback(async (spellId, prepared) => {
+        setKnownSpells((list) => list.map((s) => (s.spellId === spellId ? { ...s, prepared } : s)))
+        try {
+            await api.patch(`/api/characters/${id}/known-spells/${spellId}`, { prepared })
+        } catch (err) {
+            console.error(err)
+            refreshKnownSpells()
+        }
+    }, [id, refreshKnownSpells])
+
+    return { character, form, update, canEdit, saveState, loadError, knownSpells, notes, catalog, addCantrip, setPrepared, requests, requestLevelUp }
 }

@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import Logo from './brand/Logo'
+import MimicChip from './chest/MimicChip'
+import { totalSealed, useSealedCounts } from '../lib/chest'
 
 // Sunny office header, shown on every page. Always the night palette
 // (data-theme="night"), whatever theme the page below uses.
@@ -16,6 +18,7 @@ export default function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false)
     const closeMenu = () => setMenuOpen(false)
     const linkClass = ({ isActive }) => `hall-nav-link${isActive ? ' active' : ''}`
+    const sealed = totalSealed(useSealedCounts(!!user))
 
     return (
         <nav className="hall-nav" data-theme="night" aria-label="Основная навигация">
@@ -37,6 +40,11 @@ export default function NavBar() {
             <div className={`hall-nav-links${menuOpen ? ' open' : ''}`}>
                 <NavLink to="/" end className={linkClass} onClick={closeMenu}>{t('navHome')}</NavLink>
                 <NavLink to="/characters" className={linkClass} onClick={closeMenu}>{t('navCharacters')}</NavLink>
+                {user && (
+                    <NavLink to="/chest" className={(a) => `${linkClass(a)} hall-nav-chest`} onClick={closeMenu}>
+                        <MimicChip count={sealed} size={22} /> {t('navChest')}
+                    </NavLink>
+                )}
                 <NavLink to="/campaigns" className={linkClass} onClick={closeMenu}>{t('navCampaigns')}</NavLink>
                 <NavLink to="/announcements" className={linkClass} onClick={closeMenu}>{t('navAnnouncements')}</NavLink>
                 {hasSection('*') && (

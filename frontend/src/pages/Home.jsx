@@ -6,6 +6,8 @@ import Logo from '../components/brand/Logo'
 import { Button, Dossier, EmptyState, Hint, Loader, Modal, PageHeader, SteamBackground } from '../components/ui'
 import { className, formatDateTime, raceName } from '../constants/dnd-ru'
 import { isNonCaster } from '../constants/casterClasses'
+import MimicChip from '../components/chest/MimicChip'
+import { totalSealed, useSealedCounts } from '../lib/chest'
 import RequestList from '../components/RequestList'
 
 // Приёмная. Guests get the public pitch; signed-in staff get their files,
@@ -60,6 +62,7 @@ function StaffReception({ user }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const sealed = totalSealed(useSealedCounts(true))
     const mine = (characters || []).filter((c) => c.ownerId === user.userId || c.ownerId == null)
     const casters = mine.filter((c) => !isNonCaster(c.characterClass))
 
@@ -91,6 +94,9 @@ function StaffReception({ user }) {
                         <Button to="/characters/new">Завести личное дело</Button>
                         <Button variant="secondary" onClick={openSheet} disabled={!characters || mine.length === 0}>Мой лист</Button>
                         <Button variant="secondary" onClick={openResearch} disabled={!characters || casters.length === 0}>Исследования</Button>
+                        <Button variant="secondary" to="/chest" className="reception-chest-btn" disabled={!characters || mine.length === 0}>
+                            <MimicChip count={sealed} size={24} /> Сундучок
+                        </Button>
                     </div>
                 </section>
 

@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
 import ErrorScreen from '../components/errors/ErrorScreen'
 import { Button, Dossier, Loader, PageHeader } from '../components/ui'
+import AdminChest from './admin/AdminChest'
 import AdminGrants from './admin/AdminGrants'
 import AdminOptions from './admin/AdminOptions'
 import AdminRequests from './admin/AdminRequests'
@@ -149,6 +150,8 @@ export default function Admin() {
             <AdminResearch />
 
             <AdminGrants />
+
+            <AdminChest />
 
             <AdminOptions />
 

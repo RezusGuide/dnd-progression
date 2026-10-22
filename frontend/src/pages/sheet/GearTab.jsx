@@ -1,4 +1,9 @@
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import api from '../../api/axios'
 import { Button } from '../../components/ui'
+import { RarityTag } from '../../components/chest/ChestContentsList'
+import '../../styles/chest.css'
 import AspectIcon from '../../components/aspects/AspectIcon'
 import { bagEntries, useMagicData } from '../../lib/magic'
 import { coinsInGold } from '../../lib/dnd-rules'
@@ -17,6 +22,12 @@ const COINS = [
 export default function GearTab({ character, form, update, canEdit, editing }) {
     const setCoin = (key, value) => update({ [key]: Math.max(0, Math.round(Number(value) || 0)) })
     const [magic] = useMagicData()
+    // Items from Сундучок: owner and GM only (others get 403 and see nothing).
+    const [items, setItems] = useState(null)
+    useEffect(() => {
+        if (!canEdit) return
+        api.get(`/api/characters/${character.id}/inventory`).then((res) => setItems(res.data)).catch(() => setItems(null))
+    }, [character.id, canEdit])
     const held = bagEntries(character.aspects, magic?.aspects)
 
     return (
@@ -53,6 +64,24 @@ export default function GearTab({ character, form, update, canEdit, editing }) {
                     <TextBlock hideLabel label="Сокровища" editing={editing} value={form.treasure} onChange={(v) => update({ treasure: v })} />
                 </SheetSection>
             </div>
+
+            {items && (
+                <SheetSection title="Предметы из Сундучка" actions={<Link className="gate-link" to={`/characters/${character.id}/chest`}>Открыть Сундучок →</Link>}>
+                    {items.length === 0 ? (
+                        <p className="sheet-prose is-empty">Опись пуста. Предметы приходят посылками.</p>
+                    ) : (
+                        <ul className="sheet-chest-items">
+                            {items.map((item) => (
+                                <li key={item.id}>
+                                    <span className="sheet-chest-item-name">{item.name}</span>
+                                    {item.quantity > 1 && <span className="sheet-num">× {item.quantity}</span>}
+                                    <RarityTag rarity={item.rarity} />
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </SheetSection>
+            )}
 
             <SheetSection
                 title="Сумка"

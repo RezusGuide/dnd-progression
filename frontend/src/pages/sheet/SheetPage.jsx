@@ -70,7 +70,7 @@ export default function SheetPage() {
                     </>
                 )}
                 {tab === 'magic' && (
-                    <MagicTab {...panelProps} knownSpells={sheet.knownSpells} notes={sheet.notes} catalog={sheet.catalog} addCantrip={sheet.addCantrip} />
+                    <MagicTab {...panelProps} knownSpells={sheet.knownSpells} notes={sheet.notes} catalog={sheet.catalog} addCantrip={sheet.addCantrip} setPrepared={sheet.setPrepared} />
                 )}
                 {tab === 'gear' && <GearTab {...panelProps} />}
                 {tab === 'persona' && <PersonaTab {...panelProps} />}

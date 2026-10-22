@@ -4,7 +4,7 @@ import {
     levelForXp, longRest, nextLevelXp, passivePerception, proficiencyBonus, saveBonus,
     skillBonus, spellAttackBonus, spellSaveDC, spellSlotsFor, spellcastingAbility,
     hitDiceLeft, shortRest, startingHp, pointBuyCost, pointBuySpent, isStandardArray,
-    roll4d6, withBonuses, averageHitDie, levelUpHp, isValidFlexibleBonuses,
+    roll4d6, withBonuses, averageHitDie, levelUpHp, isValidFlexibleBonuses, isPreparingCaster, preparedLimit,
 } from './dnd-rules'
 
 describe('ability modifiers', () => {
@@ -283,5 +283,28 @@ describe('flexible origin bonuses', () => {
         expect(isValidFlexibleBonuses({ DEX: 2 })).toBe(false)
         expect(isValidFlexibleBonuses({ DEX: 1, WIS: 1 })).toBe(false)
         expect(isValidFlexibleBonuses({ LUCK: 2, WIS: 1 })).toBe(false)
+    })
+})
+
+describe('prepared spells', () => {
+    it('only preparing casters have a limit', () => {
+        expect(isPreparingCaster('Wizard')).toBe(true)
+        expect(isPreparingCaster('Paladin')).toBe(true)
+        expect(isPreparingCaster('Sorcerer')).toBe(false)
+        expect(preparedLimit('Bard', 5, 3)).toBeNull()
+    })
+    it('cleric, druid, wizard: mod + level', () => {
+        expect(preparedLimit('Wizard', 1, 3)).toBe(4)
+        expect(preparedLimit('Cleric', 5, 2)).toBe(7)
+        expect(preparedLimit('Druid', 3, 0)).toBe(3)
+    })
+    it('paladin: mod + half level; artificer: mod + half level rounded up', () => {
+        expect(preparedLimit('Paladin', 5, 2)).toBe(4)
+        expect(preparedLimit('Artificer', 5, 2)).toBe(5)
+        expect(preparedLimit('Artificer', 1, 1)).toBe(2)
+    })
+    it('never below 1', () => {
+        expect(preparedLimit('Paladin', 1, -1)).toBe(1)
+        expect(preparedLimit('Wizard', 1, -3)).toBe(1)
     })
 })

@@ -75,6 +75,27 @@ export function casterType(classKey) {
     return CASTER_TYPE[norm(classKey)] || null
 }
 
+// Preparing casters choose prepared spells from the ones they know; for
+// everyone else every known spell counts as ready. The limit is only
+// highlighted on the sheet, never enforced. Cantrips don't count.
+const PREPARE = {
+    CLERIC: (lvl) => lvl, DRUID: (lvl) => lvl, WIZARD: (lvl) => lvl,
+    PALADIN: (lvl) => Math.floor(lvl / 2),
+    ARTIFICER: (lvl) => Math.ceil(lvl / 2),
+}
+
+export function isPreparingCaster(classKey) {
+    return !!PREPARE[norm(classKey)]
+}
+
+// Prepared-spell limit: ability mod + (level, half level, or half rounded
+// up), at least 1; null for classes that don't prepare.
+export function preparedLimit(classKey, level, mod) {
+    const levels = PREPARE[norm(classKey)]
+    if (!levels) return null
+    return Math.max(1, (mod || 0) + levels(clampLevel(level)))
+}
+
 export function spellSaveDC(prof, mod) {
     return 8 + prof + mod
 }

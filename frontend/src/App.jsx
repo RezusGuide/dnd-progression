@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { LangProvider } from './context/LangContext'
@@ -6,18 +7,22 @@ import NavBar from './components/NavBar'
 import Home from './pages/Home'
 import ErrorScreen from './components/errors/ErrorScreen'
 import ErrorBanner from './components/errors/ErrorBanner'
-import ErrorGallery from './pages/ErrorGallery'
 import Announcements from './pages/Announcements'
-import Admin from './pages/Admin'
 import Account from './pages/Account'
 import Login from './pages/Login'
 import Characters from './pages/Characters'
 import Campaigns from './pages/Campaigns'
 import CampaignView from './pages/CampaignView'
-import SheetPage from './pages/sheet/SheetPage'
-import CreateWizard from './pages/wizard/CreateWizard'
-import ResearchPage from './pages/research/ResearchPage'
-import CombinePage from './pages/research/CombinePage'
+import { Loader } from './components/ui'
+
+// The big screens load on first visit, so the first page stays light.
+const ErrorGallery = lazy(() => import('./pages/ErrorGallery'))
+const Admin = lazy(() => import('./pages/Admin'))
+const SheetPage = lazy(() => import('./pages/sheet/SheetPage'))
+const CreateWizard = lazy(() => import('./pages/wizard/CreateWizard'))
+const ResearchPage = lazy(() => import('./pages/research/ResearchPage'))
+const CombinePage = lazy(() => import('./pages/research/CombinePage'))
+const ChestPage = lazy(() => import('./pages/chest/ChestPage'))
 
 // Guests go to the Проходная, which sends them back here after signing in.
 function ProtectedRoute({ children }) {
@@ -29,6 +34,7 @@ function ProtectedRoute({ children }) {
 function AppRoutes() {
     const { user } = useAuth()
     return (
+        <Suspense fallback={<div className="parchment-page"><Loader /></div>}>
         <Routes>
             <Route path="/" element={<Home />} />
             {/* Public/no-login-required: D&D and Announcements. Real
@@ -40,6 +46,8 @@ function AppRoutes() {
             <Route path="/characters/:id" element={<SheetPage />} />
             <Route path="/characters/:characterId/research" element={<ProtectedRoute><ResearchPage /></ProtectedRoute>} />
             <Route path="/characters/:characterId/craft" element={<ProtectedRoute><CombinePage /></ProtectedRoute>} />
+            <Route path="/characters/:characterId/chest" element={<ProtectedRoute><ChestPage /></ProtectedRoute>} />
+            <Route path="/chest" element={<ProtectedRoute><ChestPage /></ProtectedRoute>} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 
@@ -55,6 +63,7 @@ function AppRoutes() {
 
             <Route path="*" element={<ErrorScreen code={404} />} />
         </Routes>
+        </Suspense>
     )
 }
 

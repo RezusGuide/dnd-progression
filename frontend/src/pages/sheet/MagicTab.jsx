@@ -4,7 +4,7 @@ import { ABILITIES, className } from '../../constants/dnd-ru'
 import { isNonCaster, isSpellEligible } from '../../constants/casterClasses'
 import { spellDescription, spellName } from '../../constants/spellText'
 import {
-    ABILITY_FIELDS, abilityMod, formatMod, proficiencyBonus, spellAttackBonus,
+    ABILITY_FIELDS, abilityMod, formatMod, isPreparingCaster, preparedLimit, proficiencyBonus, spellAttackBonus,
     spellSaveDC, spellSlotsFor, spellcastingAbility,
 } from '../../lib/dnd-rules'
 import { NumberValue, SheetSection } from './parts'
@@ -16,15 +16,25 @@ const LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 // spells.json (*Ru fields); the English field is the fallback.
 const ru = (info, key) => info[`${key}Ru`] || info[key] || ''
 
-function SpellRow({ spell, meta }) {
+// onPrepare is set for preparing casters on spells of level 1+.
+function SpellRow({ spell, meta, onPrepare, canEdit }) {
     const [open, setOpen] = useState(false)
     const info = { ...meta, ...spell }
     return (
-        <li className="spell-row">
-            <button type="button" className="spell-row-head" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
-                <span className="spell-name">{spellName(info)}</span>
-                <span className="spell-meta">{[ru(info, 'castingTime'), ru(info, 'range')].filter(Boolean).join(' · ')}</span>
-            </button>
+        <li className={`spell-row ${onPrepare && spell.prepared ? 'is-prepared' : ''}`}>
+            <div className="spell-row-line">
+                <button type="button" className="spell-row-head" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+                    <span className="spell-name">{spellName(info)}</span>
+                    <span className="spell-meta">{[ru(info, 'castingTime'), ru(info, 'range')].filter(Boolean).join(' · ')}</span>
+                </button>
+                {onPrepare && (
+                    <label className="spell-prepared">
+                        <input type="checkbox" checked={!!spell.prepared} disabled={!canEdit}
+                            onChange={(e) => onPrepare(spell.spellId, e.target.checked)} />
+                        <span>Подготовлено</span>
+                    </label>
+                )}
+            </div>
             {open && (
                 <div className="spell-body">
                     <p className="spell-facts">
@@ -40,7 +50,7 @@ function SpellRow({ spell, meta }) {
 
 const NOTE_STATUS = { PENDING: 'На рассмотрении', APPROVED: 'Одобрено', REJECTED: 'Отказано' }
 
-export default function MagicTab({ character, form, update, canEdit, editing, knownSpells, notes = [], catalog, addCantrip }) {
+export default function MagicTab({ character, form, update, canEdit, editing, knownSpells, notes = [], catalog, addCantrip, setPrepared }) {
     const [cantripChoice, setCantripChoice] = useState('')
 
     if (isNonCaster(form.characterClass)) {
@@ -83,6 +93,13 @@ export default function MagicTab({ character, form, update, canEdit, editing, kn
     })
 
     const shownLevels = LEVELS.filter((l) => editing || (form.spellSlots[l]?.max ?? 0) > 0)
+    // Preparing casters choose from known spells of level 1+; the limit is
+    // only highlighted. Everyone else has all known spells ready.
+    const preparing = isPreparingCaster(form.characterClass)
+    const limit = preparing ? preparedLimit(form.characterClass, form.level, mod ?? 0) : null
+    const preparedCount = knownSpells.filter((s) => s.level > 0 && s.prepared).length
+    const over = limit !== null && preparedCount > limit
+
     const groups = {}
     for (const s of knownSpells) (groups[s.level] ||= []).push(s)
     const groupLevels = Object.keys(groups).map(Number).sort((a, b) => a - b)
@@ -171,11 +188,20 @@ export default function MagicTab({ character, form, update, canEdit, editing, kn
                 actions={canEdit && <Button variant="secondary" to={`/characters/${character.id}/research`}>Исследования</Button>}
             >
                 {knownSpells.length === 0 && <p className="sheet-prose is-empty">Заклинания пока не изучены.</p>}
+                {preparing && knownSpells.some((s) => s.level > 0) && (
+                    <p className={`spell-prepared-count ${over ? 'is-over' : ''}`} role="status">
+                        Подготовлено {preparedCount} из {limit}
+                        {over && <span> · больше лимита</span>}
+                    </p>
+                )}
                 {groupLevels.map((level) => (
                     <div key={level} className="spell-group">
                         <h3 className="sheet-label">{level === 0 ? 'Заговоры' : `${level} круг`}</h3>
                         <ul className="spell-list">
-                            {groups[level].map((s) => <SpellRow key={s.spellId} spell={s} meta={byId[s.spellId]} />)}
+                            {groups[level].map((s) => (
+                                <SpellRow key={s.spellId} spell={s} meta={byId[s.spellId]} canEdit={canEdit}
+                                    onPrepare={preparing && level > 0 ? setPrepared : null} />
+                            ))}
                         </ul>
                     </div>
                 ))}
