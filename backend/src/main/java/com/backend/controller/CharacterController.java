@@ -72,7 +72,8 @@ public class CharacterController {
         return ResponseEntity.ok(admissionService.forCharacter(id, user));
     }
 
-    // Body (optional): {"requestedLevel": 6, "playerComment": "..."}.
+    // Body (optional): {"requestedLevel": 6, "playerComment": "...",
+    // "hpMethod": "AVERAGE" | "ROLL", "hpRoll": 5}.
     @PostMapping("/{id}/level-up-request")
     public ResponseEntity<AdmissionRequestResponse> requestLevelUp(
             @PathVariable Long id,
@@ -80,6 +81,8 @@ public class CharacterController {
             @AuthenticationPrincipal User user) {
         Integer level = body != null && body.get("requestedLevel") instanceof Number n ? n.intValue() : null;
         String comment = body != null && body.get("playerComment") instanceof String s ? s : null;
-        return ResponseEntity.status(201).body(admissionService.requestLevelUp(id, level, comment, user));
+        String hpMethod = body != null && body.get("hpMethod") instanceof String s ? s : null;
+        Integer hpRoll = body != null && body.get("hpRoll") instanceof Number n ? n.intValue() : null;
+        return ResponseEntity.status(201).body(admissionService.requestLevelUp(id, level, comment, hpMethod, hpRoll, user));
     }
 }

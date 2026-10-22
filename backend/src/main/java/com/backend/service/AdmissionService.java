@@ -34,7 +34,8 @@ public class AdmissionService {
 
     /** A player asks for the next level (or a given one). */
     @Transactional
-    public AdmissionRequestResponse requestLevelUp(Long characterId, Integer requestedLevel, String comment, User user) {
+    public AdmissionRequestResponse requestLevelUp(Long characterId, Integer requestedLevel, String comment,
+                                                   String hpMethod, Integer hpRoll, User user) {
         Character c = characterRepository.findById(characterId)
                 .orElseThrow(() -> ApiException.notFound("Личное дело не найдено."));
         if (!c.getUser().getId().equals(user.getId())) {
@@ -50,11 +51,24 @@ public class AdmissionService {
         if (target <= c.getLevel() || target > 20) {
             throw ApiException.badRequest("Уровень в заявке — от " + (c.getLevel() + 1) + " до 20.");
         }
+        int die = CharacterRules.hitDieOf(c.getHitDiceType());
+        String method = "ROLL".equals(hpMethod) ? "ROLL" : "AVERAGE";
+        int dieValue;
+        if ("ROLL".equals(method)) {
+            if (hpRoll == null || hpRoll < 1 || hpRoll > die) {
+                throw ApiException.badRequest("Бросок кости хитов — от 1 до " + die + ".");
+            }
+            dieValue = hpRoll;
+        } else {
+            dieValue = CharacterRules.averageHitDie(die);
+        }
         AdmissionRequest saved = requestRepository.save(AdmissionRequest.builder()
                 .character(c)
                 .type(AdmissionType.LEVEL_UP)
                 .requestedLevel(target)
                 .aboveCap(target > c.getLevelCap())
+                .hpMethod(method)
+                .hpRoll(dieValue)
                 .playerComment(blank(comment))
                 .build());
         return AdmissionRequestResponse.of(saved);
@@ -88,7 +102,8 @@ public class AdmissionService {
 
     /**
      * Approve. LEVEL_UP sets the level (and the clearance when above the
-     * rune cap). CREATION approves the file; a rune above COMMON is applied
+     * rune cap) and adds the hit points the player chose to hpMax and
+     * hpCurrent. CREATION approves the file; a rune above COMMON is applied
      * only when the GM confirms it (confirmRune), otherwise it stays COMMON.
      */
     @Transactional
@@ -96,6 +111,14 @@ public class AdmissionService {
         AdmissionRequest r = open(requestId);
         Character c = r.getCharacter();
         if (r.getType() == AdmissionType.LEVEL_UP) {
+            if (r.getHpRoll() != null) {
+                int levels = Math.max(0, r.getRequestedLevel() - c.getLevel());
+                int gain = levels * CharacterRules.levelUpHp(r.getHpRoll(),
+                        CharacterRules.abilityMod(c.getConstitution() == null ? 10 : c.getConstitution()));
+                r.setHpGain(gain);
+                c.setHpMax((c.getHpMax() == null ? 0 : c.getHpMax()) + gain);
+                c.setHpCurrent((c.getHpCurrent() == null ? 0 : c.getHpCurrent()) + gain);
+            }
             c.setLevel(r.getRequestedLevel());
             c.setHitDiceTotal(r.getRequestedLevel());
             c.setProficiencyBonus(CharacterRules.proficiencyBonus(r.getRequestedLevel()));

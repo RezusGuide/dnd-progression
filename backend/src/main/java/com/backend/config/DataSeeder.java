@@ -4,6 +4,7 @@ import com.backend.entity.AspectRecipe;
 import com.backend.entity.Role;
 import com.backend.repository.AspectRecipeRepository;
 import com.backend.repository.RoleRepository;
+import com.backend.service.OptionsService;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class DataSeeder implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final AspectRecipeRepository aspectRecipeRepository;
     private final JdbcTemplate jdbcTemplate;
+    private final OptionsService optionsService;
 
     @Override
     public void run(String... args) {
@@ -40,6 +42,8 @@ public class DataSeeder implements CommandLineRunner {
                 "Standard account access: D&D.", List.of("dnd"));
         ensureAspectRecipes();
         backfillCampaignRules();
+        // One unlock_flag row per unlock key in races/classes.json.
+        optionsService.ensureFlags();
     }
 
     // Stage 5 added rune_tier / approval_status / hit_dice_used to

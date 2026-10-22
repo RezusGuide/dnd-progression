@@ -218,6 +218,11 @@ public class Character {
     @Column(name = "spell_points_current")
     private Integer spellPointsCurrent;
 
+    // Set at creation for classes whose mechanics the player typed in from
+    // the book (no entry in the frontend's class table). STR..CHA or null.
+    @Column(name = "spellcasting_ability", length = 3)
+    private String spellcastingAbility;
+
     // ── Equipment & currency ──
     @Column(columnDefinition = "TEXT")
     private String equipment;

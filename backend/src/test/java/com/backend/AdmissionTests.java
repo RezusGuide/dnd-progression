@@ -40,11 +40,12 @@ class AdmissionTests {
         return roleService.createAccount("player-" + tag, tag + "@example.test", "test-password-123");
     }
 
-    // Elf wizard, standard array, acolyte background, three wizard cantrips.
+    // Human wizard, standard array, acolyte background, three wizard
+    // cantrips. (Elves are closed at creation since stage 5b.)
     private CharacterCreateRequest wizardElf() {
         CharacterCreateRequest r = new CharacterCreateRequest();
         r.setName("Мирра");
-        r.setRaceKey("Elf");
+        r.setRaceKey("Human");
         r.setClassKey("Wizard");
         r.setBackgroundKey("ACOLYTE");
         r.setAbilityMethod("STANDARD");
@@ -71,10 +72,11 @@ class AdmissionTests {
         Character c = creationService.create(wizardElf(), player.getId());
 
         assertEquals(ApprovalStatus.PENDING, c.getApprovalStatus());
-        assertEquals(16, c.getDexterity());   // 14 + 2 (elf)
-        assertEquals(16, c.getIntelligence()); // 15 + 1 (high elf)
-        assertEquals(7, c.getHpMax());         // d6 max 6 + CON mod 1
-        assertTrue(c.getProficientSkills().containsAll(List.of("ARCANA", "HISTORY", "INSIGHT", "RELIGION", "PERCEPTION")));
+        assertEquals(15, c.getDexterity());    // 14 + 1 (human)
+        assertEquals(16, c.getIntelligence()); // 15 + 1 (human)
+        assertEquals(8, c.getHpMax());         // d6 max 6 + CON mod 2 (13 + 1)
+        assertEquals("INT", c.getSpellcastingAbility());
+        assertTrue(c.getProficientSkills().containsAll(List.of("ARCANA", "HISTORY", "INSIGHT", "RELIGION")));
         assertTrue(requestRepository.existsByCharacterIdAndStatus(c.getId(), ApprovalStatus.PENDING));
     }
 
@@ -115,7 +117,7 @@ class AdmissionTests {
         // The GM may set the level directly; the rune cap is 10.
         characterService.updateSheet(c.getId(), sheetFrom(c, 10), player.getId(), true);
 
-        AdmissionRequestResponse req = admissionService.requestLevelUp(c.getId(), null, "Готова к 11", player);
+        AdmissionRequestResponse req = admissionService.requestLevelUp(c.getId(), null, "Готова к 11", null, null, player);
         assertTrue(req.isAboveCap());
         assertEquals(11, req.getRequestedLevel());
 
@@ -134,7 +136,50 @@ class AdmissionTests {
         Long creationId = admissionService.forCharacter(c.getId(), player).get(0).getId();
         admissionService.approve(creationId, null, false, null);
 
-        admissionService.requestLevelUp(c.getId(), null, null, player);
-        assertThrows(ApiException.class, () -> admissionService.requestLevelUp(c.getId(), null, null, player));
+        admissionService.requestLevelUp(c.getId(), null, null, null, null, player);
+        assertThrows(ApiException.class, () -> admissionService.requestLevelUp(c.getId(), null, null, null, null, player));
+    }
+
+    private Character approvedWizard(User player) {
+        Character c = creationService.create(wizardElf(), player.getId());
+        Long creationId = admissionService.forCharacter(c.getId(), player).get(0).getId();
+        admissionService.approve(creationId, null, false, null);
+        return c;
+    }
+
+    @Test
+    void levelUpWithAverageAddsHalfTheDiePlusOnePlusCon() {
+        User player = newPlayer();
+        Character c = approvedWizard(player); // d6, CON 14 (+2), 8 HP
+
+        AdmissionRequestResponse req = admissionService.requestLevelUp(c.getId(), null, null, "AVERAGE", null, player);
+        assertEquals(4, req.getHpRoll());   // 6 / 2 + 1
+        assertEquals(6, req.getHpGain());   // preview: 4 + 2
+        AdmissionRequestResponse done = admissionService.approve(req.getId(), null, false, null);
+        assertEquals(6, done.getHpGain());
+
+        Character after = characterRepository.findById(c.getId()).orElseThrow();
+        assertEquals(14, after.getHpMax());
+        assertEquals(14, after.getHpCurrent());
+        assertEquals(2, after.getLevel());
+    }
+
+    @Test
+    void levelUpRollIsCheckedAgainstTheDieAndNeverAddsLessThanOne() {
+        User player = newPlayer();
+        Character c = approvedWizard(player);
+        // CON 3 (-4): a roll of 1 still gives 1 HP.
+        CharacterSheetRequest sheet = sheetFrom(c, 1);
+        sheet.setConstitution(3);
+        sheet.setHitDiceType("d6");
+        sheet.setHpMax(8);
+        sheet.setHpCurrent(8);
+        characterService.updateSheet(c.getId(), sheet, player.getId(), false);
+
+        assertThrows(ApiException.class, () -> admissionService.requestLevelUp(c.getId(), null, null, "ROLL", 7, player));
+        AdmissionRequestResponse req = admissionService.requestLevelUp(c.getId(), null, null, "ROLL", 1, player);
+        admissionService.approve(req.getId(), null, false, null);
+
+        assertEquals(9, characterRepository.findById(c.getId()).orElseThrow().getHpMax());
     }
 }

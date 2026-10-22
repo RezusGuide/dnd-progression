@@ -21,9 +21,23 @@ public class CharacterCreateRequest {
     private List<String> raceBonusChoice = new ArrayList<>();
     // Half-elf: two skills of any kind.
     private List<String> raceSkills = new ArrayList<>();
+    // Flexible origin: +2/+1 or +1/+1/+1 in any abilities. Required for
+    // races without SRD mechanics, optional (replaces the fixed bonuses)
+    // for SRD races.
+    private Map<String, Integer> flexibleBonuses = new HashMap<>();
+    // Races without SRD mechanics: the player copies these from the book.
+    private Integer raceSpeed;
+    private String raceSize;
+    private String raceTraits;
 
     // Step 2: class key from data/classes.json.
     private String classKey;
+    // Classes without mechanics in the data (hitDie null): typed in by the
+    // player from the book, checked by the GM, not against the data.
+    private Integer customHitDie;
+    private List<String> customSaves = new ArrayList<>();
+    private String customSpellAbility;
+    private String customProficiencies;
 
     // Step 3: background key from data/backgrounds.json or "CUSTOM".
     private String backgroundKey;

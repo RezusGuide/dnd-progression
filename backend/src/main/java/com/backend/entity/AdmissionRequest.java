@@ -45,6 +45,19 @@ public class AdmissionRequest {
     @Column(name = "above_cap", nullable = false)
     private boolean aboveCap;
 
+    // Only for LEVEL_UP: how the player takes hit points - AVERAGE (half the
+    // die + 1) or ROLL - and the die value (the average, or what they
+    // rolled). Requests filed before this existed have none and add no HP.
+    @Column(name = "hp_method", length = 10)
+    private String hpMethod;
+
+    @Column(name = "hp_roll")
+    private Integer hpRoll;
+
+    // What approval added to hpMax: max(1, hpRoll + CON mod) per level.
+    @Column(name = "hp_gain")
+    private Integer hpGain;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     @Builder.Default

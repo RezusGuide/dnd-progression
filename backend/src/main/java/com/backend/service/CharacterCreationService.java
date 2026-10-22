@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -42,6 +43,11 @@ public class CharacterCreationService {
             "INSIGHT", "INTIMIDATION", "INVESTIGATION", "MEDICINE", "NATURE", "PERCEPTION",
             "PERFORMANCE", "PERSUASION", "RELIGION", "SLEIGHT_OF_HAND", "STEALTH", "SURVIVAL");
     private static final String CUSTOM = "CUSTOM";
+    private static final Set<String> SIZES = Set.of("Маленький", "Средний");
+    private static final Set<Integer> HIT_DICE = Set.of(6, 8, 10, 12);
+    // Classes typed in from the book: sanity limits only, the GM checks the rest.
+    private static final int MANUAL_SKILL_LIMIT = 4;
+    private static final int MANUAL_CANTRIP_LIMIT = 4;
 
     private final DataRegistry data;
     private final SpellRegistry spellRegistry;
@@ -49,6 +55,7 @@ public class CharacterCreationService {
     private final CharacterRepository characterRepository;
     private final KnownSpellRepository knownSpellRepository;
     private final AdmissionRequestRepository requestRepository;
+    private final OptionsService options;
 
     @Transactional
     public Character create(CharacterCreateRequest req, Long userId) {
@@ -60,6 +67,11 @@ public class CharacterCreationService {
 
         JsonNode cls = data.find("classes", req.getClassKey())
                 .orElseThrow(() -> ApiException.badRequest("Выберите класс."));
+        if (!options.isAllowed(OptionsService.CLASS, cls.get("key").asText())) {
+            throw ApiException.badRequest("Этот класс пока закрыт для оформления.");
+        }
+        // No hit die in the data = mechanics the player typed in from the book.
+        boolean manualClass = !cls.hasNonNull("hitDie");
 
         // ── Race and its bonuses ──
         Map<String, Integer> bonuses = new HashMap<>();
@@ -84,9 +96,19 @@ public class CharacterCreationService {
         } else {
             JsonNode race = data.find("races", req.getRaceKey())
                     .orElseThrow(() -> ApiException.badRequest("Выберите расу."));
+            if (!options.isAllowed(OptionsService.RACE, race.get("key").asText())) {
+                throw ApiException.badRequest("Эта раса пока закрыта для оформления.");
+            }
             raceName = race.get("key").asText();
-            race.get("bonuses").fields().forEachRemaining(e -> bonuses.merge(e.getKey(), e.getValue().asInt(), Integer::sum));
-            JsonNode choice = race.get("bonusChoice");
+            boolean srd = race.path("srd").asBoolean(true);
+            boolean flexible = !srd || !req.getFlexibleBonuses().isEmpty();
+            if (flexible) {
+                // Flexible origin replaces the fixed bonuses (and the half-elf choice).
+                bonuses.putAll(flexibleBonuses(req.getFlexibleBonuses()));
+            } else {
+                race.get("bonuses").fields().forEachRemaining(e -> bonuses.merge(e.getKey(), e.getValue().asInt(), Integer::sum));
+            }
+            JsonNode choice = flexible ? null : race.get("bonusChoice");
             if (choice != null) {
                 List<String> picked = req.getRaceBonusChoice();
                 Set<String> excluded = asSet(choice.get("exclude"));
@@ -105,9 +127,19 @@ public class CharacterCreationService {
                 }
                 raceSkills.addAll(picked);
             }
-            speed = race.get("speed").asInt();
-            raceLanguages = String.join(", ", asList(race.get("languages")));
-            raceTraits = String.join("\n", asList(race.get("traits")));
+            if (srd) {
+                speed = race.get("speed").asInt();
+                raceLanguages = String.join(", ", asList(race.get("languages")));
+                raceTraits = String.join("\n", asList(race.get("traits")));
+            } else {
+                speed = req.getRaceSpeed() != null ? req.getRaceSpeed() : race.path("speed").asInt(30);
+                if (speed < 5 || speed > 60) throw ApiException.badRequest("Скорость расы — от 5 до 60 футов.");
+                String size = SIZES.contains(req.getRaceSize()) ? req.getRaceSize() : race.path("size").asText("Средний");
+                List<String> lines = new ArrayList<>();
+                lines.add("Размер: " + size + ".");
+                if (blankToNull(req.getRaceTraits()) != null) lines.add(req.getRaceTraits().strip());
+                raceTraits = String.join("\n", lines);
+            }
         }
 
         // ── Background ──
@@ -170,10 +202,34 @@ public class CharacterCreationService {
             scores.put(a, base.get(a) + bonuses.getOrDefault(a, 0));
         }
 
+        // ── Class mechanics: from the data, or typed in by the player ──
+        int hitDie;
+        Set<String> saves;
+        String spellAbility;
+        String classProfs;
+        if (manualClass) {
+            hitDie = req.getCustomHitDie() == null ? 0 : req.getCustomHitDie();
+            if (!HIT_DICE.contains(hitDie)) throw ApiException.badRequest("Кость хитов класса — к6, к8, к10 или к12.");
+            saves = new LinkedHashSet<>(req.getCustomSaves());
+            if (saves.size() != 2 || !CharacterRules.ABILITIES.containsAll(saves)) {
+                throw ApiException.badRequest("Спасброски класса: две разные характеристики.");
+            }
+            spellAbility = blankToNull(req.getCustomSpellAbility());
+            if (spellAbility != null && !CharacterRules.ABILITIES.contains(spellAbility)) {
+                throw ApiException.badRequest("Неизвестная базовая характеристика заклинаний.");
+            }
+            classProfs = blankToNull(req.getCustomProficiencies());
+        } else {
+            hitDie = cls.get("hitDie").asInt();
+            saves = asSet(cls.get("saves"));
+            spellAbility = cls.hasNonNull("spellAbility") ? cls.get("spellAbility").asText() : null;
+            classProfs = cls.get("proficiencies").asText();
+        }
+
         // ── Class skills ──
         JsonNode skillChoice = cls.get("skillChoice");
-        int classSkillCount = skillChoice.get("count").asInt();
-        Set<String> allowed = skillChoice.get("from").isTextual() ? SKILLS : asSet(skillChoice.get("from"));
+        int classSkillCount = manualClass ? MANUAL_SKILL_LIMIT : skillChoice.get("count").asInt();
+        Set<String> allowed = manualClass || skillChoice.get("from").isTextual() ? SKILLS : asSet(skillChoice.get("from"));
         List<String> classSkills = req.getClassSkills();
         if (classSkills.size() > classSkillCount || new LinkedHashSet<>(classSkills).size() != classSkills.size()
                 || classSkills.stream().anyMatch(s -> !allowed.contains(s))) {
@@ -185,7 +241,10 @@ public class CharacterCreationService {
 
         // ── Cantrips ──
         String classUpper = cls.get("key").asText().toUpperCase();
-        int cantripLimit = cls.get("cantrips").asInt();
+        int cantripLimit = manualClass ? MANUAL_CANTRIP_LIMIT : cls.get("cantrips").asInt();
+        // Classes with no list in spells.json pick from every cantrip.
+        boolean classHasList = spellRegistry.getAllSpells().stream()
+                .anyMatch(sp -> sp.getClasses() != null && sp.getClasses().contains(classUpper));
         List<String> cantripIds = new ArrayList<>(new LinkedHashSet<>(req.getCantrips()));
         if (cantripIds.size() > cantripLimit) {
             throw ApiException.badRequest(cantripLimit == 0
@@ -199,7 +258,8 @@ public class CharacterCreationService {
             } catch (ResearchException e) {
                 throw ApiException.badRequest("Заговора «" + id + "» нет в картотеке.");
             }
-            if (spell.getLevel() != 0 || spell.getClasses() == null || !spell.getClasses().contains(classUpper)) {
+            if (spell.getLevel() != 0
+                    || (classHasList && (spell.getClasses() == null || !spell.getClasses().contains(classUpper)))) {
                 throw ApiException.badRequest("«" + (spell.getNameRu() != null ? spell.getNameRu() : spell.getName())
                         + "» не заговор этого класса.");
             }
@@ -218,16 +278,17 @@ public class CharacterCreationService {
         }
 
         // ── Build the sheet ──
-        int hitDie = cls.get("hitDie").asInt();
         List<String> equipmentOptions = asList(cls.get("equipment"));
-        int option = Math.max(0, Math.min(equipmentOptions.size() - 1, req.getEquipmentOption()));
         List<String> equipment = new ArrayList<>();
-        equipment.add(equipmentOptions.get(option));
+        if (!equipmentOptions.isEmpty()) {
+            int option = Math.max(0, Math.min(equipmentOptions.size() - 1, req.getEquipmentOption()));
+            equipment.add(equipmentOptions.get(option));
+        }
         if (backgroundEquipment != null) equipment.add(backgroundEquipment);
         if (blankToNull(req.getEquipmentExtra()) != null) equipment.add(req.getEquipmentExtra().strip());
 
         List<String> profs = new ArrayList<>();
-        profs.add(cls.get("proficiencies").asText());
+        if (classProfs != null) profs.add(classProfs);
         if (backgroundProfs != null) profs.add(backgroundProfs);
         if (!raceLanguages.isEmpty()) profs.add("Языки: " + raceLanguages + ".");
 
@@ -252,7 +313,7 @@ public class CharacterCreationService {
                 .wisdom(scores.get("WIS"))
                 .charisma(scores.get("CHA"))
                 .proficiencyBonus(CharacterRules.proficiencyBonus(level))
-                .proficientSaves(asSet(cls.get("saves")))
+                .proficientSaves(saves)
                 .proficientSkills(skills)
                 .armorClass(10 + CharacterRules.abilityMod(scores.get("DEX")))
                 .speed(speed)
@@ -265,6 +326,7 @@ public class CharacterCreationService {
                 .equipment(String.join("\n", equipment))
                 .otherProficiencies(String.join("\n", profs))
                 .featuresAndTraits(raceTraits.isEmpty() ? null : raceTraits)
+                .spellcastingAbility(spellAbility)
                 .runeTier(RuneTier.COMMON)
                 .approvalStatus(ApprovalStatus.PENDING)
                 .build();
@@ -288,6 +350,20 @@ public class CharacterCreationService {
                 .build());
 
         return character;
+    }
+
+    // +2/+1 or +1/+1/+1, each to a different ability.
+    private static Map<String, Integer> flexibleBonuses(Map<String, Integer> raw) {
+        Map<String, Integer> out = new HashMap<>();
+        raw.forEach((a, v) -> {
+            if (v != null && v != 0) out.put(a, v);
+        });
+        List<Integer> values = out.values().stream().sorted(Comparator.reverseOrder()).toList();
+        if (!CharacterRules.ABILITIES.containsAll(out.keySet())
+                || !(values.equals(List.of(2, 1)) || values.equals(List.of(1, 1, 1)))) {
+            throw ApiException.badRequest("Гибкие бонусы: +2 и +1 или +1, +1 и +1 к разным характеристикам.");
+        }
+        return out;
     }
 
     private static String blankToNull(String s) {

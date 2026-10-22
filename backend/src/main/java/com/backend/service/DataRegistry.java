@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -48,6 +50,12 @@ public class DataRegistry {
     /** The file as-is, for GET /api/data/{name}; empty for unknown names. */
     public Optional<String> raw(String name) {
         return Optional.ofNullable(raw.get(name));
+    }
+
+    /** Every entry of a file, in file order (read-only - copy before changing). */
+    public List<JsonNode> list(String name) {
+        Map<String, JsonNode> index = byKey.get(name);
+        return index == null ? List.of() : new ArrayList<>(index.values());
     }
 
     public Optional<JsonNode> find(String name, String key) {

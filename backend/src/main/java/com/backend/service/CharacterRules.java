@@ -50,6 +50,25 @@ public final class CharacterRules {
         return hp;
     }
 
+    /** Fixed hit points per level instead of rolling: half the die + 1. */
+    public static int averageHitDie(int hitDie) {
+        return hitDie / 2 + 1;
+    }
+
+    /** Hit points for one new level: the die value + CON mod, at least 1. */
+    public static int levelUpHp(int dieValue, int conMod) {
+        return Math.max(1, dieValue + conMod);
+    }
+
+    /** "d8" -> 8; 8 when the field is empty or odd. */
+    public static int hitDieOf(String hitDiceType) {
+        try {
+            return Integer.parseInt(hitDiceType.strip().substring(1));
+        } catch (RuntimeException e) {
+            return 8;
+        }
+    }
+
     public static int xpForLevel(int level) {
         return XP_THRESHOLDS[Math.max(1, Math.min(20, level)) - 1];
     }
