@@ -93,7 +93,7 @@ export default function Campaigns() {
                             <div className="campaign-card-left">
                                 <h2 className="campaign-name">{c.name}</h2>
                                 {c.description && <p className="campaign-desc">{c.description}</p>}
-                                <span className="campaign-owner">{t('owner')}: {c.owner?.username}</span>
+                                {c.owner?.username && <span className="campaign-owner">{t('owner')}: {c.owner.username}</span>}
                             </div>
                             <button
                                 className="tome-btn"

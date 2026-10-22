@@ -11,12 +11,12 @@ export default function Account() {
     const [code, setCode] = useState('')
     const [error, setError] = useState('')
     const [confirmed, setConfirmed] = useState(false)
-    const [copied, setCopied] = useState(false)
+    const [copied, setCopied] = useState('') // '' | 'ok' | 'failed'
 
     const handleGenerate = async () => {
         setError('')
         setConfirmed(false)
-        setCopied(false)
+        setCopied('')
         try {
             const res = await api.post('/api/auth/recovery-code')
             setCode(res.data.recoveryCode)
@@ -28,8 +28,10 @@ export default function Account() {
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(code)
-            setCopied(true)
-        } catch { /* clipboard not available - the code is on screen anyway */ }
+            setCopied('ok')
+        } catch {
+            setCopied('failed') // no clipboard access - the code is on screen anyway
+        }
     }
 
     return (
@@ -48,7 +50,7 @@ export default function Account() {
                         <code className="pass-code">{code}</code>
                         <div className="pass-row">
                             <Button variant="secondary" onClick={handleCopy}>Копировать</Button>
-                            <span role="status">{copied ? 'Копия снята.' : ''}</span>
+                            <span role="status">{copied === 'ok' && 'Копия снята.'}{copied === 'failed' && 'Не скопировалось. Выделите код и скопируйте вручную.'}</span>
                         </div>
                         <label className="pass-check">
                             <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} />

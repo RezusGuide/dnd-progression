@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
+import { classifyApiError } from '../api/apiErrors'
+import { ERROR_COPY } from '../components/errors/errorCopy'
 import Logo from '../components/brand/Logo'
 import { Button, Dossier, Field, SteamBackground } from '../components/ui'
 
@@ -40,8 +42,10 @@ export default function Login() {
                 sections: res.data.sections,
             }, res.data.token)
             navigate(from, { replace: true })
-        } catch {
-            setError('Пропуск не опознан. Проверьте почту и пароль.')
+        } catch (err) {
+            // Server down / no connection is not a wrong password.
+            const kind = classifyApiError(err)
+            setError(kind ? `${ERROR_COPY[kind].title}. ${ERROR_COPY[kind].text}` : 'Пропуск не опознан. Проверьте почту и пароль.')
         } finally {
             setBusy(false)
         }

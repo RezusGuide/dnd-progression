@@ -81,6 +81,7 @@
 
 .reception { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 2rem; }
 .reception-section-title {
+  font-size: 1.05rem;
   font-family: var(--font-label);
   font-weight: 600;
   letter-spacing: var(--label-spacing);
