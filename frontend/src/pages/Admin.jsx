@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
 import ErrorScreen from '../components/errors/ErrorScreen'
 import { Button, Dossier, Loader, PageHeader } from '../components/ui'
+import AdminOptions from './admin/AdminOptions'
 import AdminRequests from './admin/AdminRequests'
 import '../styles/sheet.css'
 
@@ -254,6 +255,8 @@ export default function Admin() {
             {notice && <div className="tome-notice">{notice}</div>}
 
             <AdminRequests />
+
+            <AdminOptions />
 
             <section className="sheet-section admin-section">
                 <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>

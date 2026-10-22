@@ -176,3 +176,29 @@
 .request-card-head { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
 .request-rune { display: flex; align-items: center; gap: 0.4rem; }
 .request-warn { color: var(--stamp); font-weight: 700; }
+
+/* Панель ГМ → «Справочник» */
+.options-filter { display: inline-grid; gap: 0.25rem; min-width: 14rem; margin: 0.75rem 0 0.5rem; }
+.options-block { margin-top: 1.5rem; min-width: 0; }
+.options-counters { margin: 0.25rem 0 0.75rem; font-family: var(--font-label); font-size: 0.9rem; letter-spacing: 0.02em; color: var(--text-muted); }
+.options-table-wrap { overflow-x: auto; border: 1px solid var(--border); background: var(--surface-card); }
+.options-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.options-table th, .options-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--rule-line); text-align: left; vertical-align: middle; }
+.options-table thead th { font-family: var(--font-label); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); background: var(--surface-sunken); }
+.options-table tbody th { font-weight: 600; }
+.options-table select { min-width: 13rem; }
+.options-table tr.is-overridden th { box-shadow: inset 3px 0 0 var(--accent); }
+.options-source { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); }
+.options-tag { margin-left: 0.4rem; padding: 0 0.3rem; border: 1px solid var(--border); font-family: var(--font-label); font-size: 0.7rem; color: var(--text-muted); }
+.options-note { display: block; margin-top: 0.2rem; font-size: 0.8rem; color: var(--text-muted); }
+.options-open { color: var(--success); }
+.options-flags { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+.options-flag { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.5rem 1rem; align-items: end; padding: 0.75rem 1rem; border: 1px solid var(--border); background: var(--surface-card); }
+.options-flag-key { font-family: var(--font-mono); font-size: 0.95rem; padding-bottom: 0.6rem; }
+.options-flag-label { display: grid; gap: 0.25rem; min-width: 0; }
+.options-flag-toggle { padding-bottom: 0.4rem; }
+.options-flag .options-note { grid-column: 1 / -1; margin: 0; }
+@media (max-width: 560px) {
+  .options-flag { grid-template-columns: 1fr; }
+  .options-flag-key { padding-bottom: 0; }
+}
