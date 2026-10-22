@@ -160,9 +160,12 @@ export default function CreateWizard() {
                     </div>
                 </section>
 
-                <aside className="wiz-summary" aria-label="Сводка дела">
-                    <Summary draft={draft} data={data} />
-                </aside>
+                {/* On the last step the full summary sits in the main column. */}
+                {!isLast && (
+                    <aside className="wiz-summary" aria-label="Сводка дела">
+                        <Summary draft={draft} data={data} />
+                    </aside>
+                )}
             </div>
         </div>
     )

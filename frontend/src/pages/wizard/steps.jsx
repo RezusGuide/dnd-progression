@@ -257,7 +257,7 @@ export function SkillsStep({ draft, set, data }) {
                     return (
                         <li key={k}>
                             <label className={`wiz-skill ${isLocked ? 'is-locked' : ''} ${!available && !isLocked ? 'is-off' : ''}`}>
-                                <input type="checkbox" checked={isLocked || isClass} disabled={isLocked || !available}
+                                <input type="checkbox" checked={isLocked || isClass} disabled={isLocked || !available || (!isClass && draft.classSkills.length >= (choice?.count ?? 0))}
                                     onChange={() => set({ classSkills: toggle(draft.classSkills, k, choice?.count) })} />
                                 <span>{SKILLS[k].name}</span>
                                 <span className="prof-ability">({ABILITIES[SKILLS[k].ability].short})</span>

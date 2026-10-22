@@ -23,6 +23,7 @@ export default function AdminRequests() {
     useEffect(() => { refresh() }, [refresh])
 
     const runeName = (key) => runes?.find((r) => r.key === key)?.nameRu || key
+    const runeCap = (key) => runes?.find((r) => r.key === key)?.levelCap
 
     return (
         <section id="requests" className="admin-section">
@@ -30,7 +31,7 @@ export default function AdminRequests() {
             {!open && <Loader />}
             {open && open.length === 0 && <EmptyState>Заявок нет. Секретарша проверит позже.</EmptyState>}
             <div className="admin-requests">
-                {open?.map((r) => <RequestCard key={r.id} request={r} runeName={runeName} onDone={refresh} />)}
+                {open?.map((r) => <RequestCard key={r.id} request={r} runeName={runeName} runeCap={runeCap} onDone={refresh} />)}
             </div>
 
             {history && history.length > 0 && (
@@ -43,7 +44,7 @@ export default function AdminRequests() {
     )
 }
 
-function RequestCard({ request: r, runeName, onDone }) {
+function RequestCard({ request: r, runeName, runeCap, onDone }) {
     const [comment, setComment] = useState('')
     const [confirmRune, setConfirmRune] = useState(false)
     const [busy, setBusy] = useState(false)
@@ -82,7 +83,7 @@ function RequestCard({ request: r, runeName, onDone }) {
                 <dt>Руна</dt>
                 <dd className="request-rune">
                     <RuneBadge tier={r.type === 'CREATION' ? r.requestedRuneTier : r.runeTier} size={20} />
-                    {runeName(r.type === 'CREATION' ? r.requestedRuneTier : r.runeTier)} · потолок {r.levelCap}
+                    {runeName(r.type === 'CREATION' ? r.requestedRuneTier : r.runeTier)} · потолок {r.type === 'CREATION' ? (runeCap(r.requestedRuneTier) ?? r.levelCap) : r.levelCap}
                 </dd>
                 {r.aboveCap && <><dt>Допуск</dt><dd className="request-warn">Сверх потолка руны: нужен допуск</dd></>}
                 {r.playerComment && <><dt>Игрок</dt><dd>{r.playerComment}</dd></>}

@@ -11,6 +11,8 @@
 }
 
 /* ── Step ribbon ── */
+/* grid items: let the ribbon scroll inside instead of widening the page */
+.wiz-steps, .wiz-summary { min-width: 0; }
 .wiz-steps ol { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
 .wiz-step {
   width: 100%;
