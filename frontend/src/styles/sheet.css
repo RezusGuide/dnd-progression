@@ -486,3 +486,18 @@ span.slot-pip { display: inline-block; }
 .levelup-hp-help { margin: 0 0 0.5rem; color: var(--text-muted); }
 .levelup-hp-roll { display: grid; gap: 0.25rem; max-width: 10rem; margin-bottom: 0.5rem; }
 .levelup-hp-total { margin: 0 0 1rem; font-family: var(--font-label); letter-spacing: 0.02em; }
+
+/* Stage 6: the bag of aspects (Снаряжение) and research notes (Магия) */
+.bag-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.5rem; }
+.bag-cell { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 0.5rem; align-items: center; padding: 0.4rem 0.5rem; border: 1px solid var(--border); background: var(--surface-sunken); }
+.bag-cell .aspect-icon { grid-row: span 2; }
+.bag-name { font-weight: 700; font-size: 0.92rem; }
+.note-list { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.note-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; padding: 0.4rem 0.6rem; border: 1px solid var(--border); background: var(--surface-sunken); }
+.note-name { font-weight: 700; }
+.note-meta { color: var(--text-muted); font-size: 0.85rem; }
+.note-status { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.note-pending { color: var(--stamp); }
+.note-approved { color: var(--success); }
+.note-rejected { color: var(--danger); }
+.note-comment { flex-basis: 100%; font-size: 0.88rem; font-style: italic; }

@@ -202,3 +202,15 @@
   .options-flag { grid-template-columns: 1fr; }
   .options-flag-key { padding-bottom: 0; }
 }
+
+/* Панель ГМ → «Исследования» и «Выдачи» */
+.note-preview { background: var(--sunny-night, #12203A); padding: 0.5rem; border: 1px solid var(--border); }
+.note-history { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+.note-history li { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; padding: 0.4rem 0.6rem; border: 1px solid var(--border); background: var(--surface-card); }
+.grant-aspects { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 0.35rem; border: 0; padding: 0; margin: 0.75rem 0; }
+.grant-aspect { display: flex; align-items: center; gap: 0.4rem; min-height: 44px; padding: 0.3rem 0.5rem; border: 1px solid var(--border); background: var(--surface-card); cursor: pointer; font-size: 0.9rem; }
+.grant-aspect input { position: absolute; opacity: 0; pointer-events: none; }
+.grant-aspect.is-selected { border: 2px solid var(--border-strong); box-shadow: 0 0 0 3px var(--accent-soft); }
+.grant-aspect:focus-within { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.grant-bag { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.75rem; }
+.grant-bag-item { display: inline-flex; align-items: center; gap: 0.25rem; font-family: var(--font-mono); }

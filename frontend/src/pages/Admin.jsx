@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { ASPECTS, aspectLabel } from '../constants/aspects'
-import { spellName } from '../constants/spellText'
-import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
 import ErrorScreen from '../components/errors/ErrorScreen'
 import { Button, Dossier, Loader, PageHeader } from '../components/ui'
+import AdminGrants from './admin/AdminGrants'
 import AdminOptions from './admin/AdminOptions'
 import AdminRequests from './admin/AdminRequests'
+import AdminResearch from './admin/AdminResearch'
 import '../styles/sheet.css'
 
 export default function Admin() {
@@ -37,28 +36,9 @@ export default function Admin() {
     const [passwordChoice, setPasswordChoice] = useState({})
     const [showAdvancedRoles, setShowAdvancedRoles] = useState(false)
 
-    // DM-only grants: items (equipment), aspects, and hint access - kept
-    // as three separate forms/endpoints so each is a distinct, deliberate
-    // action rather than one grant type doubling as another.
-    const [characters, setCharacters] = useState([])
-    const [spells, setSpells] = useState([])
-    const [itemGrantForm, setItemGrantForm] = useState({ characterId: '', item: '' })
-    const [materialGrantForm, setMaterialGrantForm] = useState({ characterId: '', material: '' })
-    const [aspectGrantForm, setAspectGrantForm] = useState({ characterId: '', aspect: ASPECTS[0].key, amount: 1 })
-    const [hintGrantForm, setHintGrantForm] = useState({ characterId: '', spellId: '' })
-    // Plain-search filters for the two pickers below - with 50 aspects and
-    // ~300 spells in the catalog now, a single flat <select> stopped being
-    // usable, so both are narrowed by a text filter (name/aspect substring,
-    // case-insensitive) before being grouped into <optgroup>s.
-    const [aspectFilter, setAspectFilter] = useState('')
-    const [spellFilter, setSpellFilter] = useState('')
-    const [spellLevelFilter, setSpellLevelFilter] = useState('')
-
     const refresh = () => {
         api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
         api.get('/api/admin/users').then((res) => setUsers(res.data)).catch(() => {})
-        api.get('/api/characters').then((res) => setCharacters(res.data)).catch(() => {})
-        api.get('/api/spells').then((res) => setSpells(res.data.filter((s) => s.level >= 1 && s.level <= 8))).catch(() => {})
     }
 
     useEffect(() => {
@@ -120,73 +100,6 @@ export default function Admin() {
         }
     }
 
-    const handleGrantItem = async (e) => {
-        e.preventDefault()
-        setError('')
-        setNotice('')
-        if (!itemGrantForm.characterId || !itemGrantForm.item.trim()) return
-        try {
-            await api.post('/api/admin/items/grant', {
-                characterId: Number(itemGrantForm.characterId),
-                item: itemGrantForm.item.trim(),
-            })
-            setItemGrantForm({ ...itemGrantForm, item: '' })
-            setNotice(t('adminGranted'))
-        } catch (err) {
-            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
-        }
-    }
-
-    const handleGrantMaterial = async (e) => {
-        e.preventDefault()
-        setError('')
-        setNotice('')
-        if (!materialGrantForm.characterId || !materialGrantForm.material.trim()) return
-        try {
-            await api.post('/api/admin/materials/grant', {
-                characterId: Number(materialGrantForm.characterId),
-                material: materialGrantForm.material.trim(),
-            })
-            setMaterialGrantForm({ ...materialGrantForm, material: '' })
-            setNotice(t('adminGranted'))
-        } catch (err) {
-            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
-        }
-    }
-
-    const handleGrantAspect = async (e) => {
-        e.preventDefault()
-        setError('')
-        setNotice('')
-        if (!aspectGrantForm.characterId) return
-        try {
-            await api.post('/api/admin/aspects/grant', {
-                characterId: Number(aspectGrantForm.characterId),
-                aspect: aspectGrantForm.aspect,
-                amount: Number(aspectGrantForm.amount),
-            })
-            setNotice(t('adminGranted'))
-        } catch (err) {
-            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
-        }
-    }
-
-    const handleGrantHint = async (e) => {
-        e.preventDefault()
-        setError('')
-        setNotice('')
-        if (!hintGrantForm.characterId || !hintGrantForm.spellId) return
-        try {
-            await api.post('/api/admin/hints/grant', {
-                characterId: Number(hintGrantForm.characterId),
-                spellId: hintGrantForm.spellId,
-            })
-            setNotice(t('adminGranted'))
-        } catch (err) {
-            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
-        }
-    }
-
     const handleResetPassword = async (userId) => {
         const password = passwordChoice[userId]
         if (!password) return
@@ -225,29 +138,6 @@ export default function Admin() {
         )
     }
 
-    // Aspect picker: filtered by name, then split into Primal / Compound so
-    // the 6 aspects every combo starts from aren't buried in the other 44.
-    const aspectQuery = aspectFilter.trim().toLowerCase()
-    const filteredAspects = ASPECTS.filter((a) => aspectLabel(a.key).toLowerCase().includes(aspectQuery))
-    const primalAspects = filteredAspects.filter((a) => a.primal)
-    const compoundAspects = filteredAspects.filter((a) => !a.primal)
-
-    // Spell picker: filtered by (localized) name substring and/or an exact
-    // level, then grouped into one <optgroup> per level so scrolling ~300
-    // entries isn't the only way to find one.
-    const spellQuery = spellFilter.trim().toLowerCase()
-    const hintCharacterClass = characters.find((c) => String(c.id) === String(hintGrantForm.characterId))?.characterClass
-    const filteredSpells = spells.filter((s) => {
-        const matchesQuery = !spellQuery || spellName(s).toLowerCase().includes(spellQuery)
-        const matchesLevel = !spellLevelFilter || s.level === Number(spellLevelFilter)
-        const matchesClass = !hintCharacterClass || isSpellEligible(hintCharacterClass, s)
-        return matchesQuery && matchesLevel && matchesClass
-    })
-    const spellsByLevel = {}
-    for (const s of filteredSpells) {
-        (spellsByLevel[s.level] ||= []).push(s)
-    }
-
     return (
         <div className="parchment-page">
             <PageHeader title="Панель ГМ" subtitle={t('adminSubtitle')} />
@@ -255,6 +145,10 @@ export default function Admin() {
             {notice && <div className="tome-notice">{notice}</div>}
 
             <AdminRequests />
+
+            <AdminResearch />
+
+            <AdminGrants />
 
             <AdminOptions />
 
@@ -322,201 +216,6 @@ export default function Admin() {
                         </div>
                     ))}
                 </div>
-            </section>
-
-            <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
-                    {t('adminItemGrant')}
-                </h2>
-                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminItemGrantHint')}</p>
-                <form onSubmit={handleGrantItem} className="tome-form codex-form">
-                    <div className="tome-row">
-                        <div className="tome-field">
-                            <label>{t('adminSelectCharacter')}</label>
-                            <select
-                                value={itemGrantForm.characterId}
-                                onChange={(e) => setItemGrantForm({ ...itemGrantForm, characterId: e.target.value })}
-                                required
-                            >
-                                <option value="">{t('choose')}</option>
-                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="tome-field" style={{ flex: 2 }}>
-                            <label>{t('adminItemLabel')}</label>
-                            <input
-                                type="text"
-                                value={itemGrantForm.item}
-                                onChange={(e) => setItemGrantForm({ ...itemGrantForm, item: e.target.value })}
-                                placeholder={t('adminItemPlaceholder')}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="tome-btn-row">
-                        <button type="submit" className="tome-btn">{t('adminItemGrantBtn')}</button>
-                    </div>
-                </form>
-            </section>
-
-            <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
-                    {t('adminMaterialGrant')}
-                </h2>
-                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminMaterialGrantHint')}</p>
-                <form onSubmit={handleGrantMaterial} className="tome-form codex-form">
-                    <div className="tome-row">
-                        <div className="tome-field">
-                            <label>{t('adminSelectCharacter')}</label>
-                            <select
-                                value={materialGrantForm.characterId}
-                                onChange={(e) => setMaterialGrantForm({ ...materialGrantForm, characterId: e.target.value })}
-                                required
-                            >
-                                <option value="">{t('choose')}</option>
-                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="tome-field" style={{ flex: 2 }}>
-                            <label>{t('adminMaterialLabel')}</label>
-                            <input
-                                type="text"
-                                value={materialGrantForm.material}
-                                onChange={(e) => setMaterialGrantForm({ ...materialGrantForm, material: e.target.value })}
-                                placeholder={t('adminMaterialPlaceholder')}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="tome-btn-row">
-                        <button type="submit" className="tome-btn">{t('adminMaterialGrantBtn')}</button>
-                    </div>
-                </form>
-            </section>
-
-            <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
-                    {t('adminAspectGrant')}
-                </h2>
-                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminAspectGrantHint')}</p>
-                <form onSubmit={handleGrantAspect} className="tome-form codex-form">
-                    <div className="tome-row">
-                        <div className="tome-field">
-                            <label>{t('adminSelectCharacter')}</label>
-                            <select
-                                value={aspectGrantForm.characterId}
-                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, characterId: e.target.value })}
-                                required
-                            >
-                                <option value="">{t('choose')}</option>
-                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="tome-field">
-                            <label>{t('adminSelectAspect')}</label>
-                            <input
-                                type="text"
-                                value={aspectFilter}
-                                onChange={(e) => setAspectFilter(e.target.value)}
-                                placeholder={t('adminSearchAspect')}
-                                style={{ marginBottom: '0.4rem' }}
-                            />
-                            <select
-                                value={aspectGrantForm.aspect}
-                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, aspect: e.target.value })}
-                                size={Math.min(8, Math.max(4, filteredAspects.length))}
-                            >
-                                {primalAspects.length > 0 && (
-                                    <optgroup label={t('adminAspectPrimal')}>
-                                        {primalAspects.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
-                                    </optgroup>
-                                )}
-                                {compoundAspects.length > 0 && (
-                                    <optgroup label={t('adminAspectCompound')}>
-                                        {compoundAspects.map((a) => <option key={a.key} value={a.key}>{aspectLabel(a.key)}</option>)}
-                                    </optgroup>
-                                )}
-                                {filteredAspects.length === 0 && <option disabled>{t('adminNoMatches')}</option>}
-                            </select>
-                        </div>
-                        <div className="tome-field">
-                            <label>{t('adminAmount')}</label>
-                            <input
-                                type="number" min="1" value={aspectGrantForm.amount}
-                                onChange={(e) => setAspectGrantForm({ ...aspectGrantForm, amount: e.target.value })}
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="tome-btn-row">
-                        <button type="submit" className="tome-btn">{t('adminGrantBtn')}</button>
-                    </div>
-                </form>
-            </section>
-
-            <section className="sheet-section admin-section">
-                <h2 className="sheet-column-title" style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '1rem' }}>
-                    {t('adminHintGrant')}
-                </h2>
-                <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminHintGrantHint')}</p>
-                {hintCharacterClass && isNonCaster(hintCharacterClass) && (
-                    <div className="tome-notice">{t('sheetNonCasterNotice').replace('{class}', hintCharacterClass)}</div>
-                )}
-                <form onSubmit={handleGrantHint} className="tome-form codex-form">
-                    <div className="tome-row">
-                        <div className="tome-field">
-                            <label>{t('adminSelectCharacter')}</label>
-                            <select
-                                value={hintGrantForm.characterId}
-                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, characterId: e.target.value, spellId: '' })}
-                                required
-                            >
-                                <option value="">{t('choose')}</option>
-                                {characters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="tome-field" style={{ flex: 2 }}>
-                            <label>{t('adminSelectSpell')}</label>
-                            <div className="tome-row" style={{ gap: '0.4rem', marginBottom: '0.4rem' }}>
-                                <input
-                                    type="text"
-                                    value={spellFilter}
-                                    onChange={(e) => setSpellFilter(e.target.value)}
-                                    placeholder={t('adminSearchSpell')}
-                                    style={{ flex: 2 }}
-                                />
-                                <select
-                                    value={spellLevelFilter}
-                                    onChange={(e) => setSpellLevelFilter(e.target.value)}
-                                    style={{ flex: 1 }}
-                                >
-                                    <option value="">{t('adminAllLevels')}</option>
-                                    {[1, 2, 3, 4, 5, 6, 7, 8].map((lvl) => (
-                                        <option key={lvl} value={lvl}>{t('level')} {lvl}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <select
-                                value={hintGrantForm.spellId}
-                                onChange={(e) => setHintGrantForm({ ...hintGrantForm, spellId: e.target.value })}
-                                size={Math.min(10, Math.max(4, filteredSpells.length))}
-                                required
-                            >
-                                {Object.keys(spellsByLevel).sort((a, b) => a - b).map((lvl) => (
-                                    <optgroup key={lvl} label={`${t('level')} ${lvl}`}>
-                                        {spellsByLevel[lvl].map((s) => (
-                                            <option key={s.id} value={s.id}>{spellName(s)}</option>
-                                        ))}
-                                    </optgroup>
-                                ))}
-                                {filteredSpells.length === 0 && <option disabled>{t('adminNoMatches')}</option>}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="tome-btn-row">
-                        <button type="submit" className="tome-btn">{t('adminHintGrantBtn')}</button>
-                    </div>
-                </form>
             </section>
 
             <section className="sheet-section admin-section">

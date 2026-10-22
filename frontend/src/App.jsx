@@ -16,8 +16,8 @@ import Campaigns from './pages/Campaigns'
 import CampaignView from './pages/CampaignView'
 import SheetPage from './pages/sheet/SheetPage'
 import CreateWizard from './pages/wizard/CreateWizard'
-import Research from './pages/Research'
-import AspectCraft from './pages/AspectCraft'
+import ResearchPage from './pages/research/ResearchPage'
+import CombinePage from './pages/research/CombinePage'
 
 // Guests go to the Проходная, which sends them back here after signing in.
 function ProtectedRoute({ children }) {
@@ -38,8 +38,8 @@ function AppRoutes() {
             <Route path="/characters" element={<Characters />} />
             <Route path="/characters/new" element={<ProtectedRoute><CreateWizard /></ProtectedRoute>} />
             <Route path="/characters/:id" element={<SheetPage />} />
-            <Route path="/characters/:characterId/research" element={<Research />} />
-            <Route path="/characters/:characterId/craft" element={<AspectCraft />} />
+            <Route path="/characters/:characterId/research" element={<ProtectedRoute><ResearchPage /></ProtectedRoute>} />
+            <Route path="/characters/:characterId/craft" element={<ProtectedRoute><CombinePage /></ProtectedRoute>} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 

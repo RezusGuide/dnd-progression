@@ -30,7 +30,6 @@ function SpellRow({ spell, meta }) {
                     <p className="spell-facts">
                         {info.components && <span>Компоненты: {ru(info, 'components')}</span>}
                         {info.duration && <span>Длительность: {ru(info, 'duration')}</span>}
-                        {spell.accuracyPercentage != null && spell.level > 0 && <span>Сила: {spell.accuracyPercentage}%</span>}
                     </p>
                     <p className="sheet-prose">{spellDescription(info) || '—'}</p>
                 </div>
@@ -39,7 +38,9 @@ function SpellRow({ spell, meta }) {
     )
 }
 
-export default function MagicTab({ character, form, update, canEdit, editing, knownSpells, catalog, addCantrip }) {
+const NOTE_STATUS = { PENDING: 'На рассмотрении', APPROVED: 'Одобрено', REJECTED: 'Отказано' }
+
+export default function MagicTab({ character, form, update, canEdit, editing, knownSpells, notes = [], catalog, addCantrip }) {
     const [cantripChoice, setCantripChoice] = useState('')
 
     if (isNonCaster(form.characterClass)) {
@@ -178,6 +179,22 @@ export default function MagicTab({ character, form, update, canEdit, editing, kn
                         </ul>
                     </div>
                 ))}
+
+                {notes.length > 0 && (
+                    <div className="spell-group">
+                        <h3 className="sheet-label">Исследовательские записки</h3>
+                        <ul className="note-list">
+                            {notes.map((n) => (
+                                <li key={n.id} className={`note-row is-${n.status.toLowerCase()}`}>
+                                    <span className="note-name">{n.spellNameRu || n.spellName}</span>
+                                    <span className="note-meta">{n.spellLevel} круг</span>
+                                    <span className={`note-status note-${n.status.toLowerCase()}`}>{NOTE_STATUS[n.status]}</span>
+                                    {n.status === 'REJECTED' && n.gmComment && <span className="note-comment">ГМ: {n.gmComment}</span>}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
 
                 {canEdit && (
                     <div className="magic-add">

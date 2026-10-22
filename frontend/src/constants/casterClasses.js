@@ -1,4 +1,4 @@
-// Mirrors backend CasterClasses.java - which of the twelve modeled 5e
+// Same caster list as the backend's SpellAccess (com.backend.research) - which of the twelve modeled 5e
 // classes can cast spells at all, and normalization for the free-text
 // Character.characterClass field so "Wizard"/"wizard "/"WIZARD" all match
 // the class keys used in Spell.classes. Base-rules eligibility only, same

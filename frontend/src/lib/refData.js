@@ -19,7 +19,9 @@ export function loadRefData(name) {
     const key = `${name}|${sessionToken()}`
     if (!cache[key]) {
         cache[key] = api.get(`/api/data/${name}`)
-            .then((res) => (Array.isArray(res.data) ? res.data : []))
+            // A file is a list, or an object with one list next to settings
+            // (aspects.json); the hook hands out the list either way.
+            .then((res) => (Array.isArray(res.data) ? res.data : (Object.values(res.data || {}).find(Array.isArray) || [])))
             .catch((err) => { delete cache[key]; throw err })
     }
     return cache[key]

@@ -1,5 +1,6 @@
 import { Button } from '../../components/ui'
-import { ASPECTS, aspectLabel } from '../../constants/aspects'
+import AspectIcon from '../../components/aspects/AspectIcon'
+import { bagEntries, useMagicData } from '../../lib/magic'
 import { coinsInGold } from '../../lib/dnd-rules'
 import { SheetSection, TextBlock } from './parts'
 
@@ -11,11 +12,12 @@ const COINS = [
     ['pp', 'ПМ', 'Платиновые монеты'],
 ]
 
-// Coins change any time (no edit mode); texts only while editing. The old
-// aspect pouch is read-only here and goes away in stage 6.
+// Coins change any time (no edit mode); texts only while editing. The bag
+// of aspects is read-only here: the GM grants them, research spends them.
 export default function GearTab({ character, form, update, canEdit, editing }) {
     const setCoin = (key, value) => update({ [key]: Math.max(0, Math.round(Number(value) || 0)) })
-    const held = ASPECTS.filter((a) => (character.aspects?.[a.key] || 0) > 0)
+    const [magic] = useMagicData()
+    const held = bagEntries(character.aspects, magic?.aspects)
 
     return (
         <div className="gear-tab">
@@ -53,15 +55,19 @@ export default function GearTab({ character, form, update, canEdit, editing }) {
             </div>
 
             <SheetSection
-                title="Сумка с аспектами"
+                title="Сумка"
                 actions={canEdit && <Button variant="secondary" to={`/characters/${character.id}/craft`}>Соединить аспекты</Button>}
             >
                 {held.length === 0 ? (
                     <p className="sheet-prose is-empty">Сумка пуста. Аспекты выдаёт ГМ.</p>
                 ) : (
-                    <ul className="pouch-list">
-                        {held.map((a) => (
-                            <li key={a.key}><span>{aspectLabel(a.key)}</span><span className="sheet-num">× {character.aspects[a.key]}</span></li>
+                    <ul className="bag-grid">
+                        {held.map(({ aspect, count }) => (
+                            <li key={aspect.key} className="bag-cell" title={aspect.hint}>
+                                <AspectIcon aspect={aspect} size={36} />
+                                <span className="bag-name">{aspect.nameRu}</span>
+                                <span className="sheet-num">× {count}</span>
+                            </li>
                         ))}
                     </ul>
                 )}

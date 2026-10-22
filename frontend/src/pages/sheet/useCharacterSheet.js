@@ -100,6 +100,7 @@ export default function useCharacterSheet(id) {
     const [loadError, setLoadError] = useState(null)
     const [saveState, setSaveState] = useState('idle') // idle | saving | saved | error
     const [knownSpells, setKnownSpells] = useState([])
+    const [notes, setNotes] = useState([])
     const [catalog, setCatalog] = useState([])
     const [requests, setRequests] = useState([])
 
@@ -151,6 +152,8 @@ export default function useCharacterSheet(id) {
 
     const refreshKnownSpells = useCallback(() => {
         api.get(`/api/characters/${id}/known-spells`).then((res) => setKnownSpells(res.data)).catch(() => {})
+        // Research notes are for the owner and the GM only; others get 403.
+        api.get(`/api/characters/${id}/research/notes`).then((res) => setNotes(res.data)).catch(() => setNotes([]))
     }, [id])
 
     useEffect(() => {
@@ -201,5 +204,5 @@ export default function useCharacterSheet(id) {
         }
     }, [id, refreshKnownSpells])
 
-    return { character, form, update, canEdit, saveState, loadError, knownSpells, catalog, addCantrip, requests, requestLevelUp }
+    return { character, form, update, canEdit, saveState, loadError, knownSpells, notes, catalog, addCantrip, requests, requestLevelUp }
 }
