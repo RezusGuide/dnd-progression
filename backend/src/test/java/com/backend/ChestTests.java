@@ -120,6 +120,7 @@ class ChestTests {
         OpenOutcome locked = chest.open(c.getId(), lock, "окно", player);
         assertEquals(OpenOutcome.Kind.BITTEN, locked.kind());
         assertTrue(locked.lockedUntil().isAfter(LocalDateTime.now().plusMinutes(9)));
+        assertTrue(locked.lockSeconds() > 590 && locked.lockSeconds() <= 600);
 
         // While locked even the right answer is refused...
         assertEquals(OpenOutcome.Kind.LOCKED, chest.open(c.getId(), lock, "дверь", player).kind());

@@ -72,6 +72,15 @@ public class ChestService {
     /** What happened on POST .../open: opened, bitten (409) or still locked (423). */
     public record OpenOutcome(Kind kind, ChestRewardResponse reward, String penalty, LocalDateTime lockedUntil, Integer hpCurrent) {
         public enum Kind { OPENED, BITTEN, LOCKED }
+
+        public long lockSeconds() {
+            return ChestService.secondsLeft(lockedUntil);
+        }
+    }
+
+    static long secondsLeft(LocalDateTime until) {
+        if (until == null) return 0;
+        return Math.max(0, java.time.Duration.between(LocalDateTime.now(), until).toSeconds());
     }
 
     private Character owned(Long characterId, User user) {
@@ -361,7 +370,8 @@ public class ChestService {
                 .id(r.getId()).characterId(c.getId()).characterName(c.getName())
                 .title(r.getTitle()).status(r.getStatus().name())
                 .hasRiddle(r.getRiddleAnswerHash() != null).riddleQuestion(r.getRiddleQuestion())
-                .penalty(r.getPenalty().name()).lockedUntil(r.getLockedUntil()).wrongAttempts(r.getWrongAttempts())
+                .penalty(r.getPenalty().name()).lockedUntil(r.getLockedUntil()).lockSeconds(secondsLeft(r.getLockedUntil()))
+                .wrongAttempts(r.getWrongAttempts())
                 .gmNote(open ? r.getGmNote() : null)
                 .contents(open ? read(r.getContents()) : null)
                 .createdAt(r.getCreatedAt()).openedAt(r.getOpenedAt()).createdBy(forGm ? r.getCreatedBy() : null)

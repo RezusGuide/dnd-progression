@@ -37,8 +37,8 @@ public class ChestController {
     }
 
     // Body (optional): {"answer": "..."}. 200 with the opened reward; 409
-    // {bitten: true, penalty, lockedUntil, hpCurrent} on a wrong answer;
-    // 423 {locked: true, lockedUntil} while locked.
+    // {bitten: true, penalty, lockedUntil, lockSeconds, hpCurrent} on a wrong
+    // answer; 423 {locked: true, lockedUntil, lockSeconds} while locked.
     @PostMapping("/api/characters/{characterId}/chest/{rewardId}/open")
     public ResponseEntity<?> open(@PathVariable Long characterId, @PathVariable Long rewardId,
                                   @RequestBody(required = false) Map<String, Object> body,
@@ -53,6 +53,7 @@ public class ChestController {
                 out.put("message", "Сундучок укусил: ответ неверный.");
                 out.put("penalty", outcome.penalty());
                 out.put("lockedUntil", outcome.lockedUntil());
+                out.put("lockSeconds", outcome.lockSeconds());
                 out.put("hpCurrent", outcome.hpCurrent());
                 yield ResponseEntity.status(HttpStatus.CONFLICT).body(out);
             }
@@ -61,6 +62,7 @@ public class ChestController {
                 out.put("locked", true);
                 out.put("message", "Сундучок обиделся. Попробуйте позже.");
                 out.put("lockedUntil", outcome.lockedUntil());
+                out.put("lockSeconds", outcome.lockSeconds());
                 yield ResponseEntity.status(HttpStatus.LOCKED).body(out);
             }
         };

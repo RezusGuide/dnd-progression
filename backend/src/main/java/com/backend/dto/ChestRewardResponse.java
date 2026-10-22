@@ -22,6 +22,9 @@ public class ChestRewardResponse {
     private String riddleQuestion;
     private String penalty;
     private LocalDateTime lockedUntil;
+    // Seconds of lock left when the response was made. The client counts
+    // down from this, so server and browser clocks or time zones never matter.
+    private long lockSeconds;
     private int wrongAttempts;
     private String gmNote;
     private ChestContents contents;
