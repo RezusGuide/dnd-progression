@@ -1,4 +1,6 @@
-import { ABILITY_KEYS, POINT_BUY_BUDGET, isStandardArray, pointBuySpent, withBonuses } from '../../lib/dnd-rules'
+import {
+    ABILITY_KEYS, POINT_BUY_BUDGET, isStandardArray, isValidFlexibleBonuses, pointBuySpent, withBonuses,
+} from '../../lib/dnd-rules'
 
 // Draft state of the "Заведение личного дела" wizard, plus the pure
 // helpers that derive everything else from it. Kept apart from the
@@ -16,7 +18,20 @@ export function emptyDraft() {
         customRaceBonuses: blankScores(0),
         raceBonusChoice: [],
         raceSkills: [],
+        // Flexible origin (+2/+1 or +1/+1/+1): always for races without SRD
+        // mechanics, by choice ("Гибкие бонусы") for SRD races.
+        flexible: false,
+        flexibleBonuses: blankScores(0),
+        // Races without SRD mechanics: copied from the book by the player.
+        raceSpeed: 30,
+        raceSize: 'Средний',
+        raceTraits: '',
         classKey: '',
+        // Classes without mechanics in the data: typed in from the book.
+        customHitDie: null,
+        customSaves: [],
+        customSpellAbility: '',
+        customProficiencies: '',
         backgroundKey: '',
         customBackgroundName: '',
         customBackgroundSkills: [],
@@ -75,11 +90,32 @@ export function selectedBackground(draft, backgrounds) {
     return backgrounds?.find((b) => b.key === draft.backgroundKey) || null
 }
 
+// Only "allowed" entries can be picked; "unlockable" ones show as locked.
+export const isPickable = (entry) => !entry?.status || entry.status === 'allowed'
+export const isLocked = (entry) => entry?.status === 'unlockable'
+
+// Races without SRD mechanics (srd: false) always use flexible bonuses.
+export const isSrdRace = (race) => race?.srd !== false
+export function usesFlexible(draft, race) {
+    return !!race && (!isSrdRace(race) || draft.flexible)
+}
+
+// Classes without a hit die in the data: the player types the mechanics in.
+export const isManualClass = (cls) => !!cls && cls.hitDie == null
+
+export function classHitDie(draft, cls) {
+    if (!cls) return null
+    return isManualClass(cls) ? draft.customHitDie : cls.hitDie
+}
+
 // Racial bonuses as {STR: 2, ...}, including the half-elf's two picks.
 export function raceBonuses(draft, races) {
     if (draft.raceKey === CUSTOM) return { ...draft.customRaceBonuses }
     const race = selectedRace(draft, races)
     if (!race) return {}
+    if (usesFlexible(draft, race)) {
+        return Object.fromEntries(Object.entries(draft.flexibleBonuses).filter(([, v]) => v))
+    }
     const out = { ...race.bonuses }
     if (race.bonusChoice) {
         for (const key of draft.raceBonusChoice) out[key] = (out[key] || 0) + race.bonusChoice.amount
@@ -123,13 +159,45 @@ export function lockedSkills(draft, races, backgrounds) {
     return out
 }
 
+export function raceReady(draft, races) {
+    const race = selectedRace(draft, races)
+    if (!race || !isPickable(race)) return false
+    if (usesFlexible(draft, race)) return isValidFlexibleBonuses(draft.flexibleBonuses)
+    return !race.bonusChoice || draft.raceBonusChoice.length === race.bonusChoice.count
+}
+
+export function classReady(draft, classes) {
+    const cls = selectedClass(draft, classes)
+    if (!cls || !isPickable(cls)) return false
+    if (!isManualClass(cls)) return true
+    return [6, 8, 10, 12].includes(draft.customHitDie) && draft.customSaves.length === 2
+}
+
+// Typed-in classes: up to 4 cantrips when the player marked them as a
+// caster (the server allows the same), none otherwise.
+export const MANUAL_CANTRIP_LIMIT = 4
+export const MANUAL_SKILL_LIMIT = 4
+
 export function cantripLimit(draft, classes) {
-    return selectedClass(draft, classes)?.cantrips ?? 0
+    const cls = selectedClass(draft, classes)
+    if (isManualClass(cls)) return draft.customSpellAbility ? MANUAL_CANTRIP_LIMIT : 0
+    return cls?.cantrips ?? 0
 }
 
 // The JSON body for POST /api/characters.
-export function toPayload(draft) {
+export function toPayload(draft, races, classes) {
+    const race = selectedRace(draft, races)
+    const manual = isManualClass(selectedClass(draft, classes))
+    const typedRace = draft.raceKey !== CUSTOM && race && !isSrdRace(race)
     return {
+        flexibleBonuses: draft.raceKey !== CUSTOM && usesFlexible(draft, race) ? raceBonuses(draft, races) : {},
+        raceSpeed: typedRace ? draft.raceSpeed : null,
+        raceSize: typedRace ? draft.raceSize : null,
+        raceTraits: typedRace ? draft.raceTraits : null,
+        customHitDie: manual ? draft.customHitDie : null,
+        customSaves: manual ? draft.customSaves : [],
+        customSpellAbility: manual ? draft.customSpellAbility : null,
+        customProficiencies: manual ? draft.customProficiencies : null,
         raceKey: draft.raceKey,
         customRaceName: draft.customRaceName,
         customRaceBonuses: draft.customRaceBonuses,

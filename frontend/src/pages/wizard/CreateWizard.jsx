@@ -12,8 +12,8 @@ import {
     RaceStep, SkillsStep,
 } from './steps'
 import {
-    CUSTOM, abilitiesValid, cantripLimit, clearDraft, finalScores, loadDraft, lockedSkills, saveDraft,
-    selectedBackground, selectedClass, selectedRace, toPayload,
+    CUSTOM, abilitiesValid, cantripLimit, classHitDie, classReady, clearDraft, finalScores, isManualClass, loadDraft,
+    lockedSkills, raceReady, saveDraft, selectedBackground, selectedClass, selectedRace, toPayload,
 } from './wizardModel'
 import '../../styles/sheet.css'
 import '../../styles/wizard.css'
@@ -27,10 +27,9 @@ const STEPS = [
                 const total = Object.values(d.customRaceBonuses).reduce((a, b) => a + (b || 0), 0)
                 return d.customRaceName.trim() !== '' && total <= 3
             }
-            const race = selectedRace(d, x.races)
-            return !!race && (!race.bonusChoice || d.raceBonusChoice.length === race.bonusChoice.count)
+            return raceReady(d, x.races)
         } },
-    { key: 'class', title: 'Класс', Component: ClassStep, ready: (d, x) => !!selectedClass(d, x.classes) },
+    { key: 'class', title: 'Класс', Component: ClassStep, ready: (d, x) => classReady(d, x.classes) },
     { key: 'background', title: 'Предыстория', Component: BackgroundStep,
         ready: (d, x) => (d.backgroundKey === CUSTOM
             ? d.customBackgroundName.trim() !== '' && d.customBackgroundSkills.length === 2
@@ -41,11 +40,14 @@ const STEPS = [
             const cls = selectedClass(d, x.classes)
             const race = selectedRace(d, x.races)
             const raceOk = !race?.skillChoice || d.raceSkills.length === race.skillChoice.count
+            if (isManualClass(cls)) return raceOk
             return !!cls && d.classSkills.length === cls.skillChoice.count && raceOk
         } },
     { key: 'cantrips', title: 'Заговоры', Component: CantripsStep,
         skip: (d, x) => cantripLimit(d, x.classes) === 0,
-        ready: (d, x) => d.cantrips.length === cantripLimit(d, x.classes) },
+        ready: (d, x) => (isManualClass(selectedClass(d, x.classes))
+            ? d.cantrips.length <= cantripLimit(d, x.classes)
+            : d.cantrips.length === cantripLimit(d, x.classes)) },
     { key: 'gear', title: 'Снаряжение', Component: GearStep, ready: () => true },
     { key: 'identity', title: 'Имя и портрет', Component: IdentityStep, ready: (d) => d.name.trim() !== '' },
     { key: 'admission', title: 'Заявка на допуск', Component: AdmissionStep, ready: (d) => d.startLevel >= 1 },
@@ -92,7 +94,7 @@ export default function CreateWizard() {
         setSubmitting(true)
         setSubmitError('')
         try {
-            const res = await api.post('/api/characters', toPayload(draft))
+            const res = await api.post('/api/characters', toPayload(draft, races, classes))
             clearDraft()
             setSent(res.data)
             setTimeout(() => navigate(`/characters/${res.data.id}`), 1800)
@@ -178,7 +180,8 @@ function Summary({ draft, data, full = false }) {
     const bg = draft.backgroundKey === CUSTOM ? draft.customBackgroundName : selectedBackground(draft, data.backgrounds)?.nameRu
     const finals = finalScores(draft, data.races)
     const skills = [...lockedSkills(draft, data.races, data.backgrounds), ...draft.raceSkills, ...draft.classSkills]
-    const hp = cls && finals ? startingHp(cls.hitDie, abilityMod(finals.CON), draft.startLevel) : null
+    const hitDie = classHitDie(draft, cls)
+    const hp = hitDie && finals ? startingHp(hitDie, abilityMod(finals.CON), draft.startLevel) : null
     const cantrips = draft.cantrips.map((id) => spellName(data.spells.find((s) => s.id === id) || { name: id }))
 
     return (

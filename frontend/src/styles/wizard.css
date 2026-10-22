@@ -184,3 +184,16 @@
   .wiz-ability { grid-template-columns: 1fr; gap: 0.3rem; }
   .wiz-bonus-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* Stage 5b: search, locked cards, typed-in race / class fields */
+.wiz-search { max-width: 22rem; margin-bottom: 1rem; }
+.wiz-card.is-locked {
+  cursor: default;
+  background: var(--surface-sunken);
+  border-style: dashed;
+  box-shadow: none;
+  color: var(--text-muted);
+}
+.wiz-card.is-locked:hover { border-color: var(--border); }
+.wiz-flex-toggle { margin: 1rem 0 0; }
+.wiz-race-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0 1rem; margin-top: 0.75rem; }
