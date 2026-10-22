@@ -1,0 +1,215 @@
+{
+  "starterKitPerPrimal": 3,
+  "aspects": [
+    {
+      "key": "dawn",
+      "nameRu": "Рассвет",
+      "primal": true,
+      "components": [],
+      "color": "#F4B63D",
+      "glyph": "dawn",
+      "hint": "Свет, огонь, жизнь."
+    },
+    {
+      "key": "shadow",
+      "nameRu": "Тень",
+      "primal": true,
+      "components": [],
+      "color": "#9A8BC4",
+      "glyph": "shadow",
+      "hint": "Тьма, скрытность, смерть."
+    },
+    {
+      "key": "steam",
+      "nameRu": "Пар",
+      "primal": true,
+      "components": [],
+      "color": "#9FB3C8",
+      "glyph": "steam",
+      "hint": "Материя, механизм, движение."
+    },
+    {
+      "key": "dream",
+      "nameRu": "Сон",
+      "primal": true,
+      "components": [],
+      "color": "#B39DDB",
+      "glyph": "dream",
+      "hint": "Разум, иллюзия, чары."
+    },
+    {
+      "key": "order",
+      "nameRu": "Порядок",
+      "primal": true,
+      "components": [],
+      "color": "#4FA3A5",
+      "glyph": "order",
+      "hint": "Руна, защита, закон."
+    },
+    {
+      "key": "rift",
+      "nameRu": "Разлом",
+      "primal": true,
+      "components": [],
+      "color": "#D9577E",
+      "glyph": "rift",
+      "hint": "Хаос, планы, дикая магия."
+    },
+    {
+      "key": "gear",
+      "nameRu": "Шестерня",
+      "primal": false,
+      "components": [
+        "order",
+        "steam"
+      ],
+      "color": "#C9A86A",
+      "glyph": "gear",
+      "hint": "Устройство, сборка, точность."
+    },
+    {
+      "key": "mirage",
+      "nameRu": "Мираж",
+      "primal": false,
+      "components": [
+        "dream",
+        "dawn"
+      ],
+      "color": "#F2C6DE",
+      "glyph": "mirage",
+      "hint": "Видимость, обман зрения."
+    },
+    {
+      "key": "flame",
+      "nameRu": "Пламя",
+      "primal": false,
+      "components": [
+        "dawn",
+        "steam"
+      ],
+      "color": "#F28C4B",
+      "glyph": "flame",
+      "hint": "Жар, горение, сила."
+    },
+    {
+      "key": "ward",
+      "nameRu": "Оберег",
+      "primal": false,
+      "components": [
+        "order",
+        "dawn"
+      ],
+      "color": "#8FD3C1",
+      "glyph": "ward",
+      "hint": "Защита, щит, граница."
+    },
+    {
+      "key": "decay",
+      "nameRu": "Тлен",
+      "primal": false,
+      "components": [
+        "shadow",
+        "rift"
+      ],
+      "color": "#A3B86C",
+      "glyph": "decay",
+      "hint": "Распад, яд, увядание."
+    },
+    {
+      "key": "fog",
+      "nameRu": "Туман",
+      "primal": false,
+      "components": [
+        "steam",
+        "shadow"
+      ],
+      "color": "#B7C2CF",
+      "glyph": "fog",
+      "hint": "Сокрытие, пелена, сырость."
+    },
+    {
+      "key": "portal",
+      "nameRu": "Врата",
+      "primal": false,
+      "components": [
+        "rift",
+        "order"
+      ],
+      "color": "#6FA8FF",
+      "glyph": "portal",
+      "hint": "Переход, призыв, путь."
+    },
+    {
+      "key": "nightmare",
+      "nameRu": "Кошмар",
+      "primal": false,
+      "components": [
+        "dream",
+        "shadow"
+      ],
+      "color": "#C77DDB",
+      "glyph": "nightmare",
+      "hint": "Страх, морок, наваждение."
+    },
+    {
+      "key": "oracle",
+      "nameRu": "Прозрение",
+      "primal": false,
+      "components": [
+        "dream",
+        "order"
+      ],
+      "color": "#7FD1F0",
+      "glyph": "oracle",
+      "hint": "Знание, взгляд сквозь."
+    },
+    {
+      "key": "storm",
+      "nameRu": "Буря",
+      "primal": false,
+      "components": [
+        "rift",
+        "steam"
+      ],
+      "color": "#8FB8FF",
+      "glyph": "storm",
+      "hint": "Ветер, молния, гром."
+    },
+    {
+      "key": "essence",
+      "nameRu": "Эссенция",
+      "primal": false,
+      "components": [
+        "dream",
+        "rift"
+      ],
+      "color": "#E3A6FF",
+      "glyph": "essence",
+      "hint": "Суть, сердцевина чар."
+    },
+    {
+      "key": "life",
+      "nameRu": "Жизнь",
+      "primal": false,
+      "components": [
+        "dawn",
+        "decay"
+      ],
+      "color": "#7FD48A",
+      "glyph": "life",
+      "hint": "Рост, исцеление, дыхание."
+    },
+    {
+      "key": "machine",
+      "nameRu": "Механизм",
+      "primal": false,
+      "components": [
+        "gear",
+        "steam"
+      ],
+      "color": "#D4B48C",
+      "glyph": "machine",
+      "hint": "Движущееся устройство."
+    }
+  ]
+}

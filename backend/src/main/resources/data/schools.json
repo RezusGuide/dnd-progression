@@ -1,0 +1,83 @@
+[
+  {
+    "key": "abjuration",
+    "nameRu": "Ограждение",
+    "aspects": [
+      "order",
+      "ward",
+      "gear",
+      "dawn"
+    ]
+  },
+  {
+    "key": "conjuration",
+    "nameRu": "Вызов",
+    "aspects": [
+      "portal",
+      "rift",
+      "steam",
+      "machine"
+    ]
+  },
+  {
+    "key": "divination",
+    "nameRu": "Прорицание",
+    "aspects": [
+      "oracle",
+      "dream",
+      "order",
+      "dawn"
+    ]
+  },
+  {
+    "key": "enchantment",
+    "nameRu": "Очарование",
+    "aspects": [
+      "dream",
+      "mirage",
+      "nightmare",
+      "order"
+    ]
+  },
+  {
+    "key": "evocation",
+    "nameRu": "Воплощение",
+    "aspects": [
+      "dawn",
+      "rift",
+      "flame",
+      "storm"
+    ]
+  },
+  {
+    "key": "illusion",
+    "nameRu": "Иллюзия",
+    "aspects": [
+      "mirage",
+      "fog",
+      "dream",
+      "shadow"
+    ]
+  },
+  {
+    "key": "necromancy",
+    "nameRu": "Некромантия",
+    "aspects": [
+      "shadow",
+      "decay",
+      "life",
+      "nightmare"
+    ]
+  },
+  {
+    "key": "transmutation",
+    "nameRu": "Преобразование",
+    "aspects": [
+      "steam",
+      "machine",
+      "gear",
+      "life",
+      "essence"
+    ]
+  }
+]
