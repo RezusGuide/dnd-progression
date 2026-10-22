@@ -210,7 +210,7 @@ public class CalendarService {
             throw ApiException.badRequest("Даты: начало не позже конца.");
         }
         if (ChronoUnit.DAYS.between(body.dateFrom(), body.dateTo()) >= MAX_RANGE_DAYS) {
-            throw ApiException.badRequest("Подбор — не дольше " + MAX_RANGE_DAYS + " дней.");
+            throw ApiException.badRequest("Подбор — не дольше " + MAX_RANGE_DAYS + " дня.");
         }
         int duration = body.durationMinutes() == null ? 180 : body.durationMinutes();
         if (duration < 30 || duration > MAX_DURATION || duration % 30 != 0) {
