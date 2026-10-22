@@ -51,6 +51,12 @@ public class CharacterSheetRequest {
     private Integer hpTemp;
     private Integer hitDiceTotal;
     private String hitDiceType;
+    private Integer hitDiceUsed;
+
+    // GM only - ignored when a player saves (CharacterService#updateSheet).
+    private String runeTier;
+    private String approvalStatus;
+    private Integer clearanceLevel;
     private Integer deathSaveSuccesses;
     private Integer deathSaveFailures;
     private boolean inspiration;

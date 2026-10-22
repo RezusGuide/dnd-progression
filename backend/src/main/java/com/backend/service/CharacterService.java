@@ -1,11 +1,14 @@
 package com.backend.service;
 
-import com.backend.dto.CharacterRequest;
 import com.backend.dto.CharacterSheetRequest;
 import com.backend.dto.SpellSlotLevel;
 import com.backend.entity.Character;
 import com.backend.entity.User;
+import com.backend.entity.ApprovalStatus;
+import com.backend.entity.RuneTier;
+import com.backend.repository.AdmissionRequestRepository;
 import com.backend.repository.CharacterRepository;
+import org.springframework.transaction.annotation.Transactional;
 import com.backend.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,33 +27,14 @@ public class CharacterService {
     private final CharacterRepository characterRepository;
     private final UserRepository userRepository;
     private final com.backend.repository.CampaignRepository campaignRepository;
+    private final AdmissionRequestRepository admissionRequestRepository;
     // Instantiated directly rather than injected - same reasoning as
     // SpellRegistry/CombatService: this project's
     // auto-configured Jackson bean is Jackson 3
     // (tools.jackson.databind.ObjectMapper), not this classic Jackson 2 one.
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public Character createCharacter(CharacterRequest request, Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
-
-        Character character = Character.builder()
-                .name(request.getName())
-                .characterClass(request.getCharacterClass())
-                .race(request.getRace())
-                .backstory(request.getBackstory())
-                .level(1)
-                .user(user)
-                .build();
-
-        if (request.getCampaignId() != null) {
-            com.backend.entity.Campaign campaign = campaignRepository.findById(request.getCampaignId())
-                    .orElseThrow(() -> new RuntimeException("Кампания не найдена."));
-            character.setCampaign(campaign);
-        }
-
-        return characterRepository.save(character);
-    }
+    // Creation goes through CharacterCreationService (the wizard).
 
     // This is the "browse everything" listing (Characters.jsx's vault grid,
     // and Admin.jsx's character picker) - GET is still permitAll at the
@@ -76,9 +60,11 @@ public class CharacterService {
                 .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
     }
 
+    @Transactional
     public void deleteCharacter(Long characterId, Long userId) {
         Character character = characterRepository.findByIdAndUserId(characterId, userId)
                 .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
+        admissionRequestRepository.deleteByCharacterId(characterId);
         characterRepository.delete(character);
     }
 
@@ -98,7 +84,14 @@ public class CharacterService {
 
         character.setName(req.getName());
         character.setCharacterClass(req.getCharacterClass());
-        character.setLevel(req.getLevel());
+        // Level, rune, approval and clearance belong to the GM: a player's
+        // save leaves them as they are (level-ups go through AdmissionService).
+        if (actingUserIsOwner) {
+            character.setLevel(req.getLevel());
+            if (req.getRuneTier() != null) character.setRuneTier(RuneTier.valueOf(req.getRuneTier()));
+            if (req.getApprovalStatus() != null) character.setApprovalStatus(ApprovalStatus.valueOf(req.getApprovalStatus()));
+            character.setClearanceLevel(req.getClearanceLevel());
+        }
         character.setRace(req.getRace());
         character.setBackground(req.getBackground());
         character.setPlayerName(req.getPlayerName());
@@ -112,7 +105,7 @@ public class CharacterService {
         character.setIntelligence(req.getIntelligence());
         character.setWisdom(req.getWisdom());
         character.setCharisma(req.getCharisma());
-        character.setProficiencyBonus(req.getProficiencyBonus());
+        character.setProficiencyBonus(CharacterRules.proficiencyBonus(character.getLevel()));
 
         character.setProficientSaves(req.getProficientSaves());
         character.setProficientSkills(req.getProficientSkills());
@@ -126,6 +119,9 @@ public class CharacterService {
         character.setHpTemp(req.getHpTemp());
         character.setHitDiceTotal(req.getHitDiceTotal());
         character.setHitDiceType(req.getHitDiceType());
+        int diceTotal = character.getHitDiceTotal() != null ? character.getHitDiceTotal() : 0;
+        int diceUsed = req.getHitDiceUsed() != null ? req.getHitDiceUsed() : 0;
+        character.setHitDiceUsed(Math.max(0, Math.min(diceTotal, diceUsed)));
         character.setDeathSaveSuccesses(req.getDeathSaveSuccesses());
         character.setDeathSaveFailures(req.getDeathSaveFailures());
         character.setInspiration(req.isInspiration());

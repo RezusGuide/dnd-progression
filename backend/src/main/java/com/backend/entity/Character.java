@@ -168,6 +168,12 @@ public class Character {
     @Column(name = "hit_dice_type")
     private String hitDiceType;
 
+    // Hit dice spent on short rests; a long rest gives back half the total.
+    // Null on rows from before this column existed - read as 0.
+    @Column(name = "hit_dice_used")
+    @Builder.Default
+    private Integer hitDiceUsed = 0;
+
     @Column(name = "death_save_successes")
     @Builder.Default
     private Integer deathSaveSuccesses = 0;
@@ -279,6 +285,34 @@ public class Character {
     @Column(name = "count")
     @Builder.Default
     private Map<String, Integer> aspects = new HashMap<>();
+
+    // ── Campaign rules (stage 5) ──
+    // Rune level sets the level cap (10 / 15 / 20). Existing rows are
+    // backfilled to COMMON / APPROVED by DataSeeder.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rune_tier", length = 20)
+    @Builder.Default
+    private RuneTier runeTier = RuneTier.COMMON;
+
+    // A new file waits for the GM; only APPROVED characters can ask for a
+    // level-up.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "approval_status", length = 20)
+    @Builder.Default
+    private ApprovalStatus approvalStatus = ApprovalStatus.APPROVED;
+
+    // Highest level a GM clearance (допуск) allows above the rune cap; null
+    // when there is none.
+    @Column(name = "clearance_level")
+    private Integer clearanceLevel;
+
+    // The level this character may reach right now: the rune cap, or a
+    // higher clearance if the GM granted one.
+    @JsonProperty("levelCap")
+    public int getLevelCap() {
+        int cap = (runeTier != null ? runeTier : RuneTier.COMMON).getLevelCap();
+        return clearanceLevel != null ? Math.max(cap, clearanceLevel) : cap;
+    }
 
     @PrePersist
     protected void onCreate() {

@@ -74,6 +74,7 @@ public class SecurityConfig {
                         // Public read-only content - anyone, logged in or not, can view
                         // Announcements and the D&D area.
                         .requestMatchers(HttpMethod.GET, "/api/announcements/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/data/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/characters/**", "/api/campaigns/**", "/api/spells/**").permitAll()
 
                         // Any logged-in account (there's no per-friend section picking

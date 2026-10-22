@@ -6,6 +6,8 @@ import com.backend.repository.AspectRecipeRepository;
 import com.backend.repository.RoleRepository;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +23,14 @@ import java.util.List;
  *   There's no per-friend role picking anymore - either someone has an
  *   account (MEMBER) or they don't.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DataSeeder implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
     private final AspectRecipeRepository aspectRecipeRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... args) {
@@ -35,6 +39,21 @@ public class DataSeeder implements CommandLineRunner {
         ensureRole(RoleService.MEMBER_KEY, "Member",
                 "Standard account access: D&D.", List.of("dnd"));
         ensureAspectRecipes();
+        backfillCampaignRules();
+    }
+
+    // Stage 5 added rune_tier / approval_status / hit_dice_used to
+    // characters. ddl-auto=update adds the columns as NULL on existing rows;
+    // those characters predate the rules, so they count as approved with a
+    // common rune and no spent hit dice. Only touches NULLs, so running it
+    // on every start is harmless.
+    private void backfillCampaignRules() {
+        int rune = jdbcTemplate.update("UPDATE characters SET rune_tier = 'COMMON' WHERE rune_tier IS NULL");
+        int status = jdbcTemplate.update("UPDATE characters SET approval_status = 'APPROVED' WHERE approval_status IS NULL");
+        int dice = jdbcTemplate.update("UPDATE characters SET hit_dice_used = 0 WHERE hit_dice_used IS NULL");
+        if (rune + status + dice > 0) {
+            log.info("Backfilled campaign rules: rune_tier {}, approval_status {}, hit_dice_used {}", rune, status, dice);
+        }
     }
 
     // Transcribed from the Thaumcraft 4 aspect chart (six primal aspects -

@@ -1,0 +1,170 @@
+[
+  {
+    "key": "Barbarian",
+    "nameRu": "Варвар",
+    "hitDie": 12,
+    "saves": ["STR", "CON"],
+    "skillChoice": { "count": 2, "from": ["ANIMAL_HANDLING", "ATHLETICS", "INTIMIDATION", "NATURE", "PERCEPTION", "SURVIVAL"] },
+    "proficiencies": "Лёгкие и средние доспехи, щиты; простое и воинское оружие.",
+    "spellAbility": null,
+    "cantrips": 0,
+    "equipment": [
+      "Двуручный топор, два ручных топора, набор путешественника, четыре метательных копья",
+      "Любое воинское рукопашное оружие, любое простое оружие, набор путешественника, четыре метательных копья"
+    ]
+  },
+  {
+    "key": "Bard",
+    "nameRu": "Бард",
+    "hitDie": 8,
+    "saves": ["DEX", "CHA"],
+    "skillChoice": { "count": 3, "from": "ANY" },
+    "proficiencies": "Лёгкие доспехи; простое оружие, ручные арбалеты, длинные, короткие мечи и рапиры; три музыкальных инструмента.",
+    "spellAbility": "CHA",
+    "cantrips": 2,
+    "equipment": [
+      "Рапира, набор дипломата, лютня, кожаный доспех, кинжал",
+      "Длинный меч, набор артиста, другой музыкальный инструмент, кожаный доспех, кинжал"
+    ]
+  },
+  {
+    "key": "Cleric",
+    "nameRu": "Жрец",
+    "hitDie": 8,
+    "saves": ["WIS", "CHA"],
+    "skillChoice": { "count": 2, "from": ["HISTORY", "INSIGHT", "MEDICINE", "PERSUASION", "RELIGION"] },
+    "proficiencies": "Лёгкие и средние доспехи, щиты; простое оружие.",
+    "spellAbility": "WIS",
+    "cantrips": 3,
+    "equipment": [
+      "Булава, чешуйчатый доспех, лёгкий арбалет и 20 болтов, набор священника, щит, священный символ",
+      "Боевой молот, кольчуга, любое простое оружие, набор путешественника, щит, священный символ"
+    ]
+  },
+  {
+    "key": "Druid",
+    "nameRu": "Друид",
+    "hitDie": 8,
+    "saves": ["INT", "WIS"],
+    "skillChoice": { "count": 2, "from": ["ARCANA", "ANIMAL_HANDLING", "INSIGHT", "MEDICINE", "NATURE", "PERCEPTION", "RELIGION", "SURVIVAL"] },
+    "proficiencies": "Лёгкие и средние доспехи и щиты не из металла; дубинка, кинжал, дротик, метательное копьё, булава, боевой посох, скимитар, серп, праща, копьё; набор травника.",
+    "spellAbility": "WIS",
+    "cantrips": 2,
+    "equipment": [
+      "Деревянный щит, скимитар, кожаный доспех, набор путешественника, друидический фокус",
+      "Любое простое оружие, любое простое рукопашное оружие, кожаный доспех, набор путешественника, друидический фокус"
+    ]
+  },
+  {
+    "key": "Fighter",
+    "nameRu": "Воин",
+    "hitDie": 10,
+    "saves": ["STR", "CON"],
+    "skillChoice": { "count": 2, "from": ["ACROBATICS", "ANIMAL_HANDLING", "ATHLETICS", "HISTORY", "INSIGHT", "INTIMIDATION", "PERCEPTION", "SURVIVAL"] },
+    "proficiencies": "Все доспехи, щиты; простое и воинское оружие.",
+    "spellAbility": null,
+    "cantrips": 0,
+    "equipment": [
+      "Кольчуга, воинское оружие и щит, лёгкий арбалет и 20 болтов, набор исследователя подземелий",
+      "Кожаный доспех, длинный лук и 20 стрел, два воинских оружия, набор путешественника"
+    ]
+  },
+  {
+    "key": "Monk",
+    "nameRu": "Монах",
+    "hitDie": 8,
+    "saves": ["STR", "DEX"],
+    "skillChoice": { "count": 2, "from": ["ACROBATICS", "ATHLETICS", "HISTORY", "INSIGHT", "RELIGION", "STEALTH"] },
+    "proficiencies": "Простое оружие, короткие мечи; один набор инструментов или музыкальный инструмент.",
+    "spellAbility": null,
+    "cantrips": 0,
+    "equipment": [
+      "Короткий меч, набор исследователя подземелий, 10 дротиков",
+      "Любое простое оружие, набор путешественника, 10 дротиков"
+    ]
+  },
+  {
+    "key": "Paladin",
+    "nameRu": "Паладин",
+    "hitDie": 10,
+    "saves": ["WIS", "CHA"],
+    "skillChoice": { "count": 2, "from": ["ATHLETICS", "INSIGHT", "INTIMIDATION", "MEDICINE", "PERSUASION", "RELIGION"] },
+    "proficiencies": "Все доспехи, щиты; простое и воинское оружие.",
+    "spellAbility": "CHA",
+    "cantrips": 0,
+    "equipment": [
+      "Воинское оружие и щит, пять метательных копий, набор священника, кольчуга, священный символ",
+      "Два воинских оружия, любое простое рукопашное оружие, набор путешественника, кольчуга, священный символ"
+    ]
+  },
+  {
+    "key": "Ranger",
+    "nameRu": "Следопыт",
+    "hitDie": 10,
+    "saves": ["STR", "DEX"],
+    "skillChoice": { "count": 3, "from": ["ANIMAL_HANDLING", "ATHLETICS", "INSIGHT", "INVESTIGATION", "NATURE", "PERCEPTION", "STEALTH", "SURVIVAL"] },
+    "proficiencies": "Лёгкие и средние доспехи, щиты; простое и воинское оружие.",
+    "spellAbility": "WIS",
+    "cantrips": 0,
+    "equipment": [
+      "Чешуйчатый доспех, два коротких меча, набор исследователя подземелий, длинный лук и колчан с 20 стрелами",
+      "Кожаный доспех, два простых рукопашных оружия, набор путешественника, длинный лук и колчан с 20 стрелами"
+    ]
+  },
+  {
+    "key": "Rogue",
+    "nameRu": "Плут",
+    "hitDie": 8,
+    "saves": ["DEX", "INT"],
+    "skillChoice": { "count": 4, "from": ["ACROBATICS", "ATHLETICS", "DECEPTION", "INSIGHT", "INTIMIDATION", "INVESTIGATION", "PERCEPTION", "PERFORMANCE", "PERSUASION", "SLEIGHT_OF_HAND", "STEALTH"] },
+    "proficiencies": "Лёгкие доспехи; простое оружие, ручные арбалеты, длинные, короткие мечи и рапиры; воровские инструменты.",
+    "spellAbility": null,
+    "cantrips": 0,
+    "equipment": [
+      "Рапира, короткий лук и колчан с 20 стрелами, набор взломщика, кожаный доспех, два кинжала, воровские инструменты",
+      "Два коротких меча, набор исследователя подземелий, кожаный доспех, два кинжала, воровские инструменты"
+    ]
+  },
+  {
+    "key": "Sorcerer",
+    "nameRu": "Чародей",
+    "hitDie": 6,
+    "saves": ["CON", "CHA"],
+    "skillChoice": { "count": 2, "from": ["ARCANA", "DECEPTION", "INSIGHT", "INTIMIDATION", "PERSUASION", "RELIGION"] },
+    "proficiencies": "Кинжалы, дротики, пращи, боевые посохи, лёгкие арбалеты.",
+    "spellAbility": "CHA",
+    "cantrips": 4,
+    "equipment": [
+      "Лёгкий арбалет и 20 болтов, мешочек с компонентами, набор исследователя подземелий, два кинжала",
+      "Любое простое оружие, магическая фокусировка, набор путешественника, два кинжала"
+    ]
+  },
+  {
+    "key": "Warlock",
+    "nameRu": "Колдун",
+    "hitDie": 8,
+    "saves": ["WIS", "CHA"],
+    "skillChoice": { "count": 2, "from": ["ARCANA", "DECEPTION", "HISTORY", "INTIMIDATION", "INVESTIGATION", "NATURE", "RELIGION"] },
+    "proficiencies": "Лёгкие доспехи; простое оружие.",
+    "spellAbility": "CHA",
+    "cantrips": 2,
+    "equipment": [
+      "Лёгкий арбалет и 20 болтов, мешочек с компонентами, набор учёного, кожаный доспех, любое простое оружие, два кинжала",
+      "Любое простое оружие, магическая фокусировка, набор исследователя подземелий, кожаный доспех, любое простое оружие, два кинжала"
+    ]
+  },
+  {
+    "key": "Wizard",
+    "nameRu": "Волшебник",
+    "hitDie": 6,
+    "saves": ["INT", "WIS"],
+    "skillChoice": { "count": 2, "from": ["ARCANA", "HISTORY", "INSIGHT", "INVESTIGATION", "MEDICINE", "RELIGION"] },
+    "proficiencies": "Кинжалы, дротики, пращи, боевые посохи, лёгкие арбалеты.",
+    "spellAbility": "INT",
+    "cantrips": 3,
+    "equipment": [
+      "Боевой посох, мешочек с компонентами, набор учёного, книга заклинаний",
+      "Кинжал, магическая фокусировка, набор путешественника, книга заклинаний"
+    ]
+  }
+]
