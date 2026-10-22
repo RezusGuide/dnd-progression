@@ -6,6 +6,7 @@ import Logo from '../components/brand/Logo'
 import { Button, Dossier, EmptyState, Hint, Loader, Modal, PageHeader, SteamBackground } from '../components/ui'
 import { className, formatDateTime, raceName } from '../constants/dnd-ru'
 import { isNonCaster } from '../constants/casterClasses'
+import RequestList from '../components/RequestList'
 
 // Приёмная. Guests get the public pitch; signed-in staff get their files,
 // quick actions and the latest notices. Texts: docs/zlatopryady/copy.md.
@@ -37,12 +38,18 @@ function StaffReception({ user }) {
     const navigate = useNavigate()
     const [characters, setCharacters] = useState(null)
     const [news, setNews] = useState(null)
+    const isGm = hasSection('*')
+    // Players: their own requests. GM: the open queue (count only).
+    const [requests, setRequests] = useState(null)
     const [picking, setPicking] = useState(false)
 
     useEffect(() => {
         api.get('/api/characters')
             .then((res) => setCharacters(Array.isArray(res.data) ? res.data : []))
             .catch(() => setCharacters([]))
+        api.get(isGm ? '/api/admin/requests?status=PENDING' : '/api/requests/mine')
+            .then((res) => setRequests(Array.isArray(res.data) ? res.data : []))
+            .catch(() => setRequests([]))
         api.get('/api/announcements')
             .then((res) => {
                 const list = Array.isArray(res.data) ? [...res.data] : []
@@ -50,6 +57,7 @@ function StaffReception({ user }) {
                 setNews(list.slice(0, 3))
             })
             .catch(() => setNews([]))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const mine = (characters || []).filter((c) => c.ownerId === user.userId || c.ownerId == null)
@@ -80,7 +88,7 @@ function StaffReception({ user }) {
                 <section>
                     <h2 className="reception-section-title">Быстрые действия</h2>
                     <div className="reception-actions">
-                        <Button to="/characters?new=1">Завести личное дело</Button>
+                        <Button to="/characters/new">Завести личное дело</Button>
                         <Button variant="secondary" onClick={openSheet} disabled={!characters || mine.length === 0}>Мой лист</Button>
                         <Button variant="secondary" onClick={openResearch} disabled={!characters || casters.length === 0}>Исследования</Button>
                     </div>
@@ -90,7 +98,7 @@ function StaffReception({ user }) {
                     <h2 className="reception-section-title">Личные дела</h2>
                     {!characters && <Loader />}
                     {characters && mine.length === 0 && (
-                        <EmptyState action={<Button to="/characters?new=1">Завести личное дело</Button>}>
+                        <EmptyState action={<Button to="/characters/new">Завести личное дело</Button>}>
                             Личного дела пока нет.
                         </EmptyState>
                     )}
@@ -109,6 +117,28 @@ function StaffReception({ user }) {
                         </div>
                     )}
                 </section>
+
+                {isGm ? (
+                    requests && (
+                        <section>
+                            <h2 className="reception-section-title">Заявки</h2>
+                            <p>
+                                Ждут решения: <strong>{requests.length}</strong>.{' '}
+                                <Link to="/admin#requests" className="reception-link">Открыть в панели ГМ →</Link>
+                            </p>
+                        </section>
+                    )
+                ) : (
+                    requests && requests.length > 0 && (
+                        <section>
+                            <h2 className="reception-section-title">Мои заявки</h2>
+                            <RequestList requests={[
+                                ...requests.filter((r) => r.status === 'PENDING'),
+                                ...requests.filter((r) => r.status !== 'PENDING').slice(0, 3),
+                            ]} />
+                        </section>
+                    )
+                )}
 
                 <section>
                     <div className="reception-row">

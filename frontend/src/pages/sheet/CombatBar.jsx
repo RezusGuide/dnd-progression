@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Button, HelpTip, Modal } from '../../components/ui'
 import {
-    ABILITY_FIELDS, abilityMod, applyDamage, applyHealing, formatMod, longRest,
-    passivePerception, proficiencyBonus, skillBonus,
+    ABILITY_FIELDS, abilityMod, applyDamage, applyHealing, formatMod, hitDiceLeft, longRest,
+    passivePerception, proficiencyBonus, shortRest, skillBonus,
 } from '../../lib/dnd-rules'
 import { NumberValue } from './parts'
 import { TIPS } from './tips'
@@ -15,6 +15,7 @@ export default function CombatBar({ form, update, canEdit, editing }) {
     const [amount, setAmount] = useState('')
     const [restOpen, setRestOpen] = useState(null) // 'long' | 'short' | null
     const [shortHeal, setShortHeal] = useState('')
+    const [shortDice, setShortDice] = useState(1)
 
     const prof = proficiencyBonus(form.level)
     const dexMod = abilityMod(form.dexterity)
@@ -163,7 +164,9 @@ export default function CombatBar({ form, update, canEdit, editing }) {
                         </select>
                     </span>
                 ) : (
-                    <span className="combat-big">{form.hitDiceTotal}{(form.hitDiceType || 'd8').replace('d', 'к')}</span>
+                    <span className="combat-big" aria-label={`Осталось ${hitDiceLeft(form)} из ${form.hitDiceTotal}`}>
+                        {hitDiceLeft(form)}/{form.hitDiceTotal}{(form.hitDiceType || 'd8').replace('d', 'к')}
+                    </span>
                 )}
             </div>
 
@@ -220,18 +223,44 @@ export default function CombatBar({ form, update, canEdit, editing }) {
                     onClose={() => setRestOpen(null)}
                     actions={<>
                         <Button variant="ghost" onClick={() => setRestOpen(null)}>Отмена</Button>
-                        <Button onClick={() => { heal(Number(shortHeal) || 0); setShortHeal(''); setRestOpen(null) }}>Лечение</Button>
+                        <Button
+                            disabled={hitDiceLeft(form) === 0}
+                            onClick={() => {
+                                update((f) => shortRest(f, shortDice, Number(shortHeal) || 0))
+                                setShortHeal('')
+                                setShortDice(1)
+                                setRestOpen(null)
+                            }}
+                        >Лечение</Button>
                     </>}
                 >
-                    <label className="sheet-label" htmlFor="short-rest-heal">Сколько хитов восстановили?</label>
-                    <input
-                        id="short-rest-heal"
-                        type="number"
-                        min="0"
-                        className="sheet-input sheet-input-num"
-                        value={shortHeal}
-                        onChange={(e) => setShortHeal(e.target.value)}
-                    />
+                    {hitDiceLeft(form) === 0 ? (
+                        <p>Костей хитов не осталось. Они вернутся после долгого отдыха.</p>
+                    ) : (
+                        <div className="rest-fields">
+                            <label className="sheet-label" htmlFor="short-rest-dice">
+                                Сколько костей тратите (осталось {hitDiceLeft(form)}{(form.hitDiceType || 'd8').replace('d', 'к')})
+                            </label>
+                            <input
+                                id="short-rest-dice"
+                                type="number"
+                                min="1"
+                                max={hitDiceLeft(form)}
+                                className="sheet-input sheet-input-num"
+                                value={shortDice}
+                                onChange={(e) => setShortDice(Math.max(1, Math.min(hitDiceLeft(form), Number(e.target.value) || 1)))}
+                            />
+                            <label className="sheet-label" htmlFor="short-rest-heal">Сколько хитов восстановили?</label>
+                            <input
+                                id="short-rest-heal"
+                                type="number"
+                                min="0"
+                                className="sheet-input sheet-input-num"
+                                value={shortHeal}
+                                onChange={(e) => setShortHeal(e.target.value)}
+                            />
+                        </div>
+                    )}
                 </Modal>
             )}
         </section>

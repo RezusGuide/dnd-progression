@@ -202,13 +202,15 @@ export function applyHealing({ hpCurrent, hpMax, deathSaveSuccesses, deathSaveFa
 }
 
 // Long rest: full hit points, temporary hit points gone, every spell slot
-// and spell point back, death saving throws reset. Returns only the
-// changed fields so the caller can merge them into the sheet.
+// and spell point back, death saving throws reset, and spent hit dice
+// regained up to half the total (minimum 1). Returns only the changed
+// fields so the caller can merge them into the sheet.
 export function longRest(sheet) {
     const slots = {}
     for (const [lvl, slot] of Object.entries(sheet.spellSlots || {})) {
         slots[lvl] = { ...slot, current: slot.max ?? 0 }
     }
+    const regained = Math.max(1, Math.floor(nonNeg(sheet.hitDiceTotal) / 2))
     return {
         hpCurrent: nonNeg(sheet.hpMax),
         hpTemp: 0,
@@ -216,7 +218,77 @@ export function longRest(sheet) {
         spellPointsCurrent: sheet.spellPointsMax ?? sheet.spellPointsCurrent ?? null,
         deathSaveSuccesses: 0,
         deathSaveFailures: 0,
+        hitDiceUsed: Math.max(0, nonNeg(sheet.hitDiceUsed) - regained),
     }
+}
+
+// Hit dice still available for a short rest.
+export function hitDiceLeft({ hitDiceTotal, hitDiceUsed }) {
+    return Math.max(0, nonNeg(hitDiceTotal) - nonNeg(hitDiceUsed))
+}
+
+// Short rest: the player spends some hit dice (never more than they have
+// left) and enters what they rolled in total as healing.
+export function shortRest(sheet, diceSpent, healed) {
+    const dice = Math.min(nonNeg(diceSpent), hitDiceLeft(sheet))
+    return {
+        ...applyHealing(sheet, dice > 0 ? healed : 0),
+        hitDiceUsed: nonNeg(sheet.hitDiceUsed) + dice,
+    }
+}
+
+// Hit points at the starting level: max hit die + CON at level 1, then the
+// die's rounded-up average + CON for every further level (at least 1 each).
+export function startingHp(hitDie, conMod, level) {
+    let hp = Math.max(1, hitDie + conMod)
+    const average = Math.floor(hitDie / 2) + 1
+    for (let l = 2; l <= clampLevel(level); l++) hp += Math.max(1, average + conMod)
+    return hp
+}
+
+// ── Ability score generation (character creation) ──
+
+export const ABILITY_KEYS = ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA']
+export const STANDARD_ARRAY = [15, 14, 13, 12, 10, 8]
+export const POINT_BUY_BUDGET = 27
+// SRD 5.1 point-buy costs for scores 8..15.
+const POINT_COST = { 8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9 }
+
+export function pointBuyCost(score) {
+    return POINT_COST[score] ?? null
+}
+
+// Points spent on a {STR: 8, ...} map, or null if any score is outside 8..15.
+export function pointBuySpent(scores) {
+    let total = 0
+    for (const key of ABILITY_KEYS) {
+        const cost = pointBuyCost(scores[key])
+        if (cost === null) return null
+        total += cost
+    }
+    return total
+}
+
+// Standard array: every value of 15, 14, 13, 12, 10, 8 used exactly once.
+export function isStandardArray(scores) {
+    const values = ABILITY_KEYS.map((k) => scores[k]).sort((a, b) => b - a)
+    return values.every((v, i) => v === STANDARD_ARRAY[i])
+}
+
+// 4d6, drop the lowest. `rng` returns a float in [0, 1) - injectable for tests.
+export function roll4d6(rng = Math.random) {
+    const dice = Array.from({ length: 4 }, () => 1 + Math.floor(rng() * 6))
+    const lowest = Math.min(...dice)
+    const dropIndex = dice.indexOf(lowest)
+    const total = dice.reduce((sum, d, i) => (i === dropIndex ? sum : sum + d), 0)
+    return { dice, dropIndex, total }
+}
+
+// Base scores plus racial bonuses ({DEX: 2, ...}).
+export function withBonuses(base, bonuses) {
+    const out = {}
+    for (const key of ABILITY_KEYS) out[key] = (base[key] ?? 0) + (bonuses?.[key] ?? 0)
+    return out
 }
 
 // ── Money ──

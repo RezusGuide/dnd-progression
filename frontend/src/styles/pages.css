@@ -151,3 +151,28 @@
 @media (prefers-reduced-motion: reduce) {
   .reception-card { transition: none; }
 }
+
+/* ── Admission requests (Приёмная, Панель ГМ) ── */
+.request-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.request-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+}
+.request-main { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.request-char { font-weight: 700; color: var(--text); text-decoration: none; }
+.request-char:hover { text-decoration: underline; }
+.request-meta { color: var(--text-muted); font-size: 0.88rem; font-weight: 400; }
+.request-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); }
+.request-comment { font-size: 0.88rem; font-style: italic; }
+.request-row .ui-stamp { flex: none; font-size: 0.75rem; }
+.admin-requests { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.request-card { display: flex; flex-direction: column; gap: 0.6rem; }
+.request-card-head { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+.request-rune { display: flex; align-items: center; gap: 0.4rem; }
+.request-warn { color: var(--stamp); font-weight: 700; }

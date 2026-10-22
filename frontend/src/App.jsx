@@ -15,6 +15,7 @@ import Characters from './pages/Characters'
 import Campaigns from './pages/Campaigns'
 import CampaignView from './pages/CampaignView'
 import SheetPage from './pages/sheet/SheetPage'
+import CreateWizard from './pages/wizard/CreateWizard'
 import Research from './pages/Research'
 import AspectCraft from './pages/AspectCraft'
 
@@ -35,6 +36,7 @@ function AppRoutes() {
                 read-only UI to anyone not signed in. */}
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/characters" element={<Characters />} />
+            <Route path="/characters/new" element={<ProtectedRoute><CreateWizard /></ProtectedRoute>} />
             <Route path="/characters/:id" element={<SheetPage />} />
             <Route path="/characters/:characterId/research" element={<Research />} />
             <Route path="/characters/:characterId/craft" element={<AspectCraft />} />

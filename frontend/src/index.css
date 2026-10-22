@@ -1175,3 +1175,4 @@ body {
 .admin-user-row {
   flex-wrap: wrap;
 }
+.pending-tag { border-color: var(--stamp); color: var(--stamp); background: transparent; }

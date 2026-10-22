@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
 import { classifyApiError } from '../api/apiErrors'
 import ErrorScreen from '../components/errors/ErrorScreen'
-import { Button, EmptyState, Loader, PageHeader } from '../components/ui'
-import { CLASSES as CLASS_NAMES, RACES as RACE_NAMES, className, raceName } from '../constants/dnd-ru'
+import { Button, EmptyState, Loader, Modal, PageHeader } from '../components/ui'
+import { className, raceName } from '../constants/dnd-ru'
 
 // D&D is publicly viewable now (see SecurityConfig) - only logged-in
 // accounts can create characters, so the "new character" tile only shows
@@ -16,21 +16,15 @@ import { CLASSES as CLASS_NAMES, RACES as RACE_NAMES, className, raceName } from
 // server-side; the button itself now matches, instead of showing to
 // every signed-in account and failing silently for non-owners.
 
-// Stored as English keys; shown in Russian (constants/dnd-ru.js).
-const CLASSES = Object.keys(CLASS_NAMES)
-const RACES = Object.keys(RACE_NAMES)
 
 export default function Characters() {
     const { user, hasSection } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [characters, setCharacters] = useState([])
-    const [campaigns, setCampaigns] = useState([])
-    // /characters?new=1 (from the Приёмная) opens the create form straight away.
+    // Old links to /characters?new=1 go straight to the wizard.
     const [searchParams] = useSearchParams()
-    const [showForm, setShowForm] = useState(() => searchParams.get('new') === '1')
-    const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
-    const [error, setError] = useState('')
+    const [removing, setRemoving] = useState(null)
     const [copiedId, setCopiedId] = useState(null)
     // 'loading' | 'ok' | an ErrorScreen code when the list itself failed
     const [status, setStatus] = useState('loading')
@@ -46,7 +40,6 @@ export default function Characters() {
 
     useEffect(() => {
         fetchCharacters()
-        fetchCampaigns()
     }, [])
 
     const fetchCharacters = async () => {
@@ -61,34 +54,9 @@ export default function Characters() {
         }
     }
 
-    const fetchCampaigns = async () => {
-        try {
-            const res = await api.get('/api/campaigns')
-            setCampaigns(Array.isArray(res.data) ? res.data : [])
-        } catch (err) {
-            console.error(err)
-            setCampaigns([])
-        }
-    }
-
-    const handleCreate = async (e) => {
-        e.preventDefault()
-        setError('')
-        try {
-            await api.post('/api/characters', {
-                ...form,
-                campaignId: form.campaignId ? Number(form.campaignId) : null
-            })
-            setForm({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
-            setShowForm(false)
-            fetchCharacters()
-        } catch (err) {
-            setError(t('failedCreate'))
-        }
-    }
-
-    const handleDelete = async (id) => {
-        if (!window.confirm(t('eraseConfirm'))) return
+    const confirmDelete = async () => {
+        const id = removing.id
+        setRemoving(null)
         try {
             await api.delete(`/api/characters/${id}`)
             fetchCharacters()
@@ -96,6 +64,8 @@ export default function Characters() {
             console.error(err)
         }
     }
+
+    if (searchParams.get('new') === '1') return <Navigate to="/characters/new" replace />
 
     // The list itself didn't load (server down / no connection): a full
     // error screen beats an empty vault that looks like "no characters".
@@ -109,7 +79,7 @@ export default function Characters() {
             <PageHeader
                 title="Личные дела"
                 subtitle="Сотрудники в вашем ведении."
-                actions={user && <Button onClick={() => setShowForm(true)}>Завести личное дело</Button>}
+                actions={user && <Button to="/characters/new">Завести личное дело</Button>}
             />
 
             {status === 'loading' && <Loader />}
@@ -148,7 +118,8 @@ export default function Characters() {
                                 {user && (hasSection('*') || char.ownerId === user.userId) && (
                                     <button
                                         className="tome-btn-danger"
-                                        onClick={(e) => { e.stopPropagation(); handleDelete(char.id) }}
+                                        aria-label={`Удалить личное дело «${char.name}»`}
+                                        onClick={(e) => { e.stopPropagation(); setRemoving(char) }}
                                     >✕</button>
                                 )}
                             </div>
@@ -157,6 +128,8 @@ export default function Characters() {
                             <span className="meta-tag">{className(char.characterClass) || '—'}</span>
                             <span className="meta-tag">{raceName(char.race) || '—'}</span>
                             <span className="meta-tag level-tag">{t('level')} {char.level}</span>
+                            {char.approvalStatus === 'PENDING' && <span className="meta-tag pending-tag">На рассмотрении</span>}
+                            {char.approvalStatus === 'REJECTED' && <span className="meta-tag pending-tag">Отказано</span>}
                             {char.campaign && (
                                 <span className="meta-tag campaign-tag">⚔ {char.campaign.name}</span>
                             )}
@@ -168,77 +141,24 @@ export default function Characters() {
                 ))}
 
                 {user && (
-                    <div className="character-card new-card" onClick={() => setShowForm(true)}>
+                    <div className="character-card new-card" role="link" tabIndex={0} onClick={() => navigate('/characters/new')} onKeyDown={(e) => { if (e.key === 'Enter') navigate('/characters/new') }}>
                         <span className="new-card-icon">✦</span>
                         <span className="new-card-label">{t('forgeNewCharacter')}</span>
                     </div>
                 )}
             </div>}
 
-            {showForm && (
-                <div className="tome-overlay">
-                    <div className="tome-modal">
-                        <h2 className="tome-title">{t('forgeALegend')}</h2>
-                        {error && <div className="tome-error">{error}</div>}
-                        <form onSubmit={handleCreate} className="tome-form">
-                            <div className="tome-field">
-                                <label>{t('characterName')}</label>
-                                <input
-                                    type="text"
-                                    value={form.name}
-                                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                                    placeholder={t('nameYourHero')}
-                                    required
-                                />
-                            </div>
-                            <div className="tome-row">
-                                <div className="tome-field">
-                                    <label>{t('class')}</label>
-                                    <select
-                                        value={form.characterClass}
-                                        onChange={(e) => setForm({ ...form, characterClass: e.target.value })}
-                                    >
-                                        <option value="">{t('choose')}</option>
-                                        {CLASSES.map(c => <option key={c} value={c}>{className(c)}</option>)}
-                                    </select>
-                                </div>
-                                <div className="tome-field">
-                                    <label>{t('race')}</label>
-                                    <select
-                                        value={form.race}
-                                        onChange={(e) => setForm({ ...form, race: e.target.value })}
-                                    >
-                                        <option value="">{t('choose')}</option>
-                                        {RACES.map(r => <option key={r} value={r}>{raceName(r)}</option>)}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="tome-field">
-                                <label>{t('campaign')}</label>
-                                <select
-                                    value={form.campaignId}
-                                    onChange={(e) => setForm({ ...form, campaignId: e.target.value })}
-                                >
-                                    <option value="">{t('noCampaign')}</option>
-                                    {campaigns.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                </select>
-                            </div>
-                            <div className="tome-field">
-                                <label>{t('backstory')}</label>
-                                <textarea
-                                    value={form.backstory}
-                                    onChange={(e) => setForm({ ...form, backstory: e.target.value })}
-                                    placeholder={t('backstoryPlaceholder')}
-                                    rows={3}
-                                />
-                            </div>
-                            <div className="tome-btn-row">
-                                <button type="button" className="tome-btn-ghost" onClick={() => setShowForm(false)}>{t('cancel')}</button>
-                                <button type="submit" className="tome-btn">{t('sealInBlood')}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            {removing && (
+                <Modal
+                    title="Удалить личное дело"
+                    onClose={() => setRemoving(null)}
+                    actions={<>
+                        <Button variant="ghost" onClick={() => setRemoving(null)}>Отмена</Button>
+                        <Button variant="danger" onClick={confirmDelete}>Удалить</Button>
+                    </>}
+                >
+                    <p>Удалить личное дело «{removing.name}»? Отменить нельзя.</p>
+                </Modal>
             )}
         </div>
     )

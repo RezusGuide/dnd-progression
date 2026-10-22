@@ -62,6 +62,7 @@ export default function CampaignView() {
                                         <span className="meta-tag">{className(char.characterClass) || '—'}</span>
                                         <span className="meta-tag">{raceName(char.race) || '—'}</span>
                                         <span className="meta-tag level-tag">{t('level')} {char.level}</span>
+                                        {char.approvalStatus === 'PENDING' && <span className="meta-tag pending-tag">На рассмотрении</span>}
                                         <span className="meta-tag">{char.user?.username}</span>
                                     </div>
                                     </div>

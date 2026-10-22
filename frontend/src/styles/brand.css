@@ -73,3 +73,12 @@
 .mascot .mimic-lid { transform-box: view-box; transform-origin: 30px 94px; }
 .mascot .cat-tail { transform-origin: 0% 100%; }
 .mascot .cat-head { transform-origin: 50% 90%; }
+
+/* ── Rune badge ── */
+.rune-badge { flex: none; vertical-align: middle; }
+.rune-badge .rune-badge-face { fill: var(--sunny-night); }
+.rune-badge .rune-badge-mark { stroke: var(--sunny-steam); }
+.rune-common .rune-badge-gear { fill: var(--sunny-brass); }
+.rune-aristocrat .rune-badge-gear { fill: var(--cat-fur); }
+.rune-royal .rune-badge-gear { fill: var(--sunny-dawn); }
+.rune-royal .rune-badge-mark { stroke: var(--sunny-dawn); }

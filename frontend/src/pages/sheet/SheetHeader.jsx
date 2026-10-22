@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/ui'
+import { useAuth } from '../../context/AuthContext'
+import { Button, HelpTip, Modal, Stamp } from '../../components/ui'
+import RuneBadge from '../../components/brand/RuneBadge'
+import { useRefData } from '../../lib/refData'
 import { ALIGNMENTS, CLASSES, RACES, className, raceName } from '../../constants/dnd-ru'
 import { canLevelUp, nextLevelXp } from '../../lib/dnd-rules'
 import { resizeImageFile } from '../../lib/image'
@@ -11,8 +14,16 @@ const SAVE_TEXT = { saving: 'Подшиваю…', saved: 'Подшито в д�
 // Top bar (back, save status, share link) and the "Личное дело" card:
 // portrait, name, one-line summary, XP bar. In edit mode the summary
 // turns into fields.
-export default function SheetHeader({ character, form, update, canEdit, editing, setEditing, saveState }) {
+const STAMP = { PENDING: 'pending', APPROVED: 'approved', REJECTED: 'rejected' }
+
+export default function SheetHeader({ character, form, update, canEdit, editing, setEditing, saveState, requests = [], requestLevelUp }) {
     const [copied, setCopied] = useState('')
+    const { hasSection } = useAuth()
+    const isGm = hasSection('*')
+    const [runes] = useRefData('runes')
+    const [askOpen, setAskOpen] = useState(false)
+    const [askComment, setAskComment] = useState('')
+    const [askError, setAskError] = useState('')
 
     const share = async () => {
         try {
@@ -48,6 +59,21 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
     const xp = form.experiencePoints ?? 0
     const pct = next ? Math.min(100, Math.round((xp / next) * 100)) : 100
     const ready = canLevelUp(xp, form.level)
+
+    const tier = character.runeTier || 'COMMON'
+    const rune = runes?.find((r) => r.key === tier)
+    const levelCap = character.levelCap ?? rune?.levelCap ?? 10
+    const status = character.approvalStatus || 'APPROVED'
+    const creation = requests.find((r) => r.type === 'CREATION')
+    const openLevelUp = requests.find((r) => r.type === 'LEVEL_UP' && r.status === 'PENDING')
+    const nextAboveCap = form.level + 1 > levelCap
+
+    const submitAsk = async () => {
+        setAskError('')
+        const error = await requestLevelUp(askComment)
+        if (error) setAskError(error)
+        else { setAskOpen(false); setAskComment('') }
+    }
 
     return (
         <>
@@ -93,7 +119,13 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                                     <KeySelect editing value={form.race} options={Object.keys(RACES)} display={raceName} label="Раса" onChange={(v) => update({ race: v })} />
                                 </Labelled>
                                 <Labelled label="Уровень">
-                                    <NumberValue editing value={form.level} min={1} max={20} label="Уровень" onChange={(v) => update({ level: v ?? 1 })} />
+                                    {isGm ? (
+                                        <NumberValue editing value={form.level} min={1} max={20} label="Уровень" onChange={(v) => update({ level: v ?? 1 })} />
+                                    ) : (
+                                        <span className="sheet-text">
+                                            {form.level} <HelpTip label="Уровень">Уровень повышает ГМ. Подайте заявку, когда хватит опыта.</HelpTip>
+                                        </span>
+                                    )}
                                 </Labelled>
                                 <Labelled label="Предыстория">
                                     <TextValue editing value={form.background} label="Предыстория" onChange={(v) => update({ background: v })} />
@@ -131,8 +163,30 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                                 {next ? `Опыт ${xp.toLocaleString('ru-RU')} / ${next.toLocaleString('ru-RU')} до ${form.level + 1} уровня` : `Опыт ${xp.toLocaleString('ru-RU')} · высший уровень`}
                             </span>
                         </div>
-                        {/* Rune level caps arrive in stage 5; this is where they'll show. */}
-                        {ready && <p className="sheet-levelup" role="status">Можно повышать уровень. Повышение утверждает ГМ.</p>}
+                        <p className="sheet-rune">
+                            <RuneBadge tier={tier} size={24} />
+                            <span>Руна: {(rune?.nameRu || 'обычная').toLowerCase()} · потолок {levelCap}</span>
+                            {character.clearanceLevel && <span className="sheet-clearance">допуск до {character.clearanceLevel} уровня</span>}
+                        </p>
+
+                        {canEdit && status === 'APPROVED' && ready && (
+                            openLevelUp ? (
+                                <p className="sheet-levelup" role="status">Заявка на рассмотрении: {openLevelUp.requestedLevel} уровень.</p>
+                            ) : (
+                                <div className="sheet-levelup-row">
+                                    <Button onClick={() => setAskOpen(true)}>Заявка на повышение</Button>
+                                    <span className="sheet-levelup-note">Можно повышать уровень. Повышение утверждает ГМ.</span>
+                                </div>
+                            )
+                        )}
+                    </div>
+
+                    <div className="sheet-status">
+                        <Stamp kind={STAMP[status] || 'approved'}>
+                            {status === 'PENDING' ? 'На рассмотрении' : status === 'REJECTED' ? 'Отказано' : 'Одобрено'}
+                        </Stamp>
+                        {status === 'REJECTED' && creation?.gmComment && <p className="sheet-gm-comment">ГМ: {creation.gmComment}</p>}
+                        {status === 'PENDING' && <p className="sheet-gm-comment">Дело ждёт решения ГМ.</p>}
                     </div>
 
                     {canEdit && (
@@ -144,6 +198,23 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                     )}
                 </div>
             </section>
+
+            {askOpen && (
+                <Modal
+                    title="Заявка на повышение"
+                    onClose={() => setAskOpen(false)}
+                    actions={<>
+                        <Button variant="ghost" onClick={() => setAskOpen(false)}>Отмена</Button>
+                        <Button onClick={submitAsk}>Подать заявку</Button>
+                    </>}
+                >
+                    <p>Повысить до {form.level + 1} уровня.</p>
+                    {nextAboveCap && <p className="sheet-gm-comment">Сверх потолка руны: нужен допуск.</p>}
+                    <label className="sheet-label" htmlFor="levelup-comment">Комментарий для ГМ</label>
+                    <textarea id="levelup-comment" className="sheet-input sheet-textarea" rows={3} value={askComment} onChange={(e) => setAskComment(e.target.value)} />
+                    {askError && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {askError}</p>}
+                </Modal>
+            )}
         </>
     )
 }

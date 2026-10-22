@@ -3,6 +3,8 @@ import {
     abilityMod, applyDamage, applyHealing, canLevelUp, casterType, coinsInGold, formatMod,
     levelForXp, longRest, nextLevelXp, passivePerception, proficiencyBonus, saveBonus,
     skillBonus, spellAttackBonus, spellSaveDC, spellSlotsFor, spellcastingAbility,
+    hitDiceLeft, shortRest, startingHp, pointBuyCost, pointBuySpent, isStandardArray,
+    roll4d6, withBonuses,
 } from './dnd-rules'
 
 describe('ability modifiers', () => {
@@ -146,7 +148,7 @@ describe('damage and healing', () => {
 describe('long rest', () => {
     it('restores hit points and slots, clears temp HP and death saves', () => {
         const out = longRest({
-            hpMax: 27, hpCurrent: 4, hpTemp: 3,
+            hpMax: 27, hpCurrent: 4, hpTemp: 3, hitDiceTotal: 5, hitDiceUsed: 4,
             spellSlots: { 1: { max: 4, current: 2 }, 3: { max: 2, current: 0 } },
             spellPointsMax: null, spellPointsCurrent: null,
             deathSaveSuccesses: 1, deathSaveFailures: 2,
@@ -158,7 +160,13 @@ describe('long rest', () => {
             spellPointsCurrent: null,
             deathSaveSuccesses: 0,
             deathSaveFailures: 0,
+            hitDiceUsed: 2, // regained floor(5 / 2) = 2
         })
+    })
+    it('gives back at least one hit die, never below zero spent', () => {
+        expect(longRest({ hpMax: 1, hitDiceTotal: 1, hitDiceUsed: 1 }).hitDiceUsed).toBe(0)
+        expect(longRest({ hpMax: 1, hitDiceTotal: 10, hitDiceUsed: 3 }).hitDiceUsed).toBe(0)
+        expect(longRest({ hpMax: 1, hitDiceTotal: 10, hitDiceUsed: 8 }).hitDiceUsed).toBe(3)
     })
     it('restores spell points when the variant is in use', () => {
         expect(longRest({ hpMax: 1, spellPointsMax: 27, spellPointsCurrent: 3 }).spellPointsCurrent).toBe(27)
@@ -168,5 +176,68 @@ describe('long rest', () => {
 describe('coins', () => {
     it('converts to gold', () => {
         expect(coinsInGold({ cp: 150, sp: 12, ep: 3, gp: 40, pp: 2 })).toBe(64.2)
+    })
+})
+
+describe('short rest and hit dice', () => {
+    it('counts the dice left', () => {
+        expect(hitDiceLeft({ hitDiceTotal: 5, hitDiceUsed: 2 })).toBe(3)
+        expect(hitDiceLeft({ hitDiceTotal: 5, hitDiceUsed: null })).toBe(5)
+    })
+    it('spends dice and heals up to the maximum', () => {
+        expect(shortRest({ hpCurrent: 10, hpMax: 27, hitDiceTotal: 5, hitDiceUsed: 1 }, 2, 9))
+            .toMatchObject({ hpCurrent: 19, hitDiceUsed: 3 })
+        expect(shortRest({ hpCurrent: 25, hpMax: 27, hitDiceTotal: 5, hitDiceUsed: 0 }, 1, 9).hpCurrent).toBe(27)
+    })
+    it('never spends more dice than are left, and heals nothing without dice', () => {
+        expect(shortRest({ hpCurrent: 10, hpMax: 27, hitDiceTotal: 5, hitDiceUsed: 4 }, 3, 12).hitDiceUsed).toBe(5)
+        expect(shortRest({ hpCurrent: 10, hpMax: 27, hitDiceTotal: 5, hitDiceUsed: 5 }, 2, 12))
+            .toMatchObject({ hpCurrent: 10, hitDiceUsed: 5 })
+    })
+})
+
+describe('starting hit points', () => {
+    it('max die + CON at level 1', () => {
+        expect(startingHp(6, 1, 1)).toBe(7)
+        expect(startingHp(12, 3, 1)).toBe(15)
+    })
+    it('rounded-up average + CON per further level', () => {
+        expect(startingHp(8, 2, 3)).toBe(10 + 7 + 7) // d8 average 5
+        expect(startingHp(10, 0, 5)).toBe(10 + 6 * 4)
+    })
+    it('never adds less than 1 per level', () => {
+        expect(startingHp(6, -5, 3)).toBe(1 + 1 + 1)
+    })
+})
+
+describe('ability score methods', () => {
+    it('point-buy costs follow the SRD table', () => {
+        expect(pointBuyCost(8)).toBe(0)
+        expect(pointBuyCost(13)).toBe(5)
+        expect(pointBuyCost(14)).toBe(7)
+        expect(pointBuyCost(15)).toBe(9)
+        expect(pointBuyCost(16)).toBeNull()
+        expect(pointBuyCost(7)).toBeNull()
+    })
+    it('adds up the points spent', () => {
+        expect(pointBuySpent({ STR: 8, DEX: 14, CON: 13, INT: 15, WIS: 12, CHA: 10 })).toBe(0 + 7 + 5 + 9 + 4 + 2)
+        expect(pointBuySpent({ STR: 15, DEX: 15, CON: 15, INT: 8, WIS: 8, CHA: 8 })).toBe(27)
+        expect(pointBuySpent({ STR: 16, DEX: 8, CON: 8, INT: 8, WIS: 8, CHA: 8 })).toBeNull()
+    })
+    it('checks the standard array', () => {
+        expect(isStandardArray({ STR: 8, DEX: 14, CON: 13, INT: 15, WIS: 12, CHA: 10 })).toBe(true)
+        expect(isStandardArray({ STR: 15, DEX: 15, CON: 13, INT: 12, WIS: 10, CHA: 8 })).toBe(false)
+    })
+    it('rolls 4d6 and drops the lowest die', () => {
+        const seq = [0.0, 0.99, 0.5, 0.2] // 1, 6, 4, 2
+        let i = 0
+        const out = roll4d6(() => seq[i++])
+        expect(out.dice).toEqual([1, 6, 4, 2])
+        expect(out.dropIndex).toBe(0)
+        expect(out.total).toBe(12)
+    })
+    it('applies racial bonuses', () => {
+        expect(withBonuses({ STR: 8, DEX: 14, CON: 13, INT: 15, WIS: 12, CHA: 10 }, { DEX: 2, INT: 1 }))
+            .toEqual({ STR: 8, DEX: 16, CON: 13, INT: 16, WIS: 12, CHA: 10 })
     })
 })

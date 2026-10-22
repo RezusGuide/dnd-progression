@@ -49,6 +49,7 @@ export function hydrate(c) {
         hpTemp: c.hpTemp ?? 0,
         hitDiceTotal: c.hitDiceTotal ?? (c.level || 1),
         hitDiceType: c.hitDiceType || 'd8',
+        hitDiceUsed: c.hitDiceUsed ?? 0,
         deathSaveSuccesses: c.deathSaveSuccesses ?? 0,
         deathSaveFailures: c.deathSaveFailures ?? 0,
         inspiration: !!c.inspiration,
@@ -100,6 +101,7 @@ export default function useCharacterSheet(id) {
     const [saveState, setSaveState] = useState('idle') // idle | saving | saved | error
     const [knownSpells, setKnownSpells] = useState([])
     const [catalog, setCatalog] = useState([])
+    const [requests, setRequests] = useState([])
 
     // D&D is public to view; only the character's creator or the GM can
     // edit it (CharacterService#updateSheet enforces the same server-side).
@@ -127,6 +129,24 @@ export default function useCharacterSheet(id) {
             })
         return () => { cancelled = true }
     }, [id, navigate])
+
+    // Admission requests for this character (owner / GM only; [] otherwise).
+    const refreshRequests = useCallback(() => {
+        api.get(`/api/characters/${id}/requests`).then((res) => setRequests(Array.isArray(res.data) ? res.data : [])).catch(() => setRequests([]))
+    }, [id])
+
+    useEffect(() => { refreshRequests() }, [refreshRequests])
+
+    // Returns an error message, or null on success.
+    const requestLevelUp = useCallback(async (playerComment) => {
+        try {
+            await api.post(`/api/characters/${id}/level-up-request`, { playerComment })
+            refreshRequests()
+            return null
+        } catch (err) {
+            return err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.'
+        }
+    }, [id, refreshRequests])
 
     const refreshKnownSpells = useCallback(() => {
         api.get(`/api/characters/${id}/known-spells`).then((res) => setKnownSpells(res.data)).catch(() => {})
@@ -180,5 +200,5 @@ export default function useCharacterSheet(id) {
         }
     }, [id, refreshKnownSpells])
 
-    return { character, form, update, canEdit, saveState, loadError, knownSpells, catalog, addCantrip }
+    return { character, form, update, canEdit, saveState, loadError, knownSpells, catalog, addCantrip, requests, requestLevelUp }
 }

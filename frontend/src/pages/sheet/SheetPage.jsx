@@ -43,7 +43,7 @@ export default function SheetPage() {
 
     return (
         <div className="sheet-page">
-            <SheetHeader {...panelProps} setEditing={setEditing} saveState={saveState} />
+            <SheetHeader {...panelProps} setEditing={setEditing} saveState={saveState} requests={sheet.requests} requestLevelUp={sheet.requestLevelUp} />
             <CombatBar {...panelProps} />
 
             <div className="sheet-tabs" role="tablist" aria-label="Разделы листа">
