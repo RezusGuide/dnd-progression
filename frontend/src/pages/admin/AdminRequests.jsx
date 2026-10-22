@@ -85,6 +85,9 @@ function RequestCard({ request: r, runeName, runeCap, onDone }) {
                     <RuneBadge tier={r.type === 'CREATION' ? r.requestedRuneTier : r.runeTier} size={20} />
                     {runeName(r.type === 'CREATION' ? r.requestedRuneTier : r.runeTier)} · потолок {r.type === 'CREATION' ? (runeCap(r.requestedRuneTier) ?? r.levelCap) : r.levelCap}
                 </dd>
+                {r.hpRoll != null && (
+                    <><dt>Хиты</dt><dd>+{r.hpGain} ({r.hpMethod === 'ROLL' ? `бросок ${r.hpRoll} на к${r.hitDie}` : `среднее ${r.hpRoll} для к${r.hitDie}`}, с мод. ТЕЛ)</dd></>
+                )}
                 {r.aboveCap && <><dt>Допуск</dt><dd className="request-warn">Сверх потолка руны: нужен допуск</dd></>}
                 {r.playerComment && <><dt>Игрок</dt><dd>{r.playerComment}</dd></>}
             </dl>

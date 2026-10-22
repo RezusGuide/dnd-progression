@@ -51,7 +51,7 @@ export default function MagicTab({ character, form, update, canEdit, editing, kn
     }
 
     const prof = proficiencyBonus(form.level)
-    const abilityKey = spellcastingAbility(form.characterClass)
+    const abilityKey = spellcastingAbility(form.characterClass, character?.spellcastingAbility)
     const mod = abilityKey ? abilityMod(form[ABILITY_FIELDS[abilityKey]]) : null
     const byId = Object.fromEntries(catalog.map((s) => [s.id, s]))
     const table = spellSlotsFor(form.characterClass, form.level)

@@ -53,19 +53,22 @@ export function passivePerception(perceptionBonus) {
 const SPELL_ABILITY = {
     BARD: 'CHA', PALADIN: 'CHA', SORCERER: 'CHA', WARLOCK: 'CHA',
     CLERIC: 'WIS', DRUID: 'WIS', RANGER: 'WIS',
-    WIZARD: 'INT',
+    WIZARD: 'INT', ARTIFICER: 'INT',
 }
 
 const CASTER_TYPE = {
     BARD: 'full', CLERIC: 'full', DRUID: 'full', SORCERER: 'full', WIZARD: 'full',
     PALADIN: 'half', RANGER: 'half',
     WARLOCK: 'pact',
+    ARTIFICER: 'artificer',
 }
 
 const norm = (classKey) => String(classKey || '').trim().toUpperCase()
 
-export function spellcastingAbility(classKey) {
-    return SPELL_ABILITY[norm(classKey)] || null
+// `stored` is the character's own spellcastingAbility, set at creation for
+// classes typed in from the book; the class table wins when it knows the class.
+export function spellcastingAbility(classKey, stored = null) {
+    return SPELL_ABILITY[norm(classKey)] || stored || null
 }
 
 export function casterType(classKey) {
@@ -142,10 +145,15 @@ export function spellSlotsFor(classKey, level) {
         const [count, slotLevel] = PACT_SLOTS[lvl - 1]
         return { [slotLevel]: count }
     }
-    const table = type === 'full' ? FULL_CASTER_SLOTS : type === 'half' ? HALF_CASTER_SLOTS : null
-    if (!table) return null
+    // Artificer: a half caster that rounds up and starts at level 1, i.e. the
+    // full-caster row for ceil(level / 2).
+    const row = type === 'full' ? FULL_CASTER_SLOTS[lvl - 1]
+        : type === 'half' ? HALF_CASTER_SLOTS[lvl - 1]
+            : type === 'artificer' ? FULL_CASTER_SLOTS[Math.ceil(lvl / 2) - 1]
+                : null
+    if (!row) return null
     const out = {}
-    table[lvl - 1].forEach((n, i) => { if (n) out[i + 1] = n })
+    row.forEach((n, i) => { if (n) out[i + 1] = n })
     return out
 }
 
@@ -239,6 +247,16 @@ export function shortRest(sheet, diceSpent, healed) {
 
 // Hit points at the starting level: max hit die + CON at level 1, then the
 // die's rounded-up average + CON for every further level (at least 1 each).
+// Hit points for one level gained: the die value (rolled, or the average
+// half + 1) plus CON, at least 1.
+export function averageHitDie(hitDie) {
+    return Math.floor(hitDie / 2) + 1
+}
+
+export function levelUpHp(dieValue, conMod) {
+    return Math.max(1, (Number(dieValue) || 0) + conMod)
+}
+
 export function startingHp(hitDie, conMod, level) {
     let hp = Math.max(1, hitDie + conMod)
     const average = Math.floor(hitDie / 2) + 1
@@ -295,6 +313,15 @@ export function withBonuses(base, bonuses) {
 
 // Value in gold pieces (SRD exchange rates: 1 pp = 10 gp, 1 ep = 0.5 gp,
 // 1 sp = 0.1 gp, 1 cp = 0.01 gp), rounded to 2 decimals.
+// Flexible origin: either +2 and +1, or +1 three times, each to a different
+// ability. `bonuses` is { STR: 2, DEX: 1 }; zeros are ignored.
+export function isValidFlexibleBonuses(bonuses) {
+    const entries = Object.entries(bonuses || {}).filter(([, v]) => Number(v))
+    if (!entries.every(([k]) => ABILITY_KEYS.includes(k))) return false
+    const values = entries.map(([, v]) => Number(v)).sort((a, b) => b - a).join(',')
+    return values === '2,1' || values === '1,1,1'
+}
+
 export function coinsInGold({ cp = 0, sp = 0, ep = 0, gp = 0, pp = 0 }) {
     const total = (cp || 0) / 100 + (sp || 0) / 10 + (ep || 0) / 2 + (gp || 0) + (pp || 0) * 10
     return Math.round(total * 100) / 100

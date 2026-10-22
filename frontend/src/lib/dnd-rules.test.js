@@ -4,7 +4,7 @@ import {
     levelForXp, longRest, nextLevelXp, passivePerception, proficiencyBonus, saveBonus,
     skillBonus, spellAttackBonus, spellSaveDC, spellSlotsFor, spellcastingAbility,
     hitDiceLeft, shortRest, startingHp, pointBuyCost, pointBuySpent, isStandardArray,
-    roll4d6, withBonuses,
+    roll4d6, withBonuses, averageHitDie, levelUpHp, isValidFlexibleBonuses,
 } from './dnd-rules'
 
 describe('ability modifiers', () => {
@@ -239,5 +239,49 @@ describe('ability score methods', () => {
     it('applies racial bonuses', () => {
         expect(withBonuses({ STR: 8, DEX: 14, CON: 13, INT: 15, WIS: 12, CHA: 10 }, { DEX: 2, INT: 1 }))
             .toEqual({ STR: 8, DEX: 16, CON: 13, INT: 16, WIS: 12, CHA: 10 })
+    })
+})
+
+describe('artificer (half caster, rounded up, from level 1)', () => {
+    it('has slots from level 1', () => {
+        expect(casterType('Artificer')).toBe('artificer')
+        expect(spellcastingAbility('Artificer')).toBe('INT')
+        expect(spellSlotsFor('Artificer', 1)).toEqual({ 1: 2 })
+        expect(spellSlotsFor('Artificer', 2)).toEqual({ 1: 2 })
+        expect(spellSlotsFor('Artificer', 3)).toEqual({ 1: 3 })
+    })
+    it('matches the full-caster row for ceil(level / 2)', () => {
+        expect(spellSlotsFor('Artificer', 5)).toEqual({ 1: 4, 2: 2 })
+        expect(spellSlotsFor('Artificer', 9)).toEqual({ 1: 4, 2: 3, 3: 2 })
+        expect(spellSlotsFor('Artificer', 20)).toEqual({ 1: 4, 2: 3, 3: 3, 4: 3, 5: 2 })
+    })
+    it('falls back to the stored ability for classes not in the table', () => {
+        expect(spellcastingAbility('Alchemist', 'INT')).toBe('INT')
+        expect(spellcastingAbility('Wizard', 'CHA')).toBe('INT')
+    })
+})
+
+describe('hit points on level-up', () => {
+    it('average is half the die + 1', () => {
+        expect(averageHitDie(6)).toBe(4)
+        expect(averageHitDie(8)).toBe(5)
+        expect(averageHitDie(12)).toBe(7)
+    })
+    it('adds CON and never less than 1', () => {
+        expect(levelUpHp(5, 2)).toBe(7)
+        expect(levelUpHp(1, -4)).toBe(1)
+    })
+})
+
+describe('flexible origin bonuses', () => {
+    it('accepts +2/+1 and +1/+1/+1', () => {
+        expect(isValidFlexibleBonuses({ DEX: 2, WIS: 1 })).toBe(true)
+        expect(isValidFlexibleBonuses({ STR: 1, CON: 1, CHA: 1, INT: 0 })).toBe(true)
+    })
+    it('rejects anything else', () => {
+        expect(isValidFlexibleBonuses({ DEX: 2, WIS: 2 })).toBe(false)
+        expect(isValidFlexibleBonuses({ DEX: 2 })).toBe(false)
+        expect(isValidFlexibleBonuses({ DEX: 1, WIS: 1 })).toBe(false)
+        expect(isValidFlexibleBonuses({ LUCK: 2, WIS: 1 })).toBe(false)
     })
 })

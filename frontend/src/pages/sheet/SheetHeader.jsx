@@ -5,7 +5,7 @@ import { Button, HelpTip, Modal, Stamp } from '../../components/ui'
 import RuneBadge from '../../components/brand/RuneBadge'
 import { useRefData } from '../../lib/refData'
 import { ALIGNMENTS, CLASSES, RACES, className, raceName } from '../../constants/dnd-ru'
-import { canLevelUp, nextLevelXp } from '../../lib/dnd-rules'
+import { abilityMod, averageHitDie, canLevelUp, formatMod, levelUpHp, nextLevelXp } from '../../lib/dnd-rules'
 import { resizeImageFile } from '../../lib/image'
 import { KeySelect, Labelled, NumberValue, TextValue } from './parts'
 
@@ -24,6 +24,8 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
     const [askOpen, setAskOpen] = useState(false)
     const [askComment, setAskComment] = useState('')
     const [askError, setAskError] = useState('')
+    // Hit points for the new level: AVERAGE (half the die + 1) or ROLL.
+    const [askHp, setAskHp] = useState({ method: 'AVERAGE', roll: '' })
 
     const share = async () => {
         try {
@@ -68,11 +70,21 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
     const openLevelUp = requests.find((r) => r.type === 'LEVEL_UP' && r.status === 'PENDING')
     const nextAboveCap = form.level + 1 > levelCap
 
+    const die = parseInt(String(form.hitDiceType || 'd8').slice(1), 10) || 8
+    const conMod = abilityMod(form.constitution)
+    const rolled = parseInt(askHp.roll, 10)
+    const rollOk = rolled >= 1 && rolled <= die
+    const dieValue = askHp.method === 'ROLL' ? (rollOk ? rolled : null) : averageHitDie(die)
+
     const submitAsk = async () => {
         setAskError('')
-        const error = await requestLevelUp(askComment)
+        if (askHp.method === 'ROLL' && !rollOk) {
+            setAskError(`Бросок кости хитов — от 1 до ${die}.`)
+            return
+        }
+        const error = await requestLevelUp(askComment, { hpMethod: askHp.method, hpRoll: askHp.method === 'ROLL' ? rolled : null })
         if (error) setAskError(error)
-        else { setAskOpen(false); setAskComment('') }
+        else { setAskOpen(false); setAskComment(''); setAskHp({ method: 'AVERAGE', roll: '' }) }
     }
 
     return (
@@ -210,6 +222,28 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                 >
                     <p>Повысить до {form.level + 1} уровня.</p>
                     {nextAboveCap && <p className="sheet-gm-comment">Сверх потолка руны: нужен допуск.</p>}
+                    <p className="sheet-label">Хиты за уровень</p>
+                    <div className="sheet-tabs levelup-hp-tabs" role="tablist" aria-label="Хиты за уровень">
+                        {[['AVERAGE', 'Среднее'], ['ROLL', 'Бросок']].map(([key, label]) => (
+                            <button key={key} type="button" role="tab" aria-selected={askHp.method === key}
+                                className={`sheet-tab ${askHp.method === key ? 'is-active' : ''}`}
+                                onClick={() => setAskHp((h) => ({ ...h, method: key }))}>{label}</button>
+                        ))}
+                    </div>
+                    {askHp.method === 'AVERAGE' ? (
+                        <p className="levelup-hp-help">Половина кости к{die} + 1 = {averageHitDie(die)}.</p>
+                    ) : (
+                        <div className="levelup-hp-roll">
+                            <label className="sheet-label" htmlFor="levelup-roll">Выпало на к{die}</label>
+                            <input id="levelup-roll" className="sheet-input" type="number" inputMode="numeric" min={1} max={die}
+                                value={askHp.roll} onChange={(e) => setAskHp((h) => ({ ...h, roll: e.target.value }))} />
+                        </div>
+                    )}
+                    <p className="levelup-hp-total" role="status">
+                        {dieValue === null
+                            ? `Введите число от 1 до ${die}.`
+                            : `Хиты: +${levelUpHp(dieValue, conMod)} (${dieValue} ${formatMod(conMod)} ТЕЛ, не меньше 1). Начислятся после одобрения.`}
+                    </p>
                     <label className="sheet-label" htmlFor="levelup-comment">Комментарий для ГМ</label>
                     <textarea id="levelup-comment" className="sheet-input sheet-textarea" rows={3} value={askComment} onChange={(e) => setAskComment(e.target.value)} />
                     {askError && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {askError}</p>}

@@ -138,9 +138,10 @@ export default function useCharacterSheet(id) {
     useEffect(() => { refreshRequests() }, [refreshRequests])
 
     // Returns an error message, or null on success.
-    const requestLevelUp = useCallback(async (playerComment) => {
+    // hp: { hpMethod: 'AVERAGE' | 'ROLL', hpRoll } - added to hpMax on approval.
+    const requestLevelUp = useCallback(async (playerComment, hp = {}) => {
         try {
-            await api.post(`/api/characters/${id}/level-up-request`, { playerComment })
+            await api.post(`/api/characters/${id}/level-up-request`, { playerComment, ...hp })
             refreshRequests()
             return null
         } catch (err) {

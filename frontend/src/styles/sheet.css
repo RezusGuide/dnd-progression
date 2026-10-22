@@ -480,3 +480,9 @@ span.slot-pip { display: inline-block; }
 .sheet-levelup-note { font-size: 0.85rem; color: var(--text-muted); }
 .sheet-status { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; max-width: 220px; }
 .sheet-gm-comment { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+/* Level-up request: hit points for the new level */
+.levelup-hp-tabs { margin-bottom: 0.75rem; }
+.levelup-hp-help { margin: 0 0 0.5rem; color: var(--text-muted); }
+.levelup-hp-roll { display: grid; gap: 0.25rem; max-width: 10rem; margin-bottom: 0.5rem; }
+.levelup-hp-total { margin: 0 0 1rem; font-family: var(--font-label); letter-spacing: 0.02em; }
