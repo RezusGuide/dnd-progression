@@ -38,6 +38,7 @@ class OptionsTests {
         optionsService.setStatus("RACE", "Elf", "unlockable");
         optionsService.setStatus("RACE", "Kenku", "allowed");
         optionsService.setStatus("CLASS", "Fighter", "allowed");
+        optionsService.setStatus("RACE", "CUSTOM", "undecided");
         optionsService.setFlag("magic_continent", false, "");
     }
 
@@ -52,6 +53,15 @@ class OptionsTests {
     private User newPlayer() {
         String tag = UUID.randomUUID().toString().substring(0, 8);
         return roleService.createAccount("opt-" + tag, tag + "@example.test", "test-password-123");
+    }
+
+    // Full access like the GM, but not OWNER: SetupStatusTests needs the
+    // owner seat to stay empty.
+    private User newGm() {
+        if (roleService.listRoles().stream().noneMatch(r -> "TEST_GM".equals(r.getKey()))) {
+            roleService.createRole("TEST_GM", "Test GM", "Тестовая роль", List.of("*"));
+        }
+        return roleService.assignRole(newPlayer().getId(), "TEST_GM");
     }
 
     private CharacterCreateRequest fighter(String race) {
@@ -94,7 +104,7 @@ class OptionsTests {
         JsonNode elf = playerRaces().get("Elf");
         assertEquals("allowed", elf.get("status").asText());
         assertFalse(elf.has("unlock"));
-        assertTrue(optionsService.isAllowed(OptionsService.RACE, "Elf"));
+        assertTrue(optionsService.isAllowed(OptionsService.RACE, "Elf", false));
     }
 
     @Test
@@ -180,5 +190,37 @@ class OptionsTests {
         Character c = creationService.create(r, player.getId());
         assertEquals("d8", c.getHitDiceType());
         assertEquals("INT", c.getSpellcastingAbility());
+    }
+
+    @Test
+    void customRaceIsHiddenUntilTheGmAllowsIt() throws Exception {
+        assertFalse(playerRaces().containsKey("CUSTOM"));
+        User player = newPlayer();
+        CharacterCreateRequest r = fighter("CUSTOM");
+        r.setCustomRaceName("Лисий народ");
+        r.setCustomRaceBonuses(Map.of("DEX", 2, "WIS", 1));
+        ApiException e = assertThrows(ApiException.class, () -> creationService.create(r, player.getId()));
+        assertEquals("Эта раса пока закрыта для оформления.", e.getMessage());
+
+        optionsService.setStatus("RACE", "CUSTOM", "allowed");
+        assertTrue(playerRaces().containsKey("CUSTOM"));
+        assertEquals("Лисий народ", creationService.create(r, player.getId()).getRace());
+    }
+
+    @Test
+    void npcOnlyClassesAreForTheGmOnly() throws Exception {
+        for (JsonNode n : objectMapper.readTree(optionsService.dataJson("classes", false))) {
+            assertNotEquals("npc_only", n.get("status").asText());
+        }
+        CharacterCreateRequest r = fighter("Human");
+        r.setClassKey("Warrior Sidekick");
+        r.setCustomHitDie(8);
+        r.setCustomSaves(List.of("STR", "CON"));
+
+        User player = newPlayer();
+        assertThrows(ApiException.class, () -> creationService.create(r, player.getId()));
+
+        User gm = newGm();
+        assertEquals("Warrior Sidekick", creationService.create(r, gm.getId()).getCharacterClass());
     }
 }

@@ -62,12 +62,13 @@ public class CharacterCreationService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> ApiException.notFound("Пропуск не найден."));
 
+        boolean gm = AdmissionService.isGm(user);
         String name = req.getName() == null ? "" : req.getName().strip();
         if (name.isEmpty()) throw ApiException.badRequest("Укажите имя.");
 
         JsonNode cls = data.find("classes", req.getClassKey())
                 .orElseThrow(() -> ApiException.badRequest("Выберите класс."));
-        if (!options.isAllowed(OptionsService.CLASS, cls.get("key").asText())) {
+        if (!options.isAllowed(OptionsService.CLASS, cls.get("key").asText(), gm)) {
             throw ApiException.badRequest("Этот класс пока закрыт для оформления.");
         }
         // No hit die in the data = mechanics the player typed in from the book.
@@ -81,6 +82,9 @@ public class CharacterCreationService {
         String raceLanguages = "";
         String raceTraits = "";
         if (CUSTOM.equals(req.getRaceKey())) {
+            if (!options.isAllowed(OptionsService.RACE, OptionsService.CUSTOM_RACE, gm)) {
+                throw ApiException.badRequest("Эта раса пока закрыта для оформления.");
+            }
             raceName = blankToNull(req.getCustomRaceName());
             if (raceName == null) throw ApiException.badRequest("Укажите название расы.");
             int total = 0;
@@ -96,7 +100,7 @@ public class CharacterCreationService {
         } else {
             JsonNode race = data.find("races", req.getRaceKey())
                     .orElseThrow(() -> ApiException.badRequest("Выберите расу."));
-            if (!options.isAllowed(OptionsService.RACE, race.get("key").asText())) {
+            if (!options.isAllowed(OptionsService.RACE, race.get("key").asText(), gm)) {
                 throw ApiException.badRequest("Эта раса пока закрыта для оформления.");
             }
             raceName = race.get("key").asText();

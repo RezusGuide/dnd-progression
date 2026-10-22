@@ -1060,5 +1060,20 @@
     "id": "trollkin",
     "status": "closed",
     "source": "MHH"
+  },
+  {
+    "key": "CUSTOM",
+    "nameRu": "Своя раса",
+    "srd": false,
+    "custom": true,
+    "bonuses": null,
+    "speed": 30,
+    "size": "Средний",
+    "languages": [],
+    "skills": [],
+    "traits": [],
+    "id": "custom",
+    "status": "undecided",
+    "source": "HB"
   }
 ]

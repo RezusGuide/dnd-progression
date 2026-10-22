@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Public reference data: GET /api/data/races|classes|backgrounds|runes.
+ * Public reference data: GET /api/data/races|classes|backgrounds|runes|sources.
  * Only names on DataRegistry's whitelist are served. Races and classes go
  * through OptionsService, which hides what the campaign doesn't allow
  * (unless the caller is the GM). user is null for guests.

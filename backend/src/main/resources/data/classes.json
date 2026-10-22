@@ -28,7 +28,7 @@
     "srd": true,
     "id": "barbarian",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Bard",
@@ -52,7 +52,7 @@
     "srd": true,
     "id": "bard",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Cleric",
@@ -82,7 +82,7 @@
     "srd": true,
     "id": "cleric",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Druid",
@@ -115,7 +115,7 @@
     "srd": true,
     "id": "druid",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Fighter",
@@ -148,7 +148,7 @@
     "srd": true,
     "id": "fighter",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Monk",
@@ -179,7 +179,7 @@
     "srd": true,
     "id": "monk",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Paladin",
@@ -210,7 +210,7 @@
     "srd": true,
     "id": "paladin",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Ranger",
@@ -243,7 +243,7 @@
     "srd": true,
     "id": "ranger",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Rogue",
@@ -279,7 +279,7 @@
     "srd": true,
     "id": "rogue",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Sorcerer",
@@ -310,7 +310,7 @@
     "srd": true,
     "id": "sorcerer",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Warlock",
@@ -342,7 +342,7 @@
     "srd": true,
     "id": "warlock",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Wizard",
@@ -373,7 +373,7 @@
     "srd": true,
     "id": "wizard",
     "status": "allowed",
-    "source": "Player's Handbook"
+    "source": "PH14"
   },
   {
     "key": "Artificer",
@@ -405,7 +405,7 @@
     ],
     "id": "artificer",
     "status": "allowed",
-    "source": "Tasha's Cauldron of Everything"
+    "source": "TCE"
   },
   {
     "key": "Alchemist",
@@ -420,7 +420,7 @@
     "equipment": [],
     "id": "alchemist",
     "status": "allowed",
-    "source": "Valda's Spire of Secrets"
+    "source": "VSS"
   },
   {
     "key": "Jaeger",
@@ -435,7 +435,7 @@
     "equipment": [],
     "id": "jaeger",
     "status": "allowed",
-    "source": "Steinhardt's Guide to the Eldritch Hunt"
+    "source": "SGEH"
   },
   {
     "key": "Blood hunter",
@@ -450,7 +450,7 @@
     "equipment": [],
     "id": "blood_hunter",
     "status": "undecided",
-    "source": "Matt Mercer / Critical Role"
+    "source": "CR"
   },
   {
     "key": "Runekeeper",
@@ -465,7 +465,7 @@
     "equipment": [],
     "id": "runekeeper",
     "status": "undecided",
-    "source": "Dungeon Masters Guild"
+    "source": "DMSG"
   },
   {
     "key": "Warrior Sidekick",
@@ -480,7 +480,7 @@
     "equipment": [],
     "id": "warrior_sidekick",
     "status": "npc_only",
-    "source": "Tasha's Cauldron of Everything"
+    "source": "TCE"
   },
   {
     "key": "Spellcaster Sidekick",
@@ -495,7 +495,7 @@
     "equipment": [],
     "id": "spellcaster_sidekick",
     "status": "npc_only",
-    "source": "Tasha's Cauldron of Everything"
+    "source": "TCE"
   },
   {
     "key": "Expert Sidekick",
@@ -510,7 +510,7 @@
     "equipment": [],
     "id": "expert_sidekick",
     "status": "npc_only",
-    "source": "Tasha's Cauldron of Everything"
+    "source": "TCE"
   },
   {
     "key": "Alternate Barbarian",
@@ -525,7 +525,7 @@
     "equipment": [],
     "id": "alt_barbarian",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Alternate Fighter",
@@ -540,7 +540,7 @@
     "equipment": [],
     "id": "alt_fighter",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Alternate Monk",
@@ -555,7 +555,7 @@
     "equipment": [],
     "id": "alt_monk",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Alternate Rogue",
@@ -570,7 +570,7 @@
     "equipment": [],
     "id": "alt_rogue",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Warlord",
@@ -585,7 +585,7 @@
     "equipment": [],
     "id": "warlord",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Stargazer",
@@ -600,7 +600,7 @@
     "equipment": [],
     "id": "stargazer",
     "status": "closed",
-    "source": "Homebrew"
+    "source": "HB"
   },
   {
     "key": "Magus",
@@ -615,7 +615,7 @@
     "equipment": [],
     "id": "magus",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Mystic",
@@ -630,7 +630,7 @@
     "equipment": [],
     "id": "mystic",
     "status": "closed",
-    "source": "Unearthed Arcana"
+    "source": "UA"
   },
   {
     "key": "The lingering soul",
@@ -645,7 +645,7 @@
     "equipment": [],
     "id": "lingering_soul",
     "status": "closed",
-    "source": "Matt Mercer / Critical Role"
+    "source": "CR"
   },
   {
     "key": "Savant",
@@ -660,7 +660,7 @@
     "equipment": [],
     "id": "savant",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   },
   {
     "key": "Shaman",
@@ -675,6 +675,6 @@
     "equipment": [],
     "id": "shaman",
     "status": "closed",
-    "source": "laserllama"
+    "source": "LL"
   }
 ]

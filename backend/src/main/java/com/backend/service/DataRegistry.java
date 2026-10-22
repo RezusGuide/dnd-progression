@@ -16,14 +16,14 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Reference data (races, classes, backgrounds, runes) from
+ * Reference data (races, classes, backgrounds, runes, source books) from
  * resources/data/*.json - one source for the frontend (GET /api/data/{name})
  * and for server-side validation of new characters. Loaded once at startup.
  */
 @Service
 public class DataRegistry {
 
-    public static final Set<String> NAMES = Set.of("races", "classes", "backgrounds", "runes");
+    public static final Set<String> NAMES = Set.of("races", "classes", "backgrounds", "runes", "sources");
 
     // Classic Jackson 2, as elsewhere in this codebase (the auto-configured
     // bean is Jackson 3).

@@ -39,6 +39,9 @@ public class OptionsService {
 
     public static final String ALLOWED = "allowed";
     public static final String UNLOCKABLE = "unlockable";
+    public static final String NPC_ONLY = "npc_only";
+    // "Своя раса": a data row like any other, hidden until the GM allows it.
+    public static final String CUSTOM_RACE = "CUSTOM";
     public static final Set<String> STATUSES = Set.of(ALLOWED, UNLOCKABLE, "undecided", "closed", "npc_only");
 
     private final DataRegistry data;
@@ -101,12 +104,16 @@ public class OptionsService {
         return base;
     }
 
-    /** True when a player may pick this race / class in the wizard right now. */
+    /**
+     * True when this race / class may be picked in the wizard right now.
+     * The GM may also pick classes marked "только для НИП".
+     */
     @Transactional(readOnly = true)
-    public boolean isAllowed(String kind, String key) {
+    public boolean isAllowed(String kind, String key, boolean gm) {
         JsonNode entry = data.find(fileFor(kind), key).orElse(null);
         if (entry == null) return false;
-        return ALLOWED.equals(effective(entry, baseStatus(entry, overrides(kind)), openFlags()));
+        String status = effective(entry, baseStatus(entry, overrides(kind)), openFlags());
+        return ALLOWED.equals(status) || (gm && CLASS.equals(kind) && NPC_ONLY.equals(status));
     }
 
     /**
@@ -184,7 +191,7 @@ public class OptionsService {
         String kind = kindOf(rawKind);
         JsonNode entry = data.find(fileFor(kind), key)
                 .orElseThrow(() -> ApiException.notFound("В справочнике нет такой записи."));
-        if (status == null || !STATUSES.contains(status) || ("npc_only".equals(status) && RACE.equals(kind))) {
+        if (status == null || !STATUSES.contains(status) || (NPC_ONLY.equals(status) && RACE.equals(kind))) {
             throw ApiException.badRequest("Неизвестный статус.");
         }
         OptionOverride row = overrideRepository.findByKindAndKey(kind, key).orElse(null);
