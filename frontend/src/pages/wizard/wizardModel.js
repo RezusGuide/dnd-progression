@@ -92,8 +92,13 @@ export function customRaceRow(races) {
 export function selectedClass(draft, classes) {
     return classes?.find((c) => c.key === draft.classKey) || null
 }
+// "Своя" is a data row too (key CUSTOM); selectedBackground() never returns it.
 export function selectedBackground(draft, backgrounds) {
+    if (draft.backgroundKey === CUSTOM) return null
     return backgrounds?.find((b) => b.key === draft.backgroundKey) || null
+}
+export function customBackgroundRow(backgrounds) {
+    return backgrounds?.find((b) => b.key === CUSTOM) || null
 }
 
 // Only "allowed" entries can be picked (the GM also gets "npc_only"

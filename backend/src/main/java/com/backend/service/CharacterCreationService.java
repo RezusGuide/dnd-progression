@@ -152,6 +152,9 @@ public class CharacterCreationService {
         String backgroundProfs;
         String backgroundEquipment = null;
         if (CUSTOM.equals(req.getBackgroundKey())) {
+            if (!options.isAllowed(OptionsService.BACKGROUND, CUSTOM, gm)) {
+                throw ApiException.badRequest("Своя предыстория пока закрыта для оформления.");
+            }
             backgroundName = blankToNull(req.getCustomBackgroundName());
             if (backgroundName == null) throw ApiException.badRequest("Укажите название предыстории.");
             backgroundSkills = new LinkedHashSet<>(req.getCustomBackgroundSkills());
@@ -162,6 +165,9 @@ public class CharacterCreationService {
         } else {
             JsonNode bg = data.find("backgrounds", req.getBackgroundKey())
                     .orElseThrow(() -> ApiException.badRequest("Выберите предысторию."));
+            if (!options.isAllowed(OptionsService.BACKGROUND, bg.get("key").asText(), gm)) {
+                throw ApiException.badRequest("Эта предыстория пока закрыта для оформления.");
+            }
             backgroundName = bg.get("nameRu").asText();
             backgroundSkills = asSet(bg.get("skills"));
             backgroundProfs = bg.get("proficiencies").asText();

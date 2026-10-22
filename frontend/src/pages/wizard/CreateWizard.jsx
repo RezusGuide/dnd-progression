@@ -13,7 +13,7 @@ import {
     RaceStep, SkillsStep,
 } from './steps'
 import {
-    CUSTOM, abilitiesValid, cantripLimit, classHitDie, classReady, clearDraft, customRaceRow, finalScores, isManualClass,
+    CUSTOM, abilitiesValid, cantripLimit, classHitDie, classReady, clearDraft, customBackgroundRow, customRaceRow, finalScores, isManualClass,
     isPickable, loadDraft, lockedSkills, raceReady, saveDraft, selectedBackground, selectedClass, selectedRace, toPayload,
 } from './wizardModel'
 import '../../styles/sheet.css'
@@ -33,7 +33,7 @@ const STEPS = [
     { key: 'class', title: 'Класс', Component: ClassStep, ready: (d, x) => classReady(d, x.classes, x.gm) },
     { key: 'background', title: 'Предыстория', Component: BackgroundStep,
         ready: (d, x) => (d.backgroundKey === CUSTOM
-            ? d.customBackgroundName.trim() !== '' && d.customBackgroundSkills.length === 2
+            ? isPickable(customBackgroundRow(x.backgrounds)) && d.customBackgroundName.trim() !== '' && d.customBackgroundSkills.length === 2
             : !!selectedBackground(d, x.backgrounds)) },
     { key: 'abilities', title: 'Характеристики', Component: AbilitiesStep, ready: (d) => abilitiesValid(d) },
     { key: 'skills', title: 'Навыки и владения', Component: SkillsStep,

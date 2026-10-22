@@ -55,6 +55,9 @@ export default function AdminOptions() {
                     </label>
                     <OptionsTable title="Расы" kind="race" rows={view.races} statuses={RACE_STATUSES} filter={filter} flags={view.flags} onStatus={setStatus} />
                     <OptionsTable title="Классы" kind="class" rows={view.classes} statuses={CLASS_STATUSES} filter={filter} flags={view.flags} onStatus={setStatus} />
+                    {/* Backgrounds: only "Своя" has a status worth switching. */}
+                    <OptionsTable title="Предыстории" kind="background" rows={(view.backgrounds || []).filter((r) => r.key === 'CUSTOM')}
+                        statuses={RACE_STATUSES} filter={filter} flags={view.flags} onStatus={setStatus} />
                     <UnlockFlags flags={view.flags} onChange={setFlag} />
                 </>
             )}

@@ -2,7 +2,10 @@
   {
     "key": "ACOLYTE",
     "nameRu": "Прислужник",
-    "skills": ["INSIGHT", "RELIGION"],
+    "skills": [
+      "INSIGHT",
+      "RELIGION"
+    ],
     "proficiencies": "Два языка на выбор.",
     "equipment": "Священный символ, молитвенник, 5 палочек благовоний, облачение, обычная одежда, 15 зм",
     "description": "Служил при храме и знает, где в обряде ставится подпись."
@@ -10,7 +13,10 @@
   {
     "key": "CLERK",
     "nameRu": "Клерк конторы",
-    "skills": ["INVESTIGATION", "PERSUASION"],
+    "skills": [
+      "INVESTIGATION",
+      "PERSUASION"
+    ],
     "proficiencies": "Набор каллиграфа, один язык на выбор.",
     "equipment": "Перо, чернила, стопка бланков, печать отдела, обычная одежда, 10 зм",
     "description": "Знает форму 27-Б наизусть и не боится печатей."
@@ -18,7 +24,10 @@
   {
     "key": "STEAM_MECHANIC",
     "nameRu": "Механик-паровик",
-    "skills": ["ATHLETICS", "SLEIGHT_OF_HAND"],
+    "skills": [
+      "ATHLETICS",
+      "SLEIGHT_OF_HAND"
+    ],
     "proficiencies": "Инструменты ремонтника, инструменты кузнеца.",
     "equipment": "Инструменты ремонтника, промасленный фартук, гаечный ключ на удачу, обычная одежда, 10 зм",
     "description": "Отличает тревожный свист котла от рабочего на слух."
@@ -26,7 +35,10 @@
   {
     "key": "TENGEN_COURIER",
     "nameRu": "Посыльный Тенгена",
-    "skills": ["STEALTH", "SURVIVAL"],
+    "skills": [
+      "STEALTH",
+      "SURVIVAL"
+    ],
     "proficiencies": "Набор картографа, один язык на выбор.",
     "equipment": "Сумка посыльного, карта окрестностей, плащ, обычная одежда, 10 зм",
     "description": "Доставит пакет куда угодно и не спросит, что внутри."
@@ -34,9 +46,22 @@
   {
     "key": "APOTHECARY",
     "nameRu": "Аптекарь",
-    "skills": ["MEDICINE", "NATURE"],
+    "skills": [
+      "MEDICINE",
+      "NATURE"
+    ],
     "proficiencies": "Набор травника, набор алхимика.",
     "equipment": "Набор травника, ступка, пузырьки с ярлыками, обычная одежда, 10 зм",
     "description": "Выписывает рецепты разборчивее, чем кто-либо в конторе."
+  },
+  {
+    "key": "CUSTOM",
+    "nameRu": "Своя",
+    "custom": true,
+    "status": "allowed",
+    "skills": [],
+    "proficiencies": "",
+    "equipment": "",
+    "description": ""
   }
 ]

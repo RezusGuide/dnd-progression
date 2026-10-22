@@ -39,6 +39,7 @@ class OptionsTests {
         optionsService.setStatus("RACE", "Kenku", "allowed");
         optionsService.setStatus("CLASS", "Fighter", "allowed");
         optionsService.setStatus("RACE", "CUSTOM", "undecided");
+        optionsService.setStatus("BACKGROUND", "CUSTOM", "allowed");
         optionsService.setFlag("magic_continent", false, "");
     }
 
@@ -205,6 +206,24 @@ class OptionsTests {
         optionsService.setStatus("RACE", "CUSTOM", "allowed");
         assertTrue(playerRaces().containsKey("CUSTOM"));
         assertEquals("Лисий народ", creationService.create(r, player.getId()).getRace());
+    }
+
+    @Test
+    void customBackgroundFollowsItsStatus() throws Exception {
+        User player = newPlayer();
+        CharacterCreateRequest r = fighter("Human");
+        r.setBackgroundKey("CUSTOM");
+        r.setCustomBackgroundName("Часовщик");
+        r.setCustomBackgroundSkills(List.of("INVESTIGATION", "SLEIGHT_OF_HAND"));
+        assertEquals("Часовщик", creationService.create(r, player.getId()).getBackground());
+
+        optionsService.setStatus("BACKGROUND", "CUSTOM", "undecided");
+        assertThrows(ApiException.class, () -> creationService.create(r, player.getId()));
+        boolean listed = false;
+        for (JsonNode n : objectMapper.readTree(optionsService.dataJson("backgrounds", false))) {
+            listed |= "CUSTOM".equals(n.get("key").asText());
+        }
+        assertFalse(listed);
     }
 
     @Test

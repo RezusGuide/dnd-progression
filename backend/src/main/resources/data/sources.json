@@ -18,8 +18,8 @@
   { "key": "TP", "name": "The Tortle Package" },
   { "key": "VSS", "name": "Valda's Spire of Secrets" },
   { "key": "SGEH", "name": "Steinhardt's Guide to the Eldritch Hunt" },
-  { "key": "CR", "name": "Matt Mercer / Critical Role" },
-  { "key": "DMSG", "name": "Dungeon Masters Guild" },
+  { "key": "CR", "name": "Critical Role" },
+  { "key": "DMG", "name": "Dungeon Masters Guild" },
   { "key": "LL", "name": "laserllama" },
   { "key": "UA", "name": "Unearthed Arcana" },
   { "key": "HB", "name": "Homebrew: домашние правила" }

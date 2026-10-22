@@ -29,7 +29,7 @@ public class DataController {
 
     @GetMapping("/{name}")
     public ResponseEntity<String> get(@PathVariable String name, @AuthenticationPrincipal User user) {
-        if ("races".equals(name) || "classes".equals(name)) {
+        if ("races".equals(name) || "classes".equals(name) || "backgrounds".equals(name)) {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
                     .body(optionsService.dataJson(name, AdmissionService.isGm(user)));
         }

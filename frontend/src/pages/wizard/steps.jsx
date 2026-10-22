@@ -10,7 +10,7 @@ import {
 } from '../../lib/dnd-rules'
 import { resizeImageFile } from '../../lib/image'
 import {
-    CUSTOM, MANUAL_SKILL_LIMIT, baseScores, cantripLimit, customRaceRow, finalScores, isLocked, isManualClass,
+    CUSTOM, MANUAL_SKILL_LIMIT, baseScores, cantripLimit, customBackgroundRow, customRaceRow, finalScores, isLocked, isManualClass,
     isPickable, isSrdRace, lockedSkills, raceBonuses, selectedClass, selectedRace, usesFlexible,
 } from './wizardModel'
 
@@ -257,21 +257,26 @@ export function ClassStep({ draft, set, data }) {
 // ── 3. Background ──
 export function BackgroundStep({ draft, set, data }) {
     const custom = draft.backgroundKey === CUSTOM
+    // "Своя" follows its own row's status (the GM can switch it off).
+    const customRow = customBackgroundRow(data.backgrounds)
     return (
         <>
             <div className="wiz-grid">
-                {data.backgrounds.map((b) => (
+                {data.backgrounds.filter((b) => b.key !== CUSTOM && isPickable(b)).map((b) => (
                     <ChoiceCard key={b.key} title={b.nameRu} selected={draft.backgroundKey === b.key}
                         onSelect={() => set({ backgroundKey: b.key, classSkills: draft.classSkills.filter((s) => !b.skills.includes(s)) })}>
                         <span className="wiz-card-meta">{b.skills.map((s) => SKILLS[s].name).join(', ')}</span>
                         <span className="wiz-card-desc">{b.description}</span>
                     </ChoiceCard>
                 ))}
-                <ChoiceCard title="Своя" selected={custom} onSelect={() => set({ backgroundKey: CUSTOM })}>
-                    <span className="wiz-card-meta">Название, два навыка, владения и языки.</span>
-                </ChoiceCard>
+                {isPickable(customRow) && (
+                    <ChoiceCard title="Своя" selected={custom} onSelect={() => set({ backgroundKey: CUSTOM })}>
+                        <span className="wiz-card-meta">Название, два навыка, владения и языки.</span>
+                    </ChoiceCard>
+                )}
+                {isLocked(customRow) && <LockedCard title="Своя" />}
             </div>
-            {custom && (
+            {custom && isPickable(customRow) && (
                 <Dossier className="wiz-sub">
                     <Field label="Название предыстории" value={draft.customBackgroundName} onChange={(e) => set({ customBackgroundName: e.target.value })} />
                     <p className="sheet-label" style={{ marginTop: '0.75rem' }}>Два навыка: {draft.customBackgroundSkills.length}/2</p>
@@ -486,7 +491,7 @@ export function CantripsStep({ draft, set, data }) {
 // ── 7. Equipment ──
 export function GearStep({ draft, set, data }) {
     const cls = selectedClass(draft, data.classes)
-    const bg = data.backgrounds.find((b) => b.key === draft.backgroundKey)
+    const bg = draft.backgroundKey === CUSTOM ? null : data.backgrounds.find((b) => b.key === draft.backgroundKey)
     return (
         <>
             <fieldset className="wiz-options">

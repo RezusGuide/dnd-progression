@@ -36,6 +36,8 @@ public class OptionsService {
 
     public static final String RACE = "RACE";
     public static final String CLASS = "CLASS";
+    // Only "Своя" (key CUSTOM) carries a status among backgrounds.
+    public static final String BACKGROUND = "BACKGROUND";
 
     public static final String ALLOWED = "allowed";
     public static final String UNLOCKABLE = "unlockable";
@@ -50,7 +52,19 @@ public class OptionsService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private static String fileFor(String kind) {
-        return CLASS.equals(kind) ? "classes" : "races";
+        return switch (kind) {
+            case CLASS -> "classes";
+            case BACKGROUND -> "backgrounds";
+            default -> "races";
+        };
+    }
+
+    private static String kindForFile(String file) {
+        return switch (file) {
+            case "classes" -> CLASS;
+            case "backgrounds" -> BACKGROUND;
+            default -> RACE;
+        };
     }
 
     /** RACE / CLASS from a path segment ("race", "classes"...); 400 otherwise. */
@@ -58,6 +72,7 @@ public class OptionsService {
         String k = raw == null ? "" : raw.strip().toUpperCase();
         if (k.startsWith("RACE")) return RACE;
         if (k.startsWith("CLASS")) return CLASS;
+        if (k.startsWith("BACKGROUND")) return BACKGROUND;
         throw ApiException.badRequest("Неизвестный раздел справочника.");
     }
 
@@ -117,13 +132,13 @@ public class OptionsService {
     }
 
     /**
-     * GET /api/data/races|classes. Players get allowed and unlockable entries
+     * GET /api/data/races|classes|backgrounds. Players get allowed and unlockable entries
      * only, with the effective status and no unlock key; the GM gets every
      * entry with its effective status.
      */
     @Transactional(readOnly = true)
     public String dataJson(String file, boolean gm) {
-        String kind = "classes".equals(file) ? CLASS : RACE;
+        String kind = kindForFile(file);
         Map<String, String> overrides = overrides(kind);
         Set<String> open = openFlags();
         ArrayNode out = objectMapper.createArrayNode();
@@ -150,7 +165,7 @@ public class OptionsService {
         Set<String> open = openFlags();
         Map<String, Object> out = new LinkedHashMap<>();
         Map<String, List<String>> byFlag = new HashMap<>();
-        for (String kind : List.of(RACE, CLASS)) {
+        for (String kind : List.of(RACE, CLASS, BACKGROUND)) {
             Map<String, String> overrides = overrides(kind);
             List<Map<String, Object>> rows = new ArrayList<>();
             for (JsonNode e : data.list(fileFor(kind))) {
@@ -170,7 +185,7 @@ public class OptionsService {
                 if (unlock != null) byFlag.computeIfAbsent(unlock, k -> new ArrayList<>()).add(row.get("nameRu").toString());
                 rows.add(row);
             }
-            out.put(RACE.equals(kind) ? "races" : "classes", rows);
+            out.put(fileFor(kind), rows);
         }
         List<Map<String, Object>> flags = new ArrayList<>();
         for (UnlockFlag f : flagRepository.findAll()) {
@@ -191,7 +206,7 @@ public class OptionsService {
         String kind = kindOf(rawKind);
         JsonNode entry = data.find(fileFor(kind), key)
                 .orElseThrow(() -> ApiException.notFound("В справочнике нет такой записи."));
-        if (status == null || !STATUSES.contains(status) || (NPC_ONLY.equals(status) && RACE.equals(kind))) {
+        if (status == null || !STATUSES.contains(status) || (NPC_ONLY.equals(status) && !CLASS.equals(kind))) {
             throw ApiException.badRequest("Неизвестный статус.");
         }
         OptionOverride row = overrideRepository.findByKindAndKey(kind, key).orElse(null);

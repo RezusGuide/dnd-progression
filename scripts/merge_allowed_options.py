@@ -43,7 +43,7 @@ CLASS_SOURCES = {
     "Valda's Spire of Secrets": 'VSS',
     "Steinhardt's Guide to the Eldritch Hunt": 'SGEH',
     'Matt Mercer / Critical Role': 'CR',
-    'Dungeon Masters Guild': 'DMSG',
+    'Dungeon Masters Guild': 'DMG',
     'laserllama': 'LL',
     'Homebrew': 'HB',
     'Unearthed Arcana': 'UA',
