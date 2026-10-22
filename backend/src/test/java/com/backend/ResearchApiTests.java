@@ -175,4 +175,18 @@ class ResearchApiTests {
         assertEquals(1, bag.get("gear"));
         assertThrows(ApiException.class, () -> research.combine(c.getId(), "dawn", "shadow", player));
     }
+
+    @Test
+    void preparedFlagIsStoredAndNeverLimited() {
+        User player = newPlayer();
+        Character c = approved(player, "Wizard");
+        research.addCantrip(c.getId(), "light", player);
+        research.setPrepared(c.getId(), "light", true, player);
+        assertTrue(research.knownSpells(c.getId()).stream()
+                .filter(k -> k.getSpellId().equals("light")).findFirst().orElseThrow().isPrepared());
+        research.setPrepared(c.getId(), "light", false, player);
+        assertFalse(research.knownSpells(c.getId()).stream()
+                .filter(k -> k.getSpellId().equals("light")).findFirst().orElseThrow().isPrepared());
+        assertThrows(ApiException.class, () -> research.setPrepared(c.getId(), "fireball", true, player));
+    }
 }

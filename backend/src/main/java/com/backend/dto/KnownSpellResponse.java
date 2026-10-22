@@ -15,6 +15,7 @@ public class KnownSpellResponse {
     private String name;
     private int level;
     private String school;
+    private boolean prepared;
     private String description;
     private String nameRu;
     private String descriptionRu;

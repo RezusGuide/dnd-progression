@@ -7,6 +7,8 @@ import com.backend.entity.User;
 import com.backend.entity.ApprovalStatus;
 import com.backend.entity.RuneTier;
 import com.backend.repository.AdmissionRequestRepository;
+import com.backend.repository.ChestRewardRepository;
+import com.backend.repository.InventoryItemRepository;
 import com.backend.repository.KnownSpellRepository;
 import com.backend.repository.ResearchDraftV2Repository;
 import com.backend.repository.ResearchNoteRepository;
@@ -35,6 +37,8 @@ public class CharacterService {
     private final KnownSpellRepository knownSpellRepository;
     private final ResearchNoteRepository researchNoteRepository;
     private final ResearchDraftV2Repository researchDraftRepository;
+    private final ChestRewardRepository chestRewardRepository;
+    private final InventoryItemRepository inventoryItemRepository;
     private final JdbcTemplate jdbcTemplate;
     // Instantiated directly rather than injected - same reasoning as
     // SpellRegistry/CombatService: this project's
@@ -76,6 +80,8 @@ public class CharacterService {
         knownSpellRepository.deleteByCharacterId(characterId);
         researchNoteRepository.deleteByCharacterId(characterId);
         researchDraftRepository.deleteByCharacterId(characterId);
+        chestRewardRepository.deleteByCharacterId(characterId);
+        inventoryItemRepository.deleteByCharacterId(characterId);
         deleteLegacyRows(characterId);
         characterRepository.delete(character);
     }

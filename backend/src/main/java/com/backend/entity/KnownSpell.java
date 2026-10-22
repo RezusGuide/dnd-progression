@@ -26,4 +26,13 @@ public class KnownSpell {
 
     @Column(name = "spell_id", nullable = false)
     private String spellId;
+
+    // Only meaningful for preparing casters (cleric, druid, wizard, paladin,
+    // artificer); for the others every known spell counts as ready. Rows
+    // from before stage 7 have NULL, read as not prepared.
+    private Boolean prepared;
+
+    public boolean isPrepared() {
+        return Boolean.TRUE.equals(prepared);
+    }
 }

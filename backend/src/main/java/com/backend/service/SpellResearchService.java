@@ -366,10 +366,24 @@ public class SpellResearchService {
                     return KnownSpellResponse.builder()
                             .spellId(spell.getId()).name(spell.getName()).level(spell.getLevel())
                             .school(spell.getSchool()).description(spell.getDescription())
+                            .prepared(ks.isPrepared())
                             .nameRu(spell.getNameRu()).descriptionRu(spell.getDescriptionRu())
                             .build();
                 })
                 .toList();
+    }
+
+    /**
+     * «Подготовлено» on the sheet. The prepared limit is only highlighted on
+     * the frontend, never enforced here.
+     */
+    @Transactional
+    public void setPrepared(Long characterId, String spellId, boolean prepared, User user) {
+        owned(characterId, user);
+        KnownSpell ks = knownSpellRepository.findByCharacterIdAndSpellId(characterId, spellId)
+                .orElseThrow(() -> ApiException.notFound("Этого заклинания нет в личном деле."));
+        ks.setPrepared(prepared);
+        knownSpellRepository.save(ks);
     }
 
     /** A cantrip added from the sheet; spells of level 1+ only come through research. */

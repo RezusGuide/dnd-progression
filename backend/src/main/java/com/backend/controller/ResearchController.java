@@ -33,6 +33,14 @@ public class ResearchController {
         return ResponseEntity.ok(research.knownSpells(characterId));
     }
 
+    // Body: {"prepared": true}.
+    @PatchMapping("/known-spells/{spellId}")
+    public ResponseEntity<Void> setPrepared(@PathVariable Long characterId, @PathVariable String spellId,
+                                            @RequestBody Map<String, Object> body, @AuthenticationPrincipal User user) {
+        research.setPrepared(characterId, spellId, Boolean.TRUE.equals(body.get("prepared")), user);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/cantrips/{spellId}")
     public ResponseEntity<Void> addCantrip(@PathVariable Long characterId, @PathVariable String spellId,
                                            @AuthenticationPrincipal User user) {

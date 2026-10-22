@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CharacterRepository extends JpaRepository<Character, Long> {
     List<Character> findByUserId(Long userId);
+    List<Character> findByCampaignId(Long campaignId);
     Optional<Character> findByIdAndUserId(Long id, Long userId);
 }
