@@ -8,6 +8,9 @@ import { className, formatDateTime, raceName } from '../constants/dnd-ru'
 import { isNonCaster } from '../constants/casterClasses'
 import MimicChip from '../components/chest/MimicChip'
 import { totalSealed, useSealedCounts } from '../lib/chest'
+import { useMyAvailability } from '../lib/calendar'
+import { SessionCard } from './calendar/SessionsTab'
+import '../styles/calendar.css'
 import RequestList from '../components/RequestList'
 
 // Приёмная. Guests get the public pitch; signed-in staff get their files,
@@ -63,6 +66,13 @@ function StaffReception({ user }) {
     }, [])
 
     const sealed = totalSealed(useSealedCounts(true))
+    const availability = useMyAvailability()
+    const [nextSession, setNextSession] = useState(undefined) // undefined while loading, null when none
+    useEffect(() => {
+        api.get('/api/sessions', { params: { upcoming: true } })
+            .then((res) => setNextSession(res.data[0] || null))
+            .catch(() => setNextSession(null))
+    }, [])
     const mine = (characters || []).filter((c) => c.ownerId === user.userId || c.ownerId == null)
     const casters = mine.filter((c) => !isNonCaster(c.characterClass))
 
@@ -86,6 +96,20 @@ function StaffReception({ user }) {
             <div className="reception">
                 {characters && mine.length === 0 && (
                     <Hint>Начните с личного дела. Без него в сны не пускают.</Hint>
+                )}
+
+                {!availability.loading && availability.profile && !availability.profile.exists && (
+                    <Hint>Отметьте своё свободное время, чтобы ГМ мог подобрать сессию. <Link to="/calendar?tab=time" className="reception-link">График присутствия →</Link></Hint>
+                )}
+
+                {nextSession && (
+                    <section>
+                        <div className="reception-row">
+                            <h2 className="reception-section-title">Ближайшая сессия</h2>
+                            <Link to="/calendar?tab=sessions" className="reception-link">Все сессии →</Link>
+                        </div>
+                        <Dossier className="reception-session"><SessionCard session={nextSession} zone={availability.zone} big /></Dossier>
+                    </section>
                 )}
 
                 <section>

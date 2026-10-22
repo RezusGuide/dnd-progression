@@ -67,6 +67,8 @@ const translations = {
         navChest: 'Сундучок',
         navCampaigns: 'Кампании',
         navAnnouncements: 'Объявления',
+        navCalendar: 'Календарь',
+        navMore: 'Ещё',
         navAdmin: 'Панель ГМ',
         navToggleMenu: 'Меню',
         navLogin: 'Предъявить пропуск',

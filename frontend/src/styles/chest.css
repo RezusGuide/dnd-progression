@@ -1,15 +1,6 @@
 /* Сундучок: the mimic, parcels, the inventory table, the archive. Every
    animation stops under prefers-reduced-motion (bottom of the file). */
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
 .chest-body { width: 100%; max-width: 960px; }
 .chest-picker { display: inline-grid; gap: 0.25rem; min-width: 16rem; margin-bottom: 1rem; align-self: flex-start; }
 .chest-page > .chest-picker { margin-left: max(0px, calc((100% - 960px) / 2)); }

@@ -23,6 +23,8 @@ const CreateWizard = lazy(() => import('./pages/wizard/CreateWizard'))
 const ResearchPage = lazy(() => import('./pages/research/ResearchPage'))
 const CombinePage = lazy(() => import('./pages/research/CombinePage'))
 const ChestPage = lazy(() => import('./pages/chest/ChestPage'))
+const CalendarPage = lazy(() => import('./pages/calendar/CalendarPage'))
+const PollPage = lazy(() => import('./pages/calendar/PollPage'))
 
 // Guests go to the Проходная, which sends them back here after signing in.
 function ProtectedRoute({ children }) {
@@ -48,6 +50,8 @@ function AppRoutes() {
             <Route path="/characters/:characterId/craft" element={<ProtectedRoute><CombinePage /></ProtectedRoute>} />
             <Route path="/characters/:characterId/chest" element={<ProtectedRoute><ChestPage /></ProtectedRoute>} />
             <Route path="/chest" element={<ProtectedRoute><ChestPage /></ProtectedRoute>} />
+            <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+            <Route path="/calendar/polls/:pollId" element={<ProtectedRoute><PollPage /></ProtectedRoute>} />
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 
