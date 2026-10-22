@@ -1,0 +1,656 @@
+{
+  "_notes": {
+    "version": 2,
+    "rules": "allowed — доступно при создании. unlockable — видно игрокам как «закрыто», открывает ГМ флагом. undecided — скрыто от игроков, ждёт решения ГМ. closed — не выбирается при создании, ГМ может выдать как форму во сне (стадия погружения 4). npc_only — только для персонажей ГМ.",
+    "unlock_flags": {
+      "magic_continent": "Группа попала на магический континент",
+      "U2": "Условие задаёт ГМ в своей панели (текст хранится в базе, не в репозитории)"
+    },
+    "source_codes": "Коды книг взяты со скринов сайта: PH14, VGM, GGR, MOT, SAS, SCC, RLW, WBW, POA, MPMM, MHH, AI, OGA, SDQ, LR, TP"
+  },
+  "races": {
+    "allowed": [
+      {
+        "id": "human",
+        "ru": "Человек",
+        "en": "Human",
+        "source": "PH14"
+      },
+      {
+        "id": "dwarf",
+        "ru": "Дварф",
+        "en": "Dwarf",
+        "source": "PH14"
+      },
+      {
+        "id": "gnome",
+        "ru": "Гном",
+        "en": "Gnome",
+        "source": "PH14"
+      },
+      {
+        "id": "halfling",
+        "ru": "Полурослик",
+        "en": "Halfling",
+        "source": "PH14"
+      },
+      {
+        "id": "half_elf",
+        "ru": "Полуэльф",
+        "en": "Half-elf",
+        "source": "PH14"
+      },
+      {
+        "id": "tiefling",
+        "ru": "Тифлинг",
+        "en": "Tiefling",
+        "source": "PH14"
+      },
+      {
+        "id": "dragonborn",
+        "ru": "Драконорождённый",
+        "en": "Dragonborn",
+        "source": "PH14"
+      },
+      {
+        "id": "kobold",
+        "ru": "Кобольд",
+        "en": "Kobold",
+        "source": "VGM"
+      },
+      {
+        "id": "kenku",
+        "ru": "Кенку",
+        "en": "Kenku",
+        "source": "VGM"
+      },
+      {
+        "id": "goblin",
+        "ru": "Гоблин",
+        "en": "Goblin",
+        "source": "VGM"
+      },
+      {
+        "id": "bugbear",
+        "ru": "Багбир",
+        "en": "Bugbear",
+        "source": "VGM"
+      },
+      {
+        "id": "goliath",
+        "ru": "Голиаф",
+        "en": "Goliath",
+        "source": "VGM"
+      },
+      {
+        "id": "tabaxi",
+        "ru": "Табакси",
+        "en": "Tabaxi",
+        "source": "VGM"
+      },
+      {
+        "id": "harengon",
+        "ru": "Зайцегон",
+        "en": "Harengon",
+        "source": "WBW"
+      },
+      {
+        "id": "genasi",
+        "ru": "Дженази",
+        "en": "Genasi",
+        "source": "POA"
+      },
+      {
+        "id": "leonin",
+        "ru": "Леонин",
+        "en": "Leonin",
+        "source": "MOT"
+      },
+      {
+        "id": "loxodon",
+        "ru": "Локсодон",
+        "en": "Loxodon",
+        "source": "GGR"
+      },
+      {
+        "id": "giff",
+        "ru": "Гифф",
+        "en": "Giff",
+        "source": "SAS"
+      },
+      {
+        "id": "thri_kreen",
+        "ru": "Три-крин",
+        "en": "Thri-kreen",
+        "source": "SAS"
+      },
+      {
+        "id": "autognome",
+        "ru": "Автогном",
+        "en": "Autognome",
+        "source": "SAS"
+      },
+      {
+        "id": "owlin",
+        "ru": "Совлин",
+        "en": "Owlin",
+        "source": "SCC"
+      },
+      {
+        "id": "changeling",
+        "ru": "Чейнджлинг",
+        "en": "Changeling",
+        "source": "RLW"
+      },
+      {
+        "id": "shifter",
+        "ru": "Шифтер",
+        "en": "Shifter",
+        "source": "RLW"
+      },
+      {
+        "id": "warforged",
+        "ru": "Кованый",
+        "en": "Warforged",
+        "source": "RLW"
+      },
+      {
+        "id": "gearforged",
+        "ru": "Кованый (Gearforged)",
+        "en": "Gearforged",
+        "source": "MHH"
+      },
+      {
+        "id": "gnoll",
+        "ru": "Гнолл",
+        "en": "Gnoll",
+        "source": "MHH"
+      },
+      {
+        "id": "dhampir",
+        "ru": "Дампир",
+        "en": "Dhampir",
+        "source": "MHH"
+      }
+    ],
+    "unlockable": [
+      {
+        "id": "elf",
+        "ru": "Эльф",
+        "en": "Elf",
+        "source": "PH14",
+        "unlock": "magic_continent"
+      },
+      {
+        "id": "eladrin",
+        "ru": "Эладрин",
+        "en": "Eladrin",
+        "source": "MPMM",
+        "unlock": "magic_continent"
+      },
+      {
+        "id": "shadar_kai",
+        "ru": "Шадар-кай",
+        "en": "Shadar-kai",
+        "source": "MPMM",
+        "unlock": "magic_continent"
+      },
+      {
+        "id": "astral_elf",
+        "ru": "Астральный эльф",
+        "en": "Astral elf",
+        "source": "SAS",
+        "unlock": "magic_continent"
+      },
+      {
+        "id": "sea_elf",
+        "ru": "Морской эльф",
+        "en": "Sea elf",
+        "source": "MPMM",
+        "unlock": "U2"
+      },
+      {
+        "id": "triton",
+        "ru": "Тритон",
+        "en": "Triton",
+        "source": "VGM",
+        "unlock": "U2"
+      }
+    ],
+    "undecided": [
+      {
+        "id": "orc",
+        "ru": "Орк",
+        "en": "Orc",
+        "source": "VGM"
+      },
+      {
+        "id": "half_orc",
+        "ru": "Полуорк",
+        "en": "Half-orc",
+        "source": "PH14"
+      },
+      {
+        "id": "aasimar",
+        "ru": "Аасимар",
+        "en": "Aasimar",
+        "source": "VGM"
+      }
+    ],
+    "closed": [
+      {
+        "id": "aarakocra",
+        "ru": "Аараокра",
+        "en": "Aarakocra",
+        "source": "MPMM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "vedalken",
+        "ru": "Ведалкен",
+        "en": "Vedalken",
+        "source": "GGR",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "verdan",
+        "ru": "Вердан",
+        "en": "Verdan",
+        "source": "AI",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "simic_hybrid",
+        "ru": "Гибрид Симиков",
+        "en": "Simic hybrid",
+        "source": "GGR",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "githyanki",
+        "ru": "Гитьянки",
+        "en": "Githyanki",
+        "source": "MPMM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "githzerai",
+        "ru": "Гитцерай",
+        "en": "Githzerai",
+        "source": "MPMM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "grung",
+        "ru": "Грунг",
+        "en": "Grung",
+        "source": "OGA",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "kalashtar",
+        "ru": "Калаштар",
+        "en": "Kalashtar",
+        "source": "RLW",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "kender",
+        "ru": "Кендер",
+        "en": "Kender",
+        "source": "SDQ",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "centaur",
+        "ru": "Кентавр",
+        "en": "Centaur",
+        "source": "GGR",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "locathah",
+        "ru": "Локата",
+        "en": "Locathah",
+        "source": "LR",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "lizardfolk",
+        "ru": "Людоящер",
+        "en": "Lizardfolk",
+        "source": "VGM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "minotaur",
+        "ru": "Минотавр",
+        "en": "Minotaur",
+        "source": "GGR",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "plasmoid",
+        "ru": "Плазмоид",
+        "en": "Plasmoid",
+        "source": "SAS",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "satyr",
+        "ru": "Сатир",
+        "en": "Satyr",
+        "source": "MOT",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "tortle",
+        "ru": "Тортл",
+        "en": "Tortle",
+        "source": "TP",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "firbolg",
+        "ru": "Фирболг",
+        "en": "Firbolg",
+        "source": "VGM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "fairy",
+        "ru": "Фэйри",
+        "en": "Fairy",
+        "source": "WBW",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "hadozee",
+        "ru": "Хадози",
+        "en": "Hadozee",
+        "source": "SAS",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "hobgoblin",
+        "ru": "Хобгоблин",
+        "en": "Hobgoblin",
+        "source": "VGM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "yuan_ti",
+        "ru": "Юань-ти",
+        "en": "Yuan-ti",
+        "source": "VGM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "deep_gnome",
+        "ru": "Глубинный гном",
+        "en": "Deep gnome",
+        "source": "MPMM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "duergar",
+        "ru": "Дуэргар",
+        "en": "Duergar",
+        "source": "MPMM",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "winterfolk_halfling",
+        "ru": "Зиморождённые полурослики",
+        "en": "Winterfolk halflings",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "midgard_kobold",
+        "ru": "Кобольд Мидгарда",
+        "en": "Kobolds of Midgard",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "midgard_human",
+        "ru": "Люди Мидгарда",
+        "en": "Human of Midgard",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "ravenfolk",
+        "ru": "Людоворон",
+        "en": "Ravenfolk",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "ratfolk",
+        "ru": "Людокрыса",
+        "en": "Ratfolk",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "bearfolk",
+        "ru": "Людомедведь",
+        "en": "Bearfolk",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "shadow_fey",
+        "ru": "Теневая фея",
+        "en": "Shadow fey",
+        "source": "MHH",
+        "note": "dream_form_only"
+      },
+      {
+        "id": "trollkin",
+        "ru": "Троллеобразный",
+        "en": "Trollkin",
+        "source": "MHH",
+        "note": "dream_form_only"
+      }
+    ]
+  },
+  "classes": {
+    "allowed": [
+      {
+        "id": "barbarian",
+        "ru": "Варвар",
+        "en": "Barbarian",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "bard",
+        "ru": "Бард",
+        "en": "Bard",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "cleric",
+        "ru": "Жрец",
+        "en": "Cleric",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "druid",
+        "ru": "Друид",
+        "en": "Druid",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "fighter",
+        "ru": "Воин",
+        "en": "Fighter",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "monk",
+        "ru": "Монах",
+        "en": "Monk",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "paladin",
+        "ru": "Паладин",
+        "en": "Paladin",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "ranger",
+        "ru": "Следопыт",
+        "en": "Ranger",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "rogue",
+        "ru": "Плут",
+        "en": "Rogue",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "sorcerer",
+        "ru": "Чародей",
+        "en": "Sorcerer",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "warlock",
+        "ru": "Колдун",
+        "en": "Warlock",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "wizard",
+        "ru": "Волшебник",
+        "en": "Wizard",
+        "source": "Player's Handbook"
+      },
+      {
+        "id": "artificer",
+        "ru": "Изобретатель",
+        "en": "Artificer",
+        "source": "Tasha's Cauldron of Everything"
+      },
+      {
+        "id": "alchemist",
+        "ru": "Алхимик",
+        "en": "Alchemist",
+        "source": "Valda's Spire of Secrets"
+      },
+      {
+        "id": "jaeger",
+        "ru": "Егерь",
+        "en": "Jaeger",
+        "source": "Steinhardt's Guide to the Eldritch Hunt"
+      }
+    ],
+    "undecided": [
+      {
+        "id": "blood_hunter",
+        "ru": "Кровавый охотник",
+        "en": "Blood hunter",
+        "source": "Matt Mercer / Critical Role"
+      },
+      {
+        "id": "runekeeper",
+        "ru": "Хранитель рун",
+        "en": "Runekeeper",
+        "source": "Dungeon Masters Guild"
+      }
+    ],
+    "npc_only": [
+      {
+        "id": "warrior_sidekick",
+        "ru": "Боец",
+        "en": "Warrior Sidekick",
+        "source": "Tasha's Cauldron of Everything"
+      },
+      {
+        "id": "spellcaster_sidekick",
+        "ru": "Заклинатель",
+        "en": "Spellcaster Sidekick",
+        "source": "Tasha's Cauldron of Everything"
+      },
+      {
+        "id": "expert_sidekick",
+        "ru": "Эксперт",
+        "en": "Expert Sidekick",
+        "source": "Tasha's Cauldron of Everything"
+      }
+    ],
+    "closed": [
+      {
+        "id": "alt_barbarian",
+        "ru": "Альтернативный Варвар",
+        "en": "Alternate Barbarian",
+        "source": "laserllama"
+      },
+      {
+        "id": "alt_fighter",
+        "ru": "Альтернативный Воин",
+        "en": "Alternate Fighter",
+        "source": "laserllama"
+      },
+      {
+        "id": "alt_monk",
+        "ru": "Альтернативный монах",
+        "en": "Alternate Monk",
+        "source": "laserllama"
+      },
+      {
+        "id": "alt_rogue",
+        "ru": "Альтернативный Плут",
+        "en": "Alternate Rogue",
+        "source": "laserllama"
+      },
+      {
+        "id": "warlord",
+        "ru": "Воевода",
+        "en": "Warlord",
+        "source": "laserllama"
+      },
+      {
+        "id": "stargazer",
+        "ru": "Звездочёт",
+        "en": "Stargazer",
+        "source": "Homebrew"
+      },
+      {
+        "id": "magus",
+        "ru": "Магус",
+        "en": "Magus",
+        "source": "laserllama"
+      },
+      {
+        "id": "mystic",
+        "ru": "Мистик",
+        "en": "Mystic",
+        "source": "Unearthed Arcana"
+      },
+      {
+        "id": "lingering_soul",
+        "ru": "Неупокоенная душа",
+        "en": "The lingering soul",
+        "source": "Matt Mercer / Critical Role"
+      },
+      {
+        "id": "savant",
+        "ru": "Савант",
+        "en": "Savant",
+        "source": "laserllama"
+      },
+      {
+        "id": "shaman",
+        "ru": "Шаман",
+        "en": "Shaman",
+        "source": "laserllama"
+      }
+    ]
+  }
+}
