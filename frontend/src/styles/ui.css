@@ -312,3 +312,48 @@ textarea.ui-field-control { min-height: 90px; resize: vertical; }
   margin-bottom: 0.75rem;
 }
 .ui-modal-actions { display: flex; gap: 0.6rem; justify-content: flex-end; flex-wrap: wrap; margin-top: 1.25rem; }
+
+/* ── HelpTip ("?") ── */
+.ui-tip { position: relative; display: inline-flex; vertical-align: middle; }
+.ui-tip-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-card);
+  color: var(--accent-text);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  /* 20px glyph, 44px hit area */
+  position: relative;
+}
+.ui-tip-btn::after { content: ''; position: absolute; inset: -12px; }
+.ui-tip-pop {
+  position: absolute;
+  z-index: 60;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(260px, 80vw);
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.75rem;
+  background: var(--surface-card);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  box-shadow: 0 6px 18px var(--shadow-color);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: normal;
+  text-align: left;
+}
+.ui-tip-pop .mascot { flex: none; }
+.ui-tip-pop > span { flex: 1; min-width: 0; white-space: normal; }

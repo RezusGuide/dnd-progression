@@ -317,7 +317,7 @@ export default function Research() {
                             <div>
                                 <h3 className="tome-field-label">{t('researchAspectCost')}</h3>
                                 <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.4rem', justifyContent: 'center' }}>
-                                    {Object.keys(usage).length === 0 && <span className="beyond-readonly-empty">—</span>}
+                                    {Object.keys(usage).length === 0 && <span className="tome-empty">—</span>}
                                     {Object.entries(usage).map(([aspect, count]) => (
                                         <span key={aspect} className="meta-tag">{aspectLabel(aspect)}: {count}</span>
                                     ))}

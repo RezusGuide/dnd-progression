@@ -114,7 +114,7 @@ export default function AspectCraft() {
 
                 <div style={{ marginTop: '2rem', width: '100%', maxWidth: '480px' }}>
                     <h3 className="tome-field-label" style={{ marginBottom: '0.5rem' }}>⚗ {t('sheetMaterialPouch')}</h3>
-                    {held.length === 0 && <p className="beyond-readonly-empty">{t('sheetPouchEmpty')}</p>}
+                    {held.length === 0 && <p className="tome-empty">{t('sheetPouchEmpty')}</p>}
                     <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                         {held.map((a) => (
                             <span key={a.key} className="meta-tag" title={t(a.descKey)}>{aspectLabel(a.key)}: {pouch[a.key]}</span>
