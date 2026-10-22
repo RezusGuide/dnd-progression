@@ -76,7 +76,7 @@ function OptionsTable({ title, kind, rows, statuses, filter, flags, onStatus }) 
         <div className="options-block">
             <h3 className="reception-section-title">{title}</h3>
             <p className="options-counters">{counters(rows, statuses)}</p>
-            <div className="options-table-wrap">
+            {shown.length > 0 && <div className="options-table-wrap">
                 <table className="options-table">
                     <thead>
                         <tr><th scope="col">Название</th><th scope="col">Источник</th><th scope="col">Статус</th><th scope="col">Открытие</th></tr>
@@ -105,7 +105,7 @@ function OptionsTable({ title, kind, rows, statuses, filter, flags, onStatus }) 
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div>}
             {shown.length === 0 && <p className="wiz-help">С этим статусом ничего нет.</p>}
         </div>
     )
