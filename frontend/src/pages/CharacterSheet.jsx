@@ -9,6 +9,19 @@ import api from '../api/axios'
 import { classifyApiError } from '../api/apiErrors'
 import ErrorScreen from '../components/errors/ErrorScreen'
 import { Loader } from '../components/ui'
+import { ALIGNMENTS, CLASSES as CLASS_NAMES, RACES as RACE_NAMES, className, raceName } from '../constants/dnd-ru'
+
+// Dropdown of known English keys shown in Russian; a home-made value that
+// isn't in the list (typed in before this became a select) stays selectable.
+function KeySelect({ value, onChange, disabled, options, label, emptyLabel }) {
+    const keys = value && !options.includes(value) ? [value, ...options] : options
+    return (
+        <select className="beyond-select" value={value} onChange={onChange} disabled={disabled}>
+            <option value="">{emptyLabel}</option>
+            {keys.map((k) => <option key={k} value={k}>{label(k)}</option>)}
+        </select>
+    )
+}
 import '../styles/beyond.css'
 
 // 5e reference data - governing ability per skill, per the PHB. Kept as a
@@ -385,7 +398,7 @@ export default function CharacterSheet() {
     return (
         <div className="beyond-page">
             <div className="beyond-topbar">
-                <button className="beyond-back" onClick={() => navigate('/characters')}>{t('backToVault')}</button>
+                <button className="beyond-back" onClick={() => navigate('/characters')}>{t('backToList')}</button>
                 {canEdit && saveLabel && (
                     <span className={`beyond-save-status ${saveState}`}>{saveLabel}</span>
                 )}
@@ -418,7 +431,7 @@ export default function CharacterSheet() {
                 <div className="beyond-header-grid">
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('class')}</span>
-                        <input className="beyond-input" value={form.characterClass} onChange={set('characterClass')} disabled={!canEdit} placeholder={t('sheetClassPlaceholder')} />
+                        <KeySelect value={form.characterClass} onChange={set('characterClass')} disabled={!canEdit} options={Object.keys(CLASS_NAMES)} label={className} emptyLabel="—" />
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('level')}</span>
@@ -426,7 +439,7 @@ export default function CharacterSheet() {
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('race')}</span>
-                        <input className="beyond-input" value={form.race} onChange={set('race')} disabled={!canEdit} placeholder={t('sheetRacePlaceholder')} />
+                        <KeySelect value={form.race} onChange={set('race')} disabled={!canEdit} options={Object.keys(RACE_NAMES)} label={raceName} emptyLabel="—" />
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('sheetBackground')}</span>
@@ -434,7 +447,7 @@ export default function CharacterSheet() {
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('sheetAlignment')}</span>
-                        <input className="beyond-input" value={form.alignment} onChange={set('alignment')} disabled={!canEdit} />
+                        <KeySelect value={form.alignment} onChange={set('alignment')} disabled={!canEdit} options={ALIGNMENTS} label={(a) => a} emptyLabel="—" />
                     </div>
                     <div className="beyond-field">
                         <span className="beyond-field-label">{t('sheetPlayerName')}</span>
@@ -726,7 +739,7 @@ export default function CharacterSheet() {
                                 )}
                             </div>
                             {isNonCaster(character.characterClass) ? (
-                                <p className="beyond-readonly-empty">{t('sheetNonCasterNotice').replace('{class}', character.characterClass)}</p>
+                                <p className="beyond-readonly-empty">{t('sheetNonCasterNotice').replace('{class}', className(character.characterClass))}</p>
                             ) : (
                                 <>
                                     {knownSpells.length === 0 && <p className="beyond-readonly-empty">{t('sheetSpellsEmpty')}</p>}

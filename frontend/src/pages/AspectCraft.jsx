@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, ASPECT_RECIPES, aspectLabel } from '../constants/aspects'
 import api from '../api/axios'
-import { Loader } from '../components/ui'
+import { PageHeader, Loader } from '../components/ui'
 
 // Separate minigame from Research.jsx - combining two held aspects into a
 // new one per the backend's AspectRecipe table. No "discovery" state: any
@@ -66,12 +66,13 @@ export default function AspectCraft() {
 
     return (
         <div className="parchment-page" data-theme="night">
+            <PageHeader
+                title={`${t('craftTitle')}: ${character.name}`}
+                subtitle={t('craftSubtitle')}
+                back={`/characters/${characterId}`}
+                backLabel={t('researchBackToSheet')}
+            />
             <div className="research-container">
-                <Link to={`/characters/${characterId}`} className="tome-btn-ghost" style={{ alignSelf: 'flex-start', marginBottom: '1rem' }}>
-                    {t('researchBackToSheet')}
-                </Link>
-                <h1 className="tome-title">{t('craftTitle')} — {character.name}</h1>
-                <p className="tome-subtitle" style={{ marginBottom: '1.5rem', textAlign: 'center' }}>{t('craftSubtitle')}</p>
 
                 {!canCraft && <div className="tome-notice">{t('readOnlyNotice')}</div>}
                 {error && <div className="tome-error">{error}</div>}

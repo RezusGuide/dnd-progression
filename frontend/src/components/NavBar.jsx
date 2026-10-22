@@ -35,6 +35,7 @@ export default function NavBar() {
             </div>
 
             <div className={`hall-nav-links${menuOpen ? ' open' : ''}`}>
+                <NavLink to="/" end className={linkClass} onClick={closeMenu}>{t('navHome')}</NavLink>
                 <NavLink to="/characters" className={linkClass} onClick={closeMenu}>{t('navCharacters')}</NavLink>
                 <NavLink to="/campaigns" className={linkClass} onClick={closeMenu}>{t('navCampaigns')}</NavLink>
                 <NavLink to="/announcements" className={linkClass} onClick={closeMenu}>{t('navAnnouncements')}</NavLink>

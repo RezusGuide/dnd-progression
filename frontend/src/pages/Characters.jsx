@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
 import { classifyApiError } from '../api/apiErrors'
 import ErrorScreen from '../components/errors/ErrorScreen'
-import { EmptyState, Loader } from '../components/ui'
+import { Button, EmptyState, Loader, PageHeader } from '../components/ui'
+import { CLASSES as CLASS_NAMES, RACES as RACE_NAMES, className, raceName } from '../constants/dnd-ru'
 
 // D&D is publicly viewable now (see SecurityConfig) - only logged-in
 // accounts can create characters, so the "new character" tile only shows
@@ -15,16 +16,19 @@ import { EmptyState, Loader } from '../components/ui'
 // server-side; the button itself now matches, instead of showing to
 // every signed-in account and failing silently for non-owners.
 
-const CLASSES = ['Fighter', 'Wizard', 'Rogue', 'Cleric', 'Ranger', 'Monk', 'Paladin', 'Bard', 'Druid', 'Sorcerer', 'Warlock', 'Barbarian']
-const RACES = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Gnome', 'Half-Orc', 'Half-Elf', 'Tiefling', 'Dragonborn']
+// Stored as English keys; shown in Russian (constants/dnd-ru.js).
+const CLASSES = Object.keys(CLASS_NAMES)
+const RACES = Object.keys(RACE_NAMES)
 
 export default function Characters() {
-    const { user, logout, hasSection } = useAuth()
+    const { user, hasSection } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [characters, setCharacters] = useState([])
     const [campaigns, setCampaigns] = useState([])
-    const [showForm, setShowForm] = useState(false)
+    // /characters?new=1 (from the Приёмная) opens the create form straight away.
+    const [searchParams] = useSearchParams()
+    const [showForm, setShowForm] = useState(() => searchParams.get('new') === '1')
     const [form, setForm] = useState({ name: '', characterClass: '', race: '', backstory: '', campaignId: '' })
     const [error, setError] = useState('')
     const [copiedId, setCopiedId] = useState(null)
@@ -102,14 +106,11 @@ export default function Characters() {
     return (
         <div className="parchment-page">
 
-            <div className="tome-header">
-                <h1 className="tome-title">{t('adventurersVault')}</h1>
-                <div className="tome-header-right">
-                    <Link to="/campaigns" className="tome-btn-ghost">⚔ {t('campaignChronicles')}</Link>
-                    {user && <span className="tome-username">{user.username}</span>}
-                    {user && <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>}
-                </div>
-            </div>
+            <PageHeader
+                title="Личные дела"
+                subtitle="Сотрудники в вашем ведении."
+                actions={user && <Button onClick={() => setShowForm(true)}>Завести личное дело</Button>}
+            />
 
             {status === 'loading' && <Loader />}
 
@@ -119,7 +120,7 @@ export default function Characters() {
                 no explanation why. Direct share links to a specific
                 character still work regardless - see sheetShareLink. */}
             {status === 'ok' && characters.length === 0 && (
-                <EmptyState>{user ? 'Дел пока нет. Секретарша проверит позже.' : t('vaultSignInHint')}</EmptyState>
+                <EmptyState>{user ? 'Личных дел пока нет. Секретарша проверит позже.' : t('vaultSignInHint')}</EmptyState>
             )}
 
             {status === 'ok' && <div className="characters-grid">
@@ -153,8 +154,8 @@ export default function Characters() {
                             </div>
                         </div>
                         <div className="character-meta">
-                            <span className="meta-tag">{char.characterClass || '—'}</span>
-                            <span className="meta-tag">{char.race || '—'}</span>
+                            <span className="meta-tag">{className(char.characterClass) || '—'}</span>
+                            <span className="meta-tag">{raceName(char.race) || '—'}</span>
                             <span className="meta-tag level-tag">{t('level')} {char.level}</span>
                             {char.campaign && (
                                 <span className="meta-tag campaign-tag">⚔ {char.campaign.name}</span>
@@ -198,7 +199,7 @@ export default function Characters() {
                                         onChange={(e) => setForm({ ...form, characterClass: e.target.value })}
                                     >
                                         <option value="">{t('choose')}</option>
-                                        {CLASSES.map(c => <option key={c} value={c}>{c}</option>)}
+                                        {CLASSES.map(c => <option key={c} value={c}>{className(c)}</option>)}
                                     </select>
                                 </div>
                                 <div className="tome-field">
@@ -208,7 +209,7 @@ export default function Characters() {
                                         onChange={(e) => setForm({ ...form, race: e.target.value })}
                                     >
                                         <option value="">{t('choose')}</option>
-                                        {RACES.map(r => <option key={r} value={r}>{r}</option>)}
+                                        {RACES.map(r => <option key={r} value={r}>{raceName(r)}</option>)}
                                     </select>
                                 </div>
                             </div>

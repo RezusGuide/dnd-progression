@@ -7,6 +7,7 @@ import { isNonCaster, isSpellEligible } from '../constants/casterClasses'
 import { useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
 import ErrorScreen from '../components/errors/ErrorScreen'
+import { Button, Dossier, Loader, PageHeader } from '../components/ui'
 
 export default function Admin() {
     const { user, hasSection, login } = useAuth()
@@ -14,6 +15,14 @@ export default function Admin() {
     const isOwner = hasSection('*')
     const [searchParams] = useSearchParams()
     const isSetup = searchParams.get('setup') === '1'
+    // null while unknown; the claim panel only exists while no GM is set.
+    const [ownerExists, setOwnerExists] = useState(null)
+    useEffect(() => {
+        if (!isSetup || isOwner) return
+        api.get('/api/auth/setup-status')
+            .then((res) => setOwnerExists(res.data.ownerExists))
+            .catch(() => setOwnerExists(true))
+    }, [isSetup, isOwner])
 
     const [error, setError] = useState('')
     const [notice, setNotice] = useState('')
@@ -65,7 +74,7 @@ export default function Admin() {
                 sections: me.data.sections,
             }, me.data.token)
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not claim ownership')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -78,7 +87,7 @@ export default function Admin() {
             setRoleForm({ key: '', label: '', sections: '' })
             refresh()
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not create role')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -104,7 +113,7 @@ export default function Admin() {
             setNotice(t('adminAccountCreated'))
             refresh()
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not create account')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -121,7 +130,7 @@ export default function Admin() {
             setItemGrantForm({ ...itemGrantForm, item: '' })
             setNotice(t('adminGranted'))
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not add item')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -138,7 +147,7 @@ export default function Admin() {
             setMaterialGrantForm({ ...materialGrantForm, material: '' })
             setNotice(t('adminGranted'))
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not add material')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -155,7 +164,7 @@ export default function Admin() {
             })
             setNotice(t('adminGranted'))
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not grant aspects')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -171,7 +180,7 @@ export default function Admin() {
             })
             setNotice(t('adminGranted'))
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not grant hint access')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
@@ -185,26 +194,30 @@ export default function Admin() {
             setPasswordChoice({ ...passwordChoice, [userId]: '' })
             setNotice(t('adminPasswordReset'))
         } catch (err) {
-            setError(err.response?.data?.message || 'Could not reset password')
+            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
     }
 
     // Not the GM: "access denied". The one exception is first-time setup -
     // /admin?setup=1 still shows the claim-ownership panel, since the
     // backend only honours bootstrap-owner while nobody holds OWNER yet.
-    if (!isOwner && !isSetup) {
+    if (!isOwner && isSetup && ownerExists === null) {
+        return <div className="parchment-page"><Loader /></div>
+    }
+
+    if (!isOwner && (!isSetup || ownerExists)) {
         return <ErrorScreen code={403} />
     }
 
     if (!isOwner) {
         return (
             <div className="parchment-page">
-                <div className="tome-panel">
-                    <h1 className="tome-title">{t('adminTitle')}</h1>
-                    <p className="tome-subtitle">{t('adminBecomeOwnerHint')}</p>
-                    {error && <div className="tome-error">{error}</div>}
-                    {user && <button className="tome-btn" onClick={handleClaim}>{t('adminBecomeOwner')}</button>}
-                </div>
+                <PageHeader title="Первичная настройка" />
+                <Dossier tab="Панель ГМа" style={{ maxWidth: 480, width: '100%' }}>
+                    <p style={{ marginBottom: '1rem' }}>{t('adminBecomeOwnerHint')}</p>
+                    {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
+                    {user && <Button onClick={handleClaim}>{t('adminBecomeOwner')}</Button>}
+                </Dossier>
             </div>
         )
     }
@@ -234,8 +247,7 @@ export default function Admin() {
 
     return (
         <div className="parchment-page">
-            <h1 className="tome-title">{t('adminTitle')}</h1>
-            <p className="tome-subtitle" style={{ marginBottom: '1.5rem' }}>{t('adminSubtitle')}</p>
+            <PageHeader title="Панель ГМа" subtitle={t('adminSubtitle')} />
             {error && <div className="tome-error">{error}</div>}
             {notice && <div className="tome-notice">{notice}</div>}
 

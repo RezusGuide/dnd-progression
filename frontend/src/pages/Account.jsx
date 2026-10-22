@@ -1,55 +1,68 @@
 import { useState } from 'react'
-import { useLang } from '../context/LangContext'
+import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
+import { Button, Dossier, PageHeader } from '../components/ui'
 
-// Self-service recovery code - the only way back in if you forget your own
-// password, since there's no email-based reset (this app sends no email at
-// all) and only the owner can reset other accounts' passwords from /admin.
-// Generating a new code invalidates whatever code existed before.
+// Мой пропуск. The recovery code is the only way back in after a forgotten
+// password: this app sends no email, and only the GM can reset someone
+// else's password from /admin. A new code invalidates the previous one.
 export default function Account() {
-    const { t } = useLang()
+    const { user } = useAuth()
     const [code, setCode] = useState('')
     const [error, setError] = useState('')
     const [confirmed, setConfirmed] = useState(false)
+    const [copied, setCopied] = useState(false)
 
     const handleGenerate = async () => {
         setError('')
         setConfirmed(false)
+        setCopied(false)
         try {
             const res = await api.post('/api/auth/recovery-code')
             setCode(res.data.recoveryCode)
-        } catch (err) {
-            setError(err.response?.data?.message || t('accountRecoveryFailed'))
+        } catch {
+            setError('Код не выдан. Повторите позже.')
         }
+    }
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(code)
+            setCopied(true)
+        } catch { /* clipboard not available - the code is on screen anyway */ }
     }
 
     return (
         <div className="parchment-page">
-            <div className="tome-panel">
-                <h1 className="tome-title">{t('accountTitle')}</h1>
-                <p className="tome-subtitle">{t('accountRecoveryHint')}</p>
+            <PageHeader title="Мой пропуск" subtitle={user?.username} />
+            <Dossier tab="Код восстановления" className="pass">
+                <p className="pass-text">
+                    Если забудете пароль, вернуться можно только по коду восстановления. Создайте его и сохраните в надёжном месте.
+                </p>
 
-                {error && <div className="tome-error">{error}</div>}
+                {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
 
                 {code && (
-                    <div className="tome-notice">
-                        <p>{t('accountRecoveryCodeShown')}</p>
-                        <p style={{ fontFamily: 'monospace', fontSize: '1.4rem', letterSpacing: '0.1em', textAlign: 'center', margin: '0.75rem 0' }}>
-                            {code}
-                        </p>
-                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}>
+                    <>
+                        <p>Ваш код восстановления. Он показывается один раз, запишите его сейчас:</p>
+                        <code className="pass-code">{code}</code>
+                        <div className="pass-row">
+                            <Button variant="secondary" onClick={handleCopy}>Копировать</Button>
+                            <span role="status">{copied ? 'Копия снята.' : ''}</span>
+                        </div>
+                        <label className="pass-check">
                             <input type="checkbox" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} />
-                            {t('accountRecoveryCodeConfirm')}
+                            Я сохранил(а) код
                         </label>
-                    </div>
+                    </>
                 )}
 
                 {(!code || confirmed) && (
-                    <button className="tome-btn" onClick={handleGenerate} style={{ marginTop: '1rem' }}>
-                        {code ? t('accountRegenerateCode') : t('accountGenerateCode')}
-                    </button>
+                    <div style={{ marginTop: '1rem' }}>
+                        <Button onClick={handleGenerate}>{code ? 'Создать новый код' : 'Создать код'}</Button>
+                    </div>
                 )}
-            </div>
+            </Dossier>
         </div>
     )
 }

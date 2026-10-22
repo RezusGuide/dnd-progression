@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import { ASPECTS, aspectLabel } from '../constants/aspects'
 import { spellName } from '../constants/spellText'
 import api from '../api/axios'
-import { Loader, Stamp } from '../components/ui'
+import { PageHeader, Loader, Stamp } from '../components/ui'
 
 const HEX_SIZE = 35
 const GRID_RADIUS = 4
@@ -217,12 +217,13 @@ export default function Research() {
 
     return (
         <div className="parchment-page" data-theme="night">
+            <PageHeader
+                title={`${t('researchTitle')}: ${character.name}`}
+                subtitle={t('researchSubtitle')}
+                back={`/characters/${characterId}`}
+                backLabel={t('researchBackToSheet')}
+            />
             <div className="research-container">
-                <Link to={`/characters/${characterId}`} className="tome-btn-ghost" style={{ alignSelf: 'flex-start', marginBottom: '1rem' }}>
-                    {t('researchBackToSheet')}
-                </Link>
-                <h1 className="tome-title">{t('researchTitle')} — {character.name}</h1>
-                <p className="tome-subtitle" style={{ marginBottom: '1.5rem', textAlign: 'center' }}>{t('researchSubtitle')}</p>
 
                 {!canResearch && <div className="tome-notice">{t('readOnlyNotice')}</div>}
                 {error && <div className="tome-error">{error}</div>}
@@ -363,7 +364,7 @@ export default function Research() {
                     <div className="tome-notice research-result">
                         <Stamp kind="approved" />
                         <h2 className="tome-title" style={{ fontSize: '1.2rem', marginTop: '0.75rem' }}>{t('researchResultTitle')}</h2>
-                        <p><strong>{result.spellName}</strong> — {result.accuracyPercentage}%</p>
+                        <p><strong>{result.spellNameRu || result.spellName}</strong> — {result.accuracyPercentage}%</p>
                         <p className="tome-subtitle">{t('researchRecordedAt')}: {result.recordedAccuracyPercentage}%</p>
                     </div>
                 )}

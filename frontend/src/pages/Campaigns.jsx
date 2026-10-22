@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
 import api from '../api/axios'
-import { EmptyState, Loader } from '../components/ui'
+import { Button, EmptyState, Loader, PageHeader } from '../components/ui'
 
 export default function Campaigns() {
-    const { user, logout } = useAuth()
+    const { user } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [campaigns, setCampaigns] = useState([])
@@ -47,23 +47,12 @@ export default function Campaigns() {
     return (
         <div className="parchment-page">
 
-            <div className="tome-header">
-                <h1 className="tome-title">{t('campaignChronicles')}</h1>
-                <div className="tome-header-right">
-                    <Link to="/characters" className="tome-btn-ghost">{t('adventurersVault')}</Link>
-                    {user && <span className="tome-username">{user.username}</span>}
-                    {user && <button className="tome-btn-ghost" onClick={logout}>{t('leave')}</button>}
-                </div>
-            </div>
+            <PageHeader
+                title="Реестр кампаний"
+                actions={user && <Button onClick={() => setShowForm(!showForm)}>Открыть кампанию</Button>}
+            />
 
             <div className="campaigns-list">
-                {user && (
-                    <div className="campaign-new-row">
-                        <button className="tome-btn" onClick={() => setShowForm(!showForm)}>
-                            ✦ {t('newCampaign')}
-                        </button>
-                    </div>
-                )}
 
                 {showForm && (
                     <div className="tome-panel" style={{ maxWidth: '600px', marginBottom: '2rem' }}>
