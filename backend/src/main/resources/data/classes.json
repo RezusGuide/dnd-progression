@@ -3,168 +3,678 @@
     "key": "Barbarian",
     "nameRu": "Варвар",
     "hitDie": 12,
-    "saves": ["STR", "CON"],
-    "skillChoice": { "count": 2, "from": ["ANIMAL_HANDLING", "ATHLETICS", "INTIMIDATION", "NATURE", "PERCEPTION", "SURVIVAL"] },
+    "saves": [
+      "STR",
+      "CON"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ANIMAL_HANDLING",
+        "ATHLETICS",
+        "INTIMIDATION",
+        "NATURE",
+        "PERCEPTION",
+        "SURVIVAL"
+      ]
+    },
     "proficiencies": "Лёгкие и средние доспехи, щиты; простое и воинское оружие.",
     "spellAbility": null,
     "cantrips": 0,
     "equipment": [
       "Двуручный топор, два ручных топора, набор путешественника, четыре метательных копья",
       "Любое воинское рукопашное оружие, любое простое оружие, набор путешественника, четыре метательных копья"
-    ]
+    ],
+    "srd": true,
+    "id": "barbarian",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Bard",
     "nameRu": "Бард",
     "hitDie": 8,
-    "saves": ["DEX", "CHA"],
-    "skillChoice": { "count": 3, "from": "ANY" },
+    "saves": [
+      "DEX",
+      "CHA"
+    ],
+    "skillChoice": {
+      "count": 3,
+      "from": "ANY"
+    },
     "proficiencies": "Лёгкие доспехи; простое оружие, ручные арбалеты, длинные, короткие мечи и рапиры; три музыкальных инструмента.",
     "spellAbility": "CHA",
     "cantrips": 2,
     "equipment": [
       "Рапира, набор дипломата, лютня, кожаный доспех, кинжал",
       "Длинный меч, набор артиста, другой музыкальный инструмент, кожаный доспех, кинжал"
-    ]
+    ],
+    "srd": true,
+    "id": "bard",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Cleric",
     "nameRu": "Жрец",
     "hitDie": 8,
-    "saves": ["WIS", "CHA"],
-    "skillChoice": { "count": 2, "from": ["HISTORY", "INSIGHT", "MEDICINE", "PERSUASION", "RELIGION"] },
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "HISTORY",
+        "INSIGHT",
+        "MEDICINE",
+        "PERSUASION",
+        "RELIGION"
+      ]
+    },
     "proficiencies": "Лёгкие и средние доспехи, щиты; простое оружие.",
     "spellAbility": "WIS",
     "cantrips": 3,
     "equipment": [
       "Булава, чешуйчатый доспех, лёгкий арбалет и 20 болтов, набор священника, щит, священный символ",
       "Боевой молот, кольчуга, любое простое оружие, набор путешественника, щит, священный символ"
-    ]
+    ],
+    "srd": true,
+    "id": "cleric",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Druid",
     "nameRu": "Друид",
     "hitDie": 8,
-    "saves": ["INT", "WIS"],
-    "skillChoice": { "count": 2, "from": ["ARCANA", "ANIMAL_HANDLING", "INSIGHT", "MEDICINE", "NATURE", "PERCEPTION", "RELIGION", "SURVIVAL"] },
+    "saves": [
+      "INT",
+      "WIS"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ARCANA",
+        "ANIMAL_HANDLING",
+        "INSIGHT",
+        "MEDICINE",
+        "NATURE",
+        "PERCEPTION",
+        "RELIGION",
+        "SURVIVAL"
+      ]
+    },
     "proficiencies": "Лёгкие и средние доспехи и щиты не из металла; дубинка, кинжал, дротик, метательное копьё, булава, боевой посох, скимитар, серп, праща, копьё; набор травника.",
     "spellAbility": "WIS",
     "cantrips": 2,
     "equipment": [
       "Деревянный щит, скимитар, кожаный доспех, набор путешественника, друидический фокус",
       "Любое простое оружие, любое простое рукопашное оружие, кожаный доспех, набор путешественника, друидический фокус"
-    ]
+    ],
+    "srd": true,
+    "id": "druid",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Fighter",
     "nameRu": "Воин",
     "hitDie": 10,
-    "saves": ["STR", "CON"],
-    "skillChoice": { "count": 2, "from": ["ACROBATICS", "ANIMAL_HANDLING", "ATHLETICS", "HISTORY", "INSIGHT", "INTIMIDATION", "PERCEPTION", "SURVIVAL"] },
+    "saves": [
+      "STR",
+      "CON"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ACROBATICS",
+        "ANIMAL_HANDLING",
+        "ATHLETICS",
+        "HISTORY",
+        "INSIGHT",
+        "INTIMIDATION",
+        "PERCEPTION",
+        "SURVIVAL"
+      ]
+    },
     "proficiencies": "Все доспехи, щиты; простое и воинское оружие.",
     "spellAbility": null,
     "cantrips": 0,
     "equipment": [
       "Кольчуга, воинское оружие и щит, лёгкий арбалет и 20 болтов, набор исследователя подземелий",
       "Кожаный доспех, длинный лук и 20 стрел, два воинских оружия, набор путешественника"
-    ]
+    ],
+    "srd": true,
+    "id": "fighter",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Monk",
     "nameRu": "Монах",
     "hitDie": 8,
-    "saves": ["STR", "DEX"],
-    "skillChoice": { "count": 2, "from": ["ACROBATICS", "ATHLETICS", "HISTORY", "INSIGHT", "RELIGION", "STEALTH"] },
+    "saves": [
+      "STR",
+      "DEX"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ACROBATICS",
+        "ATHLETICS",
+        "HISTORY",
+        "INSIGHT",
+        "RELIGION",
+        "STEALTH"
+      ]
+    },
     "proficiencies": "Простое оружие, короткие мечи; один набор инструментов или музыкальный инструмент.",
     "spellAbility": null,
     "cantrips": 0,
     "equipment": [
       "Короткий меч, набор исследователя подземелий, 10 дротиков",
       "Любое простое оружие, набор путешественника, 10 дротиков"
-    ]
+    ],
+    "srd": true,
+    "id": "monk",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Paladin",
     "nameRu": "Паладин",
     "hitDie": 10,
-    "saves": ["WIS", "CHA"],
-    "skillChoice": { "count": 2, "from": ["ATHLETICS", "INSIGHT", "INTIMIDATION", "MEDICINE", "PERSUASION", "RELIGION"] },
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ATHLETICS",
+        "INSIGHT",
+        "INTIMIDATION",
+        "MEDICINE",
+        "PERSUASION",
+        "RELIGION"
+      ]
+    },
     "proficiencies": "Все доспехи, щиты; простое и воинское оружие.",
     "spellAbility": "CHA",
     "cantrips": 0,
     "equipment": [
       "Воинское оружие и щит, пять метательных копий, набор священника, кольчуга, священный символ",
       "Два воинских оружия, любое простое рукопашное оружие, набор путешественника, кольчуга, священный символ"
-    ]
+    ],
+    "srd": true,
+    "id": "paladin",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Ranger",
     "nameRu": "Следопыт",
     "hitDie": 10,
-    "saves": ["STR", "DEX"],
-    "skillChoice": { "count": 3, "from": ["ANIMAL_HANDLING", "ATHLETICS", "INSIGHT", "INVESTIGATION", "NATURE", "PERCEPTION", "STEALTH", "SURVIVAL"] },
+    "saves": [
+      "STR",
+      "DEX"
+    ],
+    "skillChoice": {
+      "count": 3,
+      "from": [
+        "ANIMAL_HANDLING",
+        "ATHLETICS",
+        "INSIGHT",
+        "INVESTIGATION",
+        "NATURE",
+        "PERCEPTION",
+        "STEALTH",
+        "SURVIVAL"
+      ]
+    },
     "proficiencies": "Лёгкие и средние доспехи, щиты; простое и воинское оружие.",
     "spellAbility": "WIS",
     "cantrips": 0,
     "equipment": [
       "Чешуйчатый доспех, два коротких меча, набор исследователя подземелий, длинный лук и колчан с 20 стрелами",
       "Кожаный доспех, два простых рукопашных оружия, набор путешественника, длинный лук и колчан с 20 стрелами"
-    ]
+    ],
+    "srd": true,
+    "id": "ranger",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Rogue",
     "nameRu": "Плут",
     "hitDie": 8,
-    "saves": ["DEX", "INT"],
-    "skillChoice": { "count": 4, "from": ["ACROBATICS", "ATHLETICS", "DECEPTION", "INSIGHT", "INTIMIDATION", "INVESTIGATION", "PERCEPTION", "PERFORMANCE", "PERSUASION", "SLEIGHT_OF_HAND", "STEALTH"] },
+    "saves": [
+      "DEX",
+      "INT"
+    ],
+    "skillChoice": {
+      "count": 4,
+      "from": [
+        "ACROBATICS",
+        "ATHLETICS",
+        "DECEPTION",
+        "INSIGHT",
+        "INTIMIDATION",
+        "INVESTIGATION",
+        "PERCEPTION",
+        "PERFORMANCE",
+        "PERSUASION",
+        "SLEIGHT_OF_HAND",
+        "STEALTH"
+      ]
+    },
     "proficiencies": "Лёгкие доспехи; простое оружие, ручные арбалеты, длинные, короткие мечи и рапиры; воровские инструменты.",
     "spellAbility": null,
     "cantrips": 0,
     "equipment": [
       "Рапира, короткий лук и колчан с 20 стрелами, набор взломщика, кожаный доспех, два кинжала, воровские инструменты",
       "Два коротких меча, набор исследователя подземелий, кожаный доспех, два кинжала, воровские инструменты"
-    ]
+    ],
+    "srd": true,
+    "id": "rogue",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Sorcerer",
     "nameRu": "Чародей",
     "hitDie": 6,
-    "saves": ["CON", "CHA"],
-    "skillChoice": { "count": 2, "from": ["ARCANA", "DECEPTION", "INSIGHT", "INTIMIDATION", "PERSUASION", "RELIGION"] },
+    "saves": [
+      "CON",
+      "CHA"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ARCANA",
+        "DECEPTION",
+        "INSIGHT",
+        "INTIMIDATION",
+        "PERSUASION",
+        "RELIGION"
+      ]
+    },
     "proficiencies": "Кинжалы, дротики, пращи, боевые посохи, лёгкие арбалеты.",
     "spellAbility": "CHA",
     "cantrips": 4,
     "equipment": [
       "Лёгкий арбалет и 20 болтов, мешочек с компонентами, набор исследователя подземелий, два кинжала",
       "Любое простое оружие, магическая фокусировка, набор путешественника, два кинжала"
-    ]
+    ],
+    "srd": true,
+    "id": "sorcerer",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Warlock",
     "nameRu": "Колдун",
     "hitDie": 8,
-    "saves": ["WIS", "CHA"],
-    "skillChoice": { "count": 2, "from": ["ARCANA", "DECEPTION", "HISTORY", "INTIMIDATION", "INVESTIGATION", "NATURE", "RELIGION"] },
+    "saves": [
+      "WIS",
+      "CHA"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ARCANA",
+        "DECEPTION",
+        "HISTORY",
+        "INTIMIDATION",
+        "INVESTIGATION",
+        "NATURE",
+        "RELIGION"
+      ]
+    },
     "proficiencies": "Лёгкие доспехи; простое оружие.",
     "spellAbility": "CHA",
     "cantrips": 2,
     "equipment": [
       "Лёгкий арбалет и 20 болтов, мешочек с компонентами, набор учёного, кожаный доспех, любое простое оружие, два кинжала",
       "Любое простое оружие, магическая фокусировка, набор исследователя подземелий, кожаный доспех, любое простое оружие, два кинжала"
-    ]
+    ],
+    "srd": true,
+    "id": "warlock",
+    "status": "allowed",
+    "source": "Player's Handbook"
   },
   {
     "key": "Wizard",
     "nameRu": "Волшебник",
     "hitDie": 6,
-    "saves": ["INT", "WIS"],
-    "skillChoice": { "count": 2, "from": ["ARCANA", "HISTORY", "INSIGHT", "INVESTIGATION", "MEDICINE", "RELIGION"] },
+    "saves": [
+      "INT",
+      "WIS"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "ARCANA",
+        "HISTORY",
+        "INSIGHT",
+        "INVESTIGATION",
+        "MEDICINE",
+        "RELIGION"
+      ]
+    },
     "proficiencies": "Кинжалы, дротики, пращи, боевые посохи, лёгкие арбалеты.",
     "spellAbility": "INT",
     "cantrips": 3,
     "equipment": [
       "Боевой посох, мешочек с компонентами, набор учёного, книга заклинаний",
       "Кинжал, магическая фокусировка, набор путешественника, книга заклинаний"
-    ]
+    ],
+    "srd": true,
+    "id": "wizard",
+    "status": "allowed",
+    "source": "Player's Handbook"
+  },
+  {
+    "key": "Artificer",
+    "nameRu": "Изобретатель",
+    "srd": false,
+    "hitDie": 8,
+    "saves": [
+      "CON",
+      "INT"
+    ],
+    "skillChoice": {
+      "count": 2,
+      "from": [
+        "INVESTIGATION",
+        "HISTORY",
+        "ARCANA",
+        "SLEIGHT_OF_HAND",
+        "MEDICINE",
+        "NATURE",
+        "PERCEPTION"
+      ]
+    },
+    "proficiencies": "Лёгкие и средние доспехи, щиты; простое оружие; воровские инструменты, инструменты ремонтника, один набор ремесленника.",
+    "spellAbility": "INT",
+    "cantrips": 2,
+    "equipment": [
+      "Два простых оружия, лёгкий арбалет и 20 болтов, клёпаный кожаный доспех, воровские инструменты, набор исследователя подземелий",
+      "Два простых оружия, лёгкий арбалет и 20 болтов, чешуйчатый доспех, воровские инструменты, набор исследователя подземелий"
+    ],
+    "id": "artificer",
+    "status": "allowed",
+    "source": "Tasha's Cauldron of Everything"
+  },
+  {
+    "key": "Alchemist",
+    "nameRu": "Алхимик",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "alchemist",
+    "status": "allowed",
+    "source": "Valda's Spire of Secrets"
+  },
+  {
+    "key": "Jaeger",
+    "nameRu": "Егерь",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "jaeger",
+    "status": "allowed",
+    "source": "Steinhardt's Guide to the Eldritch Hunt"
+  },
+  {
+    "key": "Blood hunter",
+    "nameRu": "Кровавый охотник",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "blood_hunter",
+    "status": "undecided",
+    "source": "Matt Mercer / Critical Role"
+  },
+  {
+    "key": "Runekeeper",
+    "nameRu": "Хранитель рун",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "runekeeper",
+    "status": "undecided",
+    "source": "Dungeon Masters Guild"
+  },
+  {
+    "key": "Warrior Sidekick",
+    "nameRu": "Боец",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "warrior_sidekick",
+    "status": "npc_only",
+    "source": "Tasha's Cauldron of Everything"
+  },
+  {
+    "key": "Spellcaster Sidekick",
+    "nameRu": "Заклинатель",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "spellcaster_sidekick",
+    "status": "npc_only",
+    "source": "Tasha's Cauldron of Everything"
+  },
+  {
+    "key": "Expert Sidekick",
+    "nameRu": "Эксперт",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "expert_sidekick",
+    "status": "npc_only",
+    "source": "Tasha's Cauldron of Everything"
+  },
+  {
+    "key": "Alternate Barbarian",
+    "nameRu": "Альтернативный Варвар",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "alt_barbarian",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Alternate Fighter",
+    "nameRu": "Альтернативный Воин",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "alt_fighter",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Alternate Monk",
+    "nameRu": "Альтернативный монах",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "alt_monk",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Alternate Rogue",
+    "nameRu": "Альтернативный Плут",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "alt_rogue",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Warlord",
+    "nameRu": "Воевода",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "warlord",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Stargazer",
+    "nameRu": "Звездочёт",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "stargazer",
+    "status": "closed",
+    "source": "Homebrew"
+  },
+  {
+    "key": "Magus",
+    "nameRu": "Магус",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "magus",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Mystic",
+    "nameRu": "Мистик",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "mystic",
+    "status": "closed",
+    "source": "Unearthed Arcana"
+  },
+  {
+    "key": "The lingering soul",
+    "nameRu": "Неупокоенная душа",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "lingering_soul",
+    "status": "closed",
+    "source": "Matt Mercer / Critical Role"
+  },
+  {
+    "key": "Savant",
+    "nameRu": "Савант",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "savant",
+    "status": "closed",
+    "source": "laserllama"
+  },
+  {
+    "key": "Shaman",
+    "nameRu": "Шаман",
+    "srd": false,
+    "hitDie": null,
+    "saves": null,
+    "skillChoice": null,
+    "proficiencies": null,
+    "spellAbility": null,
+    "cantrips": null,
+    "equipment": [],
+    "id": "shaman",
+    "status": "closed",
+    "source": "laserllama"
   }
 ]
