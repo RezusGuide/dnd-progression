@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-// Public catalog view - deliberately excludes Spell#pattern. Used for the
-// cantrip picker and the general "browse the catalog" list; a level 1-2
-// spell's pattern is only ever handed out through ResearchController's
-// hint-gated endpoint.
+// Public catalog view of a spell, for the cantrip picker, the research
+// catalog and the general "browse the catalog" list.
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +17,7 @@ public class SpellSummary {
     private String id;
     private String name;
     private int level;
+    private String school;
     private String description;
     private String castingTime;
     private String range;

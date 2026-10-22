@@ -1,91 +1,81 @@
 package com.backend.controller;
 
-import com.backend.dto.*;
+import com.backend.dto.KnownSpellResponse;
+import com.backend.dto.ResearchGridRequest;
+import com.backend.dto.ResearchNoteResponse;
+import com.backend.dto.ResearchTopicSummary;
+import com.backend.dto.ResearchTopicView;
 import com.backend.entity.User;
-import com.backend.model.GridAnchor;
-import com.backend.service.ResearchService;
+import com.backend.service.SpellResearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Spell list, material pouch reads live on Character itself (GET
- * /api/characters/{id} already returns the aspects map) and CharacterController;
- * this controller covers everything else: known spells, hint-gated pattern
- * reveal, cantrip unlocking, research attempts, and draft autosave. All
- * paths sit under /api/characters/** so SecurityConfig's existing rules
- * apply unchanged - GET is public, everything else needs to be signed in.
+ * "Исследования Санни" for one character: known spells, the topic catalog,
+ * the research table with its draft, research notes and combining aspects.
+ * Everything except known-spells is for the character's owner or the GM
+ * (SpellResearchService checks; user is null for guests on GET).
  */
 @RestController
 @RequestMapping("/api/characters/{characterId}")
 @RequiredArgsConstructor
 public class ResearchController {
 
-    private final ResearchService researchService;
+    private final SpellResearchService research;
 
     @GetMapping("/known-spells")
-    public ResponseEntity<List<KnownSpellResponse>> getKnownSpells(@PathVariable Long characterId) {
-        return ResponseEntity.ok(researchService.getKnownSpells(characterId));
-    }
-
-    @GetMapping("/hinted-spells")
-    public ResponseEntity<List<SpellSummary>> getHintedSpells(@PathVariable Long characterId) {
-        return ResponseEntity.ok(researchService.getHintedSpells(characterId));
-    }
-
-    @GetMapping("/research/{spellId}/pattern")
-    public ResponseEntity<List<GridAnchor>> getPattern(@PathVariable Long characterId, @PathVariable String spellId) {
-        return ResponseEntity.ok(researchService.getPattern(characterId, spellId));
-    }
-
-    @GetMapping("/research/{spellId}/draft")
-    public ResponseEntity<String> getDraft(@PathVariable Long characterId, @PathVariable String spellId) {
-        return ResponseEntity.ok(researchService.getDraftState(characterId, spellId));
-    }
-
-    @PutMapping("/research/{spellId}/draft")
-    public ResponseEntity<Void> saveDraft(
-            @PathVariable Long characterId,
-            @PathVariable String spellId,
-            @RequestBody SaveDraftRequest request,
-            @AuthenticationPrincipal User user) {
-        researchService.saveDraftState(characterId, spellId, request.getGridState(), user.getId(), isOwner(user));
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/research/attempt")
-    public ResponseEntity<ResearchAttemptResponse> attemptResearch(
-            @PathVariable Long characterId,
-            @RequestBody ResearchAttemptRequest request,
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(researchService.attemptResearch(characterId, request, user.getId(), isOwner(user)));
+    public ResponseEntity<List<KnownSpellResponse>> knownSpells(@PathVariable Long characterId) {
+        return ResponseEntity.ok(research.knownSpells(characterId));
     }
 
     @PostMapping("/cantrips/{spellId}")
-    public ResponseEntity<Void> unlockCantrip(
-            @PathVariable Long characterId,
-            @PathVariable String spellId,
-            @AuthenticationPrincipal User user) {
-        researchService.unlockCantrip(characterId, spellId, user.getId(), isOwner(user));
+    public ResponseEntity<Void> addCantrip(@PathVariable Long characterId, @PathVariable String spellId,
+                                           @AuthenticationPrincipal User user) {
+        research.addCantrip(characterId, spellId, user);
         return ResponseEntity.ok().build();
     }
 
-    // Aspect crafting - a separate minigame from research (combining two
-    // held aspects per AspectRecipe), not gated by hint access or level.
-    @PostMapping("/aspects/craft")
-    public ResponseEntity<AspectCraftResponse> craftAspect(
-            @PathVariable Long characterId,
-            @RequestBody AspectCraftRequest request,
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(researchService.craftAspect(characterId, request, user.getId(), isOwner(user)));
+    @GetMapping("/research/topics")
+    public ResponseEntity<List<ResearchTopicSummary>> topics(@PathVariable Long characterId,
+                                                             @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(research.topics(characterId, user));
     }
 
-    // The DM (OWNER role) can act on any character, not just their own -
-    // same override CharacterController#updateSheet uses.
-    private boolean isOwner(User user) {
-        return user.getSectionKeys().contains("*");
+    @GetMapping("/research/topics/{spellId}")
+    public ResponseEntity<ResearchTopicView> topic(@PathVariable Long characterId, @PathVariable String spellId,
+                                                   @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(research.topic(characterId, spellId, user));
+    }
+
+    @PutMapping("/research/topics/{spellId}/draft")
+    public ResponseEntity<Void> saveDraft(@PathVariable Long characterId, @PathVariable String spellId,
+                                          @RequestBody ResearchGridRequest body, @AuthenticationPrincipal User user) {
+        research.saveDraft(characterId, spellId, body.getPlaced(), user);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/research/topics/{spellId}/notes")
+    public ResponseEntity<ResearchNoteResponse> submit(@PathVariable Long characterId, @PathVariable String spellId,
+                                                       @RequestBody ResearchGridRequest body, @AuthenticationPrincipal User user) {
+        return ResponseEntity.status(201).body(research.submit(characterId, spellId, body.getPlaced(), user));
+    }
+
+    @GetMapping("/research/notes")
+    public ResponseEntity<List<ResearchNoteResponse>> notes(@PathVariable Long characterId,
+                                                            @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(research.notes(characterId, user));
+    }
+
+    // Body: {"a": "order", "b": "steam"} -> the bag after combining.
+    @PostMapping("/aspects/combine")
+    public ResponseEntity<Map<String, Integer>> combine(@PathVariable Long characterId,
+                                                        @RequestBody Map<String, String> body,
+                                                        @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(research.combine(characterId, body.get("a"), body.get("b"), user));
     }
 }

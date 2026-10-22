@@ -27,6 +27,7 @@ public class AdmissionService {
 
     private final AdmissionRequestRepository requestRepository;
     private final CharacterRepository characterRepository;
+    private final SpellResearchService research;
 
     public static boolean isGm(User user) {
         return user != null && user.getSectionKeys().contains("*");
@@ -104,7 +105,8 @@ public class AdmissionService {
      * Approve. LEVEL_UP sets the level (and the clearance when above the
      * rune cap) and adds the hit points the player chose to hpMax and
      * hpCurrent. CREATION approves the file; a rune above COMMON is applied
-     * only when the GM confirms it (confirmRune), otherwise it stays COMMON.
+     * only when the GM confirms it (confirmRune), otherwise it stays COMMON;
+     * a caster also gets the starter kit of aspects.
      */
     @Transactional
     public AdmissionRequestResponse approve(Long requestId, String gmComment, boolean confirmRune, User gm) {
@@ -129,6 +131,7 @@ public class AdmissionService {
             c.setApprovalStatus(ApprovalStatus.APPROVED);
             RuneTier asked = r.getRequestedRuneTier() != null ? r.getRequestedRuneTier() : RuneTier.COMMON;
             c.setRuneTier(asked == RuneTier.COMMON || confirmRune ? asked : RuneTier.COMMON);
+            research.giveStarterKit(c);
         }
         characterRepository.save(c);
         return decide(r, ApprovalStatus.APPROVED, gmComment, gm);

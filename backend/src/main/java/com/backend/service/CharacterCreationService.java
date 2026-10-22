@@ -9,7 +9,6 @@ import com.backend.entity.KnownSpell;
 import com.backend.entity.RuneTier;
 import com.backend.entity.User;
 import com.backend.exception.ApiException;
-import com.backend.exception.ResearchException;
 import com.backend.model.Spell;
 import com.backend.repository.AdmissionRequestRepository;
 import com.backend.repository.CharacterRepository;
@@ -265,7 +264,7 @@ public class CharacterCreationService {
             Spell spell;
             try {
                 spell = spellRegistry.getSpell(id);
-            } catch (ResearchException e) {
+            } catch (ApiException e) {
                 throw ApiException.badRequest("Заговора «" + id + "» нет в картотеке.");
             }
             if (spell.getLevel() != 0
@@ -346,7 +345,6 @@ public class CharacterCreationService {
             knownSpellRepository.save(KnownSpell.builder()
                     .character(character)
                     .spellId(id)
-                    .accuracyPercentage(100)
                     .build());
         }
 

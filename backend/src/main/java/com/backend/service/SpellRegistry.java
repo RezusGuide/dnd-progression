@@ -1,6 +1,6 @@
 package com.backend.service;
 
-import com.backend.exception.ResearchException;
+import com.backend.exception.ApiException;
 import com.backend.model.Spell;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +39,7 @@ public class SpellRegistry {
     public Spell getSpell(String spellId) {
         Spell spell = spellCache.get(spellId);
         if (spell == null) {
-            throw new ResearchException("Заклинания «" + spellId + "» нет в картотеке.");
+            throw ApiException.notFound("Заклинания «" + spellId + "» нет в картотеке.");
         }
         return spell;
     }
@@ -48,21 +48,7 @@ public class SpellRegistry {
         return List.copyOf(spellCache.values());
     }
 
-    // Researchable range is 1-8 - cantrips (level 0) are picked freely with
-    // no minigame, and 9th level is excluded outright (players can't
-    // realistically reach it - see the spell-research prompt's Scope).
-    public static final int MIN_RESEARCHABLE_LEVEL = 1;
-    public static final int MAX_RESEARCHABLE_LEVEL = 8;
-
-    public List<Spell> getResearchableSpells() {
-        return spellCache.values().stream()
-                .filter(s -> s.getLevel() >= MIN_RESEARCHABLE_LEVEL && s.getLevel() <= MAX_RESEARCHABLE_LEVEL)
-                .toList();
-    }
-
-    public List<Spell> getSpellsByLevel(int level) {
-        return spellCache.values().stream()
-                .filter(s -> s.getLevel() == level)
-                .toList();
+    public boolean exists(String spellId) {
+        return spellId != null && spellCache.containsKey(spellId);
     }
 }

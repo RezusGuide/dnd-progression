@@ -3,6 +3,11 @@ package com.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * A spell the character knows: a cantrip picked at creation, or a spell
+ * from an approved research note. (The old percentage column of stage 4 is
+ * left in the database, no longer mapped - see DataSeeder.)
+ */
 @Entity
 @Table(name = "known_spells")
 @Getter
@@ -21,7 +26,4 @@ public class KnownSpell {
 
     @Column(name = "spell_id", nullable = false)
     private String spellId;
-
-    @Column(nullable = false)
-    private Integer accuracyPercentage; // 0-100%
 }

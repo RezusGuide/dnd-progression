@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * The public spell catalog - summaries only, never a level 1-2 spell's
- * pattern (see ResearchController#getPattern for the hint-gated version
- * of that). Used for the cantrip picker and for browsing/displaying spell
- * names, levels, and descriptions anywhere on the site.
+ * The public spell catalog: names, levels, schools and descriptions for the
+ * cantrip picker and for showing spells anywhere on the site. Research
+ * anchors come from /api/characters/{id}/research/topics/{spellId}.
  */
 @RestController
 @RequestMapping("/api/spells")
@@ -31,7 +30,7 @@ public class SpellController {
 
     private SpellSummary toSummary(Spell s) {
         return SpellSummary.builder()
-                .id(s.getId()).name(s.getName()).level(s.getLevel()).description(s.getDescription())
+                .id(s.getId()).name(s.getName()).level(s.getLevel()).school(s.getSchool()).description(s.getDescription())
                 .castingTime(s.getCastingTime()).range(s.getRange()).components(s.getComponents()).duration(s.getDuration())
                 .nameRu(s.getNameRu()).descriptionRu(s.getDescriptionRu())
                 .castingTimeRu(s.getCastingTimeRu()).rangeRu(s.getRangeRu())

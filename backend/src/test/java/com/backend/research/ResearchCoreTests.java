@@ -139,7 +139,7 @@ class ResearchCoreTests {
         assertEquals(ResearchValidator.Problem.OUTSIDE_GRID,
                 ResearchValidator.validate(graph, 4, anchors, List.of(new Placement(5, 0, "flame"))).problem());
         assertEquals(ResearchValidator.Problem.UNKNOWN_ASPECT,
-                ResearchValidator.validate(graph, 4, anchors, List.of(new Placement(0, 0, "ignis"))).problem());
+                ResearchValidator.validate(graph, 4, anchors, List.of(new Placement(0, 0, "nothing"))).problem());
     }
 
     // ── Spell access ──

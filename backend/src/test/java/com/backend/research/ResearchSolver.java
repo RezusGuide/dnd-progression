@@ -13,7 +13,7 @@ import java.util.Map;
  * one by one with a breadth-first search over (cell, aspect). Proves that
  * every generated topic can actually be solved on its grid.
  */
-final class ResearchSolver {
+public final class ResearchSolver {
 
     private record State(Hex hex, String aspect) {
     }
@@ -22,7 +22,7 @@ final class ResearchSolver {
     }
 
     /** Placed aspects of a correct solution, or null if none was found. */
-    static List<Placement> solve(AspectGraph graph, ResearchTopicGenerator.Topic topic) {
+    public static List<Placement> solve(AspectGraph graph, ResearchTopicGenerator.Topic topic) {
         Map<Hex, String> occupied = new LinkedHashMap<>();
         topic.anchors().forEach(a -> occupied.put(a.hex(), a.aspect()));
         Map<Hex, String> component = new LinkedHashMap<>();

@@ -12,4 +12,5 @@ public interface KnownSpellRepository extends JpaRepository<KnownSpell, Long> {
     List<KnownSpell> findAllByCharacterId(Long characterId);
     boolean existsByCharacterIdAndSpellId(Long characterId, String spellId);
     Optional<KnownSpell> findByCharacterIdAndSpellId(Long characterId, String spellId);
+    void deleteByCharacterId(Long characterId);
 }

@@ -201,7 +201,7 @@ public class Character {
     private String spellNotes;
 
     // Spell slots per level (1-9), stored as JSON - {"1":{"max":4,"current":2},...}
-    // - same "store as a TEXT blob, translate in the service layer" pattern
+    // - same "store as a TEXT blob, translate in the service layer" approach
     // as ResearchDraft#currentGridState, rather than a JPA element
     // collection of a nested object (the exact kind of mapping that's
     // caused real pain elsewhere in this codebase). CharacterSheetRequest

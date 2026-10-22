@@ -1,14 +1,11 @@
 package com.backend.controller;
 
-import com.backend.dto.AspectGrantRequest;
-import com.backend.dto.HintGrantRequest;
 import com.backend.dto.ItemGrantRequest;
 import com.backend.dto.MaterialGrantRequest;
 import com.backend.entity.Character;
 import com.backend.entity.Role;
 import com.backend.entity.User;
 import com.backend.service.CharacterService;
-import com.backend.service.ResearchService;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +27,6 @@ import java.util.Map;
 public class AdminController {
 
     private final RoleService roleService;
-    private final ResearchService researchService;
     private final CharacterService characterService;
 
     @PostMapping("/bootstrap-owner")
@@ -87,10 +83,9 @@ public class AdminController {
         return ResponseEntity.ok(roleService.resetPassword(userId, body.get("password")));
     }
 
-    // ── DM-only grants: items, aspects, and hint access. All three are
-    // additive/append-only - there's no player-facing endpoint anywhere
-    // that can add equipment on the DM's behalf, increase an aspect count,
-    // or grant hint access. ──
+    // ── DM-only grants: items and materials. Additive only - no player-facing
+    // endpoint can add equipment on the DM's behalf. Aspect grants live in
+    // ResearchAdminController. ──
 
     @PostMapping("/items/grant")
     public ResponseEntity<Character> grantItem(@RequestBody ItemGrantRequest request) {
@@ -100,17 +95,5 @@ public class AdminController {
     @PostMapping("/materials/grant")
     public ResponseEntity<Character> grantMaterial(@RequestBody MaterialGrantRequest request) {
         return ResponseEntity.ok(characterService.grantMaterial(request.getCharacterId(), request.getMaterial()));
-    }
-
-    @PostMapping("/aspects/grant")
-    public ResponseEntity<Void> grantAspect(@RequestBody AspectGrantRequest request) {
-        researchService.grantAspect(request);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/hints/grant")
-    public ResponseEntity<Void> grantHint(@RequestBody HintGrantRequest request) {
-        researchService.grantHint(request);
-        return ResponseEntity.ok().build();
     }
 }

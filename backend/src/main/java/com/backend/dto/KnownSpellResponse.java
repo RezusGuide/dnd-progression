@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// A character's known spell, enriched with catalog metadata for display -
-// KnownSpell itself only stores spellId + accuracyPercentage.
+// A character's known spell, enriched with catalog metadata for display.
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,8 +14,8 @@ public class KnownSpellResponse {
     private String spellId;
     private String name;
     private int level;
+    private String school;
     private String description;
-    private int accuracyPercentage;
     private String nameRu;
     private String descriptionRu;
 }

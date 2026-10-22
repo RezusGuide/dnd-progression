@@ -23,7 +23,7 @@ import java.util.Set;
 @Service
 public class DataRegistry {
 
-    public static final Set<String> NAMES = Set.of("races", "classes", "backgrounds", "runes", "sources");
+    public static final Set<String> NAMES = Set.of("races", "classes", "backgrounds", "runes", "sources", "aspects", "schools");
 
     // Classic Jackson 2, as elsewhere in this codebase (the auto-configured
     // bean is Jackson 3).
@@ -37,13 +37,32 @@ public class DataRegistry {
                 String json = new String(in.readAllBytes(), StandardCharsets.UTF_8);
                 raw.put(name, json);
                 Map<String, JsonNode> index = new LinkedHashMap<>();
-                for (JsonNode node : objectMapper.readTree(json)) {
+                for (JsonNode node : entries(objectMapper.readTree(json))) {
                     index.put(node.get("key").asText(), node);
                 }
                 byKey.put(name, index);
             } catch (IOException e) {
                 throw new IllegalStateException("Не удалось прочитать справочник " + name, e);
             }
+        }
+    }
+
+    // A file is either a list of entries or an object holding one list next
+    // to settings (aspects.json: {"starterKitPerPrimal": 3, "aspects": [...]}).
+    private static JsonNode entries(JsonNode root) {
+        if (root.isArray()) return root;
+        for (JsonNode field : root) {
+            if (field.isArray()) return field;
+        }
+        return root;
+    }
+
+    /** The whole file (settings included), read-only. */
+    public JsonNode tree(String name) {
+        try {
+            return objectMapper.readTree(raw.get(name));
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
         }
     }
 

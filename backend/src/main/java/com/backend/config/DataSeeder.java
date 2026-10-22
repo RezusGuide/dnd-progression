@@ -1,9 +1,8 @@
 package com.backend.config;
 
-import com.backend.entity.AspectRecipe;
 import com.backend.entity.Role;
-import com.backend.repository.AspectRecipeRepository;
 import com.backend.repository.RoleRepository;
+import com.backend.service.MagicData;
 import com.backend.service.OptionsService;
 import com.backend.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ import java.util.List;
 public class DataSeeder implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
-    private final AspectRecipeRepository aspectRecipeRepository;
+    private final MagicData magicData;
     private final JdbcTemplate jdbcTemplate;
     private final OptionsService optionsService;
 
@@ -40,10 +39,11 @@ public class DataSeeder implements CommandLineRunner {
                 "Full access to every section and the admin panel.", List.of("*"));
         ensureRole(RoleService.MEMBER_KEY, "Member",
                 "Standard account access: D&D.", List.of("dnd"));
-        ensureAspectRecipes();
         backfillCampaignRules();
         // One unlock_flag row per unlock key in races/classes.json.
         optionsService.ensureFlags();
+        migrateAspectBags();
+        relaxOldKnownSpellColumn();
     }
 
     // Stage 5 added rune_tier / approval_status / hit_dice_used to
@@ -60,66 +60,27 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 
-    // Transcribed from the Thaumcraft 4 aspect chart (six primal aspects -
-    // Aer/Ignis/Aqua/Terra/Ordo/Perditio - are not recipes themselves, they
-    // just don't appear as a resultAspect here). Only seeds once; if you
-    // need to correct a mistranscribed pairing later, either edit the row
-    // in the database directly or wipe the table and let this reseed it -
-    // it won't overwrite existing rows on every boot.
-    private void ensureAspectRecipes() {
-        if (aspectRecipeRepository.count() > 0) {
-            return;
-        }
-        String[][] recipes = {
-                {"VACUOS", "AER", "PERDITIO"},
-                {"LUX", "AER", "IGNIS"},
-                {"TEMPESTAS", "AER", "AQUA"},
-                {"MOTUS", "AER", "ORDO"},
-                {"VICTUS", "AQUA", "TERRA"},
-                {"POTENTIA", "ORDO", "IGNIS"},
-                {"PERMUTATIO", "ORDO", "PERDITIO"},
-                {"PRAECANTATIO", "VACUOS", "ORDO"},
-                {"TENEBRAE", "VACUOS", "PERDITIO"},
-                {"VITIUM", "TENEBRAE", "PERDITIO"},
-                {"ALIENIS", "VITIUM", "PRAECANTATIO"},
-                {"AURAM", "PRAECANTATIO", "POTENTIA"},
-                {"FAMES", "VICTUS", "VACUOS"},
-                {"VENENUM", "AQUA", "PERDITIO"},
-                {"MORTUUS", "VICTUS", "PERDITIO"},
-                {"SPIRITUS", "VICTUS", "MORTUUS"},
-                {"SANO", "VICTUS", "ORDO"},
-                {"VOLATUS", "AER", "MOTUS"},
-                {"BESTIA", "MOTUS", "VICTUS"},
-                {"CORPUS", "MOTUS", "BESTIA"},
-                {"EXANIMIS", "VACUOS", "MORTUUS"},
-                {"SENSUS", "AER", "SPIRITUS"},
-                {"VINCULUM", "VACUOS", "SPIRITUS"},
-                {"COGNITIO", "SPIRITUS", "ORDO"},
-                {"HUMANUS", "BESTIA", "COGNITIO"},
-                {"INSTRUMENTUM", "HUMANUS", "ORDO"},
-                {"PANNUS", "INSTRUMENTUM", "BESTIA"},
-                {"FABRICO", "HUMANUS", "INSTRUMENTUM"},
-                {"LUCRUM", "HUMANUS", "FAMES"},
-                {"LIMUS", "VICTUS", "AQUA"},
-                {"GELUM", "IGNIS", "PERDITIO"},
-                {"ITER", "MOTUS", "TERRA"},
-                {"HERBA", "VICTUS", "TERRA"},
-                {"GRANUM", "HERBA", "VICTUS"},
-                {"ARBOR", "HERBA", "AER"},
-                {"MESSIS", "HERBA", "HUMANUS"},
-                {"METO", "MESSIS", "INSTRUMENTUM"},
-                {"PERFODIO", "TERRA", "VACUOS"},
-                {"SAXUM", "TERRA", "ORDO"},
-                {"VITREUS", "TERRA", "IGNIS"},
-                {"METALLUM", "TERRA", "VITREUS"},
-                {"TELUM", "INSTRUMENTUM", "IGNIS"},
-                {"MACHINA", "MOTUS", "INSTRUMENTUM"},
-                {"TUTAMEN", "INSTRUMENTUM", "TERRA"},
-        };
-        for (String[] r : recipes) {
-            aspectRecipeRepository.save(AspectRecipe.builder()
-                    .resultAspect(r[0]).componentA(r[1]).componentB(r[2])
-                    .build());
+    // Magic v2: the bag keeps only keys from data/aspects.json. The old
+    // Latin aspects are dropped; running it again finds nothing to delete.
+    private void migrateAspectBags() {
+        List<String> keys = List.copyOf(magicData.aspectKeys());
+        String marks = String.join(",", java.util.Collections.nCopies(keys.size(), "?"));
+        int removed = jdbcTemplate.update(
+                "DELETE FROM character_aspects WHERE aspect NOT IN (" + marks + ")", keys.toArray());
+        if (removed > 0) log.info("Removed {} old aspect entries from character bags", removed);
+    }
+
+    // KnownSpell no longer maps the old "accuracy" column; existing databases
+    // have it as NOT NULL, which would refuse new rows. Only relaxes the
+    // constraint (the column and its data stay), and only where the column
+    // exists - fresh databases never create it.
+    private void relaxOldKnownSpellColumn() {
+        Integer exists = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM information_schema.columns "
+                        + "WHERE LOWER(table_name) = 'known_spells' AND LOWER(column_name) = 'accuracy_percentage'",
+                Integer.class);
+        if (exists != null && exists > 0) {
+            jdbcTemplate.execute("ALTER TABLE known_spells ALTER COLUMN accuracy_percentage DROP NOT NULL");
         }
     }
 

@@ -7,6 +7,10 @@ import com.backend.entity.User;
 import com.backend.entity.ApprovalStatus;
 import com.backend.entity.RuneTier;
 import com.backend.repository.AdmissionRequestRepository;
+import com.backend.repository.KnownSpellRepository;
+import com.backend.repository.ResearchDraftV2Repository;
+import com.backend.repository.ResearchNoteRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
 import com.backend.repository.CharacterRepository;
 import org.springframework.transaction.annotation.Transactional;
 import com.backend.repository.UserRepository;
@@ -28,6 +32,10 @@ public class CharacterService {
     private final UserRepository userRepository;
     private final com.backend.repository.CampaignRepository campaignRepository;
     private final AdmissionRequestRepository admissionRequestRepository;
+    private final KnownSpellRepository knownSpellRepository;
+    private final ResearchNoteRepository researchNoteRepository;
+    private final ResearchDraftV2Repository researchDraftRepository;
+    private final JdbcTemplate jdbcTemplate;
     // Instantiated directly rather than injected - same reasoning as
     // SpellRegistry/CombatService: this project's
     // auto-configured Jackson bean is Jackson 3
@@ -65,7 +73,25 @@ public class CharacterService {
         Character character = characterRepository.findByIdAndUserId(characterId, userId)
                 .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         admissionRequestRepository.deleteByCharacterId(characterId);
+        knownSpellRepository.deleteByCharacterId(characterId);
+        researchNoteRepository.deleteByCharacterId(characterId);
+        researchDraftRepository.deleteByCharacterId(characterId);
+        deleteLegacyRows(characterId);
         characterRepository.delete(character);
+    }
+
+    // Tables of the old research (stage 4 and before) still hold foreign
+    // keys to characters in existing databases; nothing maps them now.
+    private static final String[] LEGACY_TABLES = {"research_drafts", "spell_hint_grants"};
+
+    private void deleteLegacyRows(Long characterId) {
+        for (String table : LEGACY_TABLES) {
+            Integer exists = jdbcTemplate.queryForObject(
+                    "SELECT COUNT(*) FROM information_schema.tables WHERE LOWER(table_name) = ?", Integer.class, table);
+            if (exists != null && exists > 0) {
+                jdbcTemplate.update("DELETE FROM " + table + " WHERE character_id = ?", characterId);
+            }
+        }
     }
 
     // Only the character's creator, or an account with the OWNER role (the
@@ -173,7 +199,7 @@ public class CharacterService {
         return characterRepository.save(character);
     }
 
-    // Same pattern as grantItem, targeting Materials instead of Equipment -
+    // Same approach as grantItem, targeting Materials instead of Equipment -
     // spell-research reagents/crafting supplies rather than general gear.
     // This used to be a player-editable field (CampaignView's old Materials
     // & Inventory box, PATCH /api/characters/{id}/materials) that any
