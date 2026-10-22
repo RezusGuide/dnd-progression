@@ -80,8 +80,14 @@ export function clearDraft() {
 
 export const CUSTOM = 'CUSTOM'
 
+// "Другое" is a data row too (key CUSTOM), but it is not a race to read
+// mechanics from: selectedRace() never returns it.
 export function selectedRace(draft, races) {
+    if (draft.raceKey === CUSTOM) return null
     return races?.find((r) => r.key === draft.raceKey) || null
+}
+export function customRaceRow(races) {
+    return races?.find((r) => r.key === CUSTOM) || null
 }
 export function selectedClass(draft, classes) {
     return classes?.find((c) => c.key === draft.classKey) || null
@@ -90,8 +96,10 @@ export function selectedBackground(draft, backgrounds) {
     return backgrounds?.find((b) => b.key === draft.backgroundKey) || null
 }
 
-// Only "allowed" entries can be picked; "unlockable" ones show as locked.
-export const isPickable = (entry) => !entry?.status || entry.status === 'allowed'
+// Only "allowed" entries can be picked (the GM also gets "npc_only"
+// classes); "unlockable" ones show as locked.
+export const isPickable = (entry, gm = false) => !!entry
+    && (!entry.status || entry.status === 'allowed' || (gm && entry.status === 'npc_only'))
 export const isLocked = (entry) => entry?.status === 'unlockable'
 
 // Races without SRD mechanics (srd: false) always use flexible bonuses.
@@ -166,9 +174,9 @@ export function raceReady(draft, races) {
     return !race.bonusChoice || draft.raceBonusChoice.length === race.bonusChoice.count
 }
 
-export function classReady(draft, classes) {
+export function classReady(draft, classes, gm = false) {
     const cls = selectedClass(draft, classes)
-    if (!cls || !isPickable(cls)) return false
+    if (!cls || !isPickable(cls, gm)) return false
     if (!isManualClass(cls)) return true
     return [6, 8, 10, 12].includes(draft.customHitDie) && draft.customSaves.length === 2
 }

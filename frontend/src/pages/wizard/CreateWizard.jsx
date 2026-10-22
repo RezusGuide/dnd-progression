@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import { Button, Dossier, Loader, PageHeader, Stamp } from '../../components/ui'
 import ErrorScreen from '../../components/errors/ErrorScreen'
@@ -12,8 +13,8 @@ import {
     RaceStep, SkillsStep,
 } from './steps'
 import {
-    CUSTOM, abilitiesValid, cantripLimit, classHitDie, classReady, clearDraft, finalScores, isManualClass, loadDraft,
-    lockedSkills, raceReady, saveDraft, selectedBackground, selectedClass, selectedRace, toPayload,
+    CUSTOM, abilitiesValid, cantripLimit, classHitDie, classReady, clearDraft, customRaceRow, finalScores, isManualClass,
+    isPickable, loadDraft, lockedSkills, raceReady, saveDraft, selectedBackground, selectedClass, selectedRace, toPayload,
 } from './wizardModel'
 import '../../styles/sheet.css'
 import '../../styles/wizard.css'
@@ -25,11 +26,11 @@ const STEPS = [
         ready: (d, x) => {
             if (d.raceKey === CUSTOM) {
                 const total = Object.values(d.customRaceBonuses).reduce((a, b) => a + (b || 0), 0)
-                return d.customRaceName.trim() !== '' && total <= 3
+                return isPickable(customRaceRow(x.races)) && d.customRaceName.trim() !== '' && total <= 3
             }
             return raceReady(d, x.races)
         } },
-    { key: 'class', title: 'Класс', Component: ClassStep, ready: (d, x) => classReady(d, x.classes) },
+    { key: 'class', title: 'Класс', Component: ClassStep, ready: (d, x) => classReady(d, x.classes, x.gm) },
     { key: 'background', title: 'Предыстория', Component: BackgroundStep,
         ready: (d, x) => (d.backgroundKey === CUSTOM
             ? d.customBackgroundName.trim() !== '' && d.customBackgroundSkills.length === 2
@@ -55,6 +56,8 @@ const STEPS = [
 
 export default function CreateWizard() {
     const navigate = useNavigate()
+    const { hasSection } = useAuth()
+    const gm = hasSection('*')
     const [races, racesError] = useRefData('races')
     const [classes, classesError] = useRefData('classes')
     const [backgrounds, bgError] = useRefData('backgrounds')
@@ -71,7 +74,7 @@ export default function CreateWizard() {
 
     useEffect(() => { if (!sent) saveDraft(draft) }, [draft, sent])
 
-    const data = useMemo(() => ({ races, classes, backgrounds, runes, spells: spells || [] }), [races, classes, backgrounds, runes, spells])
+    const data = useMemo(() => ({ races, classes, backgrounds, runes, spells: spells || [], gm }), [races, classes, backgrounds, runes, spells, gm])
     const loaded = races && classes && backgrounds && runes && spells
     const loadError = racesError || classesError || bgError || runesError
 

@@ -357,3 +357,7 @@ textarea.ui-field-control { min-height: 90px; resize: vertical; }
 }
 .ui-tip-pop .mascot { flex: none; }
 .ui-tip-pop > span { flex: 1; min-width: 0; white-space: normal; }
+
+/* Source book code with the full title on hover (components/SourceCode) */
+.source-code { font-family: var(--font-mono); font-size: 0.9em; letter-spacing: 0.02em; }
+abbr.source-code { text-decoration: underline dotted; text-underline-offset: 2px; cursor: help; }

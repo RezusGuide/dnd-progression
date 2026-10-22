@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button, Dossier, Field, Hint } from '../../components/ui'
 import RuneBadge from '../../components/brand/RuneBadge'
+import SourceCode from '../../components/SourceCode'
 import { ABILITIES, ALIGNMENTS, SKILLS } from '../../constants/dnd-ru'
 import { spellDescription, spellName } from '../../constants/spellText'
 import {
@@ -9,8 +10,8 @@ import {
 } from '../../lib/dnd-rules'
 import { resizeImageFile } from '../../lib/image'
 import {
-    CUSTOM, MANUAL_SKILL_LIMIT, baseScores, cantripLimit, finalScores, isLocked, isManualClass, isPickable,
-    isSrdRace, lockedSkills, raceBonuses, selectedClass, usesFlexible,
+    CUSTOM, MANUAL_SKILL_LIMIT, baseScores, cantripLimit, customRaceRow, finalScores, isLocked, isManualClass,
+    isPickable, isSrdRace, lockedSkills, raceBonuses, selectedClass, selectedRace, usesFlexible,
 } from './wizardModel'
 
 const bonusText = (bonuses) => Object.entries(bonuses || {})
@@ -88,11 +89,15 @@ function toggle(list, value, limit) {
 // ── 1. Race ──
 export function RaceStep({ draft, set, data }) {
     const [query, setQuery, match] = useSearch()
-    const race = data.races.find((r) => r.key === draft.raceKey)
+    const race = selectedRace(draft, data.races)
     const custom = draft.raceKey === CUSTOM
     const customTotal = Object.values(draft.customRaceBonuses).reduce((a, b) => a + (b || 0), 0)
-    const open = data.races.filter((r) => isPickable(r) && match(r))
-    const locked = data.races.filter((r) => isLocked(r) && match(r))
+    // "Своя раса" follows its own row's status (hidden unless the GM allows it).
+    const customRow = customRaceRow(data.races)
+    const listed = data.races.filter((r) => r.key !== CUSTOM)
+    const open = listed.filter((r) => isPickable(r) && match(r))
+    const locked = listed.filter((r) => isLocked(r) && match(r))
+    const customShown = match({ key: 'custom', nameRu: 'Другое' }) && (isPickable(customRow) || isLocked(customRow))
     const flexible = usesFlexible(draft, race)
     const pick = (key) => set({ raceKey: key, raceBonusChoice: [], raceSkills: [], flexible: false })
     return (
@@ -107,18 +112,18 @@ export function RaceStep({ draft, set, data }) {
                                 <ul className="wiz-card-list">{r.traits.slice(0, 3).map((t) => <li key={t}>{t}</li>)}</ul>
                             </>
                         ) : (
-                            <span className="wiz-card-meta">Гибкие бонусы · черты по книге · {r.source}</span>
+                            <span className="wiz-card-meta">Гибкие бонусы · черты по книге · <SourceCode code={r.source} /></span>
                         )}
                     </ChoiceCard>
                 ))}
                 {locked.map((r) => <LockedCard key={r.key} title={r.nameRu} />)}
-                {match({ key: 'custom', nameRu: 'Другое' }) && (
+                {customShown && (isPickable(customRow) ? (
                     <ChoiceCard title="Другое" selected={custom} onSelect={() => pick(CUSTOM)}>
                         <span className="wiz-card-meta">Своя раса: название и бонусы вручную.</span>
                     </ChoiceCard>
-                )}
+                ) : <LockedCard title="Другое" />)}
             </div>
-            {open.length + locked.length === 0 && <p className="wiz-help">Ничего не нашлось.</p>}
+            {open.length + locked.length === 0 && !customShown && <p className="wiz-help">Ничего не нашлось.</p>}
 
             {race && isSrdRace(race) && (
                 <label className="wiz-skill wiz-flex-toggle">
@@ -159,12 +164,12 @@ export function RaceStep({ draft, set, data }) {
                         </Field>
                     </div>
                     <Field label="Черты расы" as="textarea" rows={4} value={draft.raceTraits}
-                        hint={`См. ${race.source}. Перепишите черты из книги, они попадут в «Умения и особенности».`}
+                        hint={<>См. <SourceCode code={race.source} />. Перепишите черты из книги, они попадут в «Умения и особенности».</>}
                         onChange={(e) => set({ raceTraits: e.target.value })} />
                 </Dossier>
             )}
 
-            {custom && (
+            {custom && isPickable(customRow) && (
                 <Dossier className="wiz-sub">
                     <Field label="Название расы" value={draft.customRaceName} onChange={(e) => set({ customRaceName: e.target.value })} />
                     <p className="sheet-label" style={{ marginTop: '0.75rem' }}>Бонусы (обычно +2 и +1, в сумме не больше +3): {customTotal}/3</p>
@@ -189,7 +194,7 @@ export function RaceStep({ draft, set, data }) {
 export function ClassStep({ draft, set, data }) {
     const [query, setQuery, match] = useSearch()
     const cls = selectedClass(draft, data.classes)
-    const open = data.classes.filter((c) => isPickable(c) && match(c))
+    const open = data.classes.filter((c) => isPickable(c, data.gm) && match(c))
     const locked = data.classes.filter((c) => isLocked(c) && match(c))
     return (
         <>
@@ -199,8 +204,9 @@ export function ClassStep({ draft, set, data }) {
                 {open.map((c) => (
                     <ChoiceCard key={c.key} title={c.nameRu} selected={draft.classKey === c.key}
                         onSelect={() => set({ classKey: c.key, classSkills: [], cantrips: [], equipmentOption: 0 })}>
+                        {c.status === 'npc_only' && <span className="wiz-card-tag">Только для НИП</span>}
                         {isManualClass(c) ? (
-                            <span className="wiz-card-meta">Механика по книге · {c.source}</span>
+                            <span className="wiz-card-meta">Механика по книге · <SourceCode code={c.source} /></span>
                         ) : (
                             <>
                                 <span className="wiz-card-meta">
@@ -217,7 +223,7 @@ export function ClassStep({ draft, set, data }) {
 
             {isManualClass(cls) && (
                 <Dossier className="wiz-sub">
-                    <p className="wiz-help">Заполните по книге, ГМ проверит при одобрении. См. {cls.source}.</p>
+                    <p className="wiz-help">Заполните по книге, ГМ проверит при одобрении. См. <SourceCode code={cls.source} />.</p>
                     <div className="wiz-race-fields">
                         <Field label="Кость хитов" as="select" value={draft.customHitDie ?? ''}
                             onChange={(e) => set({ customHitDie: e.target.value ? Number(e.target.value) : null })}>

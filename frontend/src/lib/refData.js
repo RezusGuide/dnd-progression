@@ -2,17 +2,27 @@ import { useEffect, useState } from 'react'
 import api from '../api/axios'
 
 // Reference data from GET /api/data/{name} (races, classes, backgrounds,
-// runes) - the backend's resources/data/*.json is the only copy. Each name
-// is fetched once per page load and shared.
+// runes, sources) - the backend's resources/data/*.json is the only copy.
+// Each name is fetched once per page load and shared. Races and classes
+// depend on who asks (the GM sees more), so the cache is per session token.
 const cache = {}
 
-export function loadRefData(name) {
-    if (!cache[name]) {
-        cache[name] = api.get(`/api/data/${name}`)
-            .then((res) => (Array.isArray(res.data) ? res.data : []))
-            .catch((err) => { delete cache[name]; throw err })
+function sessionToken() {
+    try {
+        return localStorage.getItem('token') || ''
+    } catch {
+        return ''
     }
-    return cache[name]
+}
+
+export function loadRefData(name) {
+    const key = `${name}|${sessionToken()}`
+    if (!cache[key]) {
+        cache[key] = api.get(`/api/data/${name}`)
+            .then((res) => (Array.isArray(res.data) ? res.data : []))
+            .catch((err) => { delete cache[key]; throw err })
+    }
+    return cache[key]
 }
 
 // [list | null while loading, error | null]

@@ -196,4 +196,14 @@
 }
 .wiz-card.is-locked:hover { border-color: var(--border); }
 .wiz-flex-toggle { margin: 1rem 0 0; }
+.wiz-card-tag {
+  align-self: flex-start;
+  padding: 0 0.4rem;
+  border: 1px solid var(--stamp);
+  color: var(--stamp);
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 .wiz-race-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0 1rem; margin-top: 0.75rem; }

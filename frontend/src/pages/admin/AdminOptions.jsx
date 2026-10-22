@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../../api/axios'
 import { Loader } from '../../components/ui'
+import SourceCode from '../../components/SourceCode'
 
 // Панель ГМ → «Справочник»: which races and classes players may pick.
 // Statuses come from data/*.json; a change here is stored as an override
@@ -88,7 +89,7 @@ function OptionsTable({ title, kind, rows, statuses, filter, flags, onStatus }) 
                                     {r.nameRu}
                                     {r.srd && <span className="options-tag">SRD</span>}
                                 </th>
-                                <td className="options-source">{r.source}</td>
+                                <td className="options-source"><SourceCode code={r.source} /></td>
                                 <td>
                                     <select className="sheet-input" aria-label={`Статус: ${r.nameRu}`} value={r.status}
                                         onChange={(e) => onStatus(kind, r.key, e.target.value)}>
