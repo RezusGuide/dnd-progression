@@ -213,7 +213,7 @@ export default function Admin() {
         return (
             <div className="parchment-page">
                 <PageHeader title="Первичная настройка" />
-                <Dossier tab="Панель ГМа" style={{ maxWidth: 480, width: '100%' }}>
+                <Dossier tab="Панель ГМ" style={{ maxWidth: 480, width: '100%' }}>
                     <p style={{ marginBottom: '1rem' }}>{t('adminBecomeOwnerHint')}</p>
                     {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
                     {user && <Button onClick={handleClaim}>{t('adminBecomeOwner')}</Button>}
@@ -247,7 +247,7 @@ export default function Admin() {
 
     return (
         <div className="parchment-page">
-            <PageHeader title="Панель ГМа" subtitle={t('adminSubtitle')} />
+            <PageHeader title="Панель ГМ" subtitle={t('adminSubtitle')} />
             {error && <div className="tome-error">{error}</div>}
             {notice && <div className="tome-notice">{notice}</div>}
 

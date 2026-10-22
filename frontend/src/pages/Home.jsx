@@ -69,7 +69,7 @@ function StaffReception({ user }) {
             <PageHeader
                 title="Приёмная"
                 subtitle={`Добрый день, ${user.username}. Ваши дела на сегодня.`}
-                actions={hasSection('*') && <Button variant="secondary" to="/admin">Панель ГМа</Button>}
+                actions={hasSection('*') && <Button variant="secondary" to="/admin">Панель ГМ</Button>}
             />
 
             <div className="reception">

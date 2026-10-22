@@ -195,7 +195,7 @@ const translations = {
         craftCompendiumTitle: 'Известные соединения',
         craftCompendiumHint: 'Каждая пара ниже что-то даёт. Любая другая пара просто тратит аспекты.',
         craftCompendiumReady: 'можно соединить прямо сейчас',
-        // Панель ГМа: выдачи
+        // Панель ГМ: выдачи
         adminItemGrant: 'Выдать предмет',
         adminItemGrantHint: 'Добавляет строку в снаряжение персонажа. Существующие записи не трогаются.',
         adminItemLabel: 'Предмет',
@@ -280,15 +280,15 @@ const translations = {
         navCharacters: 'Личные дела',
         navCampaigns: 'Кампании',
         navAnnouncements: 'Объявления',
-        navAdmin: 'Панель ГМа',
+        navAdmin: 'Панель ГМ',
         navToggleMenu: 'Меню',
         navLogin: 'Предъявить пропуск',
         navLogout: 'Сдать пропуск',
         navAccount: 'Мой пропуск',
-        // Панель ГМа
-        adminTitle: 'Панель ГМа',
+        // Панель ГМ
+        adminTitle: 'Панель ГМ',
         adminSubtitle: 'Пропуска, выдачи и роли.',
-        adminBecomeOwner: 'Стать ГМом',
+        adminBecomeOwner: 'Стать ГМ',
         adminBecomeOwnerHint: 'ГМ ещё не назначен. Если это вы, подтвердите.',
         adminRoles: 'Роли',
         adminNewRole: 'Новая роль',
