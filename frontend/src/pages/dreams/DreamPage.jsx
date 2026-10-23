@@ -8,10 +8,12 @@ import DreamFormIcon from '../../components/dreams/DreamFormIcon'
 import { caseNumber, closedText, useStageLabels } from '../../lib/dreams'
 import { DreamStamp } from './DreamsPage'
 import '../../styles/dreams.css'
+import { useNightTheme } from '../../lib/theme'
 
 // One case: what the staff know, the reward, and for the player's own
 // characters the immersion stage, what changed and the form in the dream.
 export default function DreamPage() {
+    useNightTheme()
     const { dreamId } = useParams()
     const labels = useStageLabels()
     const [dream, setDream] = useState(null)

@@ -8,11 +8,13 @@ import { bagEntries, useMagicData } from '../../lib/magic'
 import { recipeFor } from '../../lib/research'
 import '../../styles/sheet.css'
 import '../../styles/research.css'
+import { useNightTheme } from '../../lib/theme'
 
 // "Соединение аспектов" (magic-v2.md, section 9): two slots, the bag below,
 // the result on the right, and the full recipe book. Two aspects with a
 // recipe become their compound; there is no taking it apart again.
 export default function CombinePage() {
+    useNightTheme()
     const { characterId } = useParams()
     const [magic, magicError] = useMagicData()
     const [character, setCharacter] = useState(null)

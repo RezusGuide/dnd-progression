@@ -5,9 +5,11 @@ import { useAuth } from '../../context/AuthContext'
 import { Button, EmptyState, Loader, PageHeader } from '../../components/ui'
 import { STATUS, caseNumber } from '../../lib/dreams'
 import '../../styles/dreams.css'
+import { useNightTheme } from '../../lib/theme'
 
 // «Сны»: dream cases as folders, in the night palette.
 export default function DreamsPage() {
+    useNightTheme()
     const { isGm } = useAuth()
     const [dreams, setDreams] = useState(null)
     const [error, setError] = useState('')
