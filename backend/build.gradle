@@ -44,3 +44,9 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// The local profile file holds a developer's own database password; jars
+// and images never carry it (bootRun still reads it from resources).
+tasks.named('bootJar') {
+    exclude 'application-local.properties'
+}

@@ -1,0 +1,5 @@
+# Never bake local secrets or build output into an image.
+src/main/resources/application-local.properties
+build/
+.gradle/
+*.log
