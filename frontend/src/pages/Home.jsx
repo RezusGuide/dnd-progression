@@ -14,6 +14,9 @@ import '../styles/calendar.css'
 import { formatDate, useWorldIndex } from '../lib/world'
 import '../styles/world.css'
 import RequestList from '../components/RequestList'
+import CheckAgain from '../components/errors/CheckAgain'
+import { ERROR_COPY } from '../components/errors/errorCopy'
+import { checkHealth } from '../lib/health'
 
 // Приёмная. Guests get the public pitch; signed-in staff get their files,
 // quick actions and the latest notices. Texts: docs/zlatopryady/copy.md.
@@ -22,7 +25,12 @@ export default function Home() {
     return user ? <StaffReception user={user} /> : <GuestReception />
 }
 
+// Guests: the pitch and the sign-in button. When the backend (the GM's
+// PC) is off, the button gives way to «Контора закрыта».
 function GuestReception() {
+    const [open, setOpen] = useState(null) // null while asking
+    useEffect(() => { checkHealth().then(setOpen) }, [])
+    const closed = ERROR_COPY.closed
     return (
         <main className="reception-guest">
             <SteamBackground />
@@ -34,7 +42,15 @@ function GuestReception() {
                     и это название никому не нравилось. Сегодня мы отправляем сотрудников в сны IO: в миры со своим
                     сюжетом, которые нужно зачистить. Всё неживое, что удалось вынести, сдаётся по описи.
                 </p>
-                <Button to="/login">Предъявить пропуск</Button>
+                {open === false ? (
+                    <div className="reception-closed" role="status">
+                        <p className="reception-closed-title">{closed.title}</p>
+                        <p>{closed.text}</p>
+                        <CheckAgain onOpen={() => setOpen(true)} />
+                    </div>
+                ) : (
+                    <Button to="/login">Предъявить пропуск</Button>
+                )}
             </div>
         </main>
     )

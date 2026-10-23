@@ -320,7 +320,8 @@
   text-transform: uppercase;
 }
 .err-banner-text { color: var(--text-muted); font-size: 0.95rem; }
-.err-banner-actions { display: flex; gap: 0.5rem; }
+.err-banner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.err-still { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); }
 
 /* ── Dev gallery (/__errors) ── */
 .err-gallery { display: flex; flex-direction: column; }

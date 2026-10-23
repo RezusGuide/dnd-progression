@@ -8,7 +8,7 @@ import { Dossier, EmptyState, Field, GearList, Hint, Loader, Stamp, Button } fro
 // Dev-only (/__errors, see App.jsx): every error screen on one page, plus
 // the brand and UI kit, to check animations and visuals without breaking
 // anything on purpose.
-const CODES = [404, 403, 500, 503, 'offline', 'crash']
+const CODES = [404, 403, 500, 503, 'offline', 'closed', 'crash']
 
 export default function ErrorGallery() {
     return (

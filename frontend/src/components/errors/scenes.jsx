@@ -123,6 +123,7 @@ const SCENES = {
     403: DeniedScene,
     500: BoilerScene,
     503: SleepScene,
+    closed: SleepScene,
     offline: TubeScene,
     crash: BiteScene,
 }

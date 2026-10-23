@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { announceApiError, classifyApiError } from './apiErrors'
 
-// Set VITE_API_URL in Vercel's project settings once the Railway backend is
-// deployed (see the root README). Falls back to local dev.
-const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
-})
+// VITE_API_URL in Vercel's project settings is the backend's public address
+// (the Tailscale Funnel of the GM's PC, see docs/zlatopryady/HOME-HOSTING.md).
+// Falls back to local dev.
+export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+
+const api = axios.create({ baseURL: API_BASE })
 
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')

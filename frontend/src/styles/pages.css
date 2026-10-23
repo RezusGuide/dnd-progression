@@ -78,6 +78,9 @@
   color: var(--accent-text);
 }
 .reception-lore { font-size: 1.15rem; line-height: 1.6; }
+.reception-closed { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 0.9rem 1.2rem; border: 1px solid var(--border-strong); background: var(--surface-card); }
+.reception-closed p { margin: 0; }
+.reception-closed-title { font-family: var(--font-label); font-size: 1.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
 .reception { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 2rem; }
 .reception-section-title {

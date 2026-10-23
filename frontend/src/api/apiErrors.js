@@ -7,11 +7,20 @@ export const API_ERROR_EVENT = 'sunny:api-error'
 // wrong, so the banner stays quiet (even for requests that fail later).
 let fullScreenErrors = 0
 
-export function classifyApiError(error) {
+/**
+ * No answer at all: 'offline' when the browser itself is offline, otherwise
+ * 'closed' - the backend runs on the GM's PC and that PC is off.
+ */
+export function networkKind(online = typeof navigator === 'undefined' ? true : navigator.onLine) {
+    return online === false ? 'offline' : 'closed'
+}
+
+export function classifyApiError(error, online) {
     if (error?.code === 'ERR_CANCELED') return null
-    if (!error?.response) return 'offline'
+    if (!error?.response) return networkKind(online)
     const status = error.response.status
-    if (status === 503) return 503
+    // The tunnel answers 502/503/504 by itself when the PC behind it is down.
+    if (status === 502 || status === 503 || status === 504) return 'closed'
     if (status >= 500) return 500
     return null
 }
