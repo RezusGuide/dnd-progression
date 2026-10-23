@@ -41,6 +41,13 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
+// /api/health reports the build time from META-INF/build-info.properties.
+springBoot {
+    buildInfo {
+        excludes = ['group', 'artifact', 'name']
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

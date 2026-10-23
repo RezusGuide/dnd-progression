@@ -21,15 +21,17 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final LoginThrottle throttle;
 
     public AuthResponse login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Пропуск не опознан. Проверьте почту и пароль."));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        // Unknown emails count as failures too, so the lock says nothing about who exists.
+        throttle.check(request.getEmail());
+        User user = userRepository.findByEmail(request.getEmail()).orElse(null);
+        if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throttle.failed(request.getEmail());
             throw new RuntimeException("Пропуск не опознан. Проверьте почту и пароль.");
         }
-
+        throttle.succeeded(request.getEmail());
         return buildResponse(user);
     }
 

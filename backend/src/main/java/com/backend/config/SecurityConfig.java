@@ -71,6 +71,9 @@ public class SecurityConfig {
                         // status (400/404/500/...) they'd see an opaque, misleading 403.
                         .requestMatchers("/error").permitAll()
 
+                        // Liveness for the home-hosted server and the "office closed" banner.
+                        .requestMatchers(HttpMethod.GET, "/api/health", "/api/health/db").permitAll()
+
                         // Public read-only content - anyone, logged in or not, can view
                         // Announcements and the D&D area.
                         .requestMatchers(HttpMethod.GET, "/api/announcements/**").permitAll()

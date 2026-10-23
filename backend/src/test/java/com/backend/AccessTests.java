@@ -22,11 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // Its own in-memory database, so the web server's context never shares
 // tables with the others.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {
-                "spring.datasource.url=jdbc:h2:mem:accessdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;NON_KEYWORDS=KEY,VALUE",
-                // Base64 of a test-only phrase: JwtService decodes the key, the shared test value is not Base64.
-                "jwt.secret=dGVzdC1vbmx5LWp3dC1zZWNyZXQtZm9yLWFjY2Vzcy10ZXN0cy0wMTIzNDU2Nzg5"
-        })
+        properties = "spring.datasource.url=jdbc:h2:mem:accessdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;NON_KEYWORDS=KEY,VALUE")
 class AccessTests {
 
     @Value("${local.server.port}")
@@ -78,6 +74,8 @@ class AccessTests {
         assertEquals(200, call("GET", "/api/announcements", null, null));
         assertEquals(200, call("GET", "/api/data/races", null, null));
         assertEquals(200, call("GET", "/api/auth/setup-status", null, null));
+        assertEquals(200, call("GET", "/api/health", null, null));
+        assertEquals(200, call("GET", "/api/health/db", null, null));
         int admin = call("GET", "/api/admin/summary", null, null);
         assertTrue(admin == 401 || admin == 403, "guest on admin: " + admin);
         int world = call("GET", "/api/world", null, null);
