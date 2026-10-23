@@ -39,6 +39,7 @@ public class CharacterService {
     private final ResearchDraftV2Repository researchDraftRepository;
     private final ChestRewardRepository chestRewardRepository;
     private final InventoryItemRepository inventoryItemRepository;
+    private final com.backend.repository.DreamParticipationRepository dreamParticipationRepository;
     private final JdbcTemplate jdbcTemplate;
     // Instantiated directly rather than injected - same reasoning as
     // SpellRegistry/CombatService: this project's
@@ -82,6 +83,7 @@ public class CharacterService {
         researchDraftRepository.deleteByCharacterId(characterId);
         chestRewardRepository.deleteByCharacterId(characterId);
         inventoryItemRepository.deleteByCharacterId(characterId);
+        dreamParticipationRepository.deleteByCharacterId(characterId);
         deleteLegacyRows(characterId);
         characterRepository.delete(character);
     }

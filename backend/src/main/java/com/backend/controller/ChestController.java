@@ -85,6 +85,13 @@ public class ChestController {
         return item == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(item);
     }
 
+    // «Разобрать на аспекты»: {"aspects": {...}, "item": the rest or null}.
+    @PostMapping("/api/characters/{characterId}/inventory/{itemId}/disassemble")
+    public ResponseEntity<ChestService.Disassembled> disassemble(@PathVariable Long characterId, @PathVariable Long itemId,
+                                                                 @AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(chest.disassemble(characterId, itemId, user));
+    }
+
     @DeleteMapping("/api/characters/{characterId}/inventory/{itemId}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long characterId, @PathVariable Long itemId,
                                            @AuthenticationPrincipal User user) {

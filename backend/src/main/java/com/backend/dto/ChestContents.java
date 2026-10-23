@@ -1,5 +1,6 @@
 package com.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +34,9 @@ public class ChestContents {
         private String rarity;
         private String origin;
         private Integer quantity;
+        // Aspects the item breaks into («Разобрать на аспекты»). Set by the
+        // GM; players never see it before they break the item.
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Map<String, Integer> disassembleInto;
     }
 }

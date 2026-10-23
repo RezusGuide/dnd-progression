@@ -155,6 +155,7 @@ public class ChestService {
                     .rarity(rarity(item.getRarity()))
                     .origin(blank(item.getOrigin()) != null ? item.getOrigin().strip() : "Награда: " + r.getTitle())
                     .quantity(item.getQuantity() == null || item.getQuantity() < 1 ? 1 : item.getQuantity())
+                    .disassembleInto(writeAspects(item.getDisassembleInto()))
                     .build());
         }
         r.setStatus(ChestReward.Status.OPENED);
@@ -207,6 +208,29 @@ public class ChestService {
             item.setQuantity(quantity);
         }
         return InventoryItemResponse.of(itemRepository.save(item));
+    }
+
+    public record Disassembled(Map<String, Integer> aspects, InventoryItemResponse item) {
+    }
+
+    /**
+     * «Разобрать на аспекты»: one piece of the item is gone and its aspects go
+     * into the bag. Only now does the player learn what it held.
+     */
+    @Transactional
+    public Disassembled disassemble(Long characterId, Long itemId, User user) {
+        InventoryItem item = ownedItem(characterId, itemId, user);
+        Map<String, Integer> aspects = readAspects(item.getDisassembleInto());
+        if (aspects.isEmpty()) throw ApiException.badRequest("Этот предмет не разбирается.");
+        Character c = item.getCharacter();
+        aspects.forEach((k, n) -> c.getAspects().merge(k, n, Integer::sum));
+        characterRepository.save(c);
+        if (item.getQuantity() <= 1) {
+            itemRepository.delete(item);
+            return new Disassembled(aspects, null);
+        }
+        item.setQuantity(item.getQuantity() - 1);
+        return new Disassembled(aspects, InventoryItemResponse.of(itemRepository.save(item)));
     }
 
     @Transactional
@@ -287,6 +311,7 @@ public class ChestService {
                         .name(item.getName().strip()).description(blank(item.getDescription()))
                         .rarity(rarity(item.getRarity()).name()).origin(blank(item.getOrigin()))
                         .quantity(item.getQuantity() == null || item.getQuantity() < 1 ? 1 : item.getQuantity())
+                        .disassembleInto(cleanAspects(item.getDisassembleInto()))
                         .build());
             }
         }
@@ -316,11 +341,12 @@ public class ChestService {
         Character c = characterRepository.findById(characterId)
                 .orElseThrow(() -> ApiException.notFound("Личное дело не найдено."));
         if (blank(body.getName()) == null) throw ApiException.badRequest("У предмета нет названия.");
-        return InventoryItemResponse.of(itemRepository.save(InventoryItem.builder()
+        return gmView(itemRepository.save(InventoryItem.builder()
                 .character(c).name(body.getName().strip()).description(blank(body.getDescription()))
                 .rarity(rarity(body.getRarity()))
                 .origin(blank(body.getOrigin()) != null ? body.getOrigin().strip() : "Выдано ГМ")
                 .quantity(body.getQuantity() == null || body.getQuantity() < 1 ? 1 : body.getQuantity())
+                .disassembleInto(writeAspects(cleanAspects(body.getDisassembleInto())))
                 .build()));
     }
 
@@ -336,7 +362,18 @@ public class ChestService {
             if (n.intValue() < 1) throw ApiException.badRequest("Количество — от 1.");
             item.setQuantity(n.intValue());
         }
-        return InventoryItemResponse.of(itemRepository.save(item));
+        if (body.containsKey("disassembleInto")) {
+            Map<String, Integer> aspects = new LinkedHashMap<>();
+            if (body.get("disassembleInto") instanceof Map<?, ?> m) {
+                m.forEach((k, v) -> aspects.put(String.valueOf(k), v instanceof Number n ? n.intValue() : 0));
+            }
+            item.setDisassembleInto(writeAspects(cleanAspects(aspects)));
+        }
+        return gmView(itemRepository.save(item));
+    }
+
+    private InventoryItemResponse gmView(InventoryItem item) {
+        return InventoryItemResponse.ofGm(item, readAspects(item.getDisassembleInto()));
     }
 
     @Transactional
@@ -382,7 +419,7 @@ public class ChestService {
                 .wrongAttempts(r.getWrongAttempts())
                 .wrongAnswers(forGm ? readWrong(r.getWrongAnswers()) : null)
                 .gmNote(open ? r.getGmNote() : null)
-                .contents(open ? read(r.getContents()) : null)
+                .contents(open ? (forGm ? read(r.getContents()) : withoutDisassembly(read(r.getContents()))) : null)
                 .createdAt(r.getCreatedAt()).openedAt(r.getOpenedAt()).createdBy(forGm ? r.getCreatedBy() : null)
                 .build();
     }
@@ -407,6 +444,36 @@ public class ChestService {
             });
         } catch (Exception e) {
             return List.of();
+        }
+    }
+
+    private static ChestContents withoutDisassembly(ChestContents contents) {
+        contents.getItems().forEach(i -> i.setDisassembleInto(null));
+        return contents;
+    }
+
+    /** Known aspects with positive amounts; null when nothing is left. */
+    private Map<String, Integer> cleanAspects(Map<String, Integer> in) {
+        if (in == null) return null;
+        Map<String, Integer> out = new LinkedHashMap<>();
+        in.forEach((k, n) -> {
+            if (!magic.aspectKeys().contains(k)) throw ApiException.badRequest("Неизвестный аспект: " + k + ".");
+            if (n != null && n > 0) out.put(k, n);
+        });
+        return out.isEmpty() ? null : out;
+    }
+
+    private String writeAspects(Map<String, Integer> aspects) {
+        return aspects == null || aspects.isEmpty() ? null : write(aspects);
+    }
+
+    private Map<String, Integer> readAspects(String json) {
+        if (json == null || json.isBlank()) return Map.of();
+        try {
+            return objectMapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<LinkedHashMap<String, Integer>>() {
+            });
+        } catch (Exception e) {
+            return Map.of();
         }
     }
 

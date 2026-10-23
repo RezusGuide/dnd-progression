@@ -5,6 +5,7 @@ import com.backend.repository.RoleRepository;
 import com.backend.service.MagicData;
 import com.backend.service.OptionsService;
 import com.backend.service.RoleService;
+import com.backend.service.WorldService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,6 +33,7 @@ public class DataSeeder implements CommandLineRunner {
     private final MagicData magicData;
     private final JdbcTemplate jdbcTemplate;
     private final OptionsService optionsService;
+    private final WorldService worldService;
 
     @Override
     public void run(String... args) {
@@ -44,6 +46,8 @@ public class DataSeeder implements CommandLineRunner {
         optionsService.ensureFlags();
         migrateAspectBags();
         relaxOldKnownSpellColumn();
+        // «Мир»: the starting articles, only into an empty table.
+        worldService.seedIfEmpty();
     }
 
     // Stage 5 added rune_tier / approval_status / hit_dice_used to

@@ -50,6 +50,13 @@ public class InventoryItem {
     @Builder.Default
     private int quantity = 1;
 
+    // {"steam": 2}: what «Разобрать на аспекты» gives. GM only - players learn
+    // it by breaking the item (InventoryItemResponse has only canDisassemble).
+    @JsonIgnore
+    @ToString.Exclude
+    @Column(name = "disassemble_into", columnDefinition = "TEXT")
+    private String disassembleInto;
+
     // The player's own notes.
     @Column(columnDefinition = "TEXT")
     private String notes;
