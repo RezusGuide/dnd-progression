@@ -5,11 +5,14 @@ import { cellKey, gridCells, hexCorners, hexToPixel } from '../../lib/research'
 // lines between linked neighbours and the green / red outlines from
 // validate(). Read-only for the GM preview (no handlers, no tab stops).
 //
-// hoverAspect highlights every cell whose aspect is linked to it - the
-// main hint for the player.
+// hoverAspect outlines (dashed) every cell whose aspect is linked to it.
+// joints: unlinked neighbours that explain a red cell - a short red dashed
+// mark across their shared edge, with the reason as a tooltip.
+// allowed: empty cells where the aspect chosen in the bag would link.
 export default function HexGrid({
     radius, anchors, placed, byKey, graph, result, size = 30,
     hoverAspect = null, onCellClick, onHoverAspect, readOnly = false, label = 'Стол исследований',
+    joints = [], allowed = null,
 }) {
     const cells = gridCells(radius)
     const anchorMap = new Map(anchors.map((a) => [cellKey(a.q, a.r), a]))
@@ -36,6 +39,20 @@ export default function HexGrid({
         return ''
     }
 
+    // The shared edge of two neighbours is perpendicular to the line between
+    // their centres and as long as the hex side.
+    const jointLine = (a, b) => {
+        const p = fromKey(a)
+        const q = fromKey(b)
+        const mx = (p.x + q.x) / 2
+        const my = (p.y + q.y) / 2
+        const len = Math.hypot(q.x - p.x, q.y - p.y) || 1
+        const nx = -(q.y - p.y) / len
+        const ny = (q.x - p.x) / len
+        const h = size * 0.42
+        return { x1: mx - nx * h, y1: my - ny * h, x2: mx + nx * h, y2: my + ny * h }
+    }
+
     return (
         <svg className={`hexgrid ${readOnly ? 'is-readonly' : ''}`} viewBox={`0 0 ${width} ${height}`} role="group" aria-label={label}>
             {cells.map((cell) => {
@@ -45,13 +62,14 @@ export default function HexGrid({
                 const c = centre(cell)
                 const points = hexCorners(c, size - 1.5).map((p) => p.join(',')).join(' ')
                 const related = hoverAspect && item && graph?.linked(hoverAspect, item.aspect)
+                const canPlace = !item && allowed?.has(k)
                 const name = item ? byKey[item.aspect]?.nameRu || item.aspect : ''
-                const cellLabel = anchor ? `Якорь: ${name}` : item ? `${name}, снять` : 'Пустая клетка'
+                const cellLabel = anchor ? `Якорь: ${name}` : item ? `${name}, снять` : canPlace ? 'Пустая клетка, сюда можно поставить' : 'Пустая клетка'
                 const interactive = !readOnly && !anchor
                 return (
                     <g key={k}
                         data-cell={k}
-                        className={`hex ${anchor ? 'is-anchor' : item ? 'is-placed' : 'is-empty'} ${cellState(k)} ${related ? 'is-related' : ''}`}
+                        className={`hex ${anchor ? 'is-anchor' : item ? 'is-placed' : 'is-empty'} ${cellState(k)} ${related ? 'is-related' : ''} ${canPlace ? 'is-allowed' : ''}`}
                         role={interactive ? 'button' : undefined}
                         tabIndex={interactive ? 0 : undefined}
                         aria-label={interactive || anchor ? cellLabel : undefined}
@@ -88,6 +106,19 @@ export default function HexGrid({
                                     <path d="M2.5 4V2.8a2.5 2.5 0 0 1 5 0V4" fill="none" />
                                 </g>
                             )}
+                        </g>
+                    )
+                })}
+            </g>
+            <g className="hex-joints">
+                {joints.map((j) => {
+                    const l = jointLine(j.a, j.b)
+                    return (
+                        <g key={`${j.a}|${j.b}`} className="hex-joint">
+                            <title>{j.text}</title>
+                            <line {...l} className="hex-joint-hit" />
+                            <line {...l} className="hex-joint-under" />
+                            <line {...l} className="hex-joint-mark" />
                         </g>
                     )
                 })}

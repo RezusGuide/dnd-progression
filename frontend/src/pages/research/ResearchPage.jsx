@@ -7,9 +7,12 @@ import AspectIcon from '../../components/aspects/AspectIcon'
 import HexGrid from '../../components/aspects/HexGrid'
 import { spellDescription, spellName } from '../../constants/spellText'
 import { bagEntries, useMagicData } from '../../lib/magic'
-import { cellKey, spentCounts, validate } from '../../lib/research'
+import {
+    allowedCells, ancestry, bagLeft, brokenJoints, cellKey, jointText, ruleText, spentCounts, submitBlocker, validate,
+} from '../../lib/research'
 import '../../styles/sheet.css'
 import '../../styles/research.css'
+import { useNightTheme } from '../../lib/theme'
 
 // "Стол исследований" (magic-v2.md, section 8): catalog of topics on the
 // left, the hex grid in the middle, the bag on the right. The grid is
@@ -26,6 +29,7 @@ function markHintSeen() {
 }
 
 export default function ResearchPage() {
+    useNightTheme()
     const { characterId } = useParams()
     const [params, setParams] = useSearchParams()
     const spellId = params.get('topic')
@@ -73,7 +77,7 @@ export default function ResearchPage() {
             />
             {showHint && (
                 <div className="research-hint">
-                    <Hint>Соедините якоря цепочкой. Соседи должны быть родственными аспектами, одинаковые не считаются.</Hint>
+                    <Hint>Соедините якоря цепочкой соседних клеток. {ruleText(magic.byKey)} Пример цепочки: Рассвет → Мираж → Сон (Мираж = Сон + Рассвет).</Hint>
                     <Button variant="ghost" onClick={() => { markHintSeen(); setShowHint(false) }}>Понятно</Button>
                 </div>
             )}
@@ -105,6 +109,7 @@ function ResearchTable({ characterId, spellId, character, topics, spells, notes,
     const [selected, setSelected] = useState(null)
     const [hover, setHover] = useState(null)
     const [confirm, setConfirm] = useState(false)
+    const [showAncestry, setShowAncestry] = useState(false)
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState('')
     const loaded = useRef(false)
@@ -135,11 +140,21 @@ function ResearchTable({ characterId, spellId, character, topics, spells, notes,
 
     const bag = character.aspects || {}
     const used = spentCounts(placed)
-    const left = (key) => (bag[key] || 0) - (used[key] || 0)
+    // A note on review or approved was already written off by the server.
+    const left = bagLeft(bag, placed, editable)
     const result = useMemo(
         () => (topic ? validate(magic.graph, topic.radius, topic.anchors, placed) : null),
         [topic, placed, magic],
     )
+    const joints = useMemo(
+        () => (topic && result ? brokenJoints(magic.graph, topic.anchors, placed, result).map((j) => ({ ...j, text: jointText(j, magic.byKey) })) : []),
+        [topic, placed, result, magic],
+    )
+    const allowed = useMemo(
+        () => (topic && editable && selected ? allowedCells(magic.graph, topic.radius, topic.anchors, placed, selected) : null),
+        [topic, editable, selected, placed, magic],
+    )
+    const blocker = editable ? submitBlocker(result, placed, bag) : null
 
     const onCellClick = (cell, item) => {
         if (!editable) return
@@ -200,6 +215,8 @@ function ResearchTable({ characterId, spellId, character, topics, spells, notes,
                                 onCellClick={onCellClick}
                                 onHoverAspect={setHover}
                                 readOnly={!editable}
+                                joints={joints}
+                                allowed={allowed}
                             />
                             {topic.status === 'PENDING' && <Stamp kind="pending" className="research-stamp" />}
                             {topic.status === 'KNOWN' && <Stamp kind="approved" className="research-stamp" />}
@@ -213,15 +230,29 @@ function ResearchTable({ characterId, spellId, character, topics, spells, notes,
                             {editable && (
                                 <span className="research-actions">
                                     <Button variant="ghost" onClick={() => setPlaced([])} disabled={placed.length === 0}>Очистить</Button>
-                                    <Button onClick={() => setConfirm(true)} disabled={!result?.valid}>Подать записку</Button>
+                                    {blocker && <span className="research-blocker">{blocker}</span>}
+                                    <Button onClick={() => setConfirm(true)} disabled={!!blocker} title={blocker || undefined}>Подать записку</Button>
                                 </span>
                             )}
+                        </div>
+                        <p className="research-rule">{ruleText(magic.byKey)}</p>
+                        {joints.length > 0 && (
+                            <div className="research-joints" role="status">
+                                <p>Красный пунктир на стыке клеток — соседи не связаны:</p>
+                                <ul>{[...new Set(joints.map((j) => j.text))].map((t) => <li key={t}>{t}</li>)}</ul>
+                            </div>
+                        )}
+                        <div className="research-ancestry">
+                            <Button variant="ghost" aria-expanded={showAncestry} onClick={() => setShowAncestry(!showAncestry)}>
+                                {showAncestry ? 'Скрыть подсказку' : 'Подсказка: родство якорей'}
+                            </Button>
+                            {showAncestry && <Ancestry anchors={topic.anchors} magic={magic} />}
                         </div>
                     </>
                 )}
             </section>
 
-            <Bag magic={magic} bag={bag} left={left} selected={selected} focus={focus}
+            <Bag magic={magic} bag={bag} left={left} selected={selected} focus={focus} hovered={hover}
                 onSelect={(k) => setSelected(selected === k ? null : k)} onHover={setHover} characterId={characterId} />
 
             {confirm && (
@@ -299,21 +330,25 @@ function Catalog({ topics, spells, magic, current, onSelect }) {
     )
 }
 
-function Bag({ magic, bag, left, selected, focus, onSelect, onHover, characterId }) {
+function Bag({ magic, bag, left, selected, focus, hovered, onSelect, onHover, characterId }) {
     const entries = bagEntries(bag, magic.aspects)
     const info = focus && magic.byKey[focus]
     return (
         <aside className="research-bag" aria-label="Сумка">
             <h2 className="research-side-title">Сумка</h2>
+            <p className="research-links-line" aria-live="polite">
+                {hovered ? `${magic.byKey[hovered]?.nameRu} связан с: ${magic.graph.linkedTo(hovered).map((k) => magic.byKey[k]?.nameRu).join(', ')}` : 'Наведите на аспект, чтобы увидеть, с чем он связан.'}
+            </p>
             {entries.length === 0 && <p className="research-empty">Сумка пуста. Аспекты выдаёт ГМ.</p>}
             <ul className="research-bag-list">
                 {entries.map(({ aspect, count }) => {
                     const related = focus && magic.graph.linked(focus, aspect.key)
+                    const chosen = selected === aspect.key
                     return (
                         <li key={aspect.key}>
                             <button type="button"
-                                className={`research-bag-item ${selected === aspect.key ? 'is-selected' : ''} ${related ? 'is-related' : ''}`}
-                                aria-pressed={selected === aspect.key}
+                                className={`research-bag-item ${chosen ? 'is-selected' : ''} ${related && !chosen ? 'is-related' : ''}`}
+                                aria-pressed={chosen}
                                 onClick={() => onSelect(aspect.key)}
                                 onMouseEnter={() => onHover(aspect.key)}
                                 onMouseLeave={() => onHover(null)}
@@ -323,6 +358,7 @@ function Bag({ magic, bag, left, selected, focus, onSelect, onHover, characterId
                                 <AspectIcon aspect={aspect} size={30} />
                                 <span className="research-bag-name">{aspect.nameRu}</span>
                                 <span className="research-bag-count">осталось {Math.max(0, left(aspect.key))} из {count}</span>
+                                {related && !chosen && <ChainIcon />}
                             </button>
                         </li>
                     )
@@ -338,5 +374,46 @@ function Bag({ magic, bag, left, selected, focus, onSelect, onHover, characterId
             )}
             <Link className="gate-link" to={`/characters/${characterId}/craft`}>Соединить аспекты →</Link>
         </aside>
+    )
+}
+
+const cellsWord = (n) => {
+    const m10 = n % 10
+    const m100 = n % 100
+    if (m10 === 1 && m100 !== 11) return 'клетка'
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'клетки'
+    return 'клеток'
+}
+
+// «Подсказка: родство якорей»: for every pair of anchors the shortest chain
+// by the reference and a ready sequence of a length that fits on the grid.
+function Ancestry({ anchors, magic }) {
+    const names = (keys) => keys.map((k) => magic.byKey[k]?.nameRu || k).join(' → ')
+    return (
+        <ul className="research-ancestry-list">
+            {ancestry(magic.graph, anchors).map((p) => (
+                <li key={`${p.from}-${p.to}`}>
+                    <p><strong>{names([p.from])} и {names([p.to])}:</strong> {p.shortest ? names(p.shortest) : 'по справочнику не связаны'}.</p>
+                    <p>Якоря стоят в {p.distance} {p.distance % 10 === 1 && p.distance % 100 !== 11 ? 'клетке' : 'клетках'} друг от друга. Удлиняйте цепочку ходами туда-обратно (Тень → Туман → Тень) или обходом по дуге.</p>
+                    {p.fit ? (
+                        <p className="research-ancestry-fit">
+                            {p.fit.cells} {cellsWord(p.fit.cells)}: {names(p.fit.chain)}
+                            {p.fit.cells === p.straight ? ' (по прямой)' : ` (обходите по дуге, по прямой здесь ${p.straight} ${cellsWord(p.straight)})`}
+                        </p>
+                    ) : (
+                        <p className="research-ancestry-fit">На {p.straight}–{p.straight + 2} {cellsWord(p.straight + 2)} цепочки нет: нужна дуга длиннее.</p>
+                    )}
+                </li>
+            ))}
+        </ul>
+    )
+}
+
+function ChainIcon() {
+    return (
+        <svg className="research-chain" width="16" height="16" viewBox="0 0 16 16" aria-label="связан" role="img">
+            <rect x="1.5" y="5" width="7" height="6" rx="3" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            <rect x="7.5" y="5" width="7" height="6" rx="3" fill="none" stroke="currentColor" strokeWidth="1.6" />
+        </svg>
     )
 }
