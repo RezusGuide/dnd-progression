@@ -8,6 +8,7 @@ import com.backend.entity.Character;
 import com.backend.entity.User;
 import com.backend.exception.ApiException;
 import com.backend.repository.CharacterRepository;
+import com.backend.repository.GmActionLogRepository;
 import com.backend.repository.KnownSpellRepository;
 import com.backend.research.Placement;
 import com.backend.research.ResearchSolver;
@@ -41,6 +42,7 @@ class ResearchApiTests {
     @Autowired private CharacterRepository characterRepository;
     @Autowired private KnownSpellRepository knownSpellRepository;
     @Autowired private MagicData magic;
+    @Autowired private GmActionLogRepository logRepository;
 
     private User newPlayer() {
         String tag = UUID.randomUUID().toString().substring(0, 8);
@@ -122,6 +124,25 @@ class ResearchApiTests {
         research.approve(again.getId(), null, null);
         assertTrue(knownSpellRepository.existsByCharacterIdAndSpellId(c.getId(), "magic-missile"));
         assertEquals("KNOWN", research.topic(c.getId(), "magic-missile", player).getStatus());
+    }
+
+    @Test
+    void approvingANoteIsLogged() {
+        User player = newPlayer();
+        User gm = roleService.assignRole(newPlayer().getId(), RoleService.OWNER_KEY);
+        Character c = approved(player, "Wizard");
+        List<Placement> placed = solution(research.topic(c.getId(), "magic-missile", player));
+        topUp(c, placed);
+        ResearchNoteResponse note = research.submit(c.getId(), "magic-missile", placed, player);
+        research.approve(note.getId(), "Красиво", gm);
+
+        var entry = logRepository.findAll().stream()
+                .filter(l -> "NOTE_APPROVED".equals(l.getAction()) && c.getId().equals(l.getTargetId()))
+                .findFirst().orElseThrow();
+        assertEquals(gm.getUsername(), entry.getActor());
+        assertEquals("CHARACTER", entry.getTargetType());
+        assertTrue(entry.getSummary().contains("Красиво"), entry.getSummary());
+        assertNotNull(entry.getAt());
     }
 
     @Test

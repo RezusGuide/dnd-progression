@@ -50,6 +50,7 @@ public class ChestService {
     private final ItemTemplateRepository templateRepository;
     private final CharacterRepository characterRepository;
     private final MagicData magic;
+    private final GmLogService gmLog;
     // Classic Jackson 2 for the TEXT column, as elsewhere in this codebase.
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -283,6 +284,7 @@ public class ChestService {
                     .createdBy(gm != null ? gm.getUsername() : null)
                     .build());
             out.add(toResponse(r, true));
+            gmLog.character(gm, "PARCEL_SENT", c, "Посылка «" + title + "»" + (question != null ? " с загадкой" : ""));
         }
         return out;
     }

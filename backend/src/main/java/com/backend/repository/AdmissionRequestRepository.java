@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface AdmissionRequestRepository extends JpaRepository<AdmissionRequest, Long> {
     List<AdmissionRequest> findByStatusOrderByCreatedAtAsc(ApprovalStatus status);
+    long countByStatus(ApprovalStatus status);
     List<AdmissionRequest> findTop50ByStatusNotOrderByDecidedAtDesc(ApprovalStatus status);
     List<AdmissionRequest> findByCharacterIdOrderByCreatedAtDesc(Long characterId);
     List<AdmissionRequest> findTop20ByCharacterUserIdOrderByCreatedAtDesc(Long userId);

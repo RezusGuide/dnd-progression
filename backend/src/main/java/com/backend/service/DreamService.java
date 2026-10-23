@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -51,6 +52,11 @@ public class DreamService {
     private final CampaignRepository campaignRepository;
     private final DataRegistry data;
     private final ChestService chestService;
+    private final GmLogService gmLog;
+
+    private static final Map<DreamCase.Status, String> STATUS_RU = Map.of(
+            DreamCase.Status.DRAFT, "черновик", DreamCase.Status.ANNOUNCED, "заявлено", DreamCase.Status.OPEN, "открыто",
+            DreamCase.Status.CLEARED, "зачищено", DreamCase.Status.DISTORTED, "искажено");
 
     /** «№0012». */
     public static String caseNumber(int number) {
@@ -200,6 +206,10 @@ public class DreamService {
             if (in.immersionStage() < 0 || in.immersionStage() > DreamParticipation.MAX_STAGE) {
                 throw ApiException.badRequest("Стадия погружения — от 0 до 4.");
             }
+            if (p.getImmersionStage() != in.immersionStage()) {
+                gmLog.character("DREAM_STAGE", p.getCharacter(), "Дело " + caseNumber(p.getDream().getNumber())
+                        + ": стадия " + p.getImmersionStage() + " → " + in.immersionStage());
+            }
             p.setImmersionStage(in.immersionStage());
         }
         if (in.stageNote() != null) p.setStageNote(blank(in.stageNote()));
@@ -266,7 +276,12 @@ public class DreamService {
         changeStatus(d, in.status() == null ? fallback : status(in.status()));
     }
 
-    private static void changeStatus(DreamCase d, DreamCase.Status next) {
+    private void changeStatus(DreamCase d, DreamCase.Status next) {
+        DreamCase.Status before = d.getStatus();
+        if (before != next && d.getId() != null) {
+            gmLog.record("DREAM_STATUS", "DREAM", d.getId(), "Дело " + caseNumber(d.getNumber()),
+                    "Статус: " + STATUS_RU.get(before) + " → " + STATUS_RU.get(next));
+        }
         LocalDateTime now = LocalDateTime.now();
         switch (next) {
             case OPEN -> {

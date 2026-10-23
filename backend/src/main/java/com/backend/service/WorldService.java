@@ -38,6 +38,7 @@ public class WorldService {
     private static final Set<Status> VISIBLE = Set.of(Status.OPEN, Status.REDACTED);
 
     private final WorldArticleRepository repository;
+    private final GmLogService gmLog;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     // ── Players ──
@@ -77,22 +78,39 @@ public class WorldService {
     public GmArticle create(ArticleInput in, User gm) {
         WorldArticle a = new WorldArticle();
         apply(a, in, gm);
-        return forGm(repository.save(a));
+        WorldArticle saved = repository.save(a);
+        logStatus(gm, saved, null);
+        return forGm(saved);
     }
 
     @Transactional
     public GmArticle update(Long id, ArticleInput in, User gm) {
         WorldArticle a = find(id);
+        Status before = a.getStatus();
         apply(a, in, gm);
-        return forGm(repository.save(a));
+        WorldArticle saved = repository.save(a);
+        logStatus(gm, saved, before);
+        return forGm(saved);
     }
 
     @Transactional
     public GmArticle setStatus(Long id, String status, User gm) {
         WorldArticle a = find(id);
+        Status before = a.getStatus();
         changeStatus(a, status(status));
         a.setUpdatedBy(gm != null ? gm.getUsername() : null);
-        return forGm(repository.save(a));
+        WorldArticle saved = repository.save(a);
+        logStatus(gm, saved, before);
+        return forGm(saved);
+    }
+
+    private static final java.util.Map<Status, String> STATUS_RU =
+            java.util.Map.of(Status.HIDDEN, "скрыто", Status.REDACTED, "засекречено", Status.OPEN, "открыто");
+
+    private void logStatus(User gm, WorldArticle a, Status before) {
+        if (a.getStatus() == before) return;
+        gmLog.record(gm, "ARTICLE_STATUS", "ARTICLE", a.getId(), a.getTitle(),
+                (before == null ? "Новая статья: " : "Статус: " + STATUS_RU.get(before) + " → ") + STATUS_RU.get(a.getStatus()));
     }
 
     @Transactional

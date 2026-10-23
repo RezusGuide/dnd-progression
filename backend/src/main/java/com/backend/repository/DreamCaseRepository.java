@@ -15,4 +15,6 @@ public interface DreamCaseRepository extends JpaRepository<DreamCase, Long> {
     int maxNumber();
 
     boolean existsByNumber(Integer number);
+
+    long countByStatus(DreamCase.Status status);
 }

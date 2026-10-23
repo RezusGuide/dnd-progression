@@ -64,6 +64,7 @@ public class SpellResearchService {
     private final ResearchDraftV2Repository draftRepository;
     private final SpellRegistry spellRegistry;
     private final MagicData magic;
+    private final GmLogService gmLog;
     // Classic Jackson 2 for the TEXT columns, as elsewhere in this codebase.
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -291,7 +292,11 @@ public class SpellResearchService {
         note.setGmComment(gmComment == null || gmComment.isBlank() ? null : gmComment.strip());
         note.setDecidedAt(LocalDateTime.now());
         note.setDecidedBy(gm != null ? gm.getUsername() : null);
-        return toResponse(noteRepository.save(note));
+        ResearchNoteResponse out = toResponse(noteRepository.save(note));
+        String spell = out.getSpellNameRu() != null ? out.getSpellNameRu() : note.getSpellId();
+        gmLog.character(gm, status == ApprovalStatus.APPROVED ? "NOTE_APPROVED" : "NOTE_REJECTED", note.getCharacter(),
+                "Записка «" + spell + "»" + (note.getGmComment() != null ? ". Комментарий: " + note.getGmComment() : ""));
+        return out;
     }
 
     private ResearchNoteResponse toResponse(ResearchNote n) {
@@ -344,7 +349,9 @@ public class SpellResearchService {
         Character c = characterRepository.findById(characterId)
                 .orElseThrow(() -> ApiException.notFound("Личное дело не найдено."));
         c.getAspects().merge(aspect, amount, Integer::sum);
-        return Map.copyOf(characterRepository.save(c).getAspects());
+        Map<String, Integer> bag = Map.copyOf(characterRepository.save(c).getAspects());
+        gmLog.character("ASPECTS_GRANTED", c, magic.nameOf(aspect) + " × " + amount);
+        return bag;
     }
 
     /** +N of each primal aspect for a caster whose file the GM just approved. */

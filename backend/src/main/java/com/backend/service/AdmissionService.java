@@ -28,6 +28,7 @@ public class AdmissionService {
     private final AdmissionRequestRepository requestRepository;
     private final CharacterRepository characterRepository;
     private final SpellResearchService research;
+    private final GmLogService gmLog;
 
     public static boolean isGm(User user) {
         return user != null && user.isGm();
@@ -161,7 +162,11 @@ public class AdmissionService {
         r.setGmComment(blank(gmComment));
         r.setDecidedAt(LocalDateTime.now());
         r.setDecidedBy(gm != null ? gm.getUsername() : null);
-        return AdmissionRequestResponse.of(requestRepository.save(r));
+        AdmissionRequest saved = requestRepository.save(r);
+        String what = r.getType() == AdmissionType.LEVEL_UP ? "Повышение до " + r.getRequestedLevel() + " уровня" : "Личное дело";
+        gmLog.character(gm, status == ApprovalStatus.APPROVED ? "REQUEST_APPROVED" : "REQUEST_REJECTED", r.getCharacter(),
+                what + (r.getGmComment() != null ? ". Комментарий: " + r.getGmComment() : ""));
+        return AdmissionRequestResponse.of(saved);
     }
 
     private static String blank(String s) {

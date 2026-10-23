@@ -41,6 +41,7 @@ public class CharacterService {
     private final InventoryItemRepository inventoryItemRepository;
     private final com.backend.repository.DreamParticipationRepository dreamParticipationRepository;
     private final JdbcTemplate jdbcTemplate;
+    private final GmLogService gmLog;
     // Instantiated directly rather than injected - same reasoning as
     // SpellRegistry/CombatService: this project's
     // auto-configured Jackson bean is Jackson 3
@@ -204,6 +205,7 @@ public class CharacterService {
         Character character = characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         character.setEquipment(appendLine(character.getEquipment(), item));
+        gmLog.character("ITEM_GRANTED", character, item.strip());
         return characterRepository.save(character);
     }
 
@@ -218,6 +220,7 @@ public class CharacterService {
         Character character = characterRepository.findById(characterId)
                 .orElseThrow(() -> new RuntimeException("Личное дело не найдено."));
         character.setMaterials(appendLine(character.getMaterials(), material));
+        gmLog.character("MATERIAL_GRANTED", character, material.strip());
         return characterRepository.save(character);
     }
 
