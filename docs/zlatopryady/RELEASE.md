@@ -6,44 +6,35 @@
 
 1. Neon → проект → **Branches** → **Create branch** от `main` (production) на текущий момент. Имя, например, `backup-before-zlatopryady`.
 2. Запишите имя ветки и время.
-3. Как откатиться: взять строку подключения ветки бэкапа (**Connection details** → pooled) и подставить её в `DATABASE_URL` на Railway (раздел 8), либо восстановить `main` средствами Neon (**Restore** на момент до выпуска).
+3. Как откатиться: взять строку подключения ветки бэкапа (**Connection details** → pooled) и подставить её в `DATABASE_URL` в `.env.home` на ПК (раздел 8), либо восстановить `main` средствами Neon (**Restore** на момент до выпуска).
 
 Пока ветка бэкапа существует, её данные не меняются. Удалите её, только когда убедитесь, что выпуск прошёл хорошо (через неделю-другую).
 
-## 2. Переменные Railway (бэкенд)
+## 2. Бэкенд на домашнем ПК
 
-| Переменная | Что | Новая? |
-|---|---|---|
-| `DATABASE_URL` | pooled-строка Neon, `jdbc:postgresql://…/neondb?sslmode=require` | была |
-| `DATABASE_USERNAME` | пользователь Neon | была |
-| `DATABASE_PASSWORD` | пароль Neon | была |
-| `JWT_SECRET` | **Base64** от 32+ случайных байт: `openssl rand -base64 48`. Не значение из `application.properties`. | была, теперь **обязательна** |
-| `JWT_EXPIRATION` | срок токена в мс, по умолчанию сутки | была, необязательна |
-| `CORS_ALLOWED_ORIGINS` | адрес сайта на Vercel, например `https://zlatopryady.vercel.app` (через запятую, если адресов несколько). Без `localhost`. | была |
-| `SITE_URL` | тот же адрес сайта: ссылки в файлах `.ics` | **новая** |
-| `SPRING_PROFILES_ACTIVE` | `prod` | **новая** |
-| `PORT` | ставит Railway сам | — |
+Railway больше не используется: бэкенд работает на ПК ГМа и выходит в интернет через Tailscale Funnel. Установка, переменные (`.env.home`), запуск, автозапуск и Funnel — по шагам в [HOME-HOSTING.md](HOME-HOSTING.md).
 
-С `SPRING_PROFILES_ACTIVE=prod` бэкенд **не стартует**, если `JWT_SECRET` не задан или совпадает со значением по умолчанию, а также если `CORS_ALLOWED_ORIGINS` пуст или указывает на `localhost`. В логе будет строка `Production config is not safe to start with: …` с причиной.
+Коротко о переменных: те же, что были на Railway (`DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `JWT_SECRET`, `CORS_ALLOWED_ORIGINS`), плюс новые `SITE_URL` и `SPRING_PROFILES_ACTIVE=prod,home`. `JWT_SECRET` — обязательно Base64 и не значение по умолчанию: с профилем `prod` бэкенд иначе **не стартует** и пишет в лог `Production config is not safe to start with: …` с причиной. То же, если `CORS_ALLOWED_ORIGINS` пуст или указывает на `localhost`.
 
-Если `JWT_SECRET` меняется, все входы сбрасываются: игрокам нужно войти заново. Пароли не меняются.
+Если `JWT_SECRET` новый, все входы сбрасываются: игрокам нужно войти заново. Пароли не меняются.
 
-## 3. Мерж и деплой Railway
+## 3. Мерж и первый запуск
 
-1. На своей машине: `git checkout main`, `git merge zlatopryady`, проверить `./gradlew build` в `backend/` и `npm ci && npm test && npm run build` в `frontend/`.
-2. `git push`. Railway соберёт образ по `backend/Dockerfile`.
-3. Логи Railway после старта, по порядку должны быть:
+1. На ноутбуке: `git checkout main`, `git merge zlatopryady`, проверить `./gradlew build` в `backend/` и `npm ci && npm test && npm run build` в `frontend/`, затем `git push github main`.
+2. На ПК: `git checkout main`, `git pull`, затем `deploy\home\build.ps1` и `deploy\home\run.ps1` (HOME-HOSTING.md, шаг 4).
+3. Лог старта (`%LOCALAPPDATA%\zlatopryady\logs\backend.log`), по порядку должны быть:
    - `Started BackendApplication`;
    - `World: seeded 12 articles` (только при первом старте, пока таблица статей пуста);
    - если были старые персонажи: `Backfilled campaign rules: …` (руна, статус дела, кости хитов);
    - если в сумках были старые аспекты: `Removed N old aspect entries from character bags`;
    - **не должно быть** ошибок вида `null value in column … violates not-null constraint`. Снятие `NOT NULL` со старой колонки `known_spells.accuracy_percentage` выполняется при старте молча; если исследование потом падает с такой ошибкой, напишите мне.
 4. Новые таблицы `ddl-auto=update` создаст сам (список в разделе «Схема» ниже). Старые таблицы он не трогает.
+5. `deploy\home\funnel.ps1` и проверка `https://…ts.net/api/health` снаружи (HOME-HOSTING.md, шаг 5).
 
 ## 4. Деплой Vercel (фронтенд)
 
 1. Vercel соберёт `frontend/` после пуша.
-2. Проверить переменную **`VITE_API_URL`** = адрес бэкенда на Railway (`https://…up.railway.app`, без `/` в конце). Если меняли, пересобрать: переменные Vite вшиваются при сборке.
+2. Проверить переменную **`VITE_API_URL`** = адрес Funnel вашего ПК (`https://<пк>.<tailnet>.ts.net`, без `/` в конце). Если меняли, пересобрать: переменные Vite вшиваются при сборке.
 3. Прямой заход на любой адрес (`/gm/journal`, `/world/sunny`) должен открывать страницу: за это отвечает `frontend/vercel.json`.
 
 ## 5. Первичная настройка
@@ -79,10 +70,10 @@
 
 ## 8. Если что-то пошло не так
 
-1. **Railway:** Deployments → предыдущий успешный деплой → **Redeploy**. Старая версия работает и с новыми таблицами (она их не видит).
+1. **Бэкенд на ПК:** `deploy\home\stop.ps1`, затем запустить jar предыдущей версии: `build.ps1` сохраняет его как `%LOCALAPPDATA%\zlatopryady\app\backend.prev.jar` (команды — HOME-HOSTING.md, «Обновление сайта»). При самом первом выпуске прошлого jar на ПК ещё нет: соберите старую версию (`git checkout <коммит main до мержа>`, `build.ps1`). Старая версия работает и с новыми таблицами (она их не видит).
 2. **Vercel:** Deployments → предыдущий → **Promote to Production**.
-3. **База:** если данные испорчены, подставить в Railway `DATABASE_URL` ветки бэкапа (раздел 1) и перезапустить, либо восстановить `main` в Neon из бэкапа на момент до выпуска.
-4. Если откатывали код, верните `SPRING_PROFILES_ACTIVE` пустым: старая версия профиля `prod` не знает, но и не мешает.
+3. **База:** если данные испорчены, вписать в `.env.home` на ПК `DATABASE_URL` ветки бэкапа (раздел 1) и перезапустить бэкенд, либо восстановить `main` в Neon из бэкапа на момент до выпуска.
+4. Если откатывали код до версии без профиля `prod`, оставьте `SPRING_PROFILES_ACTIVE=prod,home` как есть: старая версия этих профилей не знает, но и не мешает. Только учтите, что без профиля `home` она будет слушать все адреса, а не только `127.0.0.1`.
 
 ## Схема: что добавляет ветка (против `main`)
 

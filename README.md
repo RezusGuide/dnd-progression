@@ -18,7 +18,7 @@
 
 ## Стек
 
-- `backend/`: Spring Boot 4 (Java 21), JWT, JPA (`ddl-auto=update`). Деплой на **Railway** по `backend/Dockerfile`.
+- `backend/`: Spring Boot 4 (Java 21), JWT, JPA (`ddl-auto=update`). Работает **на домашнем ПК ГМа** и выходит в интернет через Tailscale Funnel: [`docs/zlatopryady/HOME-HOSTING.md`](docs/zlatopryady/HOME-HOSTING.md). Для облака есть `backend/Dockerfile`.
 - `frontend/`: React 19 + Vite, react-markdown. Деплой на **Vercel**.
 - База: **Neon** Postgres. Тесты бэкенда идут на H2 в памяти и базу не трогают.
 
@@ -49,7 +49,7 @@ npm run dev
 
 Подробно, с переменными и откатом: [`docs/zlatopryady/RELEASE.md`](docs/zlatopryady/RELEASE.md).
 
-- **Railway:** Root Directory = `backend`. Переменные: `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `JWT_SECRET` (Base64), `CORS_ALLOWED_ORIGINS`, `SITE_URL`, `SPRING_PROFILES_ACTIVE=prod`. С профилем `prod` бэкенд не стартует без своего `JWT_SECRET` или с CORS на `localhost`.
+- **Бэкенд, домашний ПК:** скрипты `deploy/home/` (`check-env`, `build`, `run`, `status`, `stop`, `funnel`, автозапуск), настройки в `%LOCALAPPDATA%\zlatopryady\.env.home`: `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `JWT_SECRET` (Base64), `CORS_ALLOWED_ORIGINS`, `SITE_URL`, `SPRING_PROFILES_ACTIVE=prod,home`. С профилем `prod` бэкенд не стартует без своего `JWT_SECRET` или с CORS на `localhost`. Пока ПК выключен, сайт показывает «Контора закрыта».
 - **Vercel:** Root Directory = `frontend`, переменная `VITE_API_URL` = адрес бэкенда. `frontend/vercel.json` отвечает за клиентскую маршрутизацию.
 
 ## Доступ
