@@ -10,7 +10,7 @@ import '../../styles/chest.css'
 // Панель ГМ → «Сны»: cases, who is inside, immersion and form, trophies and
 // closing a case. GM notes stay here; players never receive them.
 
-const emptyCase = () => ({ id: null, title: '', summary: '', status: 'ANNOUNCED', campaignId: '', rewardSummary: '', gmNotes: '' })
+const emptyCase = () => ({ id: null, number: '', title: '', summary: '', status: 'DRAFT', campaignId: '', rewardSummary: '', gmNotes: '' })
 
 export default function AdminDreams() {
     const [dreams, setDreams] = useState(null)
@@ -52,7 +52,9 @@ export default function AdminDreams() {
         <section id="dreams" className="sheet-section admin-section">
             <div className="admin-section-head">
                 <h2 className="sheet-section-title">Сны</h2>
-                <Button onClick={() => setEditing(emptyCase())}>+ Новое дело</Button>
+                <Button onClick={() => api.get('/api/admin/dreams/next-number')
+                    .then((res) => setEditing({ ...emptyCase(), number: res.data.number }))
+                    .catch(() => setEditing(emptyCase()))}>+ Новое дело</Button>
             </div>
             {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
             {dreams && dreams.length === 0 && <EmptyState>Дел нет.</EmptyState>}
@@ -150,7 +152,7 @@ function CaseForm({ initial, campaigns, onCancel, onSaved }) {
     const set = (patch) => setForm((f) => ({ ...f, ...patch }))
     const save = async () => {
         setError('')
-        const body = { ...form, campaignId: form.campaignId ? Number(form.campaignId) : null }
+        const body = { ...form, number: form.number ? Number(form.number) : null, campaignId: form.campaignId ? Number(form.campaignId) : null }
         try {
             if (form.id) await api.put(`/api/admin/dreams/${form.id}`, body)
             else await api.post('/api/admin/dreams', body)
@@ -160,13 +162,16 @@ function CaseForm({ initial, campaigns, onCancel, onSaved }) {
         }
     }
     return (
-        <Modal title={form.id ? `Дело ${caseNumber(form.number)}` : 'Новое дело'} onClose={onCancel}
+        <Modal title={form.id ? `Дело ${caseNumber(initial.number)}` : 'Новое дело'} onClose={onCancel}
             actions={<><Button variant="ghost" onClick={onCancel}>Отмена</Button><Button onClick={save} disabled={!form.title.trim()}>Подшить</Button></>}>
+            <Field label="Номер дела" type="number" min="1" max="9999" value={form.number} onChange={(e) => set({ number: e.target.value })}
+                hint={form.id ? 'Номер можно поменять, если он свободен.' : 'Следующий по порядку подставлен сам. Можно начать со своего, например 13.'} />
             <Field label="Название дела" value={form.title} onChange={(e) => set({ title: e.target.value })}
                 hint="Только внутриигровое название. Не называйте произведение, на котором основан сон." />
             <Field label="Что известно сотрудникам" as="textarea" rows={4} value={form.summary} onChange={(e) => set({ summary: e.target.value })} />
             <div className="calendar-fields">
-                <Field label="Статус" as="select" value={form.status} onChange={(e) => set({ status: e.target.value })}>
+                <Field label="Статус" as="select" value={form.status} onChange={(e) => set({ status: e.target.value })}
+                    hint={form.status === 'DRAFT' ? 'Черновик игроки не видят.' : undefined}>
                     {Object.entries(STATUS).map(([k, l]) => <option key={k} value={k}>{l}</option>)}
                 </Field>
                 <Field label="Кампания" as="select" value={form.campaignId} onChange={(e) => set({ campaignId: e.target.value })}>

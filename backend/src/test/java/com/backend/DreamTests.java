@@ -56,16 +56,42 @@ class DreamTests {
     }
 
     private GmDream dream(Campaign campaign) {
-        return dreams.create(new DreamInput("Латунная дверь", "Сотрудники знают про дверь.", "OPEN",
+        return dreams.create(new DreamInput(null, "Латунная дверь", "Сотрудники знают про дверь.", "OPEN",
                 campaign != null ? campaign.getId() : null, "Трофеи по описи.", "Заметка ГМ: дверь ведёт в подвал"));
     }
 
     @Test
-    void numbersGoInOrder() {
+    void numbersGoInOrderOrFromWhereTheGmSays() {
         GmDream a = dream(null);
         GmDream b = dream(null);
         assertEquals(a.number() + 1, b.number());
         assertEquals("№0012", DreamService.caseNumber(12));
+
+        int start = dreams.nextNumber() + 100;
+        GmDream custom = dreams.create(new DreamInput(start, "Своя нумерация", null, null, null, null, null));
+        assertEquals(start, custom.number());
+        assertEquals("DRAFT", custom.status(), "a new case starts as a draft");
+        assertEquals(start + 1, dreams.nextNumber());
+        ApiException taken = assertThrows(ApiException.class,
+                () -> dreams.create(new DreamInput(start, "Дубль", null, null, null, null, null)));
+        assertEquals(409, taken.getStatus().value());
+        assertThrows(ApiException.class, () -> dreams.create(new DreamInput(0, "Ноль", null, null, null, null, null)));
+    }
+
+    @Test
+    void draftsAreInvisibleToPlayers() {
+        User anya = newPlayer("anya");
+        Campaign campaign = campaignRepository.save(Campaign.builder().name("Златопряды").owner(anya).build());
+        Character mirra = hero(anya, "Мирра", campaign);
+        GmDream draft = dreams.create(new DreamInput(null, "Черновик", "Секрет", null, campaign.getId(), null, null));
+        dreams.addParticipant(draft.id(), mirra.getId());
+        assertTrue(dreams.list(anya).stream().noneMatch(d -> d.id().equals(draft.id())));
+        assertThrows(ApiException.class, () -> dreams.get(draft.id(), anya));
+        assertTrue(dreams.current(mirra.getId(), anya).isEmpty());
+
+        // Announced: players see the announcement.
+        dreams.update(draft.id(), new DreamInput(null, "Анонс", "Скоро", "ANNOUNCED", campaign.getId(), null, null));
+        assertEquals("ANNOUNCED", dreams.get(draft.id(), anya).status());
     }
 
     @Test

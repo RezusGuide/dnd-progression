@@ -46,6 +46,12 @@ public class DreamController {
         return ResponseEntity.ok(dreams.all());
     }
 
+    // «Следующий номер дела»: max + 1, the default for a new case.
+    @GetMapping("/api/admin/dreams/next-number")
+    public ResponseEntity<Map<String, Integer>> nextNumber() {
+        return ResponseEntity.ok(Map.of("number", dreams.nextNumber()));
+    }
+
     @GetMapping("/api/admin/dreams/{id}")
     public ResponseEntity<GmDream> one(@PathVariable Long id) {
         return ResponseEntity.ok(dreams.one(id));

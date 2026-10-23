@@ -30,6 +30,7 @@
   transform: rotate(-4deg); white-space: nowrap;
 }
 .dream-folder > .dream-stamp { position: absolute; top: 0.8rem; right: 0.8rem; }
+.dream-stamp.is-draft { color: var(--text-muted); border-style: dashed; }
 .dream-stamp.is-announced { color: var(--text-muted); }
 .dream-stamp.is-open { color: var(--accent); }
 .dream-stamp.is-cleared { color: var(--success); }

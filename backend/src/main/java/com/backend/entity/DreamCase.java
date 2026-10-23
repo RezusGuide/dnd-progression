@@ -19,14 +19,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DreamCase {
 
-    // Заявлено, Открыто, Зачищено, Искажено.
-    public enum Status { ANNOUNCED, OPEN, CLEARED, DISTORTED }
+    // Черновик (players never see it), Заявлено, Открыто, Зачищено, Искажено.
+    public enum Status { DRAFT, ANNOUNCED, OPEN, CLEARED, DISTORTED }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Given in order, never reused.
+    // Unique. By default max + 1; the GM may pick another (to continue an
+    // existing numbering, e.g. from 13).
     @Column(nullable = false, unique = true)
     private Integer number;
 
@@ -40,7 +41,7 @@ public class DreamCase {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     @Builder.Default
-    private Status status = Status.ANNOUNCED;
+    private Status status = Status.DRAFT;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

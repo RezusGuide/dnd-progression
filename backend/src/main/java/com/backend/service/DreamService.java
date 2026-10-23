@@ -69,6 +69,7 @@ public class DreamService {
                 .flatMap(c -> participationRepository.findByCharacterId(c.getId()).stream())
                 .map(p -> p.getDream().getId()).collect(Collectors.toSet());
         return dreamRepository.findAllByOrderByNumberDesc().stream()
+                .filter(d -> d.getStatus() != DreamCase.Status.DRAFT)
                 .filter(d -> joined.contains(d.getId()) || (d.getCampaign() != null && campaigns.contains(d.getCampaign().getId())))
                 .map(d -> forPlayer(d, user)).toList();
     }
@@ -124,19 +125,34 @@ public class DreamService {
         return forGm(find(id));
     }
 
+    /** «Следующий номер дела»: the GM may start from any number, e.g. 13. */
+    @Transactional(readOnly = true)
+    public int nextNumber() {
+        return dreamRepository.maxNumber() + 1;
+    }
+
     @Transactional
     public GmDream create(DreamInput in) {
         DreamCase d = new DreamCase();
-        d.setNumber(dreamRepository.maxNumber() + 1);
-        apply(d, in);
+        d.setNumber(number(in.number() != null ? in.number() : nextNumber(), null));
+        apply(d, in, DreamCase.Status.DRAFT);
         return forGm(dreamRepository.save(d));
     }
 
     @Transactional
     public GmDream update(Long id, DreamInput in) {
         DreamCase d = find(id);
-        apply(d, in);
+        if (in.number() != null && !in.number().equals(d.getNumber())) d.setNumber(number(in.number(), d.getId()));
+        apply(d, in, d.getStatus());
         return forGm(dreamRepository.save(d));
+    }
+
+    private int number(int n, Long self) {
+        if (n < 1 || n > 9999) throw ApiException.badRequest("Номер дела — от 1 до 9999.");
+        if (dreamRepository.existsByNumber(n) && (self == null || !find(self).getNumber().equals(n))) {
+            throw ApiException.conflict("Дело " + caseNumber(n) + " уже есть.");
+        }
+        return n;
     }
 
     @Transactional
@@ -238,7 +254,7 @@ public class DreamService {
         return dreamRepository.findById(id).orElseThrow(() -> ApiException.notFound("Дело не найдено."));
     }
 
-    private void apply(DreamCase d, DreamInput in) {
+    private void apply(DreamCase d, DreamInput in, DreamCase.Status fallback) {
         String title = blank(in.title());
         if (title == null) throw ApiException.badRequest("Укажите название дела.");
         d.setTitle(title);
@@ -247,7 +263,7 @@ public class DreamService {
         d.setGmNotes(blank(in.gmNotes()));
         d.setCampaign(in.campaignId() == null ? null : campaignRepository.findById(in.campaignId())
                 .orElseThrow(() -> ApiException.notFound("Кампания не найдена.")));
-        changeStatus(d, in.status() == null ? (d.getStatus() != null ? d.getStatus() : DreamCase.Status.ANNOUNCED) : status(in.status()));
+        changeStatus(d, in.status() == null ? fallback : status(in.status()));
     }
 
     private static void changeStatus(DreamCase d, DreamCase.Status next) {
@@ -261,7 +277,7 @@ public class DreamService {
                 if (d.getStatus() != next || d.getClosedAt() == null) d.setClosedAt(now);
                 if (d.getOpenedAt() == null) d.setOpenedAt(now);
             }
-            case ANNOUNCED -> d.setClosedAt(null);
+            case DRAFT, ANNOUNCED -> d.setClosedAt(null);
         }
         d.setStatus(next);
     }

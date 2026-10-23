@@ -13,4 +13,6 @@ public interface DreamCaseRepository extends JpaRepository<DreamCase, Long> {
 
     @Query("select coalesce(max(d.number), 0) from DreamCase d")
     int maxNumber();
+
+    boolean existsByNumber(Integer number);
 }

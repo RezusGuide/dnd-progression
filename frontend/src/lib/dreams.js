@@ -6,6 +6,7 @@ import api from '../api/axios'
 // GM can change them in the archive.
 
 export const STATUS = {
+    DRAFT: 'Черновик',
     ANNOUNCED: 'Заявлено',
     OPEN: 'Открыто',
     CLEARED: 'Зачищено',

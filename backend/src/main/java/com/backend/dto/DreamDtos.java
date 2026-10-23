@@ -35,7 +35,8 @@ public final class DreamDtos {
                                 LocalDateTime joinedAt, LocalDateTime leftAt) {
     }
 
-    public record DreamInput(String title, String summary, String status, Long campaignId,
+    /** number: null takes the next one (max + 1). */
+    public record DreamInput(Integer number, String title, String summary, String status, Long campaignId,
                              String rewardSummary, String gmNotes) {
     }
 
