@@ -19,7 +19,8 @@ import java.util.regex.Pattern;
  * With the prod profile (Railway sets SPRING_PROFILES_ACTIVE=prod) the app
  * refuses to start on a development setup: JWT_SECRET missing or equal to
  * the default in application.properties, CORS_ALLOWED_ORIGINS empty or
- * pointing at localhost.
+ * pointing at localhost, or a placeholder from .env.home.example (a value
+ * with < or >) left in JWT_SECRET, CORS_ALLOWED_ORIGINS or SITE_URL.
  */
 @Slf4j
 @Component
@@ -37,9 +38,12 @@ public class ProdConfigCheck implements InitializingBean {
     @Value("${cors.allowed-origins:}")
     private String corsOrigins;
 
+    @Value("${app.site-url:}")
+    private String siteUrl;
+
     @Override
     public void afterPropertiesSet() {
-        List<String> problems = problems(envSecret, jwtSecret, defaultSecret(), corsOrigins);
+        List<String> problems = problems(envSecret, jwtSecret, defaultSecret(), corsOrigins, siteUrl);
         if (!problems.isEmpty()) {
             String message = "Production config is not safe to start with: " + String.join("; ", problems);
             log.error(message);
@@ -48,8 +52,11 @@ public class ProdConfigCheck implements InitializingBean {
         log.info("Production config check passed");
     }
 
-    static List<String> problems(String envSecret, String jwtSecret, String defaultSecret, String corsOrigins) {
+    static List<String> problems(String envSecret, String jwtSecret, String defaultSecret, String corsOrigins, String siteUrl) {
         List<String> out = new ArrayList<>();
+        placeholder(out, "JWT_SECRET", envSecret);
+        placeholder(out, "CORS_ALLOWED_ORIGINS", corsOrigins);
+        placeholder(out, "SITE_URL", siteUrl);
         if (envSecret == null || envSecret.isBlank()) {
             out.add("JWT_SECRET is not set");
         } else if (defaultSecret != null && !defaultSecret.isBlank() && defaultSecret.equals(jwtSecret)) {
@@ -65,6 +72,12 @@ public class ProdConfigCheck implements InitializingBean {
             }
         }
         return out;
+    }
+
+    private static void placeholder(List<String> out, String name, String value) {
+        if (value != null && (value.contains("<") || value.contains(">"))) {
+            out.add("В настройках осталась заглушка из шаблона: " + name);
+        }
     }
 
     /** The fallback written in application.properties, read rather than copied here. */

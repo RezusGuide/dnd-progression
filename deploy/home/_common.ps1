@@ -14,6 +14,12 @@ $script:RunLog    = Join-Path $LogDir 'run.log'
 $script:AppLog    = Join-Path $LogDir 'backend.log'
 $script:RepoRoot  = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $script:HealthUrl = 'http://127.0.0.1:8080/api/health'
+# Каждый работающий run.ps1 кладёт сюда файл со своим PID; stop.ps1 ставит
+# флаг остановки, увидев который run.ps1 не перезапускает сервер.
+$script:RunDir    = Join-Path $HomeDir 'run'
+$script:StopFlag  = Join-Path $RunDir 'stop.flag'
+$script:MutexName = 'ZlatopryadyBackend'
+$script:Port      = 8080
 
 function Write-RunLog([string]$Message) {
     # Строка и в консоль, и в run.log (без паролей: сюда пишем только события).
@@ -83,4 +89,33 @@ function Get-BackendProcess {
     # Java-процессы, запущенные с нашим backend.jar.
     Get-CimInstance Win32_Process -Filter "Name = 'java.exe' OR Name = 'javaw.exe'" |
         Where-Object { $_.CommandLine -and $_.CommandLine -like "*$JarPath*" }
+}
+
+function Get-RunProcesses {
+    # Все живые run.ps1: по PID-файлам (видно и запущенные прямо в окне
+    # PowerShell) и по командной строке (запущенные через -File).
+    $found = @{}
+    if (Test-Path $RunDir) {
+        Get-ChildItem $RunDir -Filter '*.pid' | ForEach-Object {
+            $procId = 0
+            if ([int]::TryParse($_.BaseName, [ref]$procId)) {
+                $proc = Get-CimInstance Win32_Process -Filter "ProcessId = $procId" -ErrorAction SilentlyContinue
+                if ($proc -and $proc.Name -match '^(powershell|pwsh)\.exe$') { $found[$procId] = $proc }
+                else { Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue }
+            }
+        }
+    }
+    Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe' OR Name = 'pwsh.exe'" |
+        Where-Object { $_.CommandLine -and $_.CommandLine -match '(?i)deploy[\\/]home[\\/]run\.ps1' } |
+        ForEach-Object { $found[[int]$_.ProcessId] = $_ }
+    return $found.Values | Where-Object { $_.ProcessId -ne $PID }
+}
+
+function Test-PortBusy([int]$PortNumber = $Port) {
+    [bool](Get-NetTCPConnection -LocalPort $PortNumber -State Listen -ErrorAction SilentlyContinue)
+}
+
+function Find-Placeholders($Vars) {
+    # Значения с < или > - это заглушки из .env.home.example, их забыли заменить.
+    $Vars.Keys | Where-Object { $Vars[$_] -match '[<>]' }
 }

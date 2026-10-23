@@ -16,22 +16,31 @@ class ProdConfigCheckTests {
 
     @Test
     void aProperSetupPasses() {
-        assertEquals(List.of(), ProdConfigCheck.problems("real-secret", "real-secret", DEFAULT, "https://site.example"));
+        assertEquals(List.of(), ProdConfigCheck.problems("real-secret", "real-secret", DEFAULT, "https://site.example", "https://site.example"));
     }
 
     @Test
     void missingOrDefaultSecretFails() {
-        assertTrue(ProdConfigCheck.problems("", DEFAULT, DEFAULT, "https://site.example").get(0).contains("JWT_SECRET is not set"));
-        assertTrue(ProdConfigCheck.problems(null, DEFAULT, DEFAULT, "https://site.example").get(0).contains("not set"));
-        assertTrue(ProdConfigCheck.problems(DEFAULT, DEFAULT, DEFAULT, "https://site.example").get(0).contains("development default"));
+        assertTrue(ProdConfigCheck.problems("", DEFAULT, DEFAULT, "https://site.example", "https://site.example").get(0).contains("JWT_SECRET is not set"));
+        assertTrue(ProdConfigCheck.problems(null, DEFAULT, DEFAULT, "https://site.example", "https://site.example").get(0).contains("not set"));
+        assertTrue(ProdConfigCheck.problems(DEFAULT, DEFAULT, DEFAULT, "https://site.example", "https://site.example").get(0).contains("development default"));
     }
 
     @Test
     void localOrEmptyCorsFails() {
-        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "").get(0).contains("empty"));
-        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "https://site.example,http://localhost:5173").get(0).contains("localhost"));
-        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "http://127.0.0.1:5173").get(0).contains("localhost"));
-        assertEquals(2, ProdConfigCheck.problems(null, null, DEFAULT, null).size());
+        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "", "https://site.example").get(0).contains("empty"));
+        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "https://site.example,http://localhost:5173", "https://site.example").get(0).contains("localhost"));
+        assertTrue(ProdConfigCheck.problems("s", "s", DEFAULT, "http://127.0.0.1:5173", "https://site.example").get(0).contains("localhost"));
+        assertEquals(2, ProdConfigCheck.problems(null, null, DEFAULT, null, "https://site.example").size());
+    }
+
+    @Test
+    void placeholdersFromTheTemplateFail() {
+        List<String> p = ProdConfigCheck.problems("s", "s", DEFAULT, "https://<сайт>.vercel.app", "https://<сайт>.vercel.app");
+        assertTrue(p.contains("В настройках осталась заглушка из шаблона: CORS_ALLOWED_ORIGINS"), p.toString());
+        assertTrue(p.contains("В настройках осталась заглушка из шаблона: SITE_URL"), p.toString());
+        assertEquals(List.of("В настройках осталась заглушка из шаблона: JWT_SECRET"),
+                ProdConfigCheck.problems("<Base64-строка>", "<Base64-строка>", DEFAULT, "https://site.example", "https://site.example"));
     }
 
     @Test

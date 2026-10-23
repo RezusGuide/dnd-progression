@@ -2,6 +2,8 @@
 # только смотрит и подсказывает, что установить.
 #   powershell -ExecutionPolicy Bypass -File deploy\home\check-env.ps1
 
+param([string]$EnvFile)
+
 . "$PSScriptRoot\_common.ps1"
 $ErrorActionPreference = 'Continue'
 $ok = $true
@@ -43,8 +45,15 @@ if ($busy) {
 }
 
 Write-Host '== Настройки'
-if (Test-Path $DefaultEnvFile) { Write-Host "   $DefaultEnvFile есть" }
-else { Write-Host "   $DefaultEnvFile ещё нет. Скопируйте туда deploy\home\.env.home.example и заполните." }
+if (-not $EnvFile) { $EnvFile = $DefaultEnvFile }
+if (Test-Path $EnvFile) {
+    Write-Host "   $EnvFile есть"
+    $stubs = @(Find-Placeholders (Read-EnvFile $EnvFile))
+    foreach ($name in $stubs) { $ok = $false; Write-Host "   ОШИБКА. В настройках осталась заглушка из шаблона: $name" }
+    if (-not $stubs.Count) { Write-Host '   заглушек из шаблона нет' }
+} else {
+    Write-Host "   $EnvFile ещё нет. Скопируйте туда deploy\home\.env.home.example и заполните."
+}
 
 Write-Host ''
-if ($ok) { Write-Host 'Всё нужное на месте.' } else { Write-Host 'Чего-то не хватает: см. строки «НЕТ» и «ЗАНЯТ» выше.' }
+if ($ok) { Write-Host 'Всё нужное на месте.' } else { Write-Host 'Чего-то не хватает: см. строки «НЕТ», «ЗАНЯТ» и «ОШИБКА» выше.' }
