@@ -19,6 +19,7 @@ export default function PollPage() {
     const [poll, setPoll] = useState(null)
     const [loadError, setLoadError] = useState(null)
     const [confirm, setConfirm] = useState(null) // window to schedule
+    const [cancelling, setCancelling] = useState(false)
     const [notice, setNotice] = useState('')
     const [error, setError] = useState('')
 
@@ -50,6 +51,18 @@ export default function PollPage() {
         }
     }
 
+    const cancel = async () => {
+        setError('')
+        try {
+            await api.post(`/api/polls/${poll.id}/cancel`)
+            setNotice('Подбор отменён.')
+            refresh()
+        } catch (err) {
+            setError(err.response?.data?.message || 'Не отменилось. Повторите.')
+        }
+        setCancelling(false)
+    }
+
     const dateText = (d) => new Date(`${d}T00:00:00`).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
     return (
         <div className="parchment-page calendar-page">
@@ -61,6 +74,9 @@ export default function PollPage() {
                 {notice && <p className="tome-notice" role="status">{notice}</p>}
                 {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
 
+                {gm && poll.status === 'OPEN' && (
+                    <div className="calendar-actions"><Button variant="secondary" onClick={() => setCancelling(true)}>Отменить подбор</Button></div>
+                )}
                 <p className="calendar-help">Время показано по вашему поясу: {cityName(zone)}.</p>
                 <p className="calendar-people-line">
                     {poll.participants.map((p) => (
@@ -110,6 +126,12 @@ export default function PollPage() {
                         {confirm.local.map((l) => <li key={l.userId}>{l.username} · {cityName(l.timezone)} {localClock(l.start)}–{localClock(l.end)}</li>)}
                     </ul>
                     <p className="calendar-help">Подбор закроется, на доске появится объявление, в Приёмной — отсчёт.</p>
+                </Modal>
+            )}
+            {cancelling && (
+                <Modal title="Отменить подбор" onClose={() => setCancelling(false)}
+                    actions={<><Button variant="ghost" onClick={() => setCancelling(false)}>Не отменять</Button><Button variant="danger" onClick={cancel}>Отменить подбор</Button></>}>
+                    <p>Подбор «{poll.title}» закроется без сессии. Участники увидят его в списке как отменённый.</p>
                 </Modal>
             )}
         </div>

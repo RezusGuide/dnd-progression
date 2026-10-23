@@ -385,6 +385,17 @@ public class CalendarService {
                 "SUMMARY:" + escape(s.getTitle()),
                 "DESCRIPTION:" + escape(description),
                 "URL:" + site + "/calendar",
+                // Reminders come from the player's own calendar, not from the server.
+                "BEGIN:VALARM",
+                "TRIGGER:-PT24H",
+                "ACTION:DISPLAY",
+                "DESCRIPTION:" + escape("Сессия через сутки: " + s.getTitle()),
+                "END:VALARM",
+                "BEGIN:VALARM",
+                "TRIGGER:-PT1H",
+                "ACTION:DISPLAY",
+                "DESCRIPTION:" + escape("Сессия через час: " + s.getTitle()),
+                "END:VALARM",
                 "END:VEVENT",
                 "END:VCALENDAR");
         StringBuilder out = new StringBuilder();

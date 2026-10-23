@@ -61,6 +61,7 @@
 .calendar-status.is-open { color: var(--accent-text); }
 .calendar-status.is-scheduled { color: var(--success); }
 .calendar-status.is-cancelled { color: var(--text-muted); }
+.calendar-poll.is-cancelled { opacity: 0.6; filter: grayscale(1); }
 .calendar-people-line { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; }
 .calendar-person { padding: 0.15rem 0.6rem; border: 1px solid var(--border-strong); border-radius: 1rem; font-size: 0.9rem; }
 .calendar-person.is-missing { border-style: dashed; color: var(--text-muted); }

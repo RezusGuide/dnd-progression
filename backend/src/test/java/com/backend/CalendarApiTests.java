@@ -118,7 +118,9 @@ class CalendarApiTests {
         assertTrue(ics.contains("\r\nDTEND:20261024T170000Z\r\n"));
         assertTrue(ics.contains("\r\nSUMMARY:Сессия 13\r\n"));
         assertTrue(ics.contains("DESCRIPTION:"));
-        assertTrue(ics.endsWith("END:VEVENT\r\nEND:VCALENDAR\r\n"));
+        assertTrue(ics.contains("\r\nBEGIN:VALARM\r\nTRIGGER:-PT24H\r\nACTION:DISPLAY\r\n"));
+        assertTrue(ics.contains("\r\nBEGIN:VALARM\r\nTRIGGER:-PT1H\r\nACTION:DISPLAY\r\n"));
+        assertTrue(ics.endsWith("END:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"));
         for (String line : ics.split("\r\n")) {
             assertTrue(line.getBytes(StandardCharsets.UTF_8).length <= 75, line);
         }
