@@ -1,0 +1,91 @@
+/* «Мир»: the archive card index, articles, censorship, the GM editor. */
+
+.world-body { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 1.6rem; }
+.world-search { display: grid; gap: 0.3rem; max-width: 26rem; }
+.world-search .sheet-input { min-height: 40px; padding: 0.35rem 0.6rem; font-size: 1rem; }
+
+/* ── Drawers ── */
+.world-drawer { position: relative; padding: 1.4rem 1rem 1rem; background: var(--surface-sunken); border: 1px solid var(--border-strong); box-shadow: inset 0 6px 0 rgba(18, 32, 58, 0.06); }
+.world-drawer-label {
+  position: absolute; top: -0.85rem; left: 1rem; margin: 0;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.15rem 0.8rem; background: var(--surface-card); border: 1px solid var(--border-strong);
+  font-family: var(--font-label); font-size: 0.85rem; font-weight: 600; letter-spacing: var(--label-spacing); text-transform: uppercase;
+}
+.world-drawer-count { font-family: var(--font-mono); color: var(--text-muted); font-weight: 400; }
+.world-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0.8rem; }
+
+.world-card {
+  position: relative; display: flex; flex-direction: column; gap: 0.35rem; min-height: 7.5rem;
+  padding: 0.9rem 1rem 0.8rem; background: var(--surface-card); border: 1px solid var(--border); border-top: 4px solid var(--border-strong);
+  color: inherit; text-decoration: none; box-shadow: 0 2px 6px var(--shadow-color); transition: transform 0.15s;
+}
+.world-card:hover { transform: translateY(-2px); }
+.world-card:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.world-card-title { font-family: var(--font-label); font-weight: 600; font-size: 1.1rem; letter-spacing: 0.02em; }
+.world-card-teaser { color: var(--text-muted); font-size: 0.95rem; line-height: 1.4; }
+.world-card-caption { font-size: 0.85rem; font-style: italic; color: var(--text-muted); margin: 0.25rem 0 0; }
+.world-card.is-redacted { border-top-color: var(--stamp); overflow: hidden; }
+
+.world-plaque {
+  align-self: flex-start; width: fit-content; margin: 0.2rem 0 0.4rem; padding: 0.05rem 0.5rem;
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--success); border: 1px solid currentColor; white-space: nowrap;
+}
+
+/* ── Censorship ── */
+.redacted { position: relative; display: flex; flex-direction: column; gap: 0.45rem; padding: 0.35rem 0; }
+.redacted-bar { display: block; height: 0.95rem; background: #0d0f14; }
+.redacted-stamp {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-8deg);
+  padding: 0.1rem 0.6rem; border: 3px double var(--stamp); color: var(--stamp); background: color-mix(in srgb, var(--surface-card) 80%, transparent);
+  font-family: var(--font-mono); font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+}
+
+/* ── Article ── */
+.world-article { padding: 1.2rem 1.4rem; }
+.world-teaser { font-style: italic; color: var(--text-muted); margin: 0 0 0.9rem; }
+.md { line-height: 1.6; }
+.md > :first-child { margin-top: 0; }
+.md p, .md ul, .md ol { margin: 0 0 0.85rem; }
+.md ul, .md ol { padding-left: 1.4rem; }
+.md h1, .md h2, .md h3, .md h4 { font-family: var(--font-label); letter-spacing: 0.03em; margin: 1.2rem 0 0.5rem; }
+.md blockquote { margin: 0 0 0.9rem; padding: 0.2rem 0 0.2rem 0.9rem; border-left: 3px solid var(--border-strong); color: var(--text-muted); }
+.md code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface-sunken); padding: 0 0.25rem; }
+.md-table-wrap { overflow-x: auto; margin: 0 0 0.9rem; }
+.md table { border-collapse: collapse; min-width: 60%; }
+.md th, .md td { border: 1px solid var(--border-strong); padding: 0.35rem 0.6rem; text-align: left; vertical-align: top; }
+.md th { font-family: var(--font-label); letter-spacing: 0.04em; background: var(--surface-sunken); }
+.md a, .wiki-link { color: var(--accent-text); text-decoration: underline; text-underline-offset: 2px; }
+.md-img-alt { color: var(--text-muted); font-style: italic; }
+.wiki-missing del { color: var(--text-muted); }
+.wiki-missing-note { font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--stamp); border: 1px solid currentColor; padding: 0 0.3rem; white-space: nowrap; }
+
+/* ── Reception ── */
+.reception-archive-item { display: block; color: inherit; text-decoration: none; }
+.reception-archive-item:hover .reception-news-title { text-decoration: underline; }
+.reception-archive-teaser { color: var(--text-muted); font-size: 0.95rem; }
+
+/* ── GM ── */
+.admin-section { scroll-margin-top: 84px; }
+.admin-section-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
+.admin-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+.admin-filters .sheet-input { width: auto; min-width: 10rem; }
+.world-slug { display: block; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); font-weight: 400; }
+.world-status { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.world-status.is-open { color: var(--success); }
+.world-status.is-redacted { color: var(--stamp); }
+.world-status.is-hidden { color: var(--text-muted); }
+.world-admin-table .chest-actions { white-space: normal; }
+.world-editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--border-strong); }
+.world-editor-form textarea { font-family: var(--font-mono); font-size: 0.9rem; }
+.world-preview { position: sticky; top: 5rem; align-self: start; display: flex; flex-direction: column; gap: 0.5rem; }
+.world-preview-title { font-family: var(--font-label); font-size: 1.3rem; margin: 0 0 0.4rem; }
+
+@media (max-width: 860px) {
+  .world-editor { grid-template-columns: minmax(0, 1fr); }
+  .world-preview { position: static; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .world-card { transition: none; }
+}
+.world-article .redacted-stamp { font-size: 1.5rem; padding: 0.15rem 0.9rem; }

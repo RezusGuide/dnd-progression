@@ -15,6 +15,15 @@ function sessionToken() {
     }
 }
 
+// Статусы рас и классов в «Справочнике» (prompts/05b-allowed-options.md).
+export const OPTION_STATUS_LABELS = {
+    allowed: 'Доступно',
+    unlockable: 'Откроется позже',
+    undecided: 'Не решено',
+    closed: 'Закрыто: только форма во сне',
+    npc_only: 'Только для НИП',
+}
+
 export function loadRefData(name) {
     const key = `${name}|${sessionToken()}`
     if (!cache[key]) {

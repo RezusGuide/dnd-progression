@@ -12,10 +12,10 @@ import '../../styles/chest.css'
 // sees), the list of sent parcels, and the item library. The riddle answer
 // goes to the server once and is never shown again.
 
-const emptyItem = () => ({ name: '', rarity: 'COMMON', description: '', quantity: 1 })
-const emptyForm = () => ({
-    mode: 'characters', characterIds: [], campaignId: '',
-    title: '', gmNote: '',
+const emptyItem = () => ({ name: '', rarity: 'COMMON', description: '', quantity: 1, disassembleInto: {} })
+const emptyForm = (trophy) => ({
+    mode: 'characters', characterIds: trophy ? trophy.participants.map((p) => p.characterId) : [], campaignId: '',
+    title: trophy ? `Трофей из Дела ${trophy.caseNo}` : '', gmNote: '',
     aspects: {}, coins: {}, items: [],
     riddleQuestion: '', riddleAnswer: '', penalty: 'NONE',
 })
@@ -46,9 +46,12 @@ export default function AdminChest() {
     )
 }
 
-function RewardForm({ characters, campaigns, templates, onSent }) {
+// trophy: { dreamId, caseNo, participants: [{ characterId, characterName }] }
+// turns the form into «Выдать трофей»: recipients are the dream's
+// participants and items get «Разбирается на».
+export function RewardForm({ characters, campaigns, templates, onSent, trophy }) {
     const [magic] = useMagicData()
-    const [form, setForm] = useState(emptyForm)
+    const [form, setForm] = useState(() => emptyForm(trophy))
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState('')
     const [notice, setNotice] = useState('')
@@ -57,7 +60,10 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
     const contents = {
         aspects: Object.fromEntries(Object.entries(form.aspects).filter(([, n]) => Number(n) > 0).map(([k, n]) => [k, Number(n)])),
         coins: Object.fromEntries(Object.entries(form.coins).filter(([, n]) => Number(n) > 0).map(([k, n]) => [k, Number(n)])),
-        items: form.items.filter((i) => i.name.trim()).map((i) => ({ ...i, name: i.name.trim(), quantity: Number(i.quantity) || 1 })),
+        items: form.items.filter((i) => i.name.trim()).map((i) => ({
+            ...i, name: i.name.trim(), quantity: Number(i.quantity) || 1,
+            disassembleInto: Object.fromEntries(Object.entries(i.disassembleInto || {}).filter(([, n]) => Number(n) > 0).map(([k, n]) => [k, Number(n)])),
+        })),
     }
     const recipients = form.mode === 'campaign' ? (form.campaignId ? 1 : 0) : form.characterIds.length
     const ready = form.title.trim() && !isEmptyContents(contents) && recipients > 0
@@ -69,7 +75,7 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
     const setItem = (i, patch) => set({ items: form.items.map((it, j) => (j === i ? { ...it, ...patch } : it)) })
     const addTemplate = (id) => {
         const t = templates.find((x) => String(x.id) === id)
-        if (t) set({ items: [...form.items, { name: t.name, rarity: t.rarity, description: t.description || '', quantity: 1 }] })
+        if (t) set({ items: [...form.items, { name: t.name, rarity: t.rarity, description: t.description || '', quantity: 1, disassembleInto: {} }] })
     }
 
     const submit = async (e) => {
@@ -78,15 +84,15 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
         setError('')
         setNotice('')
         try {
-            const res = await api.post('/api/admin/chest', {
+            const res = await api.post(trophy ? `/api/admin/dreams/${trophy.dreamId}/trophy` : '/api/admin/chest', {
                 characterIds: form.mode === 'characters' ? form.characterIds : [],
                 campaignId: form.mode === 'campaign' ? Number(form.campaignId) : null,
                 title: form.title, gmNote: form.gmNote, contents,
                 riddleQuestion: form.riddleQuestion, riddleAnswer: form.riddleAnswer,
                 penalty: form.riddleQuestion.trim() ? form.penalty : 'NONE',
             })
-            setNotice(`Посылки отправлены: ${res.data.length}. Сундучок принял.`)
-            setForm(emptyForm())
+            setNotice(trophy ? `Трофей отправлен: ${res.data.length}. Сундучок принял.` : `Посылки отправлены: ${res.data.length}. Сундучок принял.`)
+            setForm(emptyForm(trophy))
             onSent()
         } catch (err) {
             setError(err.response?.data?.message || 'Посылка не ушла. Повторите.')
@@ -98,10 +104,21 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
     return (
         <div className="chest-gm-layout">
             <form className="tome-form codex-form chest-gm-form" onSubmit={submit}>
-                <h3 className="tome-field-label">Новая посылка</h3>
+                {!trophy && <h3 className="tome-field-label">Новая посылка</h3>}
 
                 <fieldset className="chest-fieldset">
                     <legend className="sheet-label">Получатели</legend>
+                    {trophy ? (
+                        <div className="chest-recipients">
+                            {trophy.participants.length === 0 && <p className="research-note">В деле никого нет.</p>}
+                            {trophy.participants.map((p) => (
+                                <label key={p.characterId} className="wiz-skill">
+                                    <input type="checkbox" checked={form.characterIds.includes(p.characterId)} onChange={() => toggleCharacter(p.characterId)} />
+                                    <span>{p.characterName}</span>
+                                </label>
+                            ))}
+                        </div>
+                    ) : (<>
                     <div className="chest-mode">
                         <label className="wiz-skill"><input type="radio" name="chest-mode" checked={form.mode === 'characters'} onChange={() => set({ mode: 'characters' })} /> <span>Персонажи</span></label>
                         <label className="wiz-skill"><input type="radio" name="chest-mode" checked={form.mode === 'campaign'} onChange={() => set({ mode: 'campaign' })} /> <span>Кампания (всем одобренным)</span></label>
@@ -121,6 +138,7 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
                             {campaigns.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                         </select>
                     )}
+                    </>)}
                 </fieldset>
 
                 <Field label="Название" value={form.title} onChange={(e) => set({ title: e.target.value })} placeholder="Латунный ключ" />
@@ -165,6 +183,10 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
                             <Button variant="ghost" onClick={() => set({ items: form.items.filter((_, j) => j !== i) })}>Убрать</Button>
                             <textarea className="sheet-input sheet-textarea chest-item-desc" rows={2} aria-label="Описание предмета" placeholder="Описание"
                                 value={item.description} onChange={(e) => setItem(i, { description: e.target.value })} />
+                            {trophy && magic && (
+                                <AspectPicker label="Разбирается на" aspects={magic.aspects} value={item.disassembleInto || {}}
+                                    onChange={(v) => setItem(i, { disassembleInto: v })} />
+                            )}
                         </div>
                     ))}
                     <div className="chest-item-add">
@@ -190,7 +212,7 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
                 {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
                 {notice && <p className="tome-notice" role="status">{notice}</p>}
                 <div className="tome-btn-row">
-                    <Button type="submit" disabled={!ready || busy}>Отправить в Сундучок</Button>
+                    <Button type="submit" disabled={!ready || busy}>{trophy ? 'Выдать трофей' : 'Отправить в Сундучок'}</Button>
                 </div>
             </form>
 
@@ -216,6 +238,34 @@ function RewardForm({ characters, campaigns, templates, onSent }) {
                     {form.gmNote.trim() && <p className="chest-gm-note">Записка ГМ: {form.gmNote}</p>}
                 </div>
             </aside>
+        </div>
+    )
+}
+
+// «Разбирается на»: aspects and amounts. The player learns them only by
+// breaking the item.
+function AspectPicker({ label, aspects, value, onChange }) {
+    const [key, setKey] = useState('')
+    const chosen = Object.entries(value).filter(([, n]) => Number(n) > 0)
+    const byKey = Object.fromEntries(aspects.map((a) => [a.key, a]))
+    return (
+        <div className="chest-disassemble">
+            <span className="sheet-label">{label}</span>
+            {chosen.length === 0 && <span className="research-note">ничего (кнопки «Разобрать» не будет)</span>}
+            {chosen.map(([k, n]) => (
+                <span key={k} className="chest-disassemble-chip">
+                    <AspectIcon aspect={byKey[k]} size={20} /> {byKey[k]?.nameRu || k}
+                    <input type="number" min="1" max="99" className="sheet-input sheet-input-num" aria-label={`${byKey[k]?.nameRu || k}, сколько`}
+                        value={n} onChange={(e) => onChange({ ...value, [k]: e.target.value })} />
+                    <button type="button" className="chest-chip-x" aria-label={`Убрать ${byKey[k]?.nameRu || k}`}
+                        onClick={() => onChange(Object.fromEntries(chosen.filter(([x]) => x !== k)))}>✕</button>
+                </span>
+            ))}
+            <select className="sheet-input" aria-label="Добавить аспект" value={key}
+                onChange={(e) => { if (e.target.value) onChange({ ...value, [e.target.value]: value[e.target.value] || 1 }); setKey('') }}>
+                <option value="">+ Аспект…</option>
+                {aspects.filter((a) => !(Number(value[a.key]) > 0)).map((a) => <option key={a.key} value={a.key}>{a.nameRu}</option>)}
+            </select>
         </div>
     )
 }

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../context/LangContext'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import api from '../api/axios'
 import ErrorScreen from '../components/errors/ErrorScreen'
 import { Button, Dossier, Loader, PageHeader } from '../components/ui'
 import AdminChest from './admin/AdminChest'
+import AdminDreams from './admin/AdminDreams'
 import AdminGrants from './admin/AdminGrants'
 import AdminOptions from './admin/AdminOptions'
 import AdminRequests from './admin/AdminRequests'
 import AdminResearch from './admin/AdminResearch'
+import AdminWorld from './admin/AdminWorld'
 import '../styles/sheet.css'
 
 export default function Admin() {
@@ -36,6 +38,22 @@ export default function Admin() {
     const [accountForm, setAccountForm] = useState({ username: '', email: '', password: '' })
     const [passwordChoice, setPasswordChoice] = useState({})
     const [showAdvancedRoles, setShowAdvancedRoles] = useState(false)
+
+    // /admin#world, /admin#dreams: links from «Мир» and «Сны» land on their
+    // section once it has rendered.
+    const { hash } = useLocation()
+    useEffect(() => {
+        if (!hash || !isOwner) return
+        let tries = 0
+        const timer = setInterval(() => {
+            const el = document.getElementById(hash.slice(1))
+            if (el || ++tries > 20) {
+                clearInterval(timer)
+                el?.scrollIntoView({ block: 'start' })
+            }
+        }, 100)
+        return () => clearInterval(timer)
+    }, [hash, isOwner])
 
     const refresh = () => {
         api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
@@ -152,6 +170,10 @@ export default function Admin() {
             <AdminGrants />
 
             <AdminChest />
+
+            <AdminDreams />
+
+            <AdminWorld />
 
             <AdminOptions />
 

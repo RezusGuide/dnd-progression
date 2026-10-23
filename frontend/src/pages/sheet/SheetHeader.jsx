@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import api from '../../api/axios'
+import DreamFormIcon from '../../components/dreams/DreamFormIcon'
+import { caseNumber } from '../../lib/dreams'
+import '../../styles/dreams.css'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { Button, HelpTip, Modal, Stamp } from '../../components/ui'
@@ -190,6 +194,7 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                             <span>Руна: {(rune?.nameRu || 'обычная').toLowerCase()} · потолок {levelCap}</span>
                             {character.clearanceLevel && <span className="sheet-clearance">допуск до {character.clearanceLevel} уровня</span>}
                         </p>
+                        {canEdit && <InDream characterId={character.id} />}
 
                         {canEdit && status === 'APPROVED' && ready && (
                             openLevelUp ? (
@@ -260,5 +265,29 @@ export default function SheetHeader({ character, form, update, canEdit, editing,
                 </Modal>
             )}
         </>
+    )
+}
+
+// «Во сне: Дело №0012 · стадия 2» while the character is in an open dream
+// (owner and GM only), with the form the dream gave them.
+function InDream({ characterId }) {
+    const [dream, setDream] = useState(null)
+    useEffect(() => {
+        api.get(`/api/dreams/by-character/${characterId}`)
+            .then((res) => setDream(res.status === 200 ? res.data : null))
+            .catch(() => setDream(null))
+    }, [characterId])
+    if (!dream) return null
+    return (
+        <p className="sheet-dream">
+            <Link to={`/dreams/${dream.dreamId}`} className="sheet-dream-link">
+                Во сне: Дело {caseNumber(dream.number)} · стадия {dream.immersionStage}
+            </Link>
+            {dream.dreamForm && (
+                <span className="sheet-dream-form" title={`Форма во сне: ${dream.dreamFormName || dream.dreamForm}`}>
+                    <DreamFormIcon size={20} /> {dream.dreamFormName || dream.dreamForm}
+                </span>
+            )}
+        </p>
     )
 }

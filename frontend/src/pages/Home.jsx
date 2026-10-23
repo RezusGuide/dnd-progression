@@ -11,6 +11,8 @@ import { totalSealed, useSealedCounts } from '../lib/chest'
 import { useMyAvailability } from '../lib/calendar'
 import { SessionCard } from './calendar/SessionsTab'
 import '../styles/calendar.css'
+import { formatDate, useWorldIndex } from '../lib/world'
+import '../styles/world.css'
 import RequestList from '../components/RequestList'
 
 // Приёмная. Guests get the public pitch; signed-in staff get their files,
@@ -47,6 +49,10 @@ function StaffReception({ user }) {
     // Players: their own requests. GM: the open queue (count only).
     const [requests, setRequests] = useState(null)
     const [picking, setPicking] = useState(false)
+    const world = useWorldIndex()
+    // «Новое в архиве»: the three most recently opened articles.
+    const fresh = (world || []).filter((a) => a.status === 'OPEN' && a.revealedAt)
+        .sort((a, b) => b.revealedAt.localeCompare(a.revealedAt)).slice(0, 3)
 
     useEffect(() => {
         api.get('/api/characters')
@@ -168,6 +174,24 @@ function StaffReception({ user }) {
                             ]} />
                         </section>
                     )
+                )}
+
+                {fresh.length > 0 && (
+                    <section>
+                        <div className="reception-row">
+                            <h2 className="reception-section-title">Новое в архиве</h2>
+                            <Link to="/world" className="reception-link">Весь архив →</Link>
+                        </div>
+                        <div className="reception-news">
+                            {fresh.map((a) => (
+                                <Link key={a.slug} to={`/world/${a.slug}`} className="reception-news-item reception-archive-item">
+                                    <p className="reception-news-title">{a.title}</p>
+                                    {a.teaser && <p className="reception-archive-teaser">{a.teaser}</p>}
+                                    <p className="reception-news-date">Открыто {formatDate(a.revealedAt)}</p>
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
                 )}
 
                 <section>

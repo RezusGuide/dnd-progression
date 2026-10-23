@@ -68,6 +68,8 @@ const translations = {
         navCampaigns: 'Кампании',
         navAnnouncements: 'Объявления',
         navCalendar: 'Календарь',
+        navWorld: 'Мир',
+        navDreams: 'Сны',
         navMore: 'Ещё',
         navAdmin: 'Панель ГМ',
         navToggleMenu: 'Меню',

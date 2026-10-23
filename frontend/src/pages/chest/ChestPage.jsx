@@ -18,6 +18,7 @@ import '../../styles/chest.css'
 // the character; /characters/:id/chest opens one directly.
 
 const OPEN_MS = 1400
+const CHEW_MS = 1600
 const BITE_MS = 900
 
 export default function ChestPage() {
@@ -197,7 +198,8 @@ function Chest({ characterId }) {
                         className={`sheet-tab ${tab === key ? 'is-active' : ''}`} onClick={() => setTab(key)}>{label}</button>
                 ))}
             </div>
-            {tab === 'items' && <Inventory characterId={characterId} items={items} onChanged={refresh} />}
+            {tab === 'items' && <Inventory characterId={characterId} items={items} onChanged={refresh}
+                onChew={(on) => setMood(on ? 'opening' : 'idle')} />}
             {tab === 'archive' && <Archive rewards={opened} />}
 
             {riddle && (
@@ -236,10 +238,32 @@ function Chest({ characterId }) {
     )
 }
 
-function Inventory({ characterId, items, onChanged }) {
+function Inventory({ characterId, items, onChanged, onChew }) {
     const [openId, setOpenId] = useState(null)
     const [drop, setDrop] = useState(null)
+    // «Разобрать на аспекты»: { item, phase: confirm | chewing | done, aspects }
+    const [chew, setChew] = useState(null)
     const [error, setError] = useState('')
+
+    const disassemble = async () => {
+        const item = chew.item
+        setError('')
+        setChew({ item, phase: 'chewing' })
+        onChew?.(true)
+        const started = Date.now()
+        try {
+            const res = await api.post(`/api/characters/${characterId}/inventory/${item.id}/disassemble`)
+            const wait = prefersReducedMotion() ? 0 : Math.max(0, CHEW_MS - (Date.now() - started))
+            await new Promise((r) => setTimeout(r, wait))
+            setChew({ item, phase: 'done', aspects: res.data.aspects })
+            onChanged()
+        } catch (err) {
+            setChew(null)
+            setError(err.response?.data?.message || 'Не разобралось. Повторите.')
+        } finally {
+            onChew?.(false)
+        }
+    }
 
     const patch = async (item, body) => {
         setError('')
@@ -282,6 +306,7 @@ function Inventory({ characterId, items, onChanged }) {
                                 <td className="chest-num">{item.quantity}</td>
                                 <td className="chest-origin">{item.origin || '—'}</td>
                                 <td className="chest-actions">
+                                    {item.canDisassemble && <Button variant="secondary" onClick={() => setChew({ item, phase: 'confirm' })}>Разобрать на аспекты</Button>}
                                     <Button variant="ghost" onClick={() => patch(item, { quantity: item.quantity - 1 })}>Израсходовать 1</Button>
                                     <Button variant="ghost" onClick={() => setDrop(item)}>Выбросить</Button>
                                 </td>
@@ -305,6 +330,24 @@ function Inventory({ characterId, items, onChanged }) {
                 <Modal title="Выбросить предмет" onClose={() => setDrop(null)}
                     actions={<><Button variant="ghost" onClick={() => setDrop(null)}>Отмена</Button><Button variant="danger" onClick={remove}>Выбросить</Button></>}>
                     <p>Выбросить «{drop.name}»{drop.quantity > 1 ? ` (все ${drop.quantity})` : ''}? Вернуть нельзя.</p>
+                </Modal>
+            )}
+            {chew?.phase === 'confirm' && (
+                <Modal title="Разобрать на аспекты" onClose={() => setChew(null)}
+                    actions={<><Button variant="ghost" onClick={() => setChew(null)}>Отмена</Button><Button onClick={disassemble}>Разобрать</Button></>}>
+                    <p>Отдать Сундучку «{chew.item.name}»{chew.item.quantity > 1 ? ` (одну штуку из ${chew.item.quantity})` : ''}? Предмет пропадёт.</p>
+                    <p className="research-note">Что получится, станет известно только после разбора.</p>
+                </Modal>
+            )}
+            {chew?.phase === 'chewing' && (
+                <Modal title="Разобрать на аспекты" onClose={() => {}}>
+                    <p className="chest-chewing" role="status">Сундучок пережёвывает предмет…</p>
+                </Modal>
+            )}
+            {chew?.phase === 'done' && (
+                <Modal title="Разобрано" onClose={() => setChew(null)} actions={<Button onClick={() => setChew(null)}>Забрать в дело</Button>}>
+                    <p className="chest-received-kicker">«{chew.item.name}» разобран. Опись полученного:</p>
+                    <ChestContentsList contents={{ aspects: chew.aspects, coins: {}, items: [] }} />
                 </Modal>
             )}
         </>

@@ -302,7 +302,8 @@ textarea.ui-field-control { min-height: 90px; resize: vertical; }
   padding: 1rem;
   z-index: 100;
 }
-.ui-modal { width: 100%; max-width: 440px; }
+.ui-modal { width: 100%; max-width: 440px; max-height: calc(100vh - 2rem); overflow-y: auto; }
+.ui-modal-wide { max-width: 1040px; }
 .ui-modal-title {
   font-family: var(--font-label);
   font-weight: 600;

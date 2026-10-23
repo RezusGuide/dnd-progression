@@ -12,7 +12,7 @@ import { totalSealed, useSealedCounts } from '../lib/chest'
 // Widths (index.css, .hall-nav):
 //   1200px and up - one line; the user's name opens a profile menu
 //                   («Мой пропуск», «Сдать пропуск»);
-//   1024-1199px   - «Объявления» and «Календарь» move into «Ещё»;
+//   1024-1199px   - «Объявления», «Календарь» and «Мир» move into «Ещё»;
 //   below 1024px  - a hamburger; everything stacks, menus open inline.
 export default function NavBar() {
     const { user, logout, hasSection } = useAuth()
@@ -59,9 +59,11 @@ export default function NavBar() {
                         <MimicChip count={sealed} size={22} /> {t('navChest')}
                     </NavLink>
                 )}
+                {user && <NavLink to="/dreams" className={linkClass} onClick={close}>{t('navDreams')}</NavLink>}
                 <NavLink to="/campaigns" className={linkClass} onClick={close}>{t('navCampaigns')}</NavLink>
                 <NavLink to="/announcements" className={(a) => `${linkClass(a)} hall-nav-extra`} onClick={close}>{t('navAnnouncements')}</NavLink>
                 {user && <NavLink to="/calendar" className={(a) => `${linkClass(a)} hall-nav-extra`} onClick={close}>{t('navCalendar')}</NavLink>}
+                {user && <NavLink to="/world" className={(a) => `${linkClass(a)} hall-nav-extra`} onClick={close}>{t('navWorld')}</NavLink>}
                 <div className="hall-nav-more">
                     <button type="button" className="hall-nav-link hall-nav-menu-btn" aria-haspopup="true" aria-expanded={popup === 'more'}
                         onClick={() => toggle('more')}>{t('navMore')} <span aria-hidden="true">▾</span></button>
@@ -69,6 +71,7 @@ export default function NavBar() {
                         <div className="hall-nav-popup" role="menu">
                             <NavLink role="menuitem" to="/announcements" className="hall-nav-popup-item" onClick={close}>{t('navAnnouncements')}</NavLink>
                             {user && <NavLink role="menuitem" to="/calendar" className="hall-nav-popup-item" onClick={close}>{t('navCalendar')}</NavLink>}
+                            {user && <NavLink role="menuitem" to="/world" className="hall-nav-popup-item" onClick={close}>{t('navWorld')}</NavLink>}
                         </div>
                     )}
                 </div>

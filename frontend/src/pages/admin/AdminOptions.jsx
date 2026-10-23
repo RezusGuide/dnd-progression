@@ -2,18 +2,13 @@ import { useEffect, useState } from 'react'
 import api from '../../api/axios'
 import { Loader } from '../../components/ui'
 import SourceCode from '../../components/SourceCode'
+import { OPTION_STATUS_LABELS } from '../../lib/refData'
 
 // Панель ГМ → «Справочник»: which races and classes players may pick.
 // Statuses come from data/*.json; a change here is stored as an override
 // in the database. Unlock conditions are neutral keys - what they mean is
 // only the GM's own label.
-const STATUS_LABELS = {
-    allowed: 'Доступно',
-    unlockable: 'Откроется позже',
-    undecided: 'Не решено',
-    closed: 'Закрыто: только форма во сне',
-    npc_only: 'Только для НИП',
-}
+const STATUS_LABELS = OPTION_STATUS_LABELS
 const RACE_STATUSES = ['allowed', 'unlockable', 'undecided', 'closed']
 const CLASS_STATUSES = [...RACE_STATUSES, 'npc_only']
 
