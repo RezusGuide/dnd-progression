@@ -3,7 +3,6 @@ package com.backend.controller;
 import com.backend.dto.ItemGrantRequest;
 import com.backend.dto.MaterialGrantRequest;
 import com.backend.entity.Character;
-import com.backend.entity.Role;
 import com.backend.entity.User;
 import com.backend.service.CharacterService;
 import com.backend.service.RoleService;
@@ -34,37 +33,9 @@ public class AdminController {
         return ResponseEntity.ok(roleService.bootstrapOwner(user.getId()));
     }
 
-    @GetMapping("/roles")
-    public ResponseEntity<List<Role>> listRoles() {
-        return ResponseEntity.ok(roleService.listRoles());
-    }
-
-    @PostMapping("/roles")
-    public ResponseEntity<Role> createRole(@RequestBody Map<String, Object> body) {
-        @SuppressWarnings("unchecked")
-        List<String> sections = (List<String>) body.getOrDefault("sections", List.of());
-        Role role = roleService.createRole(
-                (String) body.get("key"),
-                (String) body.get("label"),
-                (String) body.get("description"),
-                sections
-        );
-        return ResponseEntity.status(201).body(role);
-    }
-
     @GetMapping("/users")
     public ResponseEntity<List<User>> listUsers() {
         return ResponseEntity.ok(roleService.listUsers());
-    }
-
-    @PostMapping("/users/{userId}/roles/{roleKey}")
-    public ResponseEntity<User> assignRole(@PathVariable Long userId, @PathVariable String roleKey) {
-        return ResponseEntity.ok(roleService.assignRole(userId, roleKey));
-    }
-
-    @DeleteMapping("/users/{userId}/roles/{roleKey}")
-    public ResponseEntity<User> revokeRole(@PathVariable Long userId, @PathVariable String roleKey) {
-        return ResponseEntity.ok(roleService.revokeRole(userId, roleKey));
     }
 
     /**

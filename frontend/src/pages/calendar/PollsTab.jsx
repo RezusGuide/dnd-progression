@@ -13,8 +13,8 @@ const DURATIONS = Array.from({ length: 16 }, (_, i) => (i + 2) * 30) // 1 h ... 
 const isoDate = (d) => d.toISOString().slice(0, 10)
 
 export default function PollsTab() {
-    const { hasSection } = useAuth()
-    const gm = hasSection('*')
+    const { isGm } = useAuth()
+    const gm = isGm
     const [polls, setPolls] = useState(null)
     const [creating, setCreating] = useState(false)
     const refresh = () => api.get('/api/polls').then((res) => setPolls(res.data)).catch(() => setPolls([]))

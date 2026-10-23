@@ -56,13 +56,9 @@ class OptionsTests {
         return roleService.createAccount("opt-" + tag, tag + "@example.test", "test-password-123");
     }
 
-    // Full access like the GM, but not OWNER: SetupStatusTests needs the
-    // owner seat to stay empty.
+    // The GM holds OWNER; SetupStatusTests runs on a database of its own.
     private User newGm() {
-        if (roleService.listRoles().stream().noneMatch(r -> "TEST_GM".equals(r.getKey()))) {
-            roleService.createRole("TEST_GM", "Test GM", "Тестовая роль", List.of("*"));
-        }
-        return roleService.assignRole(newPlayer().getId(), "TEST_GM");
+        return roleService.assignRole(newPlayer().getId(), RoleService.OWNER_KEY);
     }
 
     private CharacterCreateRequest fighter(String race) {

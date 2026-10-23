@@ -7,8 +7,8 @@ import { formatDateTime } from '../constants/dnd-ru'
 // Доска объявлений: every notice is a document pinned to the board.
 // Only the GM can post or take one down.
 export default function Announcements() {
-    const { hasSection } = useAuth()
-    const canEdit = hasSection('*')
+    const { isGm } = useAuth()
+    const canEdit = isGm
 
     const [posts, setPosts] = useState(null)
     const [showForm, setShowForm] = useState(false)

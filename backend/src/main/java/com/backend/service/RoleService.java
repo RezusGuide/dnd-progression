@@ -30,22 +30,12 @@ public class RoleService {
         return userRepository.findAll();
     }
 
-    public Role createRole(String key, String label, String description, List<String> sections) {
-        String normalizedKey = key.trim().toUpperCase().replace(' ', '_');
-        if (roleRepository.existsByKey(normalizedKey)) {
-            throw new RuntimeException("Роль с таким ключом уже есть.");
-        }
-        Role role = Role.builder()
-                .key(normalizedKey)
-                .label(label)
-                .description(description)
-                .sections(sections)
-                .build();
-        return roleRepository.save(role);
-    }
-
+    /** OWNER or MEMBER only; there are no other roles any more. */
     @Transactional
     public User assignRole(Long userId, String roleKey) {
+        if (!OWNER_KEY.equals(roleKey) && !MEMBER_KEY.equals(roleKey)) {
+            throw new RuntimeException("Роли — только ГМ и сотрудник.");
+        }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
         Role role = roleRepository.findByKey(roleKey)
@@ -54,21 +44,7 @@ public class RoleService {
         return userRepository.save(user);
     }
 
-    @Transactional
-    public User revokeRole(Long userId, String roleKey) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Пропуск не найден."));
-        Role role = roleRepository.findByKey(roleKey)
-                .orElseThrow(() -> new RuntimeException("Роль не найдена."));
-        user.getRoles().remove(role);
-        return userRepository.save(user);
-    }
-
-    /**
-     * Every account - self-registered or admin-created - gets MEMBER
-     * (dnd) automatically. There's no per-friend section
-     * picking: you either have an account or you don't.
-     */
+    /** Every account gets MEMBER automatically. */
     @Transactional
     public void grantDefaultMemberRole(User user) {
         Role member = roleRepository.findByKey(MEMBER_KEY)
@@ -76,8 +52,7 @@ public class RoleService {
                         Role.builder()
                                 .key(MEMBER_KEY)
                                 .label("Member")
-                                .description("Standard account access: D&D.")
-                                .sections(List.of("dnd"))
+                                .description("Staff account.")
                                 .build()
                 ));
         user.getRoles().add(member);
@@ -135,8 +110,7 @@ public class RoleService {
                         Role.builder()
                                 .key(OWNER_KEY)
                                 .label("Owner")
-                                .description("Full access to every section and the admin panel.")
-                                .sections(List.of("*"))
+                                .description("The GM.")
                                 .build()
                 ));
         User user = userRepository.findById(userId)

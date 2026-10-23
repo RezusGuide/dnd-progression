@@ -15,7 +15,7 @@ import { totalSealed, useSealedCounts } from '../lib/chest'
 //   1024-1199px   - «Объявления», «Календарь» and «Мир» move into «Ещё»;
 //   below 1024px  - a hamburger; everything stacks, menus open inline.
 export default function NavBar() {
-    const { user, logout, hasSection } = useAuth()
+    const { user, logout, isGm } = useAuth()
     const { t } = useLang()
     const [menuOpen, setMenuOpen] = useState(false)
     const [popup, setPopup] = useState(null) // 'more' | 'profile' | null
@@ -75,7 +75,7 @@ export default function NavBar() {
                         </div>
                     )}
                 </div>
-                {hasSection('*') && <NavLink to="/admin" className={linkClass} onClick={close}>{t('navAdmin')}</NavLink>}
+                {isGm && <NavLink to="/admin" className={linkClass} onClick={close}>{t('navAdmin')}</NavLink>}
             </div>
 
             <div className={`hall-nav-right${menuOpen ? ' open' : ''}`}>

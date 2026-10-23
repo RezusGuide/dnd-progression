@@ -30,7 +30,7 @@ public class AdmissionService {
     private final SpellResearchService research;
 
     public static boolean isGm(User user) {
-        return user != null && user.getSectionKeys().contains("*");
+        return user != null && user.isGm();
     }
 
     /** A player asks for the next level (or a given one). */

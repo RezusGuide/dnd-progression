@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // GET /api/auth/setup-status flips from "no GM yet" to "GM exists" once
-// someone claims ownership - that's what gates /admin?setup=1.
-@SpringBootTest
+// someone claims ownership - that's what gates /admin?setup=1. Its own
+// in-memory database: other tests make GMs (OWNER) freely.
+@SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:setupdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;NON_KEYWORDS=KEY,VALUE")
 class SetupStatusTests {
 
     @Autowired

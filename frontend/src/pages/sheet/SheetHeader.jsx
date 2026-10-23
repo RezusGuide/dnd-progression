@@ -24,8 +24,7 @@ const STAMP = { PENDING: 'pending', APPROVED: 'approved', REJECTED: 'rejected' }
 
 export default function SheetHeader({ character, form, update, canEdit, editing, setEditing, saveState, requests = [], requestLevelUp }) {
     const [copied, setCopied] = useState('')
-    const { hasSection } = useAuth()
-    const isGm = hasSection('*')
+    const { isGm } = useAuth()
     const [runes] = useRefData('runes')
     const [askOpen, setAskOpen] = useState(false)
     const [askComment, setAskComment] = useState('')

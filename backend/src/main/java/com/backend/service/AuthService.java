@@ -93,7 +93,6 @@ public class AuthService {
 
     private AuthResponse buildResponse(User user, String token) {
         List<String> roleKeys = user.getRoles().stream().map(r -> r.getKey()).sorted().toList();
-        List<String> sections = user.getSectionKeys().stream().sorted().toList();
-        return new AuthResponse(token, user.getUsername(), user.getId(), roleKeys, sections);
+        return new AuthResponse(token, user.getUsername(), user.getId(), roleKeys, user.isGm());
     }
 }

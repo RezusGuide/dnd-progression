@@ -13,7 +13,7 @@ import '../../styles/world.css'
 // to anything hidden never says where it leads.
 export default function ArticlePage() {
     const { slug } = useParams()
-    const { hasSection } = useAuth()
+    const { isGm } = useAuth()
     const index = useWorldIndex()
     const [article, setArticle] = useState(null)
     const [error, setError] = useState(null)
@@ -46,7 +46,7 @@ export default function ArticlePage() {
         <div className="parchment-page world-page">
             <PageHeader title={article.title} back="/world" backLabel="← Мир"
                 subtitle={CATEGORY_LABEL[article.category]}
-                actions={hasSection('*') && <Button variant="secondary" to="/admin#world">Править</Button>} />
+                actions={isGm && <Button variant="secondary" to="/admin#world">Править</Button>} />
             <div className="world-body">
                 <Dossier tab={redacted ? 'Засекречено' : 'Архив'} className="world-article">
                     {!redacted && isRecent(article.revealedAt) && <p className="world-plaque">Открыто {formatDate(article.revealedAt)}</p>}

@@ -24,7 +24,7 @@ const BITE_MS = 900
 export default function ChestPage() {
     const { characterId } = useParams()
     const navigate = useNavigate()
-    const { user, hasSection } = useAuth()
+    const { user, isGm } = useAuth()
     const [characters, setCharacters] = useState(null)
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function ChestPage() {
     }, [])
 
     if (!characters) return <div className="parchment-page"><Loader /></div>
-    const mine = characters.filter((c) => c.ownerId === user.userId || (hasSection('*') && String(c.id) === characterId))
+    const mine = characters.filter((c) => c.ownerId === user.userId || (isGm && String(c.id) === characterId))
     const currentId = characterId || (mine.length === 1 ? String(mine[0].id) : null)
 
     return (

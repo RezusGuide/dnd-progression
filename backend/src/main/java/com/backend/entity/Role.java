@@ -3,13 +3,12 @@ package com.backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.List;
 import java.util.Set;
 
 /**
- * A named bundle of section access, e.g. key="OWNER" sections=["*"], or
- * key="DND_ENJOYER" sections=["dnd"]. Batyr manages these (and who holds
- * them) from /admin. "*" in sections means "every section" (owner-level).
+ * Two roles matter: OWNER is the GM, MEMBER is every staff account. Older
+ * rows (custom roles, the role_sections table) stay in the database but
+ * grant nothing.
  */
 @Entity
 @Table(name = "roles")
@@ -30,12 +29,6 @@ public class Role {
     private String label;
 
     private String description;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "role_sections", joinColumns = @JoinColumn(name = "role_id"))
-    @Column(name = "section")
-    @Builder.Default
-    private List<String> sections = List.of();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "roles")

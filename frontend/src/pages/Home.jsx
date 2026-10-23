@@ -41,11 +41,10 @@ function GuestReception() {
 }
 
 function StaffReception({ user }) {
-    const { hasSection } = useAuth()
+    const { isGm } = useAuth()
     const navigate = useNavigate()
     const [characters, setCharacters] = useState(null)
     const [news, setNews] = useState(null)
-    const isGm = hasSection('*')
     // Players: their own requests. GM: the open queue (count only).
     const [requests, setRequests] = useState(null)
     const [picking, setPicking] = useState(false)
@@ -96,7 +95,7 @@ function StaffReception({ user }) {
             <PageHeader
                 title="Приёмная"
                 subtitle={`Добрый день, ${user.username}. Ваши дела на сегодня.`}
-                actions={hasSection('*') && <Button variant="secondary" to="/admin">Панель ГМ</Button>}
+                actions={isGm && <Button variant="secondary" to="/admin">Панель ГМ</Button>}
             />
 
             <div className="reception">

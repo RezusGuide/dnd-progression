@@ -93,7 +93,7 @@ export function hydrate(c) {
 // PUT the whole sheet 700 ms after the last change.
 export default function useCharacterSheet(id) {
     const navigate = useNavigate()
-    const { user, hasSection } = useAuth()
+    const { user, isGm } = useAuth()
 
     const [character, setCharacter] = useState(null)
     const [form, setForm] = useState(null)
@@ -106,7 +106,7 @@ export default function useCharacterSheet(id) {
 
     // D&D is public to view; only the character's creator or the GM can
     // edit it (CharacterService#updateSheet enforces the same server-side).
-    const canEdit = !!user && !!character && (hasSection('*') || character.ownerId === user.userId)
+    const canEdit = !!user && !!character && (isGm || character.ownerId === user.userId)
 
     const saveTimer = useRef(null)
     const skipNextSave = useRef(true)

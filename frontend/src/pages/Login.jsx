@@ -39,7 +39,7 @@ export default function Login() {
                 username: res.data.username,
                 userId: res.data.userId,
                 roles: res.data.roles,
-                sections: res.data.sections,
+                gm: res.data.gm,
             }, res.data.token)
             navigate(from, { replace: true })
         } catch (err) {

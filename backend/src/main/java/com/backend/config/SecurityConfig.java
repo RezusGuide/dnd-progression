@@ -83,8 +83,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/characters/**", "/api/campaigns/**", "/api/spells/**").authenticated()
 
                         // Owner-only writes on otherwise-public content.
-                        .requestMatchers(HttpMethod.POST, "/api/announcements/**").hasAuthority("SECTION_ALL")
-                        .requestMatchers(HttpMethod.DELETE, "/api/announcements/**").hasAuthority("SECTION_ALL")
+                        .requestMatchers(HttpMethod.POST, "/api/announcements/**").hasRole("OWNER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/announcements/**").hasRole("OWNER")
 
                         // Admin: bootstrap only needs auth (guarded in the service instead -
                         // it refuses once an owner exists); everything else needs OWNER.
@@ -124,12 +124,6 @@ public class SecurityConfig {
                     List<GrantedAuthority> authorities = new ArrayList<>();
                     for (Role role : user.getRoles()) {
                         authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getKey()));
-                        for (String section : role.getSections()) {
-                            String authority = "*".equals(section)
-                                    ? "SECTION_ALL"
-                                    : "SECTION_" + section.toUpperCase();
-                            authorities.add(new SimpleGrantedAuthority(authority));
-                        }
                     }
                     UsernamePasswordAuthenticationToken auth =
                             new UsernamePasswordAuthenticationToken(user, null, authorities);

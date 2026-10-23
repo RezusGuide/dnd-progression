@@ -15,9 +15,9 @@ import AdminWorld from './admin/AdminWorld'
 import '../styles/sheet.css'
 
 export default function Admin() {
-    const { user, hasSection, login } = useAuth()
+    const { user, isGm, login } = useAuth()
     const { t } = useLang()
-    const isOwner = hasSection('*')
+    const isOwner = isGm
     const [searchParams] = useSearchParams()
     const isSetup = searchParams.get('setup') === '1'
     // null while unknown; the claim panel only exists while no GM is set.
@@ -31,13 +31,9 @@ export default function Admin() {
 
     const [error, setError] = useState('')
     const [notice, setNotice] = useState('')
-    const [roles, setRoles] = useState([])
     const [users, setUsers] = useState([])
-    const [roleForm, setRoleForm] = useState({ key: '', label: '', sections: '' })
-    const [grantChoice, setGrantChoice] = useState({})
     const [accountForm, setAccountForm] = useState({ username: '', email: '', password: '' })
     const [passwordChoice, setPasswordChoice] = useState({})
-    const [showAdvancedRoles, setShowAdvancedRoles] = useState(false)
 
     // /admin#world, /admin#dreams: links from «Мир» and «Сны» land on their
     // section once it has rendered.
@@ -56,7 +52,6 @@ export default function Admin() {
     }, [hash, isOwner])
 
     const refresh = () => {
-        api.get('/api/admin/roles').then((res) => setRoles(res.data)).catch(() => {})
         api.get('/api/admin/users').then((res) => setUsers(res.data)).catch(() => {})
     }
 
@@ -73,36 +68,11 @@ export default function Admin() {
                 username: me.data.username,
                 userId: me.data.userId,
                 roles: me.data.roles,
-                sections: me.data.sections,
+                gm: me.data.gm,
             }, me.data.token)
         } catch (err) {
             setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
         }
-    }
-
-    const handleCreateRole = async (e) => {
-        e.preventDefault()
-        setError('')
-        try {
-            const sections = roleForm.sections.split(',').map((s) => s.trim()).filter(Boolean)
-            await api.post('/api/admin/roles', { ...roleForm, sections })
-            setRoleForm({ key: '', label: '', sections: '' })
-            refresh()
-        } catch (err) {
-            setError(err.response?.data?.message || 'Допуск отклонён. Обратитесь в приёмную.')
-        }
-    }
-
-    const handleGrant = async (userId) => {
-        const roleKey = grantChoice[userId]
-        if (!roleKey) return
-        await api.post(`/api/admin/users/${userId}/roles/${roleKey}`)
-        refresh()
-    }
-
-    const handleRevoke = async (userId, roleKey) => {
-        await api.delete(`/api/admin/users/${userId}/roles/${roleKey}`)
-        refresh()
     }
 
     const handleCreateAccount = async (e) => {
@@ -215,18 +185,7 @@ export default function Admin() {
                                 <span className="campaign-name">{u.username}</span>
                                 <span className="campaign-desc">{u.email}</span>
                                 <div className="character-meta">
-                                    {u.roles.map((r) => (
-                                        <span key={r.id} className="meta-tag">
-                                            {r.key}
-                                            {r.key !== 'MEMBER' && (
-                                                <button
-                                                    type="button"
-                                                    onClick={() => handleRevoke(u.id, r.key)}
-                                                    style={{ marginLeft: '0.4rem', background: 'none', border: 'none', color: 'var(--danger)', cursor: 'pointer' }}
-                                                >✕</button>
-                                            )}
-                                        </span>
-                                    ))}
+                                    <span className="meta-tag">{u.gm ? 'ГМ' : 'Сотрудник'}</span>
                                 </div>
                             </div>
                             <div className="tome-row" style={{ alignItems: 'flex-end', flexWrap: 'wrap' }}>
@@ -241,60 +200,6 @@ export default function Admin() {
                         </div>
                     ))}
                 </div>
-            </section>
-
-            <section className="sheet-section admin-section">
-                <h2
-                    className="sheet-column-title"
-                    style={{ background: 'transparent', color: 'var(--text)', padding: 0, border: 0, marginBottom: '0.5rem', cursor: 'pointer' }}
-                    onClick={() => setShowAdvancedRoles((v) => !v)}
-                >
-                    {showAdvancedRoles ? '▾' : '▸'} {t('adminRolesAdvanced')}
-                </h2>
-                {showAdvancedRoles && (
-                    <>
-                        <p className="tome-subtitle" style={{ marginBottom: '1rem' }}>{t('adminRolesAdvancedHint')}</p>
-                        <div className="character-meta" style={{ marginBottom: '1rem' }}>
-                            {roles.map((r) => (
-                                <span key={r.id} className="meta-tag level-tag">{r.key} → {r.sections.join(', ')}</span>
-                            ))}
-                        </div>
-                        <form onSubmit={handleCreateRole} className="tome-form codex-form">
-                            <h3 className="tome-field-label">{t('adminNewRole')}</h3>
-                            <div className="tome-row">
-                                <div className="tome-field">
-                                    <label>{t('adminRoleKey')}</label>
-                                    <input value={roleForm.key} onChange={(e) => setRoleForm({ ...roleForm, key: e.target.value })} required />
-                                </div>
-                                <div className="tome-field">
-                                    <label>{t('adminRoleLabel')}</label>
-                                    <input value={roleForm.label} onChange={(e) => setRoleForm({ ...roleForm, label: e.target.value })} required />
-                                </div>
-                            </div>
-                            <div className="tome-field">
-                                <label>{t('adminRoleSections')}</label>
-                                <input value={roleForm.sections} onChange={(e) => setRoleForm({ ...roleForm, sections: e.target.value })} required />
-                            </div>
-                            <div className="tome-btn-row">
-                                <button type="submit" className="tome-btn">{t('adminCreateRole')}</button>
-                            </div>
-                            <div className="tome-row" style={{ marginTop: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                {users.map((u) => (
-                                    <div key={u.id} className="tome-row" style={{ alignItems: 'flex-end' }}>
-                                        <select
-                                            value={grantChoice[u.id] || ''}
-                                            onChange={(e) => setGrantChoice({ ...grantChoice, [u.id]: e.target.value })}
-                                        >
-                                            <option value="">{u.username}</option>
-                                            {roles.map((r) => <option key={r.id} value={r.key}>{r.key}</option>)}
-                                        </select>
-                                        <button type="button" className="tome-btn-ghost" onClick={() => handleGrant(u.id)}>{t('adminAssign')}</button>
-                                    </div>
-                                ))}
-                            </div>
-                        </form>
-                    </>
-                )}
             </section>
         </div>
     )

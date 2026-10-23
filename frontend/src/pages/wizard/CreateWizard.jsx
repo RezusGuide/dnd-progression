@@ -56,8 +56,8 @@ const STEPS = [
 
 export default function CreateWizard() {
     const navigate = useNavigate()
-    const { hasSection } = useAuth()
-    const gm = hasSection('*')
+    const { isGm } = useAuth()
+    const gm = isGm
     const [races, racesError] = useRefData('races')
     const [classes, classesError] = useRefData('classes')
     const [backgrounds, bgError] = useRefData('backgrounds')

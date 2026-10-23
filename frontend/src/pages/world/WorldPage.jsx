@@ -10,7 +10,7 @@ import '../../styles/world.css'
 // over titles and teasers. Redacted articles show only the title, the
 // teaser and black bars.
 export default function WorldPage() {
-    const { hasSection } = useAuth()
+    const { isGm } = useAuth()
     const articles = useWorldIndex()
     const [query, setQuery] = useState('')
 
@@ -20,7 +20,7 @@ export default function WorldPage() {
     return (
         <div className="parchment-page world-page">
             <PageHeader title="Мир" subtitle="Архив конторы: что сотрудникам положено знать."
-                actions={hasSection('*') && <Button variant="secondary" to="/admin#world">Править архив</Button>} />
+                actions={isGm && <Button variant="secondary" to="/admin#world">Править архив</Button>} />
             <div className="world-body">
                 <label className="world-search">
                     <span className="sheet-label">Поиск по архиву</span>

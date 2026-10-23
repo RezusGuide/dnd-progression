@@ -62,7 +62,7 @@ public class CharacterService {
         if (actingUser == null) {
             return List.of();
         }
-        if (actingUser.getSectionKeys().contains("*")) {
+        if (actingUser.isGm()) {
             return characterRepository.findAll();
         }
         return characterRepository.findByUserId(actingUser.getId());

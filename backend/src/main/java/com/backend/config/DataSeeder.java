@@ -37,10 +37,8 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        ensureRole(RoleService.OWNER_KEY, "Owner",
-                "Full access to every section and the admin panel.", List.of("*"));
-        ensureRole(RoleService.MEMBER_KEY, "Member",
-                "Standard account access: D&D.", List.of("dnd"));
+        ensureRole(RoleService.OWNER_KEY, "Owner", "The GM.");
+        ensureRole(RoleService.MEMBER_KEY, "Member", "Staff account.");
         backfillCampaignRules();
         // One unlock_flag row per unlock key in races/classes.json.
         optionsService.ensureFlags();
@@ -88,7 +86,7 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 
-    private void ensureRole(String key, String label, String description, List<String> sections) {
+    private void ensureRole(String key, String label, String description) {
         if (roleRepository.existsByKey(key)) {
             return;
         }
@@ -96,7 +94,6 @@ public class DataSeeder implements CommandLineRunner {
                 .key(key)
                 .label(label)
                 .description(description)
-                .sections(sections)
                 .build());
     }
 }

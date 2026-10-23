@@ -13,8 +13,8 @@ import '../../styles/calendar.css'
 // with everyone's local time under each window. The GM schedules from here.
 export default function PollPage() {
     const { pollId } = useParams()
-    const { hasSection } = useAuth()
-    const gm = hasSection('*')
+    const { isGm } = useAuth()
+    const gm = isGm
     const { zone, loading } = useMyAvailability()
     const [poll, setPoll] = useState(null)
     const [loadError, setLoadError] = useState(null)

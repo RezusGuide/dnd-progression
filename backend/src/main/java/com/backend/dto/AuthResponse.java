@@ -10,8 +10,8 @@ public class AuthResponse {
     private String token;
     private String username;
     private Long userId;
-    /** Role keys this user holds, e.g. ["OWNER"] or ["DND_ENJOYER"]. */
+    /** Role keys this user holds: ["MEMBER"], ["MEMBER", "OWNER"]. */
     private List<String> roles;
-    /** Flattened section keys those roles unlock. "*" means everything. */
-    private List<String> sections;
+    /** The GM (holds OWNER). */
+    private boolean gm;
 }

@@ -50,9 +50,8 @@ public class User {
     @EqualsAndHashCode.Exclude
     private List<Character> characters;
 
-    // Section access. Loaded eagerly: every authenticated request needs it
-    // to build authorities (see SecurityConfig's JWT filter), and the set
-    // per user is tiny.
+    // OWNER (the GM) and MEMBER. Loaded eagerly: every authenticated request
+    // needs it to build authorities (see SecurityConfig's JWT filter).
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -69,13 +68,8 @@ public class User {
         createdAt = LocalDateTime.now();
     }
 
-    /** Flattened, de-duplicated section keys this user's roles unlock. */
-    @JsonIgnore
-    public Set<String> getSectionKeys() {
-        Set<String> sections = new HashSet<>();
-        for (Role role : roles) {
-            sections.addAll(role.getSections());
-        }
-        return sections;
+    /** The GM: holds the OWNER role. Shown as "gm" in the accounts list. */
+    public boolean isGm() {
+        return roles.stream().anyMatch(r -> "OWNER".equals(r.getKey()));
     }
 }

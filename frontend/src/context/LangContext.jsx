@@ -78,18 +78,10 @@ const translations = {
         navAccount: 'Мой пропуск',
         // Панель ГМ
         adminTitle: 'Панель ГМ',
-        adminSubtitle: 'Пропуска, выдачи и роли.',
+        adminSubtitle: 'Пропуска, выдачи и решения.',
         adminBecomeOwner: 'Стать ГМ',
         adminBecomeOwnerHint: 'ГМ ещё не назначен. Если это вы, подтвердите.',
-        adminRoles: 'Роли',
-        adminNewRole: 'Новая роль',
-        adminRoleKey: 'Ключ (например, DND_PLAYER)',
-        adminRoleLabel: 'Название',
-        adminRoleSections: 'Разделы через запятую (dnd или *)',
-        adminCreateRole: 'Создать роль',
         adminUsers: 'Сотрудники',
-        adminAssign: 'Выдать',
-        adminRevoke: 'Отозвать',
         adminAccounts: 'Пропуска',
         adminAccountsHint: 'Оформите пропуск сами и передайте его игроку. С любым пропуском видно всё, править можно свои дела.',
         adminNewAccount: 'Новый пропуск',
@@ -102,8 +94,6 @@ const translations = {
         adminNewPassword: 'Новый пароль',
         adminResetPasswordBtn: 'Задать пароль',
         adminPasswordReset: 'Пароль обновлён.',
-        adminRolesAdvanced: 'Расширенные роли',
-        adminRolesAdvancedHint: 'Обычно не нужно: каждый пропуск уже получает раздел D&D. Свои роли пригодятся, если появятся новые разделы.',
     }
 }
 

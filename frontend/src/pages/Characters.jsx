@@ -18,7 +18,7 @@ import { className, raceName } from '../constants/dnd-ru'
 
 
 export default function Characters() {
-    const { user, hasSection } = useAuth()
+    const { user, isGm } = useAuth()
     const { t } = useLang()
     const navigate = useNavigate()
     const [characters, setCharacters] = useState([])
@@ -115,7 +115,7 @@ export default function Characters() {
                                     onClick={(e) => handleShare(e, char.id)}
                                     title={t('sheetShareLink')}
                                 >{copiedId === char.id ? '✓' : '🔗'}</button>
-                                {user && (hasSection('*') || char.ownerId === user.userId) && (
+                                {user && (isGm || char.ownerId === user.userId) && (
                                     <button
                                         className="tome-btn-danger"
                                         aria-label={`Удалить личное дело «${char.name}»`}
