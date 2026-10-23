@@ -17,3 +17,5 @@ frontend/.env.local
 
 # VS Code
 .vscode/
+# Home hosting: the real settings live in %LOCALAPPDATA%\zlatopryady, never here.
+deploy/home/.env.home
