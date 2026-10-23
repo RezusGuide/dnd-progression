@@ -75,7 +75,7 @@ export default function NavBar() {
                         </div>
                     )}
                 </div>
-                {isGm && <NavLink to="/admin" className={linkClass} onClick={close}>{t('navAdmin')}</NavLink>}
+                {isGm && <NavLink to="/gm" className={linkClass} onClick={close}>{t('navAdmin')}</NavLink>}
             </div>
 
             <div className={`hall-nav-right${menuOpen ? ' open' : ''}`}>

@@ -48,7 +48,7 @@ const translations = {
         noCharacters: 'В этой кампании пока нет сотрудников.',
         // Used outside the sheet; the sheet itself has its texts inline
         sheetShareLink: 'Поделиться ссылкой',
-        // Панель ГМ: выдачи
+        // Пульт ГМ: выдачи
         adminItemGrant: 'Выдать предмет',
         adminItemGrantHint: 'Добавляет строку в снаряжение персонажа. Существующие записи не трогаются.',
         adminItemLabel: 'Предмет',
@@ -71,13 +71,13 @@ const translations = {
         navWorld: 'Мир',
         navDreams: 'Сны',
         navMore: 'Ещё',
-        navAdmin: 'Панель ГМ',
+        navAdmin: 'Пульт ГМ',
         navToggleMenu: 'Меню',
         navLogin: 'Предъявить пропуск',
         navLogout: 'Сдать пропуск',
         navAccount: 'Мой пропуск',
-        // Панель ГМ
-        adminTitle: 'Панель ГМ',
+        // Пульт ГМ
+        adminTitle: 'Пульт ГМ',
         adminSubtitle: 'Пропуска, выдачи и решения.',
         adminBecomeOwner: 'Стать ГМ',
         adminBecomeOwnerHint: 'ГМ ещё не назначен. Если это вы, подтвердите.',

@@ -7,7 +7,7 @@ import { CATEGORIES, CATEGORY_LABEL, STATUS_LABEL, matches } from '../../lib/wor
 import { formatDateTime } from '../../constants/dnd-ru'
 import '../../styles/world.css'
 
-// Панель ГМ → «Архив»: every article with its status, the editor with a
+// Пульт ГМ → «Архив»: every article with its status, the editor with a
 // preview of what players see, quick status buttons. Everything here lives
 // in the database; nothing goes into the public repository.
 

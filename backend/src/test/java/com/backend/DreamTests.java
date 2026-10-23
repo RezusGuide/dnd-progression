@@ -89,6 +89,12 @@ class DreamTests {
         assertThrows(ApiException.class, () -> dreams.get(draft.id(), anya));
         assertTrue(dreams.current(mirra.getId(), anya).isEmpty());
 
+        // The GM reads every case in the player view, except drafts.
+        User gm = roleService.assignRole(newPlayer("gm").getId(), RoleService.OWNER_KEY);
+        assertTrue(dreams.list(gm).stream().noneMatch(d -> d.id().equals(draft.id())));
+        GmDream open = dreams.create(new DreamInput(null, "Чужое дело", null, "OPEN", null, null, null));
+        assertEquals("OPEN", dreams.get(open.id(), gm).status());
+
         // Announced: players see the announcement.
         dreams.update(draft.id(), new DreamInput(null, "Анонс", "Скоро", "ANNOUNCED", campaign.getId(), null, null));
         assertEquals("ANNOUNCED", dreams.get(draft.id(), anya).status());

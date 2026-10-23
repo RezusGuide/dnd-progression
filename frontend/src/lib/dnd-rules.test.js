@@ -5,6 +5,7 @@ import {
     skillBonus, spellAttackBonus, spellSaveDC, spellSlotsFor, spellcastingAbility,
     hitDiceLeft, shortRest, startingHp, pointBuyCost, pointBuySpent, isStandardArray,
     roll4d6, withBonuses, averageHitDie, levelUpHp, isValidFlexibleBonuses, isPreparingCaster, preparedLimit,
+    encounterDifficulty, encounterMultiplier,
 } from './dnd-rules'
 
 describe('ability modifiers', () => {
@@ -306,5 +307,29 @@ describe('prepared spells', () => {
     it('never below 1', () => {
         expect(preparedLimit('Paladin', 1, -1)).toBe(1)
         expect(preparedLimit('Wizard', 1, -3)).toBe(1)
+    })
+})
+
+describe('encounter difficulty (DMG 2014)', () => {
+    it('four 3rd-level characters against a bugbear and three hobgoblins is hard', () => {
+        const r = encounterDifficulty([3, 3, 3, 3], [{ cr: '1', count: 1 }, { cr: '1/2', count: 3 }])
+        expect(r.baseXp).toBe(500)
+        expect(r.multiplier).toBe(2)
+        expect(r.adjustedXp).toBe(1000)
+        expect(r.thresholds).toEqual([300, 600, 900, 1600])
+        expect(r.difficulty).toBe('HARD')
+    })
+    it('a party of two moves the multiplier up, a party of six down', () => {
+        expect(encounterMultiplier(1, 2)).toBe(1.5)
+        expect(encounterMultiplier(1, 6)).toBe(0.5)
+        expect(encounterMultiplier(15, 4)).toBe(4)
+        expect(encounterMultiplier(15, 2)).toBe(5)
+        expect(encounterDifficulty([1, 1], [{ cr: '1/4', count: 1 }])).toMatchObject({ adjustedXp: 75, difficulty: 'EASY' })
+        expect(encounterDifficulty([1, 1, 1, 1, 1, 1], [{ cr: '2', count: 1 }])).toMatchObject({ adjustedXp: 225, difficulty: 'EASY' })
+    })
+    it('deadly and below easy', () => {
+        expect(encounterDifficulty([1, 1, 1, 1], [{ cr: '3', count: 1 }]).difficulty).toBe('DEADLY')
+        expect(encounterDifficulty([5, 5, 5, 5], [{ cr: '1/8', count: 1 }]).difficulty).toBe('TRIVIAL')
+        expect(encounterDifficulty([3], []).difficulty).toBe('TRIVIAL')
     })
 })

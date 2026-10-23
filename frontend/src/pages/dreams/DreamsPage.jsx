@@ -19,7 +19,7 @@ export default function DreamsPage() {
     return (
         <div className="parchment-page dreams-page" data-theme="night">
             <PageHeader title="Сны" subtitle="Дела, в которые отправляют сотрудников."
-                actions={isGm && <Button variant="secondary" to="/admin#dreams">Вести дела</Button>} />
+                actions={isGm && <Button variant="secondary" to="/gm/dreams">Вести дела</Button>} />
             <div className="dreams-body">
                 {error && <p className="ui-field-error" role="alert"><span aria-hidden="true">✕</span> {error}</p>}
                 {dreams.length === 0 && !error && <EmptyState>Дел пока нет. Когда сон откроется, папка появится здесь.</EmptyState>}

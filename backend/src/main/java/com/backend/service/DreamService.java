@@ -76,7 +76,9 @@ public class DreamService {
                 .map(p -> p.getDream().getId()).collect(Collectors.toSet());
         return dreamRepository.findAllByOrderByNumberDesc().stream()
                 .filter(d -> d.getStatus() != DreamCase.Status.DRAFT)
-                .filter(d -> joined.contains(d.getId()) || (d.getCampaign() != null && campaigns.contains(d.getCampaign().getId())))
+                // The GM reads every case here too, as players see it (no notes, no drafts).
+                .filter(d -> AdmissionService.isGm(user) || joined.contains(d.getId())
+                        || (d.getCampaign() != null && campaigns.contains(d.getCampaign().getId())))
                 .map(d -> forPlayer(d, user)).toList();
     }
 

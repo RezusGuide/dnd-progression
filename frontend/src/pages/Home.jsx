@@ -95,7 +95,7 @@ function StaffReception({ user }) {
             <PageHeader
                 title="Приёмная"
                 subtitle={`Добрый день, ${user.username}. Ваши дела на сегодня.`}
-                actions={isGm && <Button variant="secondary" to="/admin">Панель ГМ</Button>}
+                actions={isGm && <Button variant="secondary" to="/gm">Пульт ГМ</Button>}
             />
 
             <div className="reception">
@@ -159,7 +159,7 @@ function StaffReception({ user }) {
                             <h2 className="reception-section-title">Заявки</h2>
                             <p>
                                 Ждут решения: <strong>{requests.length}</strong>.{' '}
-                                <Link to="/admin#requests" className="reception-link">Открыть в панели ГМ →</Link>
+                                <Link to="/gm" className="reception-link">Открыть во «Входящих» →</Link>
                             </p>
                         </section>
                     )

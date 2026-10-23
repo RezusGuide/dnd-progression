@@ -29,6 +29,18 @@ const WorldPage = lazy(() => import('./pages/world/WorldPage'))
 const ArticlePage = lazy(() => import('./pages/world/ArticlePage'))
 const DreamsPage = lazy(() => import('./pages/dreams/DreamsPage'))
 const DreamPage = lazy(() => import('./pages/dreams/DreamPage'))
+const GmConsole = lazy(() => import('./pages/gm/GmConsole'))
+const Inbox = lazy(() => import('./pages/gm/Inbox'))
+const Staff = lazy(() => import('./pages/gm/Staff'))
+const AdminGrants = lazy(() => import('./pages/admin/AdminGrants'))
+const Accounts = lazy(() => import('./pages/gm/Accounts'))
+const AdminOptions = lazy(() => import('./pages/admin/AdminOptions'))
+const AdminWorld = lazy(() => import('./pages/admin/AdminWorld'))
+const AdminDreams = lazy(() => import('./pages/admin/AdminDreams'))
+const AdminChest = lazy(() => import('./pages/admin/AdminChest'))
+const GmCalendar = lazy(() => import('./pages/gm/GmCalendar'))
+const Cheatsheet = lazy(() => import('./pages/gm/Cheatsheet'))
+const Journal = lazy(() => import('./pages/gm/Journal'))
 
 // Guests go to the Проходная, which sends them back here after signing in.
 function ProtectedRoute({ children }) {
@@ -63,11 +75,26 @@ function AppRoutes() {
             <Route path="/campaigns" element={<Campaigns />} />
             <Route path="/campaigns/:id" element={<CampaignView />} />
 
+            {/* Пульт ГМ. /admin only redirects here, or offers the first-time
+                setup at /admin?setup=1. */}
             <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="/gm" element={<ProtectedRoute><GmConsole /></ProtectedRoute>}>
+                <Route index element={<Inbox />} />
+                <Route path="characters" element={<Staff />} />
+                <Route path="grants" element={<AdminGrants />} />
+                <Route path="accounts" element={<Accounts />} />
+                <Route path="options" element={<AdminOptions />} />
+                <Route path="world" element={<AdminWorld />} />
+                <Route path="dreams" element={<AdminDreams />} />
+                <Route path="chest" element={<AdminChest />} />
+                <Route path="calendar" element={<GmCalendar />} />
+                <Route path="cheatsheet" element={<Cheatsheet />} />
+                <Route path="journal" element={<Journal />} />
+            </Route>
             <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
 
             {/* No self-registration anymore - you create every account
-                yourself from /admin and hand out the login directly, so
+                yourself from /gm/accounts and hand out the login directly, so
                 there's no public sign-up page to route to. */}
             <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
 

@@ -1,50 +1,15 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../api/axios'
-import { Button, Dossier, EmptyState, Loader, Stamp } from '../../components/ui'
-import RequestList from '../../components/RequestList'
+import { Button, Dossier, Stamp } from '../../components/ui'
 import { requestTitle } from '../../lib/requests'
+import '../../styles/wizard.css'
 import RuneBadge from '../../components/brand/RuneBadge'
 import { className, formatDateTime, raceName } from '../../constants/dnd-ru'
-import { useRefData } from '../../lib/refData'
 
-// Панель ГМ → «Заявки»: the open queue with approve / reject and a
-// comment, then the history of decisions.
-export default function AdminRequests() {
-    const [open, setOpen] = useState(null)
-    const [history, setHistory] = useState(null)
-    const [runes] = useRefData('runes')
-
-    const refresh = useCallback(() => {
-        api.get('/api/admin/requests?status=PENDING').then((res) => setOpen(res.data)).catch(() => setOpen([]))
-        api.get('/api/admin/requests?status=DECIDED').then((res) => setHistory(res.data)).catch(() => setHistory([]))
-    }, [])
-
-    useEffect(() => { refresh() }, [refresh])
-
-    const runeName = (key) => runes?.find((r) => r.key === key)?.nameRu || key
-    const runeCap = (key) => runes?.find((r) => r.key === key)?.levelCap
-
-    return (
-        <section id="requests" className="admin-section">
-            <h2 className="sheet-section-title" style={{ marginBottom: '0.75rem' }}>Заявки</h2>
-            {!open && <Loader />}
-            {open && open.length === 0 && <EmptyState>Заявок нет. Секретарша проверит позже.</EmptyState>}
-            <div className="admin-requests">
-                {open?.map((r) => <RequestCard key={r.id} request={r} runeName={runeName} runeCap={runeCap} onDone={refresh} />)}
-            </div>
-
-            {history && history.length > 0 && (
-                <>
-                    <h3 className="reception-section-title" style={{ marginTop: '1.5rem' }}>История решений</h3>
-                    <RequestList requests={history} />
-                </>
-            )}
-        </section>
-    )
-}
-
-function RequestCard({ request: r, runeName, runeCap, onDone }) {
+// Пульт ГМ → «Входящие»: the card of one request (creation or level-up)
+// with approve / reject and a comment. The feed itself is pages/gm/Inbox.jsx.
+export function RequestCard({ request: r, runeName, runeCap, onDone }) {
     const [comment, setComment] = useState('')
     const [confirmRune, setConfirmRune] = useState(false)
     const [busy, setBusy] = useState(false)

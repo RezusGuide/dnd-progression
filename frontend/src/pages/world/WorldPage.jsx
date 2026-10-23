@@ -20,7 +20,7 @@ export default function WorldPage() {
     return (
         <div className="parchment-page world-page">
             <PageHeader title="Мир" subtitle="Архив конторы: что сотрудникам положено знать."
-                actions={isGm && <Button variant="secondary" to="/admin#world">Править архив</Button>} />
+                actions={isGm && <Button variant="secondary" to="/gm/world">Править архив</Button>} />
             <div className="world-body">
                 <label className="world-search">
                     <span className="sheet-label">Поиск по архиву</span>

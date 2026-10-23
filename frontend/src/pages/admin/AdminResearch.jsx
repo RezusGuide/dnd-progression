@@ -1,56 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../api/axios'
-import { Button, Dossier, EmptyState, Loader, Stamp } from '../../components/ui'
+import { Button, Dossier, Stamp } from '../../components/ui'
 import AspectIcon from '../../components/aspects/AspectIcon'
 import HexGrid from '../../components/aspects/HexGrid'
 import { className, formatDateTime } from '../../constants/dnd-ru'
-import { useMagicData } from '../../lib/magic'
 import { validate } from '../../lib/research'
+import '../../styles/research.css'
 
-// Панель ГМ → «Исследования»: research notes waiting for a decision, each
-// with a read-only preview of the grid, then the history of decisions.
-export default function AdminResearch() {
-    const [magic] = useMagicData()
-    const [open, setOpen] = useState(null)
-    const [history, setHistory] = useState(null)
-
-    const refresh = useCallback(() => {
-        api.get('/api/admin/research-notes?status=PENDING').then((res) => setOpen(res.data)).catch(() => setOpen([]))
-        api.get('/api/admin/research-notes?status=DECIDED').then((res) => setHistory(res.data)).catch(() => setHistory([]))
-    }, [])
-
-    useEffect(() => { refresh() }, [refresh])
-
-    return (
-        <section id="research" className="admin-section">
-            <h2 className="sheet-section-title" style={{ marginBottom: '0.75rem' }}>Исследования</h2>
-            {(!open || !magic) && <Loader />}
-            {open && open.length === 0 && <EmptyState>Записок нет. Секретарша проверит позже.</EmptyState>}
-            {magic && (
-                <div className="admin-requests">
-                    {open?.map((n) => <NoteCard key={n.id} note={n} magic={magic} onDone={refresh} />)}
-                </div>
-            )}
-            {history && history.length > 0 && (
-                <>
-                    <h3 className="reception-section-title" style={{ marginTop: '1.5rem' }}>История решений</h3>
-                    <ul className="note-history">
-                        {history.map((n) => (
-                            <li key={n.id}>
-                                <span className={`note-status note-${n.status.toLowerCase()}`}>{n.status === 'APPROVED' ? 'Одобрено' : 'Отказано'}</span>
-                                <span>«{n.spellNameRu || n.spellName}» · {n.characterName}</span>
-                                <span className="note-meta">{formatDateTime(n.decidedAt)}{n.gmComment ? ` · ${n.gmComment}` : ''}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            )}
-        </section>
-    )
-}
-
-function NoteCard({ note: n, magic, onDone }) {
+// Пульт ГМ → «Входящие»: the card of one research note, with a read-only
+// preview of the grid and approve / reject. The feed is pages/gm/Inbox.jsx.
+export function NoteCard({ note: n, magic, onDone }) {
     const [comment, setComment] = useState('')
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState('')

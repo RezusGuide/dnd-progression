@@ -4,8 +4,9 @@ import { useLang } from '../../context/LangContext'
 import AspectIcon from '../../components/aspects/AspectIcon'
 import { bagEntries, useMagicData } from '../../lib/magic'
 
-// Панель ГМ → «Выдачи»: items, materials and aspects for a character. Each
-// is its own form and endpoint, so one grant never doubles as another.
+// Пульт ГМ → «Выдачи»: aspects, experience, items and materials for one
+// character. Each is its own form and endpoint, so one grant never doubles
+// as another. Groups get experience from «Сотрудники».
 export default function AdminGrants() {
     const { t } = useLang()
     const [magic] = useMagicData()
@@ -15,6 +16,7 @@ export default function AdminGrants() {
     const [itemForm, setItemForm] = useState({ characterId: '', item: '' })
     const [materialForm, setMaterialForm] = useState({ characterId: '', material: '' })
     const [aspectForm, setAspectForm] = useState({ characterId: '', aspect: 'dawn', amount: 1 })
+    const [xpForm, setXpForm] = useState({ characterId: '', amount: '', comment: '' })
     const [bag, setBag] = useState(null)
 
     useEffect(() => {
@@ -91,6 +93,32 @@ export default function AdminGrants() {
                 )}
                 <div className="tome-btn-row">
                     <button type="submit" className="tome-btn">Выдать аспекты</button>
+                </div>
+            </form>
+
+            <form className="tome-form codex-form" onSubmit={(e) => send(e, '/api/admin/staff/xp', {
+                characterIds: [Number(xpForm.characterId)], amount: Number(xpForm.amount), comment: xpForm.comment,
+            }, () => setXpForm({ ...xpForm, amount: '', comment: '' }))}>
+                <h3 className="tome-field-label">Опыт</h3>
+                <p className="tome-subtitle">Прибавляется к опыту в листе. Отрицательное число — поправка. Группе сразу — в «Сотрудниках».</p>
+                <div className="tome-row">
+                    <div className="tome-field">
+                        <label>{t('adminSelectCharacter')}</label>
+                        {characterSelect(xpForm.characterId, (v) => setXpForm({ ...xpForm, characterId: v }))}
+                    </div>
+                    <div className="tome-field">
+                        <label htmlFor="grant-xp">Сколько опыта</label>
+                        <input id="grant-xp" type="number" value={xpForm.amount} required
+                            onChange={(e) => setXpForm({ ...xpForm, amount: e.target.value })} />
+                    </div>
+                    <div className="tome-field" style={{ flex: 2 }}>
+                        <label htmlFor="grant-xp-comment">Комментарий</label>
+                        <input id="grant-xp-comment" type="text" value={xpForm.comment}
+                            onChange={(e) => setXpForm({ ...xpForm, comment: e.target.value })} />
+                    </div>
+                </div>
+                <div className="tome-btn-row">
+                    <button type="submit" className="tome-btn">Начислить опыт</button>
                 </div>
             </form>
 

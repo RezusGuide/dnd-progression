@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import api from '../../api/axios'
 import { Button, EmptyState, Field, Modal } from '../../components/ui'
 import AspectIcon from '../../components/aspects/AspectIcon'
@@ -8,19 +9,22 @@ import { useMagicData } from '../../lib/magic'
 import { formatDateTime } from '../../constants/dnd-ru'
 import '../../styles/chest.css'
 
-// Панель ГМ → «Сундучок»: build a reward (with a preview of what the player
+// Пульт ГМ → «Сундучок»: build a reward (with a preview of what the player
 // sees), the list of sent parcels, and the item library. The riddle answer
 // goes to the server once and is never shown again.
 
 const emptyItem = () => ({ name: '', rarity: 'COMMON', description: '', quantity: 1, disassembleInto: {} })
-const emptyForm = (trophy) => ({
-    mode: 'characters', characterIds: trophy ? trophy.participants.map((p) => p.characterId) : [], campaignId: '',
+const emptyForm = (trophy, recipients = []) => ({
+    mode: 'characters', characterIds: trophy ? trophy.participants.map((p) => p.characterId) : recipients, campaignId: '',
     title: trophy ? `Трофей из Дела ${trophy.caseNo}` : '', gmNote: '',
     aspects: {}, coins: {}, items: [],
     riddleQuestion: '', riddleAnswer: '', penalty: 'NONE',
 })
 
 export default function AdminChest() {
+    // /gm/chest?to=1,2: «Отправить посылку» from «Сотрудники».
+    const [params] = useSearchParams()
+    const recipients = (params.get('to') || '').split(',').map(Number).filter((n) => n > 0)
     const [characters, setCharacters] = useState([])
     const [campaigns, setCampaigns] = useState([])
     const [templates, setTemplates] = useState([])
@@ -39,7 +43,7 @@ export default function AdminChest() {
     return (
         <section id="chest" className="sheet-section admin-section">
             <h2 className="sheet-section-title" style={{ marginBottom: '0.75rem' }}>Сундучок</h2>
-            <RewardForm characters={characters} campaigns={campaigns} templates={templates} onSent={refresh} />
+            <RewardForm key={recipients.join(',')} characters={characters} campaigns={campaigns} templates={templates} onSent={refresh} initialRecipients={recipients} />
             <SentList sent={sent} characters={characters} onChanged={refresh} />
             <Library templates={templates} onChanged={refresh} />
         </section>
@@ -49,9 +53,9 @@ export default function AdminChest() {
 // trophy: { dreamId, caseNo, participants: [{ characterId, characterName }] }
 // turns the form into «Выдать трофей»: recipients are the dream's
 // participants and items get «Разбирается на».
-export function RewardForm({ characters, campaigns, templates, onSent, trophy }) {
+export function RewardForm({ characters, campaigns, templates, onSent, trophy, initialRecipients }) {
     const [magic] = useMagicData()
-    const [form, setForm] = useState(() => emptyForm(trophy))
+    const [form, setForm] = useState(() => emptyForm(trophy, initialRecipients))
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState('')
     const [notice, setNotice] = useState('')

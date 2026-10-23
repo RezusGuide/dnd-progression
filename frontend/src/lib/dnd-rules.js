@@ -347,3 +347,69 @@ export function coinsInGold({ cp = 0, sp = 0, ep = 0, gp = 0, pp = 0 }) {
     const total = (cp || 0) / 100 + (sp || 0) / 10 + (ep || 0) / 2 + (gp || 0) + (pp || 0) * 10
     return Math.round(total * 100) / 100
 }
+
+// ── Encounter difficulty (DMG 2014 encounter building) ──
+
+// XP thresholds per character level: [easy, medium, hard, deadly].
+export const ENCOUNTER_THRESHOLDS = {
+    1: [25, 50, 75, 100], 2: [50, 100, 150, 200], 3: [75, 150, 225, 400], 4: [125, 250, 375, 500],
+    5: [250, 500, 750, 1100], 6: [300, 600, 900, 1400], 7: [350, 750, 1100, 1700], 8: [450, 900, 1400, 2100],
+    9: [550, 1100, 1600, 2400], 10: [600, 1200, 1900, 2800], 11: [800, 1600, 2400, 3600], 12: [1000, 2000, 3000, 4500],
+    13: [1100, 2200, 3400, 5100], 14: [1250, 2500, 3800, 5700], 15: [1400, 2800, 4300, 6400], 16: [1600, 3200, 4800, 7200],
+    17: [2000, 3900, 5900, 8800], 18: [2100, 4200, 6300, 9500], 19: [2400, 4900, 7300, 10900], 20: [2800, 5700, 8500, 12700],
+}
+
+// Monster XP by challenge rating (the XP line of an SRD stat block).
+export const CR_XP = {
+    '0': 10, '1/8': 25, '1/4': 50, '1/2': 100, '1': 200, '2': 450, '3': 700, '4': 1100, '5': 1800,
+    '6': 2300, '7': 2900, '8': 3900, '9': 5000, '10': 5900, '11': 7200, '12': 8400, '13': 10000,
+    '14': 11500, '15': 13000, '16': 15000, '17': 18000, '18': 20000, '19': 22000, '20': 25000,
+    '21': 33000, '22': 41000, '23': 50000, '24': 62000, '25': 75000, '26': 90000, '27': 105000,
+    '28': 120000, '29': 135000, '30': 155000,
+}
+export const CHALLENGE_RATINGS = Object.keys(CR_XP)
+
+// Multipliers by the number of monsters; a small party (1-2) moves one
+// step up the ladder, a big one (6+) one step down.
+const MULTIPLIER_LADDER = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5]
+
+function multiplierStep(monsters) {
+    if (monsters <= 1) return 1
+    if (monsters === 2) return 2
+    if (monsters <= 6) return 3
+    if (monsters <= 10) return 4
+    if (monsters <= 14) return 5
+    return 6
+}
+
+export function encounterMultiplier(monsters, partySize) {
+    if (monsters <= 0) return 1
+    let step = multiplierStep(monsters)
+    if (partySize < 3) step += 1
+    else if (partySize >= 6) step -= 1
+    return MULTIPLIER_LADDER[Math.max(0, Math.min(MULTIPLIER_LADDER.length - 1, step))]
+}
+
+/** Sum of the party's thresholds; levels are character levels 1-20. */
+export function partyThresholds(levels) {
+    return levels.reduce((sum, level) => {
+        const t = ENCOUNTER_THRESHOLDS[clampLevel(level)]
+        return sum.map((v, i) => v + t[i])
+    }, [0, 0, 0, 0])
+}
+
+/**
+ * levels: [3, 3, 3, 3]; monsters: [{ cr: '1', count: 1 }, { cr: '1/2', count: 3 }].
+ * difficulty: TRIVIAL (below easy), EASY, MEDIUM, HARD or DEADLY.
+ */
+export function encounterDifficulty(levels, monsters) {
+    const count = monsters.reduce((n, m) => n + Math.max(0, m.count || 0), 0)
+    const baseXp = monsters.reduce((xp, m) => xp + (CR_XP[m.cr] || 0) * Math.max(0, m.count || 0), 0)
+    const multiplier = encounterMultiplier(count, levels.length)
+    const adjustedXp = Math.round(baseXp * multiplier)
+    const thresholds = partyThresholds(levels)
+    const names = ['EASY', 'MEDIUM', 'HARD', 'DEADLY']
+    let difficulty = 'TRIVIAL'
+    thresholds.forEach((t, i) => { if (adjustedXp >= t && t > 0) difficulty = names[i] })
+    return { baseXp, multiplier, adjustedXp, thresholds, difficulty, monsters: count }
+}

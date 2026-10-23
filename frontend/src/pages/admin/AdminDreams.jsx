@@ -7,7 +7,7 @@ import { OPTION_STATUS_LABELS } from '../../lib/refData'
 import '../../styles/dreams.css'
 import '../../styles/chest.css'
 
-// Панель ГМ → «Сны»: cases, who is inside, immersion and form, trophies and
+// Пульт ГМ → «Сны»: cases, who is inside, immersion and form, trophies and
 // closing a case. GM notes stay here; players never receive them.
 
 const emptyCase = () => ({ id: null, number: '', title: '', summary: '', status: 'DRAFT', campaignId: '', rewardSummary: '', gmNotes: '' })
